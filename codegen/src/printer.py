@@ -60,7 +60,7 @@ class Printer():
     def write_class_code(self, classCode, wrapper):
         """For internal use"""
         try:
-            wrapper.write('\n')
+            wrapper.write('\n\n')
             wrapper.writelines("%s\n"  % i for i in classCode)
         except Exception as ex:
             raise ex

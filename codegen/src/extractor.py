@@ -31,7 +31,7 @@ class Extractor():
     def __init__(self, schema, log_progress: bool = False, add_desc: bool = False):
         self.log_progress = log_progress
         self.add_desc = add_desc
-        self.indent = '   '
+        self.indent = '    '
         self.scalars = {}
         self.enums = {}
         self.simpleTypes = {}
@@ -58,17 +58,6 @@ class Extractor():
             self.extraction_results.scalar_defs = self.extract_scalars()
             self.extraction_results.simple_type_classes = self.extract_simple_types()
             self.extraction_results.type_classes = self.extract_types()
-            if hasattr(self, 'queries') and self.queries:
-                self.query_classes, self.queriesEnumValues = self.extract_operations(OperationType.QUERY, self.queries)
-                if self.query_classes: self.extraction_results.query_classes.update(self.query_classes)
-
-            if hasattr(self, 'mutations') and self.mutations:
-                self.mutation_classes, self.mutationsEnumValues = self.extract_operations(OperationType.MUTATION, self.mutations)
-                if self.mutation_classes: self.extraction_results.mutation_classes.update(self.mutation_classes)
-
-            #create Mutations Enum
-            self.extraction_results.queries_enum_class = self.extract_operations_enum(OperationType.QUERY, self.queriesEnumValues)
-            self.extraction_results.mutations_enum_class = self.extract_operations_enum(OperationType.MUTATION, self.mutationsEnumValues)
         except Exception as ex:
             logger.error('Error during Schema code extraction' + ' - ' + ex.args[0])
 
@@ -137,7 +126,7 @@ class Extractor():
         scalarCodeLine = SCALAR_SIGNATURE%(schemaScalar.name,scalarType)
 
         if self.add_desc and schemaScalar.description:
-                scalarCodeLine +=  ' ##' + schemaScalar.description.replace('\n', ' - ')
+                scalarCodeLine +=  '  # ' + schemaScalar.description.replace('\n', ' - ')
 
         if self.log_progress: logger.info(schemaScalar.name + 'scalar extracted')
 
@@ -166,7 +155,7 @@ class Extractor():
                         enumCodeLst.append(self.indent + '"""')
 
                 ##SET DEFAULT
-                enumCodeLst.append(self.indent + "DEFAULT = None")
+                enumCodeLst.append(f"{self.indent}")
 
                 for enumValue in schemaEnum.enumValues:
 
@@ -176,7 +165,7 @@ class Extractor():
 
                     codeLine = self.indent + Translate.to_python_var_name(enumValue.name) + ' = \'' + enumValue.name + '\''
                     if hasattr(enumValue, 'description') and enumValue.description:
-                        codeLine += ' ##' + enumValue.description
+                        codeLine += '  # ' + enumValue.description.replace('\n', ' ')
                     enumCodeLst.append(codeLine)
 
                 if self.log_progress: logger.info(schemaEnum.name + 'enum extracted')
@@ -395,7 +384,7 @@ class Extractor():
         try:
             codeLst = []
 
-            singleLineCode = "class " + scType.name + '(GQLObject): \n' + self.indent + 'pass'
+            singleLineCode = "class " + scType.name + ': \n' + self.indent + 'pass'
 
             # singleLineCode = scType.name + ' = '
 
@@ -732,7 +721,7 @@ class Extractor():
             else:
                 try:
                     scalar = self.extraction_results.scalar_defs[sctype_name]
-                    scalar = scalar[0].split('##')[0].split('=')[1].strip()
+                    scalar = scalar[0].split('#')[0].split('=')[1].strip()
                 except Exception as ex:
                     raise Exception('Error during scalar code string extrapolation - ' + ex.args[0])
 

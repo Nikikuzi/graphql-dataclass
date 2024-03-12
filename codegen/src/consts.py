@@ -2,7 +2,7 @@
 from os import path
 import pathlib
 
-CLASS_SIGNATURE = "class %s(GQLObject)"
+CLASS_SIGNATURE = "class %s"
 INTERFACE_SIGNATURE = "class %s(%s)"
 ARGUED_CLASS_SIGNATURE = "class %s(%s)"
 QUERY_SIGNATURE = "class %s(GQLQuery)"

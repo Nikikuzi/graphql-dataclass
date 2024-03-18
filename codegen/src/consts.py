@@ -12,6 +12,7 @@ SCALAR_SIGNATURE = "%s = %s"
 TYPEVAR_SIGNATURE = "%s = TypeVar('%s', bound=%s)"
 EMPTY_CLASS_SIGNATURE = "class %s(%s): pass"
 GQLLIST_SIGNATURE = "class %s(list, %s): pass"
+OPTIONAL_SIGNATURE = "Optional[%s] = None"
 
 NEWTYPE_DECLARATION = "NewType('%s', GQLObject)"
 TEMPLATE_FOLDER = str(pathlib.Path(path.dirname(__file__), 'templates').absolute())

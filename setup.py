@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='gqldataclass',
-    version='1.0.2',
+    version='1.0.4',
     url='https://github.com/nikikuzi/graphql-dataclass/tree/1.0.0',
     author='Mikita Kuzniatsou, Alex Dap',
     author_email='nikikuzi@gmail.com, shlisi2017@gmail.com',

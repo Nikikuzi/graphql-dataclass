@@ -13,6 +13,9 @@ TYPEVAR_SIGNATURE = "%s = TypeVar('%s', bound=%s)"
 EMPTY_CLASS_SIGNATURE = "class %s(%s): pass"
 GQLLIST_SIGNATURE = "class %s(list, %s): pass"
 OPTIONAL_SIGNATURE = "Optional[%s] = None"
+FORWARD_REFERENCE_SIGNATURE = "forward_reference={%s}"
+INDENTED_IMPORT_SIGNATURE = "    from .%s import %s\n"
+IMPORT_SIGNATURE = "from .%s import %s\n"
 
 NEWTYPE_DECLARATION = "NewType('%s', GQLObject)"
 TEMPLATE_FOLDER = str(pathlib.Path(path.dirname(__file__), 'templates').absolute())
@@ -30,3 +33,4 @@ FORWARD_REFERENCE_NAME = 'gql_forward_reference'
 
 PY_EXTENSION = '.py'
 OPEN_LIST = 'list['
+INIT_FILE = "__init__.py"

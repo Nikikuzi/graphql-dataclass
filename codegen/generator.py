@@ -11,7 +11,8 @@ def build_schema(schemaString: GQLSchema):
 
 class CodeGenerator():
 
-    def generate_code(schemaObj, folder, log_progress: bool = False, add_desc: bool = True):
+    def generate_code(schemaObj, folder, log_progress: bool = False, add_desc: bool = True, clean_folder: bool = False,
+                      create_forward_reference: bool = False):
         try:
             if log_progress: logger.info('Initializing Extractor...')
             extractor = Extractor(schemaObj, log_progress, add_desc)
@@ -20,7 +21,7 @@ class CodeGenerator():
             if log_progress: logger.info('Generating python code...')
             printer = Printer(extractedData)
             if log_progress: logger.info('Saving python files in ' + folder + '...')
-            printer.save_files(folder)
+            printer.save_files(folder, clean_folder, create_forward_reference)
 
             #CLEANING
             del extractor

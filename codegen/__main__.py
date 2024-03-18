@@ -98,11 +98,14 @@ def generate_py_code(args, destPath):
                 exit(-1)
 
         add_desc =  arguments['addDescToGeneratedFiles'] if 'addDescToGeneratedFiles' in arguments.keys() else True
+        clean_folder =  arguments['cleanOutputFolder'] if 'cleanOutputFolder' in arguments.keys() else False
+        create_forward_reference =  arguments['createForwardReference'] if 'createForwardReference' in arguments.keys() else False
 
         schemaObject = extract_schema_obj(arguments, args.verbose)
 
         if args.verbose: print('Generating mutations...') #, end="\r")
-        CodeGenerator.generate_code(schemaObject, input_path, log_progress=args.verbose, add_desc=add_desc)
+        CodeGenerator.generate_code(schemaObject, input_path, log_progress=args.verbose, add_desc=add_desc,
+                                    clean_folder=clean_folder, create_forward_reference=create_forward_reference)
     except Exception as ex:
         print('generatePythonCode error: ' + str(ex.args))
         exit(-1)
@@ -141,5 +144,5 @@ def extract_schema_obj(arguments, verbose):
     return None
 
 if __name__ == '__main__':
-    print('python-graphql mapper code generator 0.3.0')
+    print('graphql-dataclass code generator 1.0.0')
     main()

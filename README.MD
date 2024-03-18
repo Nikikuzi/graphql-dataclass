@@ -34,8 +34,6 @@ gqldataclass generate ./pathToOutputFolder -apiArgs ./<pathToArgsFile>/generator
 
 This command requires a json file containing the parameters needed to get the GraphQL schema
 
-![image](https://github.com/nikikuzi/graphql-dataclass/blob/develop/docs/cli_args_nutshell.png)
-
 A sample is available in the main folder ['cli_args.json'](https://github.com/nikikuzi/graphql-dataclass/blob/develop/cli_args.json).
 
 The following python files will be generated:

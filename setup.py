@@ -14,7 +14,6 @@ setup(
     include_package_data=True,
     packages=['pygqlmap', 'pygqlmap.src', 'codegen', 'codegen.src', 'codegen.src.templates'],
     data_files=[('', ['pygqlmap/config.ini'])],
-    install_requires=['clean-py==0.5'],
     python_requires='>=3.10',
     classifiers=[
         'Intended Audience :: Developers',

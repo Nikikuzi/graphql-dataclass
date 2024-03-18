@@ -489,7 +489,6 @@ class CreateTeamDiscussionInput:
 class DeclineTopicSuggestionInput:
     client_mutation_id: Optional[str] = None
     name: Optional[str] = None
-    reason: Optional[TopicSuggestionDeclineReason] = None
     repository_id: Optional[ID] = None
 
 

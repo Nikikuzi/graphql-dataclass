@@ -12,10 +12,13 @@ class TypeKind(Enum):
     NON_NULL = "NON_NULL" #'Indicates this type is a non-null. `ofType` is a valid field.',
 
 class TemplateType(Enum):
-    SCALAR_TEMPLATE = 'scalar_template.py'
-    ENUM_TEMPLATE = 'enum_template.py'
-    FREE_TYPE_TEMPLATE = 'simple_type_template.py'
-    QUERY_TEMPLATE = 'query_template.py'
-    MUTATION_TEMPLATE = 'mutation_template.py'
-    TYPE_TEMPLATE = 'type_template.py'
-    TYPE_REFS_TEMPLATE = 'type_refs_template.py'
+    SCALAR_TEMPLATE = 'scalar_template'
+    ENUM_TEMPLATE = 'enum_template'
+    FREE_TYPE_TEMPLATE = 'simple_type_template'
+    QUERY_TEMPLATE = 'query_template'
+    MUTATION_TEMPLATE = 'mutation_template'
+    TYPE_TEMPLATE = 'type_template'
+    TYPE_REFS_TEMPLATE = 'type_refs_template'
+    CIRCULAR_CLASS_TEMPLATE = 'circular_class_template'
+    UNION_TEMPLATE = 'unions_template'
+    FORWARD_REFERENCE_TEMPLATE = 'forward_reference_template'

@@ -2,7 +2,7 @@
 from os import path
 import pathlib
 
-CLASS_SIGNATURE = "class %s"
+CLASS_SIGNATURE = "@dataclass(kw_only=True)\nclass %s"
 INTERFACE_SIGNATURE = "class %s(%s)"
 ARGUED_CLASS_SIGNATURE = "class %s(%s)"
 QUERY_SIGNATURE = "class %s(GQLQuery)"
@@ -24,5 +24,8 @@ SIMPLE_TYPES_NAME = 'gql_simple_types'
 QUERIES_NAME = 'queries'
 MUTATIONS_NAME = 'mutations'
 TYPE_REFS_NAME = 'type_refs'
+UNIONS_NAME = 'gql_unions'
+FORWARD_REFERENCE_NAME = 'gql_forward_reference'
 
 PY_EXTENSION = '.py'
+OPEN_LIST = 'list['

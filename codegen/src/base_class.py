@@ -2,6 +2,7 @@ import copy
 import logging as logger
 from pygqlmap.src.consts import GQLLIST_PREFIX, NON_NULL_PREFIX, STRING_GQLLIST_BUILTIN
 from pygqlmap.src.translator import Translate
+from .consts import OPEN_LIST
 from .enums import TypeKind
 from .utils import gqlTypeKinds, typesByName
 
@@ -28,11 +29,10 @@ class SchemaTypeManager():
 
                 if is_list:
                     #check if py type declaration is explicitly a builtin or if ENUM or SCALAR in gql types included
-                    if py_type in STRING_GQLLIST_BUILTIN or 'ENUM' in self.get_used_typekinds() or 'SCALAR' in self.get_used_typekinds():
-                        type_out = type_out.removesuffix('_')
-                        type_out += '['
-                    else:
-                        type_out += py_type + '['
+                    #if py_type in STRING_GQLLIST_BUILTIN or 'ENUM' in self.get_used_typekinds() or 'SCALAR' in self.get_used_typekinds():
+                    type_out = type_out.replace(GQLLIST_PREFIX, OPEN_LIST)
+                    #else:
+                        #type_out += py_type + '['
                 if is_nonnull and is_arg: ##if it is not an argument we can ignore the nonnullability, it is responsibility of the server
                         type_out += NON_NULL_PREFIX
 
@@ -41,7 +41,7 @@ class SchemaTypeManager():
             except Exception as ex:
                 raise Exception('Error during composition of type ' + type_def + ' for ' + self.name + ' - ' + ex.args[0])
 
-        if is_list: type_out += ']'
+        if is_list: type_out += (']'*type_out.count(OPEN_LIST))
 
         self.type_defs.clear()
         return type_out, py_type

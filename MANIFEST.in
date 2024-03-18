@@ -1,4 +1,4 @@
 # MANIFEST.in
 
 include pygqlmap/config.ini
-recursive-include codegen/templates *
+recursive-include codegen/src/templates *

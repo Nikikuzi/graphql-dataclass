@@ -3,12 +3,13 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "py-graphql-mapper"
+name = "graphql-dataclass"
 authors = [
-  { name="Alex Dap", email="shlisi2017@gmail.com" },
+  { name="Alex Dap", email="shlisi2017@gmail.com" }, 
+    { name="Mikita Kuzniatsou", email="nikikuzi@gmail.com" },
 ]
 readme = "README.md"
-keywords = ["python", "graphql", "mapping"]
+keywords = ["python", "graphql", "mapping", "dataclass"]
 license = { file = "LICENSE" }
 requires-python = ">=3.10"
 classifiers = [
@@ -22,7 +23,7 @@ dynamic = ["version", "description"]
 pgmcodegen = "codegen.__main__:main"
 
 [project.urls]
-"Homepage" = "https://github.com/dapalex/py-graphql-mapper/"
-"Source Code" = "https://github.com/dapalex/py-graphql-mapper/tree/1.1.2"
-"Bug Tracker" = "https://github.com/dapalex/py-graphql-mapper/issues"
-"Release Notes" = "https://github.com/dapalex/py-graphql-mapper/tree/1.1.2/RELEASE_NOTES.MD"
+"Homepage" = "https://github.com/nikikuzi/graphql-dataclass/"
+"Source Code" = "https://github.com/nikikuzi/graphql-dataclass/tree/1.0.0"
+"Bug Tracker" = "https://github.com/nikikuzi/graphql-dataclass/issues"
+"Release Notes" = "https://github.com/nikikuzi/graphql-dataclass/tree/1.0.0/RELEASE_NOTES.MD"

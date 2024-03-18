@@ -1,32 +1,24 @@
-from typing import Generic, List
-from pygqlmap.components import GQLArgsSet, GQLObject
-from pygqlmap.gql_types import *
-from pygqlmap.src.arg_builtin import *
-from .enums import *
-from .scalars import *
-from .type_refs import *
+from dataclasses import dataclass
+from typing import Optional
 
-class PFBPH_distance_Field(ArguedFloat):
-   class floatArgs(GQLArgsSet, GQLObject):
-      toPlaceId: ID
-      distanceUnit: DistanceUnit
-
-   _args: floatArgs
+from .enums import Language
 
 
+@dataclass(kw_only=True)
+class ConnectionPageInfo:
+    start_cursor: str
+    end_cursor: str
+    has_next_page: bool
+    has_previous_page: bool
 
-class TimeZone(GQLObject):
-   id: ID
-   name: str
-   rawUtcOffsetHours: int
-   dateTime: str
-   time: str
 
-class Locale(GQLObject):
-   code: ID
-   name: str
+@dataclass(kw_only=True)
+class DisplayOptions:
+    ascii_mode: Optional[bool] = None
+    language: Optional[Language] = None
 
-class Currency(GQLObject):
-   countryCodes: list[ID]
-   code: ID
-   symbol: str
+
+@dataclass(kw_only=True)
+class Location:
+    latitude: Optional[float] = None
+    longitude: Optional[float] = None

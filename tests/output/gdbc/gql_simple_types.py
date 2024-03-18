@@ -1,57 +1,55 @@
-from typing import Generic, List
-from pygqlmap.components import GQLArgsSet, GQLObject
-from pygqlmap.gql_types import *
-from pygqlmap.src.arg_builtin import *
-from .enums import *
-from .scalars import *
-from .type_refs import *
+from dataclasses import dataclass
+from typing import Optional
 
-class FRXHX_distance_Field(ArguedFloat):
-   """
-   FRXHX_distance_Field - The distance result from some location-based query
-This field has two forms:
-- As a property (e.g., place.distance), returns the distance as part of a query returning places sorted by distance.
-- As a function (e.g., place.distance(toPlaceId), returns the distance to the specified place.
-
-   """
-   class floatArgs(GQLArgsSet, GQLObject):
-      """
-      toPlaceId - The distance to this place
-
-      distanceUnit - The unit of distance to use
-
-      """
-      toPlaceId: ID
-      distanceUnit: DistanceUnit
-
-   _args: floatArgs
+from .enums import Language
 
 
+@dataclass(kw_only=True)
+class ConnectionPageInfo:
+    """
+    ConnectionPageInfo - Info about the current connection page slice
 
-class TimeZone(GQLObject):
-   """
-   TimeZone - A time-zone
+    startCursor - The opaque id of the cursor representing the index of the first element in this page
 
-   """
-   id: ID
-   name: str
-   rawUtcOffsetHours: int
-   dateTime: str
-   time: str
+    endCursor - The opaque id of the cursor representing the index of the last element in this page
 
-class Locale(GQLObject):
-   """
-   Locale - A regional locale representing some country/language combination
+    hasNextPage - Whether there are more pages in the results
 
-   """
-   code: ID
-   name: str
+    hasPreviousPage - Whether there are previous pages in the results
 
-class Currency(GQLObject):
-   """
-   Currency - A country currency
+    """
 
-   """
-   countryCodes: list[ID]
-   code: ID
-   symbol: str
+    start_cursor: str
+    end_cursor: str
+    has_next_page: bool
+    has_previous_page: bool
+
+
+@dataclass(kw_only=True)
+class DisplayOptions:
+    """
+    DisplayOptions - How the results should be rendered
+
+    asciiMode - Whether to display results using ASCII-only characters
+
+    language - What language to display the results in
+
+    """
+
+    ascii_mode: Optional[bool] = None
+    language: Optional[Language] = None
+
+
+@dataclass(kw_only=True)
+class Location:
+    """
+    Location - Location GPS latitude/longitude coordinates
+
+    latitude - DD.DDDD from -90 to 90
+
+    longitude - DD.DDDD from -180 to 180
+
+    """
+
+    latitude: Optional[float] = None
+    longitude: Optional[float] = None

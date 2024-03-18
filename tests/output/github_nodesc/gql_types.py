@@ -1,13211 +1,9432 @@
-from typing import Generic, Union, List
-from pygqlmap.components import GQLArgsSet, GQLObject
-from pygqlmap.gql_types import *
-from pygqlmap.src.arg_builtin import *
-from typing import NewType
-from .gql_simple_types import *
-from .enums import *
-from .scalars import *
-from .type_refs import *
-
-class Votable(GQLObject):
-   upvoteCount: int
-   viewerCanUpvote: bool
-   viewerHasUpvoted: bool
-
-class VerifiableDomainOrder(GQLObject):
-   field: VerifiableDomainOrderField
-   direction: OrderDirection
-
-class UserEmailMetadata(GQLObject):
-   primary: bool
-   type: str
-   value: str
-
-class UpdateTeamsRepositoryInput(GQLObject):
-   repositoryId: ID
-   teamIds: list[ID]
-   permission: RepositoryPermission
-   clientMutationId: str
-
-class UpdateTeamDiscussionCommentInput(GQLObject):
-   id: ID
-   body: str
-   bodyVersion: str
-   clientMutationId: str
-
-class UpdateSponsorshipPreferencesInput(GQLObject):
-   sponsorId: ID
-   sponsorLogin: str
-   sponsorableId: ID
-   sponsorableLogin: str
-   receiveEmails: bool
-   privacyLevel: SponsorshipPrivacy
-   clientMutationId: str
-
-class UpdateRepositoryInput(GQLObject):
-   repositoryId: ID
-   name: str
-   description: str
-   template: bool
-   homepageUrl: URI
-   hasWikiEnabled: bool
-   hasIssuesEnabled: bool
-   hasProjectsEnabled: bool
-   hasDiscussionsEnabled: bool
-   clientMutationId: str
-
-class UpdatePullRequestReviewInput(GQLObject):
-   pullRequestReviewId: ID
-   body: str
-   clientMutationId: str
-
-class UpdatePullRequestInput(GQLObject):
-   pullRequestId: ID
-   baseRefName: str
-   title: str
-   body: str
-   state: PullRequestUpdateState
-   maintainerCanModify: bool
-   assigneeIds: list[ID]
-   milestoneId: ID
-   labelIds: list[ID]
-   projectIds: list[ID]
-   clientMutationId: str
-
-class UpdateProjectV2ItemPositionInput(GQLObject):
-   projectId: ID
-   itemId: ID
-   afterId: ID
-   clientMutationId: str
-
-class UpdateProjectV2DraftIssueInput(GQLObject):
-   draftIssueId: ID
-   title: str
-   body: str
-   assigneeIds: list[ID]
-   clientMutationId: str
-
-class UpdateProjectColumnInput(GQLObject):
-   projectColumnId: ID
-   name: str
-   clientMutationId: str
-
-class UpdateParametersInput(GQLObject):
-   updateAllowsFetchAndMerge: bool
-
-class UpdateOrganizationWebCommitSignoffSettingInput(GQLObject):
-   organizationId: ID
-   webCommitSignoffRequired: bool
-   clientMutationId: str
-
-class UpdateNotificationRestrictionSettingInput(GQLObject):
-   ownerId: ID
-   settingValue: NotificationRestrictionSettingValue
-   clientMutationId: str
-
-class UpdateIssueCommentInput(GQLObject):
-   id: ID
-   body: str
-   clientMutationId: str
-
-class UpdateIpAllowListEntryInput(GQLObject):
-   ipAllowListEntryId: ID
-   allowListValue: str
-   name: str
-   isActive: bool
-   clientMutationId: str
-
-class UpdateEnvironmentInput(GQLObject):
-   environmentId: ID
-   waitTimer: int
-   reviewers: list[ID]
-   clientMutationId: str
-
-class UpdateEnterpriseTeamDiscussionsSettingInput(GQLObject):
-   enterpriseId: ID
-   settingValue: EnterpriseEnabledDisabledSettingValue
-   clientMutationId: str
-
-class UpdateEnterpriseProfileInput(GQLObject):
-   enterpriseId: ID
-   name: str
-   description: str
-   websiteUrl: str
-   location: str
-   clientMutationId: str
-
-class UpdateEnterpriseOwnerOrganizationRoleInput(GQLObject):
-   enterpriseId: ID
-   organizationId: ID
-   organizationRole: RoleInOrganization
-   clientMutationId: str
-
-class UpdateEnterpriseMembersCanViewDependencyInsightsSettingInput(GQLObject):
-   enterpriseId: ID
-   settingValue: EnterpriseEnabledDisabledSettingValue
-   clientMutationId: str
-
-class UpdateEnterpriseMembersCanMakePurchasesSettingInput(GQLObject):
-   enterpriseId: ID
-   settingValue: EnterpriseMembersCanMakePurchasesSettingValue
-   clientMutationId: str
-
-class UpdateEnterpriseMembersCanDeleteRepositoriesSettingInput(GQLObject):
-   enterpriseId: ID
-   settingValue: EnterpriseEnabledDisabledSettingValue
-   clientMutationId: str
-
-class UpdateEnterpriseMembersCanCreateRepositoriesSettingInput(GQLObject):
-   enterpriseId: ID
-   settingValue: EnterpriseMembersCanCreateRepositoriesSettingValue
-   membersCanCreateRepositoriesPolicyEnabled: bool
-   membersCanCreatePublicRepositories: bool
-   membersCanCreatePrivateRepositories: bool
-   membersCanCreateInternalRepositories: bool
-   clientMutationId: str
-
-class UpdateEnterpriseDefaultRepositoryPermissionSettingInput(GQLObject):
-   enterpriseId: ID
-   settingValue: EnterpriseDefaultRepositoryPermissionSettingValue
-   clientMutationId: str
-
-class UpdateEnterpriseAdministratorRolePayload(GQLObject):
-   clientMutationId: str
-   message: str
-
-class UpdateDiscussionInput(GQLObject):
-   discussionId: ID
-   title: str
-   body: str
-   categoryId: ID
-   clientMutationId: str
-
-class UpdatableComment(GQLObject):
-   viewerCannotUpdateReasons: list[CommentCannotUpdateReason]
-
-class UnresolveReviewThreadInput(GQLObject):
-   threadId: ID
-   clientMutationId: str
-
-class UnminimizeCommentInput(GQLObject):
-   subjectId: ID
-   clientMutationId: str
-
-class UnmarkIssueAsDuplicateInput(GQLObject):
-   duplicateId: ID
-   canonicalId: ID
-   clientMutationId: str
-
-class UnmarkDiscussionCommentAsAnswerInput(GQLObject):
-   id: ID
-   clientMutationId: str
-
-class UnlinkRepositoryFromProjectInput(GQLObject):
-   projectId: ID
-   repositoryId: ID
-   clientMutationId: str
-
-class UnlinkProjectV2FromRepositoryInput(GQLObject):
-   projectId: ID
-   repositoryId: ID
-   clientMutationId: str
-
-class UnfollowUserInput(GQLObject):
-   userId: ID
-   clientMutationId: str
-
-class UnarchiveRepositoryInput(GQLObject):
-   repositoryId: ID
-   clientMutationId: str
-
-class TransferIssueInput(GQLObject):
-   issueId: ID
-   repositoryId: ID
-   createLabelsIfMissing: bool
-   clientMutationId: str
-
-class TextMatchHighlight(GQLObject):
-   beginIndice: int
-   endIndice: int
-   text: str
-
-class TeamOrder(GQLObject):
-   field: TeamOrderField
-   direction: OrderDirection
-
-class TeamDiscussionOrder(GQLObject):
-   field: TeamDiscussionOrderField
-   direction: OrderDirection
-
-class TagNamePatternParametersInput(GQLObject):
-   name: str
-   negate: bool
-   operator: str
-   pattern: str
-
-class SubscribableThread(GQLObject):
-   id: ID
-   viewerThreadSubscriptionFormAction: ThreadSubscriptionFormAction
-   viewerThreadSubscriptionStatus: ThreadSubscriptionState
-
-class Submodule(GQLObject):
-   branch: str
-   gitUrl: URI
-   name: str
-   nameRaw: Base64String
-   path: str
-   pathRaw: Base64String
-   subprojectCommitOid: GitObjectID
-
-class StatusContextStateCount(GQLObject):
-   count: int
-   state: StatusState
-
-class StatusCheckConfiguration(GQLObject):
-   context: str
-   integrationId: int
-
-class StartOrganizationMigrationInput(GQLObject):
-   sourceOrgUrl: URI
-   targetOrgName: str
-   targetEnterpriseId: ID
-   sourceAccessToken: str
-   clientMutationId: str
-
-class SponsorshipOrder(GQLObject):
-   field: SponsorshipOrderField
-   direction: OrderDirection
-
-class SponsorsTierOrder(GQLObject):
-   field: SponsorsTierOrderField
-   direction: OrderDirection
-
-class SponsorsActivityOrder(GQLObject):
-   field: SponsorsActivityOrderField
-   direction: OrderDirection
-
-class SponsorOrder(GQLObject):
-   field: SponsorOrderField
-   direction: OrderDirection
-
-class SetUserInteractionLimitInput(GQLObject):
-   userId: ID
-   limit: RepositoryInteractionLimit
-   expiry: RepositoryInteractionLimitExpiry
-   clientMutationId: str
-
-class SetOrganizationInteractionLimitInput(GQLObject):
-   organizationId: ID
-   limit: RepositoryInteractionLimit
-   expiry: RepositoryInteractionLimitExpiry
-   clientMutationId: str
-
-class SecurityVulnerabilityOrder(GQLObject):
-   field: SecurityVulnerabilityOrderField
-   direction: OrderDirection
-
-class SecurityAdvisoryPackageVersion(GQLObject):
-   identifier: str
-
-class SecurityAdvisoryOrder(GQLObject):
-   field: SecurityAdvisoryOrderField
-   direction: OrderDirection
-
-class SecurityAdvisoryIdentifier(GQLObject):
-   type: str
-   value: str
-
-class RevokeMigratorRolePayload(GQLObject):
-   clientMutationId: str
-   success: bool
-
-class RevokeEnterpriseOrganizationsMigratorRoleInput(GQLObject):
-   enterpriseId: ID
-   login: str
-   clientMutationId: str
-
-class RevertPullRequestInput(GQLObject):
-   pullRequestId: ID
-   title: str
-   body: str
-   draft: bool
-   clientMutationId: str
-
-class ResolveReviewThreadInput(GQLObject):
-   threadId: ID
-   clientMutationId: str
-
-class RequiredStatusCheckInput(GQLObject):
-   context: str
-   appId: ID
-
-class RequiredDeploymentsParameters(GQLObject):
-   requiredDeploymentEnvironments: list[str]
-
-class RequirableByPullRequest(GQLObject):
-   isRequired: FYIJK_isRequired_Field
-
-class RepositoryRulesetBypassActorInput(GQLObject):
-   actorId: ID
-   repositoryRoleDatabaseId: int
-   organizationAdmin: bool
-   bypassMode: RepositoryRulesetBypassActorBypassMode
-
-class RepositoryNameConditionTargetInput(GQLObject):
-   exclude: list[str]
-   include: list[str]
-   protected: bool
-
-class RepositoryMigrationOrder(GQLObject):
-   field: RepositoryMigrationOrderField
-   direction: RepositoryMigrationOrderDirection
-
-class RepositoryInteractionAbility(GQLObject):
-   expiresAt: DateTime
-   limit: RepositoryInteractionLimit
-   origin: RepositoryInteractionLimitOrigin
-
-class RepositoryIdConditionTarget(GQLObject):
-   repositoryIds: list[ID]
-
-class RepositoryCodeownersError(GQLObject):
-   column: int
-   kind: str
-   line: int
-   message: str
-   path: str
-   source: str
-   suggestion: str
-
-class ReopenIssueInput(GQLObject):
-   issueId: ID
-   clientMutationId: str
-
-class RemoveUpvoteInput(GQLObject):
-   subjectId: ID
-   clientMutationId: str
-
-class RemoveReactionInput(GQLObject):
-   subjectId: ID
-   content: ReactionContent
-   clientMutationId: str
-
-class RemoveLabelsFromLabelableInput(GQLObject):
-   labelableId: ID
-   labelIds: list[ID]
-   clientMutationId: str
-
-class RemoveEnterpriseSupportEntitlementInput(GQLObject):
-   enterpriseId: ID
-   login: str
-   clientMutationId: str
-
-class RemoveEnterpriseMemberInput(GQLObject):
-   enterpriseId: ID
-   userId: ID
-   clientMutationId: str
-
-class RemoveEnterpriseAdminInput(GQLObject):
-   enterpriseId: ID
-   login: str
-   clientMutationId: str
-
-class ReleaseOrder(GQLObject):
-   field: ReleaseOrderField
-   direction: OrderDirection
-
-class RegenerateVerifiableDomainTokenPayload(GQLObject):
-   clientMutationId: str
-   verificationToken: str
-
-class RegenerateEnterpriseIdentityProviderRecoveryCodesInput(GQLObject):
-   enterpriseId: ID
-   clientMutationId: str
-
-class RefOrder(GQLObject):
-   field: RefOrderField
-   direction: OrderDirection
-
-class RefNameConditionTarget(GQLObject):
-   exclude: list[str]
-   include: list[str]
-
-class RateLimit(GQLObject):
-   cost: int
-   limit: int
-   nodeCount: int
-   remaining: int
-   resetAt: DateTime
-   used: int
-
-class PullRequestParameters(GQLObject):
-   dismissStaleReviewsOnPush: bool
-   requireCodeOwnerReview: bool
-   requireLastPushApproval: bool
-   requiredApprovingReviewCount: int
-   requiredReviewThreadResolution: bool
-
-class PullRequestChangedFile(GQLObject):
-   additions: int
-   changeType: PatchStatus
-   deletions: int
-   path: str
-   viewerViewedState: FileViewedState
-
-class PublicKey(GQLObject):
-   accessedAt: DateTime
-   createdAt: DateTime
-   fingerprint: str
-   id: ID
-   isReadOnly: bool
-   key: str
-   updatedAt: DateTime
-
-class ProjectV2ViewOrder(GQLObject):
-   field: ProjectV2ViewOrderField
-   direction: OrderDirection
-
-class ProjectV2SingleSelectFieldOption(GQLObject):
-   color: ProjectV2SingleSelectFieldOptionColor
-   description: str
-   descriptionHTML: str
-   id: str
-   name: str
-   nameHTML: str
-
-class ProjectV2IterationFieldIteration(GQLObject):
-   duration: int
-   id: str
-   startDate: Date
-   title: str
-   titleHTML: str
-
-class ProjectV2ItemFieldValueOrder(GQLObject):
-   field: ProjectV2ItemFieldValueOrderField
-   direction: OrderDirection
-
-class ProjectV2FieldValue(GQLObject):
-   text: str
-   number: float
-   date: Date
-   singleSelectOptionId: str
-   iterationId: str
-
-class ProjectV2Collaborator(GQLObject):
-   userId: ID
-   teamId: ID
-   role: ProjectV2Roles
-
-class ProjectOrder(GQLObject):
-   field: ProjectOrderField
-   direction: OrderDirection
-
-class PageInfo(GQLObject):
-   endCursor: str
-   hasNextPage: bool
-   hasPreviousPage: bool
-   startCursor: str
-
-class PackageVersionOrder(GQLObject):
-   field: PackageVersionOrderField
-   direction: OrderDirection
-
-class PackageOrder(GQLObject):
-   field: PackageOrderField
-   direction: OrderDirection
-
-class OrganizationOrder(GQLObject):
-   field: OrganizationOrderField
-   direction: OrderDirection
-
-class OrgEnterpriseOwnerOrder(GQLObject):
-   field: OrgEnterpriseOwnerOrderField
-   direction: OrderDirection
-
-class Node(GQLObject):
-   id: ID
-
-class MoveProjectCardInput(GQLObject):
-   cardId: ID
-   columnId: ID
-   afterCardId: ID
-   clientMutationId: str
-
-class Minimizable(GQLObject):
-   isMinimized: bool
-   minimizedReason: str
-   viewerCanMinimize: bool
-
-class MigrationSource(GQLObject):
-   id: ID
-   name: str
-   type: MigrationSourceType
-   url: URI
-
-class MergePullRequestInput(GQLObject):
-   pullRequestId: ID
-   commitHeadline: str
-   commitBody: str
-   expectedHeadOid: GitObjectID
-   mergeMethod: PullRequestMergeMethod
-   authorEmail: str
-   clientMutationId: str
-
-class MarketplaceCategory(GQLObject):
-   description: str
-   howItWorks: str
-   id: ID
-   name: str
-   primaryListingCount: int
-   resourcePath: URI
-   secondaryListingCount: int
-   slug: str
-   url: URI
-
-class MarkProjectV2AsTemplateInput(GQLObject):
-   projectId: ID
-   clientMutationId: str
-
-class MarkDiscussionCommentAsAnswerInput(GQLObject):
-   id: ID
-   clientMutationId: str
-
-class Lockable(GQLObject):
-   activeLockReason: LockReason
-   locked: bool
-
-class LinkRepositoryToProjectInput(GQLObject):
-   projectId: ID
-   repositoryId: ID
-   clientMutationId: str
-
-class LinkProjectV2ToRepositoryInput(GQLObject):
-   projectId: ID
-   repositoryId: ID
-   clientMutationId: str
-
-class LanguageOrder(GQLObject):
-   field: LanguageOrderField
-   direction: OrderDirection
-
-class LabelOrder(GQLObject):
-   field: LabelOrderField
-   direction: OrderDirection
-
-class IssueFilters(GQLObject):
-   assignee: str
-   createdBy: str
-   labels: list[str]
-   mentioned: str
-   milestone: str
-   milestoneNumber: str
-   since: DateTime
-   states: list[IssueState]
-   viewerSubscribed: bool
-
-class IpAllowListEntryOrder(GQLObject):
-   field: IpAllowListEntryOrderField
-   direction: OrderDirection
-
-class HovercardContext(GQLObject):
-   message: str
-   octicon: str
-
-class GrantMigratorRoleInput(GQLObject):
-   organizationId: ID
-   actor: str
-   actorType: ActorType
-   clientMutationId: str
-
-class GitHubMetadata(GQLObject):
-   gitHubServicesSha: GitObjectID
-   gitIpAddresses: list[str]
-   githubEnterpriseImporterIpAddresses: list[str]
-   hookIpAddresses: list[str]
-   importerIpAddresses: list[str]
-   isPasswordAuthenticationVerifiable: bool
-   pagesIpAddresses: list[str]
-
-class GenericHovercardContext(GQLObject):
-   message: str
-   octicon: str
-
-class FollowUserInput(GQLObject):
-   userId: ID
-   clientMutationId: str
-
-class FileDeletion(GQLObject):
-   path: str
-
-class ExternalIdentityAttribute(GQLObject):
-   metadata: str
-   name: str
-   value: str
-
-class EnterpriseServerUserAccountsUploadOrder(GQLObject):
-   field: EnterpriseServerUserAccountsUploadOrderField
-   direction: OrderDirection
-
-class EnterpriseServerUserAccountEmailOrder(GQLObject):
-   field: EnterpriseServerUserAccountEmailOrderField
-   direction: OrderDirection
-
-class EnterpriseRepositoryInfo(GQLObject):
-   id: ID
-   isPrivate: bool
-   name: str
-   nameWithOwner: str
-
-class EnterpriseBillingInfo(GQLObject):
-   allLicensableUsersCount: int
-   assetPacks: int
-   bandwidthQuota: float
-   bandwidthUsage: float
-   bandwidthUsagePercentage: int
-   storageQuota: float
-   storageUsage: float
-   storageUsagePercentage: int
-   totalAvailableLicenses: int
-   totalLicenses: int
-
-class EnterpriseAdministratorInvitationOrder(GQLObject):
-   field: EnterpriseAdministratorInvitationOrderField
-   direction: OrderDirection
-
-class EnablePullRequestAutoMergeInput(GQLObject):
-   pullRequestId: ID
-   commitHeadline: str
-   commitBody: str
-   mergeMethod: PullRequestMergeMethod
-   authorEmail: str
-   expectedHeadOid: GitObjectID
-   clientMutationId: str
-
-class DraftPullRequestReviewComment(GQLObject):
-   path: str
-   position: int
-   body: str
-
-class DismissPullRequestReviewInput(GQLObject):
-   pullRequestReviewId: ID
-   message: str
-   clientMutationId: str
-
-class DiscussionOrder(GQLObject):
-   field: DiscussionOrderField
-   direction: OrderDirection
-
-class DequeuePullRequestInput(GQLObject):
-   id: ID
-   clientMutationId: str
-
-class DeployKey(GQLObject):
-   createdAt: DateTime
-   id: ID
-   key: str
-   readOnly: bool
-   title: str
-   verified: bool
-
-class DeleteVerifiableDomainInput(GQLObject):
-   id: ID
-   clientMutationId: str
-
-class DeleteTeamDiscussionInput(GQLObject):
-   id: ID
-   clientMutationId: str
-
-class DeleteTeamDiscussionCommentInput(GQLObject):
-   id: ID
-   clientMutationId: str
-
-class DeleteRepositoryRulesetInput(GQLObject):
-   repositoryRulesetId: ID
-   clientMutationId: str
-
-class DeleteRefInput(GQLObject):
-   refId: ID
-   clientMutationId: str
-
-class DeletePullRequestReviewCommentInput(GQLObject):
-   id: ID
-   clientMutationId: str
-
-class DeleteProjectV2ItemPayload(GQLObject):
-   clientMutationId: str
-   deletedItemId: ID
-
-class DeleteProjectV2Input(GQLObject):
-   projectId: ID
-   clientMutationId: str
-
-class DeleteProjectInput(GQLObject):
-   projectId: ID
-   clientMutationId: str
-
-class DeleteProjectCardInput(GQLObject):
-   cardId: ID
-   clientMutationId: str
-
-class DeleteIssueInput(GQLObject):
-   issueId: ID
-   clientMutationId: str
-
-class DeleteIssueCommentInput(GQLObject):
-   id: ID
-   clientMutationId: str
-
-class DeleteEnvironmentPayload(GQLObject):
-   clientMutationId: str
-
-class DeleteDiscussionInput(GQLObject):
-   id: ID
-   clientMutationId: str
-
-class DeleteDeploymentPayload(GQLObject):
-   clientMutationId: str
-
-class DeleteBranchProtectionRulePayload(GQLObject):
-   clientMutationId: str
-
-class Deletable(GQLObject):
-   viewerCanDelete: bool
-
-class CreateTeamDiscussionInput(GQLObject):
-   teamId: ID
-   title: str
-   body: str
-   private: bool
-   clientMutationId: str
-
-class CreateSponsorshipInput(GQLObject):
-   sponsorId: ID
-   sponsorLogin: str
-   sponsorableId: ID
-   sponsorableLogin: str
-   tierId: ID
-   amount: int
-   isRecurring: bool
-   receiveEmails: bool
-   privacyLevel: SponsorshipPrivacy
-   clientMutationId: str
-
-class CreateSponsorsListingInput(GQLObject):
-   sponsorableLogin: str
-   fiscalHostLogin: str
-   fiscallyHostedProjectProfileUrl: str
-   billingCountryOrRegionCode: SponsorsCountryOrRegionCode
-   residenceCountryOrRegionCode: SponsorsCountryOrRegionCode
-   contactEmail: str
-   fullDescription: str
-   clientMutationId: str
-
-class CreateRefInput(GQLObject):
-   repositoryId: ID
-   name: str
-   oid: GitObjectID
-   clientMutationId: str
-
-class CreateProjectV2Input(GQLObject):
-   ownerId: ID
-   title: str
-   repositoryId: ID
-   teamId: ID
-   clientMutationId: str
-
-class CreateMigrationSourceInput(GQLObject):
-   name: str
-   url: str
-   accessToken: str
-   type: MigrationSourceType
-   ownerId: ID
-   githubPat: str
-   clientMutationId: str
-
-class CreateIssueInput(GQLObject):
-   repositoryId: ID
-   title: str
-   body: str
-   assigneeIds: list[ID]
-   milestoneId: ID
-   labelIds: list[ID]
-   projectIds: list[ID]
-   issueTemplate: str
-   clientMutationId: str
-
-class CreateEnvironmentInput(GQLObject):
-   repositoryId: ID
-   name: str
-   clientMutationId: str
-
-class CreateDiscussionInput(GQLObject):
-   repositoryId: ID
-   title: str
-   body: str
-   categoryId: ID
-   clientMutationId: str
-
-class CreateAttributionInvitationInput(GQLObject):
-   ownerId: ID
-   sourceId: ID
-   targetId: ID
-   clientMutationId: str
-
-class ConvertPullRequestToDraftInput(GQLObject):
-   pullRequestId: ID
-   clientMutationId: str
-
-class ContributionOrder(GQLObject):
-   direction: OrderDirection
-
-class ContributionCalendarDay(GQLObject):
-   color: str
-   contributionCount: int
-   contributionLevel: ContributionLevel
-   date: Date
-   weekday: int
-
-class CommitterEmailPatternParameters(GQLObject):
-   name: str
-   negate: bool
-   operator: str
-   pattern: str
-
-class CommitMessagePatternParametersInput(GQLObject):
-   name: str
-   negate: bool
-   operator: str
-   pattern: str
-
-class CommitMessage(GQLObject):
-   headline: str
-   body: str
-
-class CommitAuthorEmailPatternParametersInput(GQLObject):
-   name: str
-   negate: bool
-   operator: str
-   pattern: str
-
-class CommitAuthor(GQLObject):
-   id: ID
-   emails: list[str]
-
-class ClosePullRequestInput(GQLObject):
-   pullRequestId: ID
-   clientMutationId: str
-
-class CloseDiscussionInput(GQLObject):
-   discussionId: ID
-   reason: DiscussionCloseReason
-   clientMutationId: str
-
-class CloneTemplateRepositoryInput(GQLObject):
-   repositoryId: ID
-   name: str
-   ownerId: ID
-   description: str
-   visibility: RepositoryVisibility
-   includeAllBranches: bool
-   clientMutationId: str
-
-class ClearProjectV2ItemFieldValueInput(GQLObject):
-   projectId: ID
-   itemId: ID
-   fieldId: ID
-   clientMutationId: str
-
-class CheckSuiteFilter(GQLObject):
-   appId: int
-   checkName: str
-
-class CheckStep(GQLObject):
-   completedAt: DateTime
-   conclusion: CheckConclusionState
-   externalId: str
-   name: str
-   number: int
-   secondsToCompletion: int
-   startedAt: DateTime
-   status: CheckStatusState
-
-class CheckRunOutputImage(GQLObject):
-   alt: str
-   imageUrl: URI
-   caption: str
-
-class CheckRunAction(GQLObject):
-   label: str
-   description: str
-   identifier: str
-
-class CheckAnnotationPosition(GQLObject):
-   column: int
-   line: int
-
-class CancelSponsorshipInput(GQLObject):
-   sponsorId: ID
-   sponsorLogin: str
-   sponsorableId: ID
-   sponsorableLogin: str
-   clientMutationId: str
-
-class CWE(GQLObject):
-   cweId: str
-   description: str
-   id: ID
-   name: str
-
-class BulkSponsorship(GQLObject):
-   sponsorableId: ID
-   sponsorableLogin: str
-   amount: int
-
-class BranchNamePatternParameters(GQLObject):
-   name: str
-   negate: bool
-   operator: str
-   pattern: str
-
-class Bot(GQLObject):
-   avatarUrl: NVXRV_URI_Field
-   createdAt: DateTime
-   databaseId: int
-   id: ID
-   login: str
-   resourcePath: URI
-   updatedAt: DateTime
-   url: URI
-
-class ArchiveRepositoryInput(GQLObject):
-   repositoryId: ID
-   clientMutationId: str
-
-class ApproveVerifiableDomainInput(GQLObject):
-   id: ID
-   clientMutationId: str
-
-class AnnouncementBanner(GQLObject):
-   announcement: str
-   announcementExpiresAt: DateTime
-   announcementUserDismissible: bool
-
-class AddUpvoteInput(GQLObject):
-   subjectId: ID
-   clientMutationId: str
-
-class AddReactionInput(GQLObject):
-   subjectId: ID
-   content: ReactionContent
-   clientMutationId: str
-
-class AddPullRequestReviewThreadInput(GQLObject):
-   path: str
-   body: str
-   pullRequestId: ID
-   pullRequestReviewId: ID
-   line: int
-   side: DiffSide
-   startLine: int
-   startSide: DiffSide
-   subjectType: PullRequestReviewThreadSubjectType
-   clientMutationId: str
-
-class AddProjectV2ItemByIdInput(GQLObject):
-   projectId: ID
-   contentId: ID
-   clientMutationId: str
-
-class AddProjectColumnInput(GQLObject):
-   projectId: ID
-   name: str
-   clientMutationId: str
-
-class AddLabelsToLabelableInput(GQLObject):
-   labelableId: ID
-   labelIds: list[ID]
-   clientMutationId: str
-
-class AddEnterpriseSupportEntitlementInput(GQLObject):
-   enterpriseId: ID
-   login: str
-   clientMutationId: str
-
-class AddDiscussionPollVoteInput(GQLObject):
-   pollOptionId: ID
-   clientMutationId: str
-
-class AddCommentInput(GQLObject):
-   subjectId: ID
-   body: str
-   clientMutationId: str
-
-class ActorLocation(GQLObject):
-   city: str
-   country: str
-   countryCode: str
-   region: str
-   regionCode: str
-
-class Actor(GQLObject):
-   avatarUrl: MJKUR_URI_Field
-   login: str
-   resourcePath: URI
-   url: URI
-
-class AcceptEnterpriseAdministratorInvitationInput(GQLObject):
-   invitationId: ID
-   clientMutationId: str
-
-class AbortQueuedMigrationsInput(GQLObject):
-   ownerId: ID
-   clientMutationId: str
-
-class EnterpriseServerUserAccountEmail(GQLObject):
-   createdAt: DateTime
-   email: str
-   id: ID
-   isPrimary: bool
-   updatedAt: DateTime
-   userAccount: NewType('EnterpriseServerUserAccount', GQLObject) ## Circular Reference for EnterpriseServerUserAccount
-
-class EnterpriseServerUserAccountEmailEdge(GQLObject):
-   cursor: str
-   node: EnterpriseServerUserAccountEmail
-
-class list_EnterpriseServerUserAccountEmailEdge(list, EnterpriseServerUserAccountEmailEdge): pass
-
-class list_EnterpriseServerUserAccountEmail(list, EnterpriseServerUserAccountEmail): pass
-
-class EnterpriseServerUserAccountEmailConnection(GQLObject):
-   edges: list_EnterpriseServerUserAccountEmailEdge[EnterpriseServerUserAccountEmailEdge]
-   nodes: list_EnterpriseServerUserAccountEmail[EnterpriseServerUserAccountEmail]
-   pageInfo: PageInfo
-   totalCount: int
-
-class OOVLC_EnterpriseServerUserAccountEmailConnection_Field(EnterpriseServerUserAccountEmailConnection):
-   class EnterpriseServerUserAccountEmailConnectionArgs(GQLArgsSet, GQLObject):
-      orderBy: EnterpriseServerUserAccountEmailOrder
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: EnterpriseServerUserAccountEmailConnectionArgs
-
-
-
-class EnterpriseServerUserAccount(GQLObject):
-   createdAt: DateTime
-   emails: OOVLC_EnterpriseServerUserAccountEmailConnection_Field
-   enterpriseServerInstallation: NewType('EnterpriseServerInstallation', GQLObject) ## Circular Reference for EnterpriseServerInstallation
-   id: ID
-   isSiteAdmin: bool
-   login: str
-   profileName: str
-   remoteCreatedAt: DateTime
-   remoteUserId: int
-   updatedAt: DateTime
-
-class EnterpriseServerUserAccountEdge(GQLObject):
-   cursor: str
-   node: EnterpriseServerUserAccount
-
-class list_EnterpriseServerUserAccountEdge(list, EnterpriseServerUserAccountEdge): pass
-
-class list_EnterpriseServerUserAccount(list, EnterpriseServerUserAccount): pass
-
-class EnterpriseServerUserAccountConnection(GQLObject):
-   edges: list_EnterpriseServerUserAccountEdge[EnterpriseServerUserAccountEdge]
-   nodes: list_EnterpriseServerUserAccount[EnterpriseServerUserAccount]
-   pageInfo: PageInfo
-   totalCount: int
-
-class EnterpriseServerUserAccountsUpload(GQLObject):
-   createdAt: DateTime
-   enterprise: NewType('Enterprise', GQLObject) ## Circular Reference for Enterprise
-   enterpriseServerInstallation: NewType('EnterpriseServerInstallation', GQLObject) ## Circular Reference for EnterpriseServerInstallation
-   id: ID
-   name: str
-   syncState: EnterpriseServerUserAccountsUploadSyncState
-   updatedAt: DateTime
-
-class EnterpriseServerUserAccountsUploadEdge(GQLObject):
-   cursor: str
-   node: EnterpriseServerUserAccountsUpload
-
-class list_EnterpriseServerUserAccountsUploadEdge(list, EnterpriseServerUserAccountsUploadEdge): pass
-
-class list_EnterpriseServerUserAccountsUpload(list, EnterpriseServerUserAccountsUpload): pass
-
-class EnterpriseServerUserAccountsUploadConnection(GQLObject):
-   edges: list_EnterpriseServerUserAccountsUploadEdge[EnterpriseServerUserAccountsUploadEdge]
-   nodes: list_EnterpriseServerUserAccountsUpload[EnterpriseServerUserAccountsUpload]
-   pageInfo: PageInfo
-   totalCount: int
-
-class UXAXT_EnterpriseServerUserAccountConnection_Field(EnterpriseServerUserAccountConnection):
-   class EnterpriseServerUserAccountConnectionArgs(GQLArgsSet, GQLObject):
-      orderBy: EnterpriseServerUserAccountOrder
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: EnterpriseServerUserAccountConnectionArgs
-
-
-
-class WFRJC_EnterpriseServerUserAccountsUploadConnection_Field(EnterpriseServerUserAccountsUploadConnection):
-   class EnterpriseServerUserAccountsUploadConnectionArgs(GQLArgsSet, GQLObject):
-      orderBy: EnterpriseServerUserAccountsUploadOrder
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: EnterpriseServerUserAccountsUploadConnectionArgs
-
-
-
-class EnterpriseServerInstallation(GQLObject):
-   createdAt: DateTime
-   customerName: str
-   hostName: str
-   id: ID
-   isConnected: bool
-   updatedAt: DateTime
-   userAccounts: UXAXT_EnterpriseServerUserAccountConnection_Field
-   userAccountsUploads: WFRJC_EnterpriseServerUserAccountsUploadConnection_Field
-
-class EnterpriseServerInstallationMembershipEdge(GQLObject):
-   cursor: str
-   node: EnterpriseServerInstallation
-   role: EnterpriseUserAccountMembershipRole
-
-class list_EnterpriseServerInstallationMembershipEdge(list, EnterpriseServerInstallationMembershipEdge): pass
-
-class list_EnterpriseServerInstallation(list, EnterpriseServerInstallation): pass
-
-class EnterpriseServerInstallationMembershipConnection(GQLObject):
-   edges: list_EnterpriseServerInstallationMembershipEdge[EnterpriseServerInstallationMembershipEdge]
-   nodes: list_EnterpriseServerInstallation[EnterpriseServerInstallation]
-   pageInfo: PageInfo
-   totalCount: int
-
-class UserEdge(GQLObject):
-   cursor: str
-   node: NewType('User', GQLObject) ## Circular Reference for User
-
-class list_UserEdge(list, UserEdge): pass
-
-class list_GQLObject(list, GQLObject): pass
-
-class UserConnection(GQLObject):
-   edges: list_UserEdge[UserEdge]
-   nodes: list_GQLObject[GQLObject] ## Circular Reference for User
-   pageInfo: PageInfo
-   totalCount: int
-
-class AutoMergeRequest(GQLObject):
-   authorEmail: str
-   commitBody: str
-   commitHeadline: str
-   enabledAt: DateTime
-   enabledBy: Actor
-   mergeMethod: PullRequestMergeMethod
-   pullRequest: NewType('PullRequest', GQLObject) ## Circular Reference for PullRequest
-
-class BranchProtectionRuleConflict(GQLObject):
-   branchProtectionRule: NewType('BranchProtectionRule', GQLObject) ## Circular Reference for BranchProtectionRule
-   conflictingBranchProtectionRule: NewType('BranchProtectionRule', GQLObject) ## Circular Reference for BranchProtectionRule
-   ref: NewType('Ref', GQLObject) ## Circular Reference for Ref
-
-class BranchProtectionRuleConflictEdge(GQLObject):
-   cursor: str
-   node: BranchProtectionRuleConflict
-
-class list_BranchProtectionRuleConflictEdge(list, BranchProtectionRuleConflictEdge): pass
-
-class list_BranchProtectionRuleConflict(list, BranchProtectionRuleConflict): pass
-
-class BranchProtectionRuleConflictConnection(GQLObject):
-   edges: list_BranchProtectionRuleConflictEdge[BranchProtectionRuleConflictEdge]
-   nodes: list_BranchProtectionRuleConflict[BranchProtectionRuleConflict]
-   pageInfo: PageInfo
-   totalCount: int
-
-class TeamEdge(GQLObject):
-   cursor: str
-   node: NewType('Team', GQLObject) ## Circular Reference for Team
-
-class list_TeamEdge(list, TeamEdge): pass
-
-class TeamConnection(GQLObject):
-   edges: list_TeamEdge[TeamEdge]
-   nodes: list_GQLObject[GQLObject] ## Circular Reference for Team
-   pageInfo: PageInfo
-   totalCount: int
-
-class Mannequin(GQLObject):
-   avatarUrl: VSLJM_URI_Field
-   claimant: NewType('User', GQLObject) ## Circular Reference for User
-   createdAt: DateTime
-   databaseId: int
-   email: str
-   id: ID
-   login: str
-   resourcePath: URI
-   updatedAt: DateTime
-   url: URI
-
-class Reactor(GQLObject): 
-   pass
-
-class ReactorEdge(GQLObject):
-   cursor: str
-   node: Reactor
-   reactedAt: DateTime
-
-class list_ReactorEdge(list, ReactorEdge): pass
-
-class list_Reactor(list, Reactor): pass
-
-class ReactorConnection(GQLObject):
-   edges: list_ReactorEdge[ReactorEdge]
-   nodes: list_Reactor[Reactor]
-   pageInfo: PageInfo
-   totalCount: int
-
-class Reaction(GQLObject):
-   content: ReactionContent
-   createdAt: DateTime
-   databaseId: int
-   id: ID
-   reactable: NewType('Reactable', GQLObject) ## Circular Reference for Reactable
-   user: NewType('User', GQLObject) ## Circular Reference for User
-
-class ReactionEdge(GQLObject):
-   cursor: str
-   node: Reaction
-
-class list_ReactionEdge(list, ReactionEdge): pass
-
-class list_Reaction(list, Reaction): pass
-
-class ReactionConnection(GQLObject):
-   edges: list_ReactionEdge[ReactionEdge]
-   nodes: list_Reaction[Reaction]
-   pageInfo: PageInfo
-   totalCount: int
-   viewerHasReacted: bool
-
-class SZBNV_ReactionConnection_Field(ReactionConnection):
-   class ReactionConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      content: ReactionContent
-      orderBy: ReactionOrder
-
-   _args: ReactionConnectionArgs
-
-
-
-class Reactable(GQLObject):
-   databaseId: int
-   id: ID
-   reactionGroups: list_GQLObject[GQLObject] ## Circular Reference for ReactionGroup
-   reactions: SZBNV_ReactionConnection_Field
-   viewerCanReact: bool
-
-class ReactingUserEdge(GQLObject):
-   cursor: str
-   node: NewType('User', GQLObject) ## Circular Reference for User
-   reactedAt: DateTime
-
-class list_ReactingUserEdge(list, ReactingUserEdge): pass
-
-class ReactingUserConnection(GQLObject):
-   edges: list_ReactingUserEdge[ReactingUserEdge]
-   nodes: list_GQLObject[GQLObject] ## Circular Reference for User
-   pageInfo: PageInfo
-   totalCount: int
-
-class IQCRX_ReactorConnection_Field(ReactorConnection):
-   class ReactorConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: ReactorConnectionArgs
-
-
-
-class ReactionGroup(GQLObject):
-   content: ReactionContent
-   createdAt: DateTime
-   reactors: IQCRX_ReactorConnection_Field
-   subject: Reactable
-   viewerHasReacted: bool
-
-class UserContentEdit(GQLObject):
-   createdAt: DateTime
-   deletedAt: DateTime
-   deletedBy: Actor
-   diff: str
-   editedAt: DateTime
-   editor: Actor
-   id: ID
-   updatedAt: DateTime
-
-class UserContentEditEdge(GQLObject):
-   cursor: str
-   node: UserContentEdit
-
-class list_UserContentEditEdge(list, UserContentEditEdge): pass
-
-class list_UserContentEdit(list, UserContentEdit): pass
-
-class UserContentEditConnection(GQLObject):
-   edges: list_UserContentEditEdge[UserContentEditEdge]
-   nodes: list_UserContentEdit[UserContentEdit]
-   pageInfo: PageInfo
-   totalCount: int
-
-class list_ReactionGroup(list, ReactionGroup): pass
-
-class XFDWP_ReactionConnection_Field(ReactionConnection):
-   class ReactionConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      content: ReactionContent
-      orderBy: ReactionOrder
-
-   _args: ReactionConnectionArgs
-
-
-
-class JZOQZ_UserContentEditConnection_Field(UserContentEditConnection):
-   class UserContentEditConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: UserContentEditConnectionArgs
-
-
-
-class TeamDiscussionComment(GQLObject):
-   author: Actor
-   body: str
-   bodyHTML: HTML
-   bodyText: str
-   createdAt: DateTime
-   createdViaEmail: bool
-   databaseId: int
-   editor: Actor
-   id: ID
-   includesCreatedEdit: bool
-   lastEditedAt: DateTime
-   publishedAt: DateTime
-   reactionGroups: list_ReactionGroup[ReactionGroup]
-   reactions: XFDWP_ReactionConnection_Field
-   updatedAt: DateTime
-   userContentEdits: JZOQZ_UserContentEditConnection_Field
-   viewerCanDelete: bool
-   viewerCanReact: bool
-   viewerCanUpdate: bool
-   viewerCannotUpdateReasons: list[CommentCannotUpdateReason]
-   viewerDidAuthor: bool
-
-class TeamDiscussionCommentEdge(GQLObject):
-   cursor: str
-   node: TeamDiscussionComment
-
-class list_TeamDiscussionCommentEdge(list, TeamDiscussionCommentEdge): pass
-
-class list_TeamDiscussionComment(list, TeamDiscussionComment): pass
-
-class TeamDiscussionCommentConnection(GQLObject):
-   edges: list_TeamDiscussionCommentEdge[TeamDiscussionCommentEdge]
-   nodes: list_TeamDiscussionComment[TeamDiscussionComment]
-   pageInfo: PageInfo
-   totalCount: int
-
-class BOUQZ_ReactionConnection_Field(ReactionConnection):
-   class ReactionConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      content: ReactionContent
-      orderBy: ReactionOrder
-
-   _args: ReactionConnectionArgs
-
-
-
-class VKPRB_UserContentEditConnection_Field(UserContentEditConnection):
-   class UserContentEditConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: UserContentEditConnectionArgs
-
-
-
-class TeamDiscussion(GQLObject):
-   author: Actor
-   body: str
-   bodyHTML: HTML
-   bodyText: str
-   createdAt: DateTime
-   createdViaEmail: bool
-   databaseId: int
-   editor: Actor
-   id: ID
-   includesCreatedEdit: bool
-   lastEditedAt: DateTime
-   publishedAt: DateTime
-   reactionGroups: list_ReactionGroup[ReactionGroup]
-   reactions: BOUQZ_ReactionConnection_Field
-   updatedAt: DateTime
-   userContentEdits: VKPRB_UserContentEditConnection_Field
-   viewerCanDelete: bool
-   viewerCanReact: bool
-   viewerCanSubscribe: bool
-   viewerCanUpdate: bool
-   viewerCannotUpdateReasons: list[CommentCannotUpdateReason]
-   viewerDidAuthor: bool
-   viewerSubscription: SubscriptionState
-
-class TeamDiscussionEdge(GQLObject):
-   cursor: str
-   node: TeamDiscussion
-
-class list_TeamDiscussionEdge(list, TeamDiscussionEdge): pass
-
-class list_TeamDiscussion(list, TeamDiscussion): pass
-
-class TeamDiscussionConnection(GQLObject):
-   edges: list_TeamDiscussionEdge[TeamDiscussionEdge]
-   nodes: list_TeamDiscussion[TeamDiscussion]
-   pageInfo: PageInfo
-   totalCount: int
-
-class OrganizationInvitation(GQLObject):
-   createdAt: DateTime
-   email: str
-   id: ID
-   invitationSource: OrganizationInvitationSource
-   invitationType: OrganizationInvitationType
-   invitee: NewType('User', GQLObject) ## Circular Reference for User
-   inviter: NewType('User', GQLObject) ## Circular Reference for User
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   role: OrganizationInvitationRole
-
-class OrganizationInvitationEdge(GQLObject):
-   cursor: str
-   node: OrganizationInvitation
-
-class list_OrganizationInvitationEdge(list, OrganizationInvitationEdge): pass
-
-class list_OrganizationInvitation(list, OrganizationInvitation): pass
-
-class OrganizationInvitationConnection(GQLObject):
-   edges: list_OrganizationInvitationEdge[OrganizationInvitationEdge]
-   nodes: list_OrganizationInvitation[OrganizationInvitation]
-   pageInfo: PageInfo
-   totalCount: int
-
-class UserStatus(GQLObject):
-   createdAt: DateTime
-   emoji: str
-   emojiHTML: HTML
-   expiresAt: DateTime
-   id: ID
-   indicatesLimitedAvailability: bool
-   message: str
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   updatedAt: DateTime
-   user: NewType('User', GQLObject) ## Circular Reference for User
-
-class UserStatusEdge(GQLObject):
-   cursor: str
-   node: UserStatus
-
-class list_UserStatusEdge(list, UserStatusEdge): pass
-
-class list_UserStatus(list, UserStatus): pass
-
-class UserStatusConnection(GQLObject):
-   edges: list_UserStatusEdge[UserStatusEdge]
-   nodes: list_UserStatus[UserStatus]
-   pageInfo: PageInfo
-   totalCount: int
-
-class TeamMemberEdge(GQLObject):
-   cursor: str
-   memberAccessResourcePath: URI
-   memberAccessUrl: URI
-   node: NewType('User', GQLObject) ## Circular Reference for User
-   role: TeamMemberRole
-
-class list_TeamMemberEdge(list, TeamMemberEdge): pass
-
-class TeamMemberConnection(GQLObject):
-   edges: list_TeamMemberEdge[TeamMemberEdge]
-   nodes: list_GQLObject[GQLObject] ## Circular Reference for User
-   pageInfo: PageInfo
-   totalCount: int
-
-class ProjectV2Field(GQLObject):
-   createdAt: DateTime
-   dataType: ProjectV2FieldType
-   databaseId: int
-   id: ID
-   name: str
-   project: NewType('ProjectV2', GQLObject) ## Circular Reference for ProjectV2
-   updatedAt: DateTime
-
-class list_ProjectV2IterationFieldIteration(list, ProjectV2IterationFieldIteration): pass
-
-class ProjectV2IterationFieldConfiguration(GQLObject):
-   completedIterations: list_ProjectV2IterationFieldIteration[ProjectV2IterationFieldIteration]
-   duration: int
-   iterations: list_ProjectV2IterationFieldIteration[ProjectV2IterationFieldIteration]
-   startDay: int
-
-class ProjectV2IterationField(GQLObject):
-   configuration: ProjectV2IterationFieldConfiguration
-   createdAt: DateTime
-   dataType: ProjectV2FieldType
-   databaseId: int
-   id: ID
-   name: str
-   project: NewType('ProjectV2', GQLObject) ## Circular Reference for ProjectV2
-   updatedAt: DateTime
-
-class CAUUH_ProjectV2SingleSelectFieldOption_Field(ProjectV2SingleSelectFieldOption):
-   class ProjectV2SingleSelectFieldOptionArgs(GQLArgsSet, GQLObject):
-      names: list[NonNull_str]
-
-   _args: ProjectV2SingleSelectFieldOptionArgs
-
-
-
-class list_ProjectV2SingleSelectFieldOption(list, ProjectV2SingleSelectFieldOption): pass
-
-class ProjectV2SingleSelectField(GQLObject):
-   createdAt: DateTime
-   dataType: ProjectV2FieldType
-   databaseId: int
-   id: ID
-   name: str
-   options: CAUUH_ProjectV2SingleSelectFieldOption_Field
-   project: NewType('ProjectV2', GQLObject) ## Circular Reference for ProjectV2
-   updatedAt: DateTime
-
-class ProjectV2FieldConfiguration(GQLObject): 
-   pass
-
-class ProjectV2FieldConfigurationEdge(GQLObject):
-   cursor: str
-   node: ProjectV2FieldConfiguration
-
-class list_ProjectV2FieldConfigurationEdge(list, ProjectV2FieldConfigurationEdge): pass
-
-class list_ProjectV2FieldConfiguration(list, ProjectV2FieldConfiguration): pass
-
-class ProjectV2FieldConfigurationConnection(GQLObject):
-   edges: list_ProjectV2FieldConfigurationEdge[ProjectV2FieldConfigurationEdge]
-   nodes: list_ProjectV2FieldConfiguration[ProjectV2FieldConfiguration]
-   pageInfo: PageInfo
-   totalCount: int
-
-class ProjectV2Edge(GQLObject):
-   cursor: str
-   node: NewType('ProjectV2', GQLObject) ## Circular Reference for ProjectV2
-
-class list_ProjectV2Edge(list, ProjectV2Edge): pass
-
-class ProjectV2Connection(GQLObject):
-   edges: list_ProjectV2Edge[ProjectV2Edge]
-   nodes: list_GQLObject[GQLObject] ## Circular Reference for ProjectV2
-   pageInfo: PageInfo
-   totalCount: int
-
-class FGZAW_UserConnection_Field(UserConnection):
-   class UserConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: UserConnectionArgs
-
-
-
-class FCVOW_ProjectV2ItemConnection_Field(Generic[ProjectV2ItemConnection]):
-   class ProjectV2ItemConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: ProjectV2ItemConnectionArgs
-
-
-
-class VQJIB_ProjectV2Connection_Field(ProjectV2Connection):
-   class ProjectV2ConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: ProjectV2ConnectionArgs
-
-
-
-class DraftIssue(GQLObject):
-   assignees: FGZAW_UserConnection_Field
-   body: str
-   bodyHTML: HTML
-   bodyText: str
-   createdAt: DateTime
-   creator: Actor
-   id: ID
-   projectV2Items: FCVOW_ProjectV2ItemConnection_Field ## Circular Reference for ProjectV2ItemConnection
-   projectsV2: VQJIB_ProjectV2Connection_Field
-   title: str
-   updatedAt: DateTime
-
-class BranchProtectionRuleEdge(GQLObject):
-   cursor: str
-   node: NewType('BranchProtectionRule', GQLObject) ## Circular Reference for BranchProtectionRule
-
-class list_BranchProtectionRuleEdge(list, BranchProtectionRuleEdge): pass
-
-class BranchProtectionRuleConnection(GQLObject):
-   edges: list_BranchProtectionRuleEdge[BranchProtectionRuleEdge]
-   nodes: list_GQLObject[GQLObject] ## Circular Reference for BranchProtectionRule
-   pageInfo: PageInfo
-   totalCount: int
-
-class list_RepositoryCodeownersError(list, RepositoryCodeownersError): pass
-
-class RepositoryCodeowners(GQLObject):
-   errors: list_RepositoryCodeownersError[RepositoryCodeownersError]
-
-class PermissionGranter(GQLObject): 
-   pass
-
-class PermissionSource(GQLObject):
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   permission: DefaultRepositoryPermissionField
-   source: PermissionGranter
-
-class list_PermissionSource(list, PermissionSource): pass
-
-class RepositoryCollaboratorEdge(GQLObject):
-   cursor: str
-   node: NewType('User', GQLObject) ## Circular Reference for User
-   permission: RepositoryPermission
-   permissionSources: list_PermissionSource[PermissionSource]
-
-class list_RepositoryCollaboratorEdge(list, RepositoryCollaboratorEdge): pass
-
-class RepositoryCollaboratorConnection(GQLObject):
-   edges: list_RepositoryCollaboratorEdge[RepositoryCollaboratorEdge]
-   nodes: list_GQLObject[GQLObject] ## Circular Reference for User
-   pageInfo: PageInfo
-   totalCount: int
-
-class DeployKeyEdge(GQLObject):
-   cursor: str
-   node: DeployKey
-
-class list_DeployKeyEdge(list, DeployKeyEdge): pass
-
-class list_DeployKey(list, DeployKey): pass
-
-class DeployKeyConnection(GQLObject):
-   edges: list_DeployKeyEdge[DeployKeyEdge]
-   nodes: list_DeployKey[DeployKey]
-   pageInfo: PageInfo
-   totalCount: int
-
-class DeploymentStatus(GQLObject):
-   createdAt: DateTime
-   creator: Actor
-   deployment: NewType('Deployment', GQLObject) ## Circular Reference for Deployment
-   description: str
-   environmentUrl: URI
-   id: ID
-   logUrl: URI
-   state: DeploymentStatusState
-   updatedAt: DateTime
-
-class DeploymentStatusEdge(GQLObject):
-   cursor: str
-   node: DeploymentStatus
-
-class list_DeploymentStatusEdge(list, DeploymentStatusEdge): pass
-
-class list_DeploymentStatus(list, DeploymentStatus): pass
-
-class DeploymentStatusConnection(GQLObject):
-   edges: list_DeploymentStatusEdge[DeploymentStatusEdge]
-   nodes: list_DeploymentStatus[DeploymentStatus]
-   pageInfo: PageInfo
-   totalCount: int
-
-class WBVRH_DeploymentStatusConnection_Field(DeploymentStatusConnection):
-   class DeploymentStatusConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: DeploymentStatusConnectionArgs
-
-
-
-class Deployment(GQLObject):
-   commit: NewType('Commit', GQLObject) ## Circular Reference for Commit
-   commitOid: str
-   createdAt: DateTime
-   creator: Actor
-   databaseId: int
-   description: str
-   environment: str
-   id: ID
-   latestEnvironment: str
-   latestStatus: DeploymentStatus
-   originalEnvironment: str
-   payload: str
-   ref: NewType('Ref', GQLObject) ## Circular Reference for Ref
-   repository: NewType('Repository', GQLObject) ## Circular Reference for Repository
-   state: DeploymentState
-   statuses: WBVRH_DeploymentStatusConnection_Field
-   task: str
-   updatedAt: DateTime
-
-class DeploymentEdge(GQLObject):
-   cursor: str
-   node: Deployment
-
-class list_DeploymentEdge(list, DeploymentEdge): pass
-
-class list_Deployment(list, Deployment): pass
-
-class DeploymentConnection(GQLObject):
-   edges: list_DeploymentEdge[DeploymentEdge]
-   nodes: list_Deployment[Deployment]
-   pageInfo: PageInfo
-   totalCount: int
-
-class DiscussionCommentEdge(GQLObject):
-   cursor: str
-   node: NewType('DiscussionComment', GQLObject) ## Circular Reference for DiscussionComment
-
-class list_DiscussionCommentEdge(list, DiscussionCommentEdge): pass
-
-class DiscussionCommentConnection(GQLObject):
-   edges: list_DiscussionCommentEdge[DiscussionCommentEdge]
-   nodes: list_GQLObject[GQLObject] ## Circular Reference for DiscussionComment
-   pageInfo: PageInfo
-   totalCount: int
-
-class JNUNZ_ReactionConnection_Field(ReactionConnection):
-   class ReactionConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      content: ReactionContent
-      orderBy: ReactionOrder
-
-   _args: ReactionConnectionArgs
-
-
-
-class CYKLE_DiscussionCommentConnection_Field(DiscussionCommentConnection):
-   class DiscussionCommentConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: DiscussionCommentConnectionArgs
-
-
-
-class GZDEU_UserContentEditConnection_Field(UserContentEditConnection):
-   class UserContentEditConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: UserContentEditConnectionArgs
-
-
-
-class DiscussionComment(GQLObject):
-   author: Actor
-   authorAssociation: CommentAuthorAssociation
-   body: str
-   bodyHTML: HTML
-   bodyText: str
-   createdAt: DateTime
-   createdViaEmail: bool
-   databaseId: int
-   deletedAt: DateTime
-   discussion: NewType('Discussion', GQLObject) ## Circular Reference for Discussion
-   editor: Actor
-   id: ID
-   includesCreatedEdit: bool
-   isAnswer: bool
-   isMinimized: bool
-   lastEditedAt: DateTime
-   minimizedReason: str
-   publishedAt: DateTime
-   reactionGroups: list_ReactionGroup[ReactionGroup]
-   reactions: JNUNZ_ReactionConnection_Field
-   replies: CYKLE_DiscussionCommentConnection_Field
-   replyTo: NewType('DiscussionComment', GQLObject) ## Circular Reference for DiscussionComment
-   resourcePath: URI
-   updatedAt: DateTime
-   upvoteCount: int
-   url: URI
-   userContentEdits: GZDEU_UserContentEditConnection_Field
-   viewerCanDelete: bool
-   viewerCanMarkAsAnswer: bool
-   viewerCanMinimize: bool
-   viewerCanReact: bool
-   viewerCanUnmarkAsAnswer: bool
-   viewerCanUpdate: bool
-   viewerCanUpvote: bool
-   viewerCannotUpdateReasons: list[CommentCannotUpdateReason]
-   viewerDidAuthor: bool
-   viewerHasUpvoted: bool
-
-class DiscussionCategory(GQLObject):
-   createdAt: DateTime
-   description: str
-   emoji: str
-   emojiHTML: HTML
-   id: ID
-   isAnswerable: bool
-   name: str
-   repository: NewType('Repository', GQLObject) ## Circular Reference for Repository
-   slug: str
-   updatedAt: DateTime
-
-class IssueEdge(GQLObject):
-   cursor: str
-   node: NewType('Issue', GQLObject) ## Circular Reference for Issue
-
-class list_IssueEdge(list, IssueEdge): pass
-
-class IssueConnection(GQLObject):
-   edges: list_IssueEdge[IssueEdge]
-   nodes: list_GQLObject[GQLObject] ## Circular Reference for Issue
-   pageInfo: PageInfo
-   totalCount: int
-
-class NonNull_IssueState(GQLObject): pass
-
-class ISHTX_IssueConnection_Field(IssueConnection):
-   class IssueConnectionArgs(GQLArgsSet, GQLObject):
-      orderBy: IssueOrder
-      labels: list[NonNull_str]
-      states: list[NonNull_IssueState]
-      filterBy: IssueFilters
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: IssueConnectionArgs
-
-
-
-class NonNull_PullRequestState(GQLObject): pass
-
-class CAROI_PullRequestConnection_Field(Generic[PullRequestConnection]):
-   class PullRequestConnectionArgs(GQLArgsSet, GQLObject):
-      states: list[NonNull_PullRequestState]
-      labels: list[NonNull_str]
-      headRefName: str
-      baseRefName: str
-      orderBy: IssueOrder
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: PullRequestConnectionArgs
-
-
-
-class Label(GQLObject):
-   color: str
-   createdAt: DateTime
-   description: str
-   id: ID
-   isDefault: bool
-   issues: ISHTX_IssueConnection_Field
-   name: str
-   pullRequests: CAROI_PullRequestConnection_Field ## Circular Reference for PullRequestConnection
-   repository: NewType('Repository', GQLObject) ## Circular Reference for Repository
-   resourcePath: URI
-   updatedAt: DateTime
-   url: URI
-
-class LabelEdge(GQLObject):
-   cursor: str
-   node: Label
-
-class list_LabelEdge(list, LabelEdge): pass
-
-class list_Label(list, Label): pass
-
-class LabelConnection(GQLObject):
-   edges: list_LabelEdge[LabelEdge]
-   nodes: list_Label[Label]
-   pageInfo: PageInfo
-   totalCount: int
-
-class DiscussionPollOption(GQLObject):
-   id: ID
-   option: str
-   poll: NewType('DiscussionPoll', GQLObject) ## Circular Reference for DiscussionPoll
-   totalVoteCount: int
-   viewerHasVoted: bool
-
-class DiscussionPollOptionEdge(GQLObject):
-   cursor: str
-   node: DiscussionPollOption
-
-class list_DiscussionPollOptionEdge(list, DiscussionPollOptionEdge): pass
-
-class list_DiscussionPollOption(list, DiscussionPollOption): pass
-
-class DiscussionPollOptionConnection(GQLObject):
-   edges: list_DiscussionPollOptionEdge[DiscussionPollOptionEdge]
-   nodes: list_DiscussionPollOption[DiscussionPollOption]
-   pageInfo: PageInfo
-   totalCount: int
-
-class JFUZG_DiscussionPollOptionConnection_Field(DiscussionPollOptionConnection):
-   class DiscussionPollOptionConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      orderBy: DiscussionPollOptionOrder
-
-   _args: DiscussionPollOptionConnectionArgs
-
-
-
-class DiscussionPoll(GQLObject):
-   discussion: NewType('Discussion', GQLObject) ## Circular Reference for Discussion
-   id: ID
-   options: JFUZG_DiscussionPollOptionConnection_Field
-   question: str
-   totalVoteCount: int
-   viewerCanVote: bool
-   viewerHasVoted: bool
-
-class ZLIAG_DiscussionCommentConnection_Field(DiscussionCommentConnection):
-   class DiscussionCommentConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: DiscussionCommentConnectionArgs
-
-
-
-class UMRVU_LabelConnection_Field(LabelConnection):
-   class LabelConnectionArgs(GQLArgsSet, GQLObject):
-      orderBy: LabelOrder
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: LabelConnectionArgs
-
-
-
-class VGDFR_ReactionConnection_Field(ReactionConnection):
-   class ReactionConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      content: ReactionContent
-      orderBy: ReactionOrder
-
-   _args: ReactionConnectionArgs
-
-
-
-class URRBX_UserContentEditConnection_Field(UserContentEditConnection):
-   class UserContentEditConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: UserContentEditConnectionArgs
-
-
-
-class Discussion(GQLObject):
-   activeLockReason: LockReason
-   answer: DiscussionComment
-   answerChosenAt: DateTime
-   answerChosenBy: Actor
-   author: Actor
-   authorAssociation: CommentAuthorAssociation
-   body: str
-   bodyHTML: HTML
-   bodyText: str
-   category: DiscussionCategory
-   closed: bool
-   closedAt: DateTime
-   comments: ZLIAG_DiscussionCommentConnection_Field
-   createdAt: DateTime
-   createdViaEmail: bool
-   databaseId: int
-   editor: Actor
-   id: ID
-   includesCreatedEdit: bool
-   labels: UMRVU_LabelConnection_Field
-   lastEditedAt: DateTime
-   locked: bool
-   number: int
-   poll: DiscussionPoll
-   publishedAt: DateTime
-   reactionGroups: list_ReactionGroup[ReactionGroup]
-   reactions: VGDFR_ReactionConnection_Field
-   repository: NewType('Repository', GQLObject) ## Circular Reference for Repository
-   resourcePath: URI
-   stateReason: DiscussionStateReason
-   title: str
-   updatedAt: DateTime
-   upvoteCount: int
-   url: URI
-   userContentEdits: URRBX_UserContentEditConnection_Field
-   viewerCanClose: bool
-   viewerCanDelete: bool
-   viewerCanReact: bool
-   viewerCanReopen: bool
-   viewerCanSubscribe: bool
-   viewerCanUpdate: bool
-   viewerCanUpvote: bool
-   viewerDidAuthor: bool
-   viewerHasUpvoted: bool
-   viewerSubscription: SubscriptionState
-
-class DiscussionCategoryEdge(GQLObject):
-   cursor: str
-   node: DiscussionCategory
-
-class list_DiscussionCategoryEdge(list, DiscussionCategoryEdge): pass
-
-class list_DiscussionCategory(list, DiscussionCategory): pass
-
-class DiscussionCategoryConnection(GQLObject):
-   edges: list_DiscussionCategoryEdge[DiscussionCategoryEdge]
-   nodes: list_DiscussionCategory[DiscussionCategory]
-   pageInfo: PageInfo
-   totalCount: int
-
-class DiscussionEdge(GQLObject):
-   cursor: str
-   node: Discussion
-
-class list_DiscussionEdge(list, DiscussionEdge): pass
-
-class list_Discussion(list, Discussion): pass
-
-class DiscussionConnection(GQLObject):
-   edges: list_DiscussionEdge[DiscussionEdge]
-   nodes: list_Discussion[Discussion]
-   pageInfo: PageInfo
-   totalCount: int
-
-class DeploymentReviewer(GQLObject): 
-   pass
-
-class DeploymentReviewerEdge(GQLObject):
-   cursor: str
-   node: DeploymentReviewer
-
-class list_DeploymentReviewerEdge(list, DeploymentReviewerEdge): pass
-
-class list_DeploymentReviewer(list, DeploymentReviewer): pass
-
-class DeploymentReviewerConnection(GQLObject):
-   edges: list_DeploymentReviewerEdge[DeploymentReviewerEdge]
-   nodes: list_DeploymentReviewer[DeploymentReviewer]
-   pageInfo: PageInfo
-   totalCount: int
-
-class VQOPU_DeploymentReviewerConnection_Field(DeploymentReviewerConnection):
-   class DeploymentReviewerConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: DeploymentReviewerConnectionArgs
-
-
-
-class DeploymentProtectionRule(GQLObject):
-   databaseId: int
-   reviewers: VQOPU_DeploymentReviewerConnection_Field
-   timeout: int
-   type: DeploymentProtectionRuleType
-
-class DeploymentProtectionRuleEdge(GQLObject):
-   cursor: str
-   node: DeploymentProtectionRule
-
-class list_DeploymentProtectionRuleEdge(list, DeploymentProtectionRuleEdge): pass
-
-class list_DeploymentProtectionRule(list, DeploymentProtectionRule): pass
-
-class DeploymentProtectionRuleConnection(GQLObject):
-   edges: list_DeploymentProtectionRuleEdge[DeploymentProtectionRuleEdge]
-   nodes: list_DeploymentProtectionRule[DeploymentProtectionRule]
-   pageInfo: PageInfo
-   totalCount: int
-
-class WEVJL_DeploymentProtectionRuleConnection_Field(DeploymentProtectionRuleConnection):
-   class DeploymentProtectionRuleConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: DeploymentProtectionRuleConnectionArgs
-
-
-
-class Environment(GQLObject):
-   databaseId: int
-   id: ID
-   name: str
-   protectionRules: WEVJL_DeploymentProtectionRuleConnection_Field
-
-class EnvironmentEdge(GQLObject):
-   cursor: str
-   node: Environment
-
-class list_EnvironmentEdge(list, EnvironmentEdge): pass
-
-class list_Environment(list, Environment): pass
-
-class EnvironmentConnection(GQLObject):
-   edges: list_EnvironmentEdge[EnvironmentEdge]
-   nodes: list_Environment[Environment]
-   pageInfo: PageInfo
-   totalCount: int
-
-class RepositoryEdge(GQLObject):
-   cursor: str
-   node: NewType('Repository', GQLObject) ## Circular Reference for Repository
-
-class list_RepositoryEdge(list, RepositoryEdge): pass
-
-class RepositoryConnection(GQLObject):
-   edges: list_RepositoryEdge[RepositoryEdge]
-   nodes: list_GQLObject[GQLObject] ## Circular Reference for Repository
-   pageInfo: PageInfo
-   totalCount: int
-   totalDiskUsage: int
-
-class IssueOrPullRequest(GQLObject): 
-   pass
-
-class QJHGW_UserConnection_Field(UserConnection):
-   class UserConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: UserConnectionArgs
-
-
-
-class BRDBV_LabelConnection_Field(LabelConnection):
-   class LabelConnectionArgs(GQLArgsSet, GQLObject):
-      orderBy: LabelOrder
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: LabelConnectionArgs
-
-
-
-class IssueTemplate(GQLObject):
-   about: str
-   assignees: QJHGW_UserConnection_Field
-   body: str
-   filename: str
-   labels: BRDBV_LabelConnection_Field
-   name: str
-   title: str
-
-class LanguageEdge(GQLObject):
-   cursor: str
-   node: Language
-   size: int
-
-class list_LanguageEdge(list, LanguageEdge): pass
-
-class list_Language(list, Language): pass
-
-class LanguageConnection(GQLObject):
-   edges: list_LanguageEdge[LanguageEdge]
-   nodes: list_Language[Language]
-   pageInfo: PageInfo
-   totalCount: int
-   totalSize: int
-
-class ReleaseAsset(GQLObject):
-   contentType: str
-   createdAt: DateTime
-   downloadCount: int
-   downloadUrl: URI
-   id: ID
-   name: str
-   release: NewType('Release', GQLObject) ## Circular Reference for Release
-   size: int
-   updatedAt: DateTime
-   uploadedBy: NewType('User', GQLObject) ## Circular Reference for User
-   url: URI
-
-class ReleaseAssetEdge(GQLObject):
-   cursor: str
-   node: ReleaseAsset
-
-class list_ReleaseAssetEdge(list, ReleaseAssetEdge): pass
-
-class list_ReleaseAsset(list, ReleaseAsset): pass
-
-class ReleaseAssetConnection(GQLObject):
-   edges: list_ReleaseAssetEdge[ReleaseAssetEdge]
-   nodes: list_ReleaseAsset[ReleaseAsset]
-   pageInfo: PageInfo
-   totalCount: int
-
-class AJFZR_UserConnection_Field(UserConnection):
-   class UserConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: UserConnectionArgs
-
-
-
-class ZVKOM_ReactionConnection_Field(ReactionConnection):
-   class ReactionConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      content: ReactionContent
-      orderBy: ReactionOrder
-
-   _args: ReactionConnectionArgs
-
-
-
-class PHHKJ_ReleaseAssetConnection_Field(ReleaseAssetConnection):
-   class ReleaseAssetConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      name: str
-
-   _args: ReleaseAssetConnectionArgs
-
-
-
-class Release(GQLObject):
-   author: NewType('User', GQLObject) ## Circular Reference for User
-   createdAt: DateTime
-   databaseId: int
-   description: str
-   descriptionHTML: HTML
-   id: ID
-   isDraft: bool
-   isLatest: bool
-   isPrerelease: bool
-   mentions: AJFZR_UserConnection_Field
-   name: str
-   publishedAt: DateTime
-   reactionGroups: list_ReactionGroup[ReactionGroup]
-   reactions: ZVKOM_ReactionConnection_Field
-   releaseAssets: PHHKJ_ReleaseAssetConnection_Field
-   repository: NewType('Repository', GQLObject) ## Circular Reference for Repository
-   resourcePath: URI
-   shortDescriptionHTML: VNUPO_HTML_Field
-   tag: NewType('Ref', GQLObject) ## Circular Reference for Ref
-   tagCommit: NewType('Commit', GQLObject) ## Circular Reference for Commit
-   tagName: str
-   updatedAt: DateTime
-   url: URI
-   viewerCanReact: bool
-
-class list_LicenseRule(list, LicenseRule): pass
-
-class License(GQLObject):
-   body: str
-   conditions: list_LicenseRule[LicenseRule]
-   description: str
-   featured: bool
-   hidden: bool
-   id: ID
-   implementation: str
-   key: str
-   limitations: list_LicenseRule[LicenseRule]
-   name: str
-   nickname: str
-   permissions: list_LicenseRule[LicenseRule]
-   pseudoLicense: bool
-   spdxId: str
-   url: URI
-
-class MergeQueueEntry(GQLObject):
-   baseCommit: NewType('Commit', GQLObject) ## Circular Reference for Commit
-   enqueuedAt: DateTime
-   enqueuer: Actor
-   estimatedTimeToMerge: int
-   headCommit: NewType('Commit', GQLObject) ## Circular Reference for Commit
-   id: ID
-   jump: bool
-   mergeQueue: NewType('MergeQueue', GQLObject) ## Circular Reference for MergeQueue
-   position: int
-   pullRequest: NewType('PullRequest', GQLObject) ## Circular Reference for PullRequest
-   solo: bool
-   state: MergeQueueEntryState
-
-class MergeQueueEntryEdge(GQLObject):
-   cursor: str
-   node: MergeQueueEntry
-
-class list_MergeQueueEntryEdge(list, MergeQueueEntryEdge): pass
-
-class list_MergeQueueEntry(list, MergeQueueEntry): pass
-
-class MergeQueueEntryConnection(GQLObject):
-   edges: list_MergeQueueEntryEdge[MergeQueueEntryEdge]
-   nodes: list_MergeQueueEntry[MergeQueueEntry]
-   pageInfo: PageInfo
-   totalCount: int
-
-class CNKBP_MergeQueueEntryConnection_Field(MergeQueueEntryConnection):
-   class MergeQueueEntryConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: MergeQueueEntryConnectionArgs
-
-
-
-class MergeQueue(GQLObject):
-   configuration: MergeQueueConfiguration
-   entries: CNKBP_MergeQueueEntryConnection_Field
-   id: ID
-   nextEntryEstimatedTimeToMerge: int
-   repository: NewType('Repository', GQLObject) ## Circular Reference for Repository
-   resourcePath: URI
-   url: URI
-
-class UDTUX_IssueConnection_Field(IssueConnection):
-   class IssueConnectionArgs(GQLArgsSet, GQLObject):
-      orderBy: IssueOrder
-      labels: list[NonNull_str]
-      states: list[NonNull_IssueState]
-      filterBy: IssueFilters
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: IssueConnectionArgs
-
-
-
-class VNSHA_PullRequestConnection_Field(Generic[PullRequestConnection]):
-   class PullRequestConnectionArgs(GQLArgsSet, GQLObject):
-      states: list[NonNull_PullRequestState]
-      labels: list[NonNull_str]
-      headRefName: str
-      baseRefName: str
-      orderBy: IssueOrder
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: PullRequestConnectionArgs
-
-
-
-class Milestone(GQLObject):
-   closed: bool
-   closedAt: DateTime
-   createdAt: DateTime
-   creator: Actor
-   description: str
-   dueOn: DateTime
-   id: ID
-   issues: UDTUX_IssueConnection_Field
-   number: int
-   progressPercentage: float
-   pullRequests: VNSHA_PullRequestConnection_Field ## Circular Reference for PullRequestConnection
-   repository: NewType('Repository', GQLObject) ## Circular Reference for Repository
-   resourcePath: URI
-   state: MilestoneState
-   title: str
-   updatedAt: DateTime
-   url: URI
-   viewerCanClose: bool
-   viewerCanReopen: bool
-
-class MilestoneEdge(GQLObject):
-   cursor: str
-   node: Milestone
-
-class list_MilestoneEdge(list, MilestoneEdge): pass
-
-class list_Milestone(list, Milestone): pass
-
-class MilestoneConnection(GQLObject):
-   edges: list_MilestoneEdge[MilestoneEdge]
-   nodes: list_Milestone[Milestone]
-   pageInfo: PageInfo
-   totalCount: int
-
-class GitObject(GQLObject):
-   abbreviatedOid: str
-   commitResourcePath: URI
-   commitUrl: URI
-   id: ID
-   oid: GitObjectID
-   repository: NewType('Repository', GQLObject) ## Circular Reference for Repository
-
-class ZNLHA_RepositoryConnection_Field(RepositoryConnection):
-   class RepositoryConnectionArgs(GQLArgsSet, GQLObject):
-      privacy: RepositoryPrivacy
-      orderBy: RepositoryOrder
-      affiliations: list[RepositoryAffiliation]
-      ownerAffiliations: list[RepositoryAffiliation]
-      isLocked: bool
-      hasIssuesEnabled: bool
-      after: str
-      before: str
-      first: int
-      last: int
-      isArchived: bool
-      isFork: bool
-
-   _args: RepositoryConnectionArgs
-
-
-
-class LSJGQ_Repository_Field(Generic[Repository]):
-   class RepositoryArgs(GQLArgsSet, GQLObject):
-      name: NonNull_str
-      followRenames: bool
-
-   _args: RepositoryArgs
-
-
-
-class RepositoryOwner(GQLObject):
-   avatarUrl: AKNUG_URI_Field
-   id: ID
-   login: str
-   repositories: ZNLHA_RepositoryConnection_Field
-   repository: LSJGQ_Repository_Field ## Circular Reference for Repository
-   resourcePath: URI
-   url: URI
-
-class PackageFile(GQLObject):
-   id: ID
-   md5: str
-   name: str
-   packageVersion: NewType('PackageVersion', GQLObject) ## Circular Reference for PackageVersion
-   sha1: str
-   sha256: str
-   size: int
-   updatedAt: DateTime
-   url: URI
-
-class PackageFileEdge(GQLObject):
-   cursor: str
-   node: PackageFile
-
-class list_PackageFileEdge(list, PackageFileEdge): pass
-
-class list_PackageFile(list, PackageFile): pass
-
-class PackageFileConnection(GQLObject):
-   edges: list_PackageFileEdge[PackageFileEdge]
-   nodes: list_PackageFile[PackageFile]
-   pageInfo: PageInfo
-   totalCount: int
-
-class EPDUZ_PackageFileConnection_Field(PackageFileConnection):
-   class PackageFileConnectionArgs(GQLArgsSet, GQLObject):
-      orderBy: PackageFileOrder
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: PackageFileConnectionArgs
-
-
-
-class PackageVersion(GQLObject):
-   files: EPDUZ_PackageFileConnection_Field
-   id: ID
-   package: NewType('Package', GQLObject) ## Circular Reference for Package
-   platform: str
-   preRelease: bool
-   readme: str
-   release: Release
-   statistics: PackageVersionStatistics
-   summary: str
-   version: str
-
-class PackageVersionEdge(GQLObject):
-   cursor: str
-   node: PackageVersion
-
-class list_PackageVersionEdge(list, PackageVersionEdge): pass
-
-class list_PackageVersion(list, PackageVersion): pass
-
-class PackageVersionConnection(GQLObject):
-   edges: list_PackageVersionEdge[PackageVersionEdge]
-   nodes: list_PackageVersion[PackageVersion]
-   pageInfo: PageInfo
-   totalCount: int
-
-class FXHVM_PackageVersion_Field(PackageVersion):
-   class PackageVersionArgs(GQLArgsSet, GQLObject):
-      version: NonNull_str
-
-   _args: PackageVersionArgs
-
-
-
-class TQHVF_PackageVersionConnection_Field(PackageVersionConnection):
-   class PackageVersionConnectionArgs(GQLArgsSet, GQLObject):
-      orderBy: PackageVersionOrder
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: PackageVersionConnectionArgs
-
-
-
-class Package(GQLObject):
-   id: ID
-   latestVersion: PackageVersion
-   name: str
-   packageType: PackageType
-   repository: NewType('Repository', GQLObject) ## Circular Reference for Repository
-   statistics: PackageStatistics
-   version: FXHVM_PackageVersion_Field
-   versions: TQHVF_PackageVersionConnection_Field
-
-class PackageEdge(GQLObject):
-   cursor: str
-   node: Package
-
-class list_PackageEdge(list, PackageEdge): pass
-
-class list_Package(list, Package): pass
-
-class PackageConnection(GQLObject):
-   edges: list_PackageEdge[PackageEdge]
-   nodes: list_Package[Package]
-   pageInfo: PageInfo
-   totalCount: int
-
-class PinnedDiscussion(GQLObject):
-   createdAt: DateTime
-   databaseId: int
-   discussion: Discussion
-   gradientStopColors: list[str]
-   id: ID
-   pattern: PinnedDiscussionPattern
-   pinnedBy: Actor
-   preconfiguredGradient: PinnedDiscussionGradient
-   repository: NewType('Repository', GQLObject) ## Circular Reference for Repository
-   updatedAt: DateTime
-
-class PinnedDiscussionEdge(GQLObject):
-   cursor: str
-   node: PinnedDiscussion
-
-class list_PinnedDiscussionEdge(list, PinnedDiscussionEdge): pass
-
-class list_PinnedDiscussion(list, PinnedDiscussion): pass
-
-class PinnedDiscussionConnection(GQLObject):
-   edges: list_PinnedDiscussionEdge[PinnedDiscussionEdge]
-   nodes: list_PinnedDiscussion[PinnedDiscussion]
-   pageInfo: PageInfo
-   totalCount: int
-
-class PinnedIssue(GQLObject):
-   databaseId: int
-   fullDatabaseId: BigInt
-   id: ID
-   issue: NewType('Issue', GQLObject) ## Circular Reference for Issue
-   pinnedBy: Actor
-   repository: NewType('Repository', GQLObject) ## Circular Reference for Repository
-
-class PinnedIssueEdge(GQLObject):
-   cursor: str
-   node: PinnedIssue
-
-class list_PinnedIssueEdge(list, PinnedIssueEdge): pass
-
-class list_PinnedIssue(list, PinnedIssue): pass
-
-class PinnedIssueConnection(GQLObject):
-   edges: list_PinnedIssueEdge[PinnedIssueEdge]
-   nodes: list_PinnedIssue[PinnedIssue]
-   pageInfo: PageInfo
-   totalCount: int
-
-class ProjectCardItem(GQLObject): 
-   pass
-
-class ProjectCard(GQLObject):
-   column: NewType('ProjectColumn', GQLObject) ## Circular Reference for ProjectColumn
-   content: ProjectCardItem
-   createdAt: DateTime
-   creator: Actor
-   databaseId: int
-   id: ID
-   isArchived: bool
-   note: str
-   project: NewType('Project', GQLObject) ## Circular Reference for Project
-   resourcePath: URI
-   state: ProjectCardState
-   updatedAt: DateTime
-   url: URI
-
-class ProjectCardEdge(GQLObject):
-   cursor: str
-   node: ProjectCard
-
-class list_ProjectCardEdge(list, ProjectCardEdge): pass
-
-class list_ProjectCard(list, ProjectCard): pass
-
-class ProjectCardConnection(GQLObject):
-   edges: list_ProjectCardEdge[ProjectCardEdge]
-   nodes: list_ProjectCard[ProjectCard]
-   pageInfo: PageInfo
-   totalCount: int
-
-class LVTHM_ProjectCardConnection_Field(ProjectCardConnection):
-   class ProjectCardConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      archivedStates: list[ProjectCardArchivedState]
-
-   _args: ProjectCardConnectionArgs
-
-
-
-class ProjectColumn(GQLObject):
-   cards: LVTHM_ProjectCardConnection_Field
-   createdAt: DateTime
-   databaseId: int
-   id: ID
-   name: str
-   project: NewType('Project', GQLObject) ## Circular Reference for Project
-   purpose: ProjectColumnPurpose
-   resourcePath: URI
-   updatedAt: DateTime
-   url: URI
-
-class ProjectColumnEdge(GQLObject):
-   cursor: str
-   node: ProjectColumn
-
-class list_ProjectColumnEdge(list, ProjectColumnEdge): pass
-
-class list_ProjectColumn(list, ProjectColumn): pass
-
-class ProjectColumnConnection(GQLObject):
-   edges: list_ProjectColumnEdge[ProjectColumnEdge]
-   nodes: list_ProjectColumn[ProjectColumn]
-   pageInfo: PageInfo
-   totalCount: int
-
-class ProjectEdge(GQLObject):
-   cursor: str
-   node: NewType('Project', GQLObject) ## Circular Reference for Project
-
-class list_ProjectEdge(list, ProjectEdge): pass
-
-class ProjectConnection(GQLObject):
-   edges: list_ProjectEdge[ProjectEdge]
-   nodes: list_GQLObject[GQLObject] ## Circular Reference for Project
-   pageInfo: PageInfo
-   totalCount: int
-
-class SDDHQ_Project_Field(Generic[Project]):
-   class ProjectArgs(GQLArgsSet, GQLObject):
-      number: NonNull_int
-
-   _args: ProjectArgs
-
-
-
-class NonNull_ProjectState(GQLObject): pass
-
-class PBAGQ_ProjectConnection_Field(ProjectConnection):
-   class ProjectConnectionArgs(GQLArgsSet, GQLObject):
-      orderBy: ProjectOrder
-      search: str
-      states: list[NonNull_ProjectState]
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: ProjectConnectionArgs
-
-
-
-class ProjectOwner(GQLObject):
-   id: ID
-   project: SDDHQ_Project_Field ## Circular Reference for Project
-   projects: PBAGQ_ProjectConnection_Field
-   projectsResourcePath: URI
-   projectsUrl: URI
-   viewerCanCreateProjects: bool
-
-class DHSSG_ProjectColumnConnection_Field(ProjectColumnConnection):
-   class ProjectColumnConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: ProjectColumnConnectionArgs
-
-
-
-class BOJBP_ProjectCardConnection_Field(ProjectCardConnection):
-   class ProjectCardConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      archivedStates: list[ProjectCardArchivedState]
-
-   _args: ProjectCardConnectionArgs
-
-
-
-class Project(GQLObject):
-   body: str
-   bodyHTML: HTML
-   closed: bool
-   closedAt: DateTime
-   columns: DHSSG_ProjectColumnConnection_Field
-   createdAt: DateTime
-   creator: Actor
-   databaseId: int
-   id: ID
-   name: str
-   number: int
-   owner: ProjectOwner
-   pendingCards: BOJBP_ProjectCardConnection_Field
-   progress: ProjectProgress
-   resourcePath: URI
-   state: ProjectState
-   updatedAt: DateTime
-   url: URI
-   viewerCanClose: bool
-   viewerCanReopen: bool
-   viewerCanUpdate: bool
-
-class PullRequestTemplate(GQLObject):
-   body: str
-   filename: str
-   repository: NewType('Repository', GQLObject) ## Circular Reference for Repository
-
-class RefEdge(GQLObject):
-   cursor: str
-   node: NewType('Ref', GQLObject) ## Circular Reference for Ref
-
-class list_RefEdge(list, RefEdge): pass
-
-class RefConnection(GQLObject):
-   edges: list_RefEdge[RefEdge]
-   nodes: list_GQLObject[GQLObject] ## Circular Reference for Ref
-   pageInfo: PageInfo
-   totalCount: int
-
-class ReleaseEdge(GQLObject):
-   cursor: str
-   node: Release
-
-class list_ReleaseEdge(list, ReleaseEdge): pass
-
-class list_Release(list, Release): pass
-
-class ReleaseConnection(GQLObject):
-   edges: list_ReleaseEdge[ReleaseEdge]
-   nodes: list_Release[Release]
-   pageInfo: PageInfo
-   totalCount: int
-
-class StargazerEdge(GQLObject):
-   cursor: str
-   node: NewType('User', GQLObject) ## Circular Reference for User
-   starredAt: DateTime
-
-class list_StargazerEdge(list, StargazerEdge): pass
-
-class StargazerConnection(GQLObject):
-   edges: list_StargazerEdge[StargazerEdge]
-   nodes: list_GQLObject[GQLObject] ## Circular Reference for User
-   pageInfo: PageInfo
-   totalCount: int
-
-class POPBF_Topic_Field(Generic[Topic]):
-   class TopicArgs(GQLArgsSet, GQLObject):
-      first: int
-
-   _args: TopicArgs
-
-
-
-class OSRYG_RepositoryConnection_Field(RepositoryConnection):
-   class RepositoryConnectionArgs(GQLArgsSet, GQLObject):
-      privacy: RepositoryPrivacy
-      orderBy: RepositoryOrder
-      affiliations: list[RepositoryAffiliation]
-      ownerAffiliations: list[RepositoryAffiliation]
-      isLocked: bool
-      hasIssuesEnabled: bool
-      after: str
-      before: str
-      first: int
-      last: int
-      sponsorableOnly: bool
-
-   _args: RepositoryConnectionArgs
-
-
-
-class WVGDA_StargazerConnection_Field(StargazerConnection):
-   class StargazerConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      orderBy: StarOrder
-
-   _args: StargazerConnectionArgs
-
-
-
-class Topic(GQLObject):
-   id: ID
-   name: str
-   relatedTopics: POPBF_Topic_Field ## Circular Reference for Topic
-   repositories: OSRYG_RepositoryConnection_Field
-   stargazerCount: int
-   stargazers: WVGDA_StargazerConnection_Field
-   viewerHasStarred: bool
-
-class RepositoryTopic(GQLObject):
-   id: ID
-   resourcePath: URI
-   topic: Topic
-   url: URI
-
-class RepositoryTopicEdge(GQLObject):
-   cursor: str
-   node: RepositoryTopic
-
-class list_RepositoryTopicEdge(list, RepositoryTopicEdge): pass
-
-class list_RepositoryTopic(list, RepositoryTopic): pass
-
-class RepositoryTopicConnection(GQLObject):
-   edges: list_RepositoryTopicEdge[RepositoryTopicEdge]
-   nodes: list_RepositoryTopic[RepositoryTopic]
-   pageInfo: PageInfo
-   totalCount: int
-
-class BypassActor(GQLObject): 
-   pass
-
-class RepositoryRulesetBypassActor(GQLObject):
-   actor: BypassActor
-   bypassMode: RepositoryRulesetBypassActorBypassMode
-   id: ID
-   organizationAdmin: bool
-   repositoryRoleDatabaseId: int
-   repositoryRoleName: str
-   repositoryRuleset: NewType('RepositoryRuleset', GQLObject) ## Circular Reference for RepositoryRuleset
-
-class RepositoryRulesetBypassActorEdge(GQLObject):
-   cursor: str
-   node: RepositoryRulesetBypassActor
-
-class list_RepositoryRulesetBypassActorEdge(list, RepositoryRulesetBypassActorEdge): pass
-
-class list_RepositoryRulesetBypassActor(list, RepositoryRulesetBypassActor): pass
-
-class RepositoryRulesetBypassActorConnection(GQLObject):
-   edges: list_RepositoryRulesetBypassActorEdge[RepositoryRulesetBypassActorEdge]
-   nodes: list_RepositoryRulesetBypassActor[RepositoryRulesetBypassActor]
-   pageInfo: PageInfo
-   totalCount: int
-
-class RepositoryRuleConditions(GQLObject):
-   refName: RefNameConditionTarget
-   repositoryId: RepositoryIdConditionTarget
-   repositoryName: RepositoryNameConditionTarget
-
-class list_StatusCheckConfiguration(list, StatusCheckConfiguration): pass
-
-class RequiredStatusChecksParameters(GQLObject):
-   requiredStatusChecks: list_StatusCheckConfiguration[StatusCheckConfiguration]
-   strictRequiredStatusChecksPolicy: bool
-
-class RuleParameters(GQLObject): 
-   pass
-
-class RepositoryRule(GQLObject):
-   id: ID
-   parameters: RuleParameters
-   type: RepositoryRuleType
-
-class RepositoryRuleEdge(GQLObject):
-   cursor: str
-   node: RepositoryRule
-
-class list_RepositoryRuleEdge(list, RepositoryRuleEdge): pass
-
-class list_RepositoryRule(list, RepositoryRule): pass
-
-class RepositoryRuleConnection(GQLObject):
-   edges: list_RepositoryRuleEdge[RepositoryRuleEdge]
-   nodes: list_RepositoryRule[RepositoryRule]
-   pageInfo: PageInfo
-   totalCount: int
-
-class RuleSource(GQLObject): 
-   pass
-
-class CVJDI_RepositoryRulesetBypassActorConnection_Field(RepositoryRulesetBypassActorConnection):
-   class RepositoryRulesetBypassActorConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: RepositoryRulesetBypassActorConnectionArgs
-
-
-
-class AYOMR_RepositoryRuleConnection_Field(RepositoryRuleConnection):
-   class RepositoryRuleConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      type: RepositoryRuleType
-
-   _args: RepositoryRuleConnectionArgs
-
-
-
-class RepositoryRuleset(GQLObject):
-   bypassActors: CVJDI_RepositoryRulesetBypassActorConnection_Field
-   conditions: RepositoryRuleConditions
-   createdAt: DateTime
-   databaseId: int
-   enforcement: RuleEnforcement
-   id: ID
-   name: str
-   rules: AYOMR_RepositoryRuleConnection_Field
-   source: RuleSource
-   target: RepositoryRulesetTarget
-   updatedAt: DateTime
-
-class RepositoryRulesetEdge(GQLObject):
-   cursor: str
-   node: RepositoryRuleset
-
-class list_RepositoryRulesetEdge(list, RepositoryRulesetEdge): pass
-
-class list_RepositoryRuleset(list, RepositoryRuleset): pass
-
-class RepositoryRulesetConnection(GQLObject):
-   edges: list_RepositoryRulesetEdge[RepositoryRulesetEdge]
-   nodes: list_RepositoryRuleset[RepositoryRuleset]
-   pageInfo: PageInfo
-   totalCount: int
-
-class SubmoduleEdge(GQLObject):
-   cursor: str
-   node: Submodule
-
-class list_SubmoduleEdge(list, SubmoduleEdge): pass
-
-class list_Submodule(list, Submodule): pass
-
-class SubmoduleConnection(GQLObject):
-   edges: list_SubmoduleEdge[SubmoduleEdge]
-   nodes: list_Submodule[Submodule]
-   pageInfo: PageInfo
-   totalCount: int
-
-class DependabotUpdate(GQLObject):
-   error: DependabotUpdateError
-   pullRequest: NewType('PullRequest', GQLObject) ## Circular Reference for PullRequest
-   repository: NewType('Repository', GQLObject) ## Circular Reference for Repository
-
-class CWEEdge(GQLObject):
-   cursor: str
-   node: CWE
-
-class list_CWEEdge(list, CWEEdge): pass
-
-class list_CWE(list, CWE): pass
-
-class CWEConnection(GQLObject):
-   edges: list_CWEEdge[CWEEdge]
-   nodes: list_CWE[CWE]
-   pageInfo: PageInfo
-   totalCount: int
-
-class SecurityVulnerability(GQLObject):
-   advisory: NewType('SecurityAdvisory', GQLObject) ## Circular Reference for SecurityAdvisory
-   firstPatchedVersion: SecurityAdvisoryPackageVersion
-   package: SecurityAdvisoryPackage
-   severity: SecurityAdvisorySeverity
-   updatedAt: DateTime
-   vulnerableVersionRange: str
-
-class SecurityVulnerabilityEdge(GQLObject):
-   cursor: str
-   node: SecurityVulnerability
-
-class list_SecurityVulnerabilityEdge(list, SecurityVulnerabilityEdge): pass
-
-class list_SecurityVulnerability(list, SecurityVulnerability): pass
-
-class SecurityVulnerabilityConnection(GQLObject):
-   edges: list_SecurityVulnerabilityEdge[SecurityVulnerabilityEdge]
-   nodes: list_SecurityVulnerability[SecurityVulnerability]
-   pageInfo: PageInfo
-   totalCount: int
-
-class ENNEW_CWEConnection_Field(CWEConnection):
-   class CWEConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: CWEConnectionArgs
-
-
-
-class list_SecurityAdvisoryIdentifier(list, SecurityAdvisoryIdentifier): pass
-
-class list_SecurityAdvisoryReference(list, SecurityAdvisoryReference): pass
-
-class NonNull_SecurityAdvisorySeverity(GQLObject): pass
-
-class NonNull_SecurityAdvisoryClassification(GQLObject): pass
-
-class THQIY_SecurityVulnerabilityConnection_Field(SecurityVulnerabilityConnection):
-   class SecurityVulnerabilityConnectionArgs(GQLArgsSet, GQLObject):
-      orderBy: SecurityVulnerabilityOrder
-      ecosystem: SecurityAdvisoryEcosystem
-      package: str
-      severities: list[NonNull_SecurityAdvisorySeverity]
-      classifications: list[NonNull_SecurityAdvisoryClassification]
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: SecurityVulnerabilityConnectionArgs
-
-
-
-class SecurityAdvisory(GQLObject):
-   classification: SecurityAdvisoryClassification
-   cvss: CVSS
-   cwes: ENNEW_CWEConnection_Field
-   databaseId: int
-   description: str
-   ghsaId: str
-   id: ID
-   identifiers: list_SecurityAdvisoryIdentifier[SecurityAdvisoryIdentifier]
-   notificationsPermalink: URI
-   origin: str
-   permalink: URI
-   publishedAt: DateTime
-   references: list_SecurityAdvisoryReference[SecurityAdvisoryReference]
-   severity: SecurityAdvisorySeverity
-   summary: str
-   updatedAt: DateTime
-   vulnerabilities: THQIY_SecurityVulnerabilityConnection_Field
-   withdrawnAt: DateTime
-
-class RepositoryVulnerabilityAlert(GQLObject):
-   autoDismissedAt: DateTime
-   createdAt: DateTime
-   dependabotUpdate: DependabotUpdate
-   dependencyScope: RepositoryVulnerabilityAlertDependencyScope
-   dismissComment: str
-   dismissReason: str
-   dismissedAt: DateTime
-   dismisser: NewType('User', GQLObject) ## Circular Reference for User
-   fixedAt: DateTime
-   id: ID
-   number: int
-   repository: NewType('Repository', GQLObject) ## Circular Reference for Repository
-   securityAdvisory: SecurityAdvisory
-   securityVulnerability: SecurityVulnerability
-   state: RepositoryVulnerabilityAlertState
-   vulnerableManifestFilename: str
-   vulnerableManifestPath: str
-   vulnerableRequirements: str
-
-class RepositoryVulnerabilityAlertEdge(GQLObject):
-   cursor: str
-   node: RepositoryVulnerabilityAlert
-
-class list_RepositoryVulnerabilityAlertEdge(list, RepositoryVulnerabilityAlertEdge): pass
-
-class list_RepositoryVulnerabilityAlert(list, RepositoryVulnerabilityAlert): pass
-
-class RepositoryVulnerabilityAlertConnection(GQLObject):
-   edges: list_RepositoryVulnerabilityAlertEdge[RepositoryVulnerabilityAlertEdge]
-   nodes: list_RepositoryVulnerabilityAlert[RepositoryVulnerabilityAlert]
-   pageInfo: PageInfo
-   totalCount: int
-
-class UPXBC_UserConnection_Field(UserConnection):
-   class UserConnectionArgs(GQLArgsSet, GQLObject):
-      query: str
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: UserConnectionArgs
-
-
-
-class YSHOJ_BranchProtectionRuleConnection_Field(BranchProtectionRuleConnection):
-   class BranchProtectionRuleConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: BranchProtectionRuleConnectionArgs
-
-
-
-class HJUVA_RepositoryCodeowners_Field(RepositoryCodeowners):
-   class RepositoryCodeownersArgs(GQLArgsSet, GQLObject):
-      refName: str
-
-   _args: RepositoryCodeownersArgs
-
-
-
-class AACLB_RepositoryCollaboratorConnection_Field(RepositoryCollaboratorConnection):
-   class RepositoryCollaboratorConnectionArgs(GQLArgsSet, GQLObject):
-      affiliation: CollaboratorAffiliation
-      login: str
-      query: str
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: RepositoryCollaboratorConnectionArgs
-
-
-
-class BCJQJ_CommitCommentConnection_Field(Generic[CommitCommentConnection]):
-   class CommitCommentConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: CommitCommentConnectionArgs
-
-
-
-class list_RepositoryContactLink(list, RepositoryContactLink): pass
-
-class XWMWZ_DeployKeyConnection_Field(DeployKeyConnection):
-   class DeployKeyConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: DeployKeyConnectionArgs
-
-
-
-class DDQMY_DeploymentConnection_Field(DeploymentConnection):
-   class DeploymentConnectionArgs(GQLArgsSet, GQLObject):
-      environments: list[NonNull_str]
-      orderBy: DeploymentOrder
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: DeploymentConnectionArgs
-
-
-
-class BFEND_Discussion_Field(Discussion):
-   class DiscussionArgs(GQLArgsSet, GQLObject):
-      number: NonNull_int
-
-   _args: DiscussionArgs
-
-
-
-class AANJP_DiscussionCategoryConnection_Field(DiscussionCategoryConnection):
-   class DiscussionCategoryConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      filterByAssignable: bool
-
-   _args: DiscussionCategoryConnectionArgs
-
-
-
-class KFYYY_DiscussionCategory_Field(DiscussionCategory):
-   class DiscussionCategoryArgs(GQLArgsSet, GQLObject):
-      slug: NonNull_str
-
-   _args: DiscussionCategoryArgs
-
-
-
-class NonNull_DiscussionState(GQLObject): pass
-
-class JSPTL_DiscussionConnection_Field(DiscussionConnection):
-   class DiscussionConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      categoryId: ID
-      states: list[NonNull_DiscussionState]
-      orderBy: DiscussionOrder
-
-   _args: DiscussionConnectionArgs
-
-
-
-class YYBNN_Environment_Field(Environment):
-   class EnvironmentArgs(GQLArgsSet, GQLObject):
-      name: NonNull_str
-
-   _args: EnvironmentArgs
-
-
-
-class SOFZK_EnvironmentConnection_Field(EnvironmentConnection):
-   class EnvironmentConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      orderBy: Environments
-
-   _args: EnvironmentConnectionArgs
-
-
-
-class MBZLL_RepositoryConnection_Field(RepositoryConnection):
-   class RepositoryConnectionArgs(GQLArgsSet, GQLObject):
-      privacy: RepositoryPrivacy
-      orderBy: RepositoryOrder
-      affiliations: list[RepositoryAffiliation]
-      ownerAffiliations: list[RepositoryAffiliation]
-      isLocked: bool
-      hasIssuesEnabled: bool
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: RepositoryConnectionArgs
-
-
-
-class list_FundingLink(list, FundingLink): pass
-
-class STLEW_Issue_Field(Generic[Issue]):
-   class IssueArgs(GQLArgsSet, GQLObject):
-      number: NonNull_int
-
-   _args: IssueArgs
-
-
-
-class YOHBQ_IssueOrPullRequest_Field(IssueOrPullRequest):
-   class IssueOrPullRequestArgs(GQLArgsSet, GQLObject):
-      number: NonNull_int
-
-   _args: IssueOrPullRequestArgs
-
-
-
-class list_IssueTemplate(list, IssueTemplate): pass
-
-class WHHMT_IssueConnection_Field(IssueConnection):
-   class IssueConnectionArgs(GQLArgsSet, GQLObject):
-      orderBy: IssueOrder
-      labels: list[NonNull_str]
-      states: list[NonNull_IssueState]
-      filterBy: IssueFilters
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: IssueConnectionArgs
-
-
-
-class MZSIB_Label_Field(Label):
-   class LabelArgs(GQLArgsSet, GQLObject):
-      name: NonNull_str
-
-   _args: LabelArgs
-
-
-
-class TNBTX_LabelConnection_Field(LabelConnection):
-   class LabelConnectionArgs(GQLArgsSet, GQLObject):
-      orderBy: LabelOrder
-      after: str
-      before: str
-      first: int
-      last: int
-      query: str
-
-   _args: LabelConnectionArgs
-
-
-
-class SXOUA_LanguageConnection_Field(LanguageConnection):
-   class LanguageConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      orderBy: LanguageOrder
-
-   _args: LanguageConnectionArgs
-
-
-
-class YOEEG_UserConnection_Field(UserConnection):
-   class UserConnectionArgs(GQLArgsSet, GQLObject):
-      query: str
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: UserConnectionArgs
-
-
-
-class MWJET_MergeQueue_Field(MergeQueue):
-   class MergeQueueArgs(GQLArgsSet, GQLObject):
-      branch: str
-
-   _args: MergeQueueArgs
-
-
-
-class ZMOMX_Milestone_Field(Milestone):
-   class MilestoneArgs(GQLArgsSet, GQLObject):
-      number: NonNull_int
-
-   _args: MilestoneArgs
-
-
-
-class NonNull_MilestoneState(GQLObject): pass
-
-class KVHXW_MilestoneConnection_Field(MilestoneConnection):
-   class MilestoneConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      states: list[NonNull_MilestoneState]
-      orderBy: MilestoneOrder
-      query: str
-
-   _args: MilestoneConnectionArgs
-
-
-
-class IWPWK_GitObject_Field(GitObject):
-   class GitObjectArgs(GQLArgsSet, GQLObject):
-      oid: GitObjectID
-      expression: str
-
-   _args: GitObjectArgs
-
-
-
-class NSDSF_PackageConnection_Field(PackageConnection):
-   class PackageConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      names: list[str]
-      repositoryId: ID
-      packageType: PackageType
-      orderBy: PackageOrder
-
-   _args: PackageConnectionArgs
-
-
-
-class RTAYW_PinnedDiscussionConnection_Field(PinnedDiscussionConnection):
-   class PinnedDiscussionConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: PinnedDiscussionConnectionArgs
-
-
-
-class LAQDG_PinnedIssueConnection_Field(PinnedIssueConnection):
-   class PinnedIssueConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: PinnedIssueConnectionArgs
-
-
-
-class QKXAP_Project_Field(Project):
-   class ProjectArgs(GQLArgsSet, GQLObject):
-      number: NonNull_int
-
-   _args: ProjectArgs
-
-
-
-class LRARV_ProjectV2_Field(Generic[ProjectV2]):
-   class ProjectV2Args(GQLArgsSet, GQLObject):
-      number: NonNull_int
-
-   _args: ProjectV2Args
-
-
-
-class QBLDW_ProjectConnection_Field(ProjectConnection):
-   class ProjectConnectionArgs(GQLArgsSet, GQLObject):
-      orderBy: ProjectOrder
-      search: str
-      states: list[NonNull_ProjectState]
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: ProjectConnectionArgs
-
-
-
-class JGZMB_ProjectV2Connection_Field(ProjectV2Connection):
-   class ProjectV2ConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      query: str
-      orderBy: ProjectV2Order
-
-   _args: ProjectV2ConnectionArgs
-
-
-
-class JRFVA_PullRequest_Field(Generic[PullRequest]):
-   class PullRequestArgs(GQLArgsSet, GQLObject):
-      number: NonNull_int
-
-   _args: PullRequestArgs
-
-
-
-class list_PullRequestTemplate(list, PullRequestTemplate): pass
-
-class SAZIB_PullRequestConnection_Field(Generic[PullRequestConnection]):
-   class PullRequestConnectionArgs(GQLArgsSet, GQLObject):
-      states: list[NonNull_PullRequestState]
-      labels: list[NonNull_str]
-      headRefName: str
-      baseRefName: str
-      orderBy: IssueOrder
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: PullRequestConnectionArgs
-
-
-
-class MNKKL_ProjectV2Connection_Field(ProjectV2Connection):
-   class ProjectV2ConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: ProjectV2ConnectionArgs
-
-
-
-class ZHVSO_Ref_Field(Generic[Ref]):
-   class RefArgs(GQLArgsSet, GQLObject):
-      qualifiedName: NonNull_str
-
-   _args: RefArgs
-
-
-
-class YHVYN_RefConnection_Field(RefConnection):
-   class RefConnectionArgs(GQLArgsSet, GQLObject):
-      query: str
-      after: str
-      before: str
-      first: int
-      last: int
-      refPrefix: NonNull_str
-      direction: OrderDirection
-      orderBy: RefOrder
-
-   _args: RefConnectionArgs
-
-
-
-class DSPVY_Release_Field(Release):
-   class ReleaseArgs(GQLArgsSet, GQLObject):
-      tagName: NonNull_str
-
-   _args: ReleaseArgs
-
-
-
-class KLALJ_ReleaseConnection_Field(ReleaseConnection):
-   class ReleaseConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      orderBy: ReleaseOrder
-
-   _args: ReleaseConnectionArgs
-
-
-
-class IPZSM_RepositoryTopicConnection_Field(RepositoryTopicConnection):
-   class RepositoryTopicConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: RepositoryTopicConnectionArgs
-
-
-
-class JRRMJ_RepositoryRuleset_Field(RepositoryRuleset):
-   class RepositoryRulesetArgs(GQLArgsSet, GQLObject):
-      includeParents: bool
-      databaseId: NonNull_int
-
-   _args: RepositoryRulesetArgs
-
-
-
-class GQEAH_RepositoryRulesetConnection_Field(RepositoryRulesetConnection):
-   class RepositoryRulesetConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      includeParents: bool
-
-   _args: RepositoryRulesetConnectionArgs
-
-
-
-class EZIIW_StargazerConnection_Field(StargazerConnection):
-   class StargazerConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      orderBy: StarOrder
-
-   _args: StargazerConnectionArgs
-
-
-
-class BXNZQ_SubmoduleConnection_Field(SubmoduleConnection):
-   class SubmoduleConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: SubmoduleConnectionArgs
-
-
-
-class XDADK_RepositoryVulnerabilityAlert_Field(RepositoryVulnerabilityAlert):
-   class RepositoryVulnerabilityAlertArgs(GQLArgsSet, GQLObject):
-      number: NonNull_int
-
-   _args: RepositoryVulnerabilityAlertArgs
-
-
-
-class NonNull_RepositoryVulnerabilityAlertState(GQLObject): pass
-
-class NonNull_RepositoryVulnerabilityAlertDependencyScope(GQLObject): pass
-
-class KPJZN_RepositoryVulnerabilityAlertConnection_Field(RepositoryVulnerabilityAlertConnection):
-   class RepositoryVulnerabilityAlertConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      states: list[NonNull_RepositoryVulnerabilityAlertState]
-      dependencyScopes: list[NonNull_RepositoryVulnerabilityAlertDependencyScope]
-
-   _args: RepositoryVulnerabilityAlertConnectionArgs
-
-
-
-class UUMEC_UserConnection_Field(UserConnection):
-   class UserConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: UserConnectionArgs
-
-
-
-class Repository(GQLObject):
-   allowUpdateBranch: bool
-   archivedAt: DateTime
-   assignableUsers: UPXBC_UserConnection_Field
-   autoMergeAllowed: bool
-   branchProtectionRules: YSHOJ_BranchProtectionRuleConnection_Field
-   codeOfConduct: CodeOfConduct
-   codeowners: HJUVA_RepositoryCodeowners_Field
-   collaborators: AACLB_RepositoryCollaboratorConnection_Field
-   commitComments: BCJQJ_CommitCommentConnection_Field ## Circular Reference for CommitCommentConnection
-   contactLinks: list_RepositoryContactLink[RepositoryContactLink]
-   createdAt: DateTime
-   databaseId: int
-   defaultBranchRef: NewType('Ref', GQLObject) ## Circular Reference for Ref
-   deleteBranchOnMerge: bool
-   deployKeys: XWMWZ_DeployKeyConnection_Field
-   deployments: DDQMY_DeploymentConnection_Field
-   description: str
-   descriptionHTML: HTML
-   discussion: BFEND_Discussion_Field
-   discussionCategories: AANJP_DiscussionCategoryConnection_Field
-   discussionCategory: KFYYY_DiscussionCategory_Field
-   discussions: JSPTL_DiscussionConnection_Field
-   diskUsage: int
-   environment: YYBNN_Environment_Field
-   environments: SOFZK_EnvironmentConnection_Field
-   forkCount: int
-   forkingAllowed: bool
-   forks: MBZLL_RepositoryConnection_Field
-   fundingLinks: list_FundingLink[FundingLink]
-   hasDiscussionsEnabled: bool
-   hasIssuesEnabled: bool
-   hasProjectsEnabled: bool
-   hasVulnerabilityAlertsEnabled: bool
-   hasWikiEnabled: bool
-   homepageUrl: URI
-   id: ID
-   interactionAbility: RepositoryInteractionAbility
-   isArchived: bool
-   isBlankIssuesEnabled: bool
-   isDisabled: bool
-   isEmpty: bool
-   isFork: bool
-   isInOrganization: bool
-   isLocked: bool
-   isMirror: bool
-   isPrivate: bool
-   isSecurityPolicyEnabled: bool
-   isTemplate: bool
-   isUserConfigurationRepository: bool
-   issue: STLEW_Issue_Field ## Circular Reference for Issue
-   issueOrPullRequest: YOHBQ_IssueOrPullRequest_Field
-   issueTemplates: list_IssueTemplate[IssueTemplate]
-   issues: WHHMT_IssueConnection_Field
-   label: MZSIB_Label_Field
-   labels: TNBTX_LabelConnection_Field
-   languages: SXOUA_LanguageConnection_Field
-   latestRelease: Release
-   licenseInfo: License
-   lockReason: RepositoryLockReason
-   mentionableUsers: YOEEG_UserConnection_Field
-   mergeCommitAllowed: bool
-   mergeCommitMessage: MergeCommitMessage
-   mergeCommitTitle: MergeCommitTitle
-   mergeQueue: MWJET_MergeQueue_Field
-   milestone: ZMOMX_Milestone_Field
-   milestones: KVHXW_MilestoneConnection_Field
-   mirrorUrl: URI
-   name: str
-   nameWithOwner: str
-   object: IWPWK_GitObject_Field
-   openGraphImageUrl: URI
-   owner: RepositoryOwner
-   packages: NSDSF_PackageConnection_Field
-   parent: NewType('Repository', GQLObject) ## Circular Reference for Repository
-   pinnedDiscussions: RTAYW_PinnedDiscussionConnection_Field
-   pinnedIssues: LAQDG_PinnedIssueConnection_Field
-   primaryLanguage: Language
-   project: QKXAP_Project_Field
-   projectV2: LRARV_ProjectV2_Field ## Circular Reference for ProjectV2
-   projects: QBLDW_ProjectConnection_Field
-   projectsResourcePath: URI
-   projectsUrl: URI
-   projectsV2: JGZMB_ProjectV2Connection_Field
-   pullRequest: JRFVA_PullRequest_Field ## Circular Reference for PullRequest
-   pullRequestTemplates: list_PullRequestTemplate[PullRequestTemplate]
-   pullRequests: SAZIB_PullRequestConnection_Field ## Circular Reference for PullRequestConnection
-   pushedAt: DateTime
-   rebaseMergeAllowed: bool
-   recentProjects: MNKKL_ProjectV2Connection_Field
-   ref: ZHVSO_Ref_Field ## Circular Reference for Ref
-   refs: YHVYN_RefConnection_Field
-   release: DSPVY_Release_Field
-   releases: KLALJ_ReleaseConnection_Field
-   repositoryTopics: IPZSM_RepositoryTopicConnection_Field
-   resourcePath: URI
-   ruleset: JRRMJ_RepositoryRuleset_Field
-   rulesets: GQEAH_RepositoryRulesetConnection_Field
-   securityPolicyUrl: URI
-   shortDescriptionHTML: ADGTL_HTML_Field
-   squashMergeAllowed: bool
-   squashMergeCommitMessage: SquashMergeCommitMessage
-   squashMergeCommitTitle: SquashMergeCommitTitle
-   sshUrl: GitSSHRemote
-   stargazerCount: int
-   stargazers: EZIIW_StargazerConnection_Field
-   submodules: BXNZQ_SubmoduleConnection_Field
-   tempCloneToken: str
-   templateRepository: NewType('Repository', GQLObject) ## Circular Reference for Repository
-   updatedAt: DateTime
-   url: URI
-   usesCustomOpenGraphImage: bool
-   viewerCanAdminister: bool
-   viewerCanCreateProjects: bool
-   viewerCanSubscribe: bool
-   viewerCanUpdateTopics: bool
-   viewerDefaultCommitEmail: str
-   viewerDefaultMergeMethod: PullRequestMergeMethod
-   viewerHasStarred: bool
-   viewerPermission: RepositoryPermission
-   viewerPossibleCommitEmails: list[str]
-   viewerSubscription: SubscriptionState
-   visibility: RepositoryVisibility
-   vulnerabilityAlert: XDADK_RepositoryVulnerabilityAlert_Field
-   vulnerabilityAlerts: KPJZN_RepositoryVulnerabilityAlertConnection_Field
-   watchers: UUMEC_UserConnection_Field
-   webCommitSignoffRequired: bool
-
-class RMWHB_ReactionConnection_Field(ReactionConnection):
-   class ReactionConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      content: ReactionContent
-      orderBy: ReactionOrder
-
-   _args: ReactionConnectionArgs
-
-
-
-class ZOCPG_UserContentEditConnection_Field(UserContentEditConnection):
-   class UserContentEditConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: UserContentEditConnectionArgs
-
-
-
-class IssueComment(GQLObject):
-   author: Actor
-   authorAssociation: CommentAuthorAssociation
-   body: str
-   bodyHTML: HTML
-   bodyText: str
-   createdAt: DateTime
-   createdViaEmail: bool
-   databaseId: int
-   editor: Actor
-   fullDatabaseId: BigInt
-   id: ID
-   includesCreatedEdit: bool
-   isMinimized: bool
-   issue: NewType('Issue', GQLObject) ## Circular Reference for Issue
-   lastEditedAt: DateTime
-   minimizedReason: str
-   publishedAt: DateTime
-   pullRequest: NewType('PullRequest', GQLObject) ## Circular Reference for PullRequest
-   reactionGroups: list_ReactionGroup[ReactionGroup]
-   reactions: RMWHB_ReactionConnection_Field
-   repository: Repository
-   resourcePath: URI
-   updatedAt: DateTime
-   url: URI
-   userContentEdits: ZOCPG_UserContentEditConnection_Field
-   viewerCanDelete: bool
-   viewerCanMinimize: bool
-   viewerCanReact: bool
-   viewerCanUpdate: bool
-   viewerCannotUpdateReasons: list[CommentCannotUpdateReason]
-   viewerDidAuthor: bool
-
-class IssueCommentEdge(GQLObject):
-   cursor: str
-   node: IssueComment
-
-class list_IssueCommentEdge(list, IssueCommentEdge): pass
-
-class list_IssueComment(list, IssueComment): pass
-
-class IssueCommentConnection(GQLObject):
-   edges: list_IssueCommentEdge[IssueCommentEdge]
-   nodes: list_IssueComment[IssueComment]
-   pageInfo: PageInfo
-   totalCount: int
-
-class list_HovercardContext(list, HovercardContext): pass
-
-class Hovercard(GQLObject):
-   contexts: list_HovercardContext[HovercardContext]
-
-class LinkedBranch(GQLObject):
-   id: ID
-   ref: NewType('Ref', GQLObject) ## Circular Reference for Ref
-
-class LinkedBranchEdge(GQLObject):
-   cursor: str
-   node: LinkedBranch
-
-class list_LinkedBranchEdge(list, LinkedBranchEdge): pass
-
-class list_LinkedBranch(list, LinkedBranch): pass
-
-class LinkedBranchConnection(GQLObject):
-   edges: list_LinkedBranchEdge[LinkedBranchEdge]
-   nodes: list_LinkedBranch[LinkedBranch]
-   pageInfo: PageInfo
-   totalCount: int
-
-class RWBIL_UserConnection_Field(UserConnection):
-   class UserConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: UserConnectionArgs
-
-
-
-class Assignable(GQLObject):
-   assignees: RWBIL_UserConnection_Field
-
-class Assignee(GQLObject): 
-   pass
-
-class AssignedEvent(GQLObject):
-   actor: Actor
-   assignable: Assignable
-   assignee: Assignee
-   createdAt: DateTime
-   id: ID
-
-class Closer(GQLObject): 
-   pass
-
-class ClosedEvent(GQLObject):
-   actor: Actor
-   closable: Closable
-   closer: Closer
-   createdAt: DateTime
-   id: ID
-   resourcePath: URI
-   stateReason: IssueStateReason
-   url: URI
-
-class ReferencedSubject(GQLObject): 
-   pass
-
-class CrossReferencedEvent(GQLObject):
-   actor: Actor
-   createdAt: DateTime
-   id: ID
-   isCrossRepository: bool
-   referencedAt: DateTime
-   resourcePath: URI
-   source: ReferencedSubject
-   target: ReferencedSubject
-   url: URI
-   willCloseTarget: bool
-
-class MilestoneItem(GQLObject): 
-   pass
-
-class DemilestonedEvent(GQLObject):
-   actor: Actor
-   createdAt: DateTime
-   id: ID
-   milestoneTitle: str
-   subject: MilestoneItem
-
-class AZFGO_LabelConnection_Field(LabelConnection):
-   class LabelConnectionArgs(GQLArgsSet, GQLObject):
-      orderBy: LabelOrder
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: LabelConnectionArgs
-
-
-
-class Labelable(GQLObject):
-   labels: AZFGO_LabelConnection_Field
-
-class LabeledEvent(GQLObject):
-   actor: Actor
-   createdAt: DateTime
-   id: ID
-   label: Label
-   labelable: Labelable
-
-class LockedEvent(GQLObject):
-   actor: Actor
-   createdAt: DateTime
-   id: ID
-   lockReason: LockReason
-   lockable: Lockable
-
-class MilestonedEvent(GQLObject):
-   actor: Actor
-   createdAt: DateTime
-   id: ID
-   milestoneTitle: str
-   subject: MilestoneItem
-
-class ReferencedEvent(GQLObject):
-   actor: Actor
-   commit: NewType('Commit', GQLObject) ## Circular Reference for Commit
-   commitRepository: Repository
-   createdAt: DateTime
-   id: ID
-   isCrossRepository: bool
-   isDirectReference: bool
-   subject: ReferencedSubject
-
-class RenamedTitleSubject(GQLObject): 
-   pass
-
-class RenamedTitleEvent(GQLObject):
-   actor: Actor
-   createdAt: DateTime
-   currentTitle: str
-   id: ID
-   previousTitle: str
-   subject: RenamedTitleSubject
-
-class ReopenedEvent(GQLObject):
-   actor: Actor
-   closable: Closable
-   createdAt: DateTime
-   id: ID
-   stateReason: IssueStateReason
-
-class SubscribedEvent(GQLObject):
-   actor: Actor
-   createdAt: DateTime
-   id: ID
-   subscribable: Subscribable
-
-class TransferredEvent(GQLObject):
-   actor: Actor
-   createdAt: DateTime
-   fromRepository: Repository
-   id: ID
-   issue: NewType('Issue', GQLObject) ## Circular Reference for Issue
-
-class UnassignedEvent(GQLObject):
-   actor: Actor
-   assignable: Assignable
-   assignee: Assignee
-   createdAt: DateTime
-   id: ID
-
-class UnlabeledEvent(GQLObject):
-   actor: Actor
-   createdAt: DateTime
-   id: ID
-   label: Label
-   labelable: Labelable
-
-class UnlockedEvent(GQLObject):
-   actor: Actor
-   createdAt: DateTime
-   id: ID
-   lockable: Lockable
-
-class UnsubscribedEvent(GQLObject):
-   actor: Actor
-   createdAt: DateTime
-   id: ID
-   subscribable: Subscribable
-
-class UserBlockedEvent(GQLObject):
-   actor: Actor
-   blockDuration: UserBlockDuration
-   createdAt: DateTime
-   id: ID
-   subject: NewType('User', GQLObject) ## Circular Reference for User
-
-class IssueTimelineItem(GQLObject): 
-   pass
-
-class IssueTimelineItemEdge(GQLObject):
-   cursor: str
-   node: IssueTimelineItem
-
-class list_IssueTimelineItemEdge(list, IssueTimelineItemEdge): pass
-
-class list_IssueTimelineItem(list, IssueTimelineItem): pass
-
-class IssueTimelineConnection(GQLObject):
-   edges: list_IssueTimelineItemEdge[IssueTimelineItemEdge]
-   nodes: list_IssueTimelineItem[IssueTimelineItem]
-   pageInfo: PageInfo
-   totalCount: int
-
-class AddedToProjectEvent(GQLObject):
-   actor: Actor
-   createdAt: DateTime
-   databaseId: int
-   id: ID
-
-class CommentDeletedEvent(GQLObject):
-   actor: Actor
-   createdAt: DateTime
-   databaseId: int
-   deletedCommentAuthor: Actor
-   id: ID
-
-class ConnectedEvent(GQLObject):
-   actor: Actor
-   createdAt: DateTime
-   id: ID
-   isCrossRepository: bool
-   source: ReferencedSubject
-   subject: ReferencedSubject
-
-class ConvertedNoteToIssueEvent(GQLObject):
-   actor: Actor
-   createdAt: DateTime
-   databaseId: int
-   id: ID
-
-class ConvertedToDiscussionEvent(GQLObject):
-   actor: Actor
-   createdAt: DateTime
-   discussion: Discussion
-   id: ID
-
-class DisconnectedEvent(GQLObject):
-   actor: Actor
-   createdAt: DateTime
-   id: ID
-   isCrossRepository: bool
-   source: ReferencedSubject
-   subject: ReferencedSubject
-
-class MarkedAsDuplicateEvent(GQLObject):
-   actor: Actor
-   canonical: IssueOrPullRequest
-   createdAt: DateTime
-   duplicate: IssueOrPullRequest
-   id: ID
-   isCrossRepository: bool
-
-class MentionedEvent(GQLObject):
-   actor: Actor
-   createdAt: DateTime
-   databaseId: int
-   id: ID
-
-class MovedColumnsInProjectEvent(GQLObject):
-   actor: Actor
-   createdAt: DateTime
-   databaseId: int
-   id: ID
-
-class PinnedEvent(GQLObject):
-   actor: Actor
-   createdAt: DateTime
-   id: ID
-   issue: NewType('Issue', GQLObject) ## Circular Reference for Issue
-
-class RemovedFromProjectEvent(GQLObject):
-   actor: Actor
-   createdAt: DateTime
-   databaseId: int
-   id: ID
-
-class UnmarkedAsDuplicateEvent(GQLObject):
-   actor: Actor
-   canonical: IssueOrPullRequest
-   createdAt: DateTime
-   duplicate: IssueOrPullRequest
-   id: ID
-   isCrossRepository: bool
-
-class UnpinnedEvent(GQLObject):
-   actor: Actor
-   createdAt: DateTime
-   id: ID
-   issue: NewType('Issue', GQLObject) ## Circular Reference for Issue
-
-class IssueTimelineItems(GQLObject): 
-   pass
-
-class IssueTimelineItemsEdge(GQLObject):
-   cursor: str
-   node: IssueTimelineItems
-
-class list_IssueTimelineItemsEdge(list, IssueTimelineItemsEdge): pass
-
-class list_IssueTimelineItems(list, IssueTimelineItems): pass
-
-class IssueTimelineItemsConnection(GQLObject):
-   edges: list_IssueTimelineItemsEdge[IssueTimelineItemsEdge]
-   filteredCount: int
-   nodes: list_IssueTimelineItems[IssueTimelineItems]
-   pageCount: int
-   pageInfo: PageInfo
-   totalCount: int
-   updatedAt: DateTime
-
-class PGHJO_UserConnection_Field(UserConnection):
-   class UserConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: UserConnectionArgs
-
-
-
-class XXBRQ_IssueCommentConnection_Field(IssueCommentConnection):
-   class IssueCommentConnectionArgs(GQLArgsSet, GQLObject):
-      orderBy: IssueCommentOrder
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: IssueCommentConnectionArgs
-
-
-
-class EAJER_Hovercard_Field(Hovercard):
-   class HovercardArgs(GQLArgsSet, GQLObject):
-      includeNotificationContexts: bool
-
-   _args: HovercardArgs
-
-
-
-class UZABV_LabelConnection_Field(LabelConnection):
-   class LabelConnectionArgs(GQLArgsSet, GQLObject):
-      orderBy: LabelOrder
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: LabelConnectionArgs
-
-
-
-class ZGMUJ_LinkedBranchConnection_Field(LinkedBranchConnection):
-   class LinkedBranchConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: LinkedBranchConnectionArgs
-
-
-
-class EHHMW_UserConnection_Field(UserConnection):
-   class UserConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: UserConnectionArgs
-
-
-
-class YNKYW_ProjectCardConnection_Field(ProjectCardConnection):
-   class ProjectCardConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      archivedStates: list[ProjectCardArchivedState]
-
-   _args: ProjectCardConnectionArgs
-
-
-
-class JRVGY_ProjectV2ItemConnection_Field(Generic[ProjectV2ItemConnection]):
-   class ProjectV2ItemConnectionArgs(GQLArgsSet, GQLObject):
-      includeArchived: bool
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: ProjectV2ItemConnectionArgs
-
-
-
-class NZJKK_ProjectV2_Field(Generic[ProjectV2]):
-   class ProjectV2Args(GQLArgsSet, GQLObject):
-      number: NonNull_int
-
-   _args: ProjectV2Args
-
-
-
-class SLBFT_ProjectV2Connection_Field(ProjectV2Connection):
-   class ProjectV2ConnectionArgs(GQLArgsSet, GQLObject):
-      query: str
-      orderBy: ProjectV2Order
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: ProjectV2ConnectionArgs
-
-
-
-class ULLIK_ReactionConnection_Field(ReactionConnection):
-   class ReactionConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      content: ReactionContent
-      orderBy: ReactionOrder
-
-   _args: ReactionConnectionArgs
-
-
-
-class NonNull_IssueTimelineItemsItemType(GQLObject): pass
-
-class ORYLZ_IssueTimelineItemsConnection_Field(IssueTimelineItemsConnection):
-   class IssueTimelineItemsConnectionArgs(GQLArgsSet, GQLObject):
-      since: DateTime
-      skip: int
-      itemTypes: list[NonNull_IssueTimelineItemsItemType]
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: IssueTimelineItemsConnectionArgs
-
-
-
-class TILHH_IssueConnection_Field(IssueConnection):
-   class IssueConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: IssueConnectionArgs
-
-
-
-class UETKC_IssueConnection_Field(IssueConnection):
-   class IssueConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: IssueConnectionArgs
-
-
-
-class FCEAN_UserContentEditConnection_Field(UserContentEditConnection):
-   class UserContentEditConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: UserContentEditConnectionArgs
-
-
-
-class Issue(GQLObject):
-   activeLockReason: LockReason
-   assignees: PGHJO_UserConnection_Field
-   author: Actor
-   authorAssociation: CommentAuthorAssociation
-   body: str
-   bodyHTML: HTML
-   bodyResourcePath: URI
-   bodyText: str
-   bodyUrl: URI
-   closed: bool
-   closedAt: DateTime
-   comments: XXBRQ_IssueCommentConnection_Field
-   createdAt: DateTime
-   createdViaEmail: bool
-   databaseId: int
-   editor: Actor
-   fullDatabaseId: BigInt
-   hovercard: EAJER_Hovercard_Field
-   id: ID
-   includesCreatedEdit: bool
-   isPinned: bool
-   isReadByViewer: bool
-   labels: UZABV_LabelConnection_Field
-   lastEditedAt: DateTime
-   linkedBranches: ZGMUJ_LinkedBranchConnection_Field
-   locked: bool
-   milestone: Milestone
-   number: int
-   participants: EHHMW_UserConnection_Field
-   projectCards: YNKYW_ProjectCardConnection_Field
-   projectItems: JRVGY_ProjectV2ItemConnection_Field ## Circular Reference for ProjectV2ItemConnection
-   projectV2: NZJKK_ProjectV2_Field ## Circular Reference for ProjectV2
-   projectsV2: SLBFT_ProjectV2Connection_Field
-   publishedAt: DateTime
-   reactionGroups: list_ReactionGroup[ReactionGroup]
-   reactions: ULLIK_ReactionConnection_Field
-   repository: Repository
-   resourcePath: URI
-   state: IssueState
-   stateReason: IssueStateReason
-   timelineItems: ORYLZ_IssueTimelineItemsConnection_Field
-   title: str
-   titleHTML: str
-   trackedInIssues: TILHH_IssueConnection_Field
-   trackedIssues: UETKC_IssueConnection_Field
-   trackedIssuesCount: JQEWT_trackedIssuesCount_Field
-   updatedAt: DateTime
-   url: URI
-   userContentEdits: FCEAN_UserContentEditConnection_Field
-   viewerCanClose: bool
-   viewerCanDelete: bool
-   viewerCanReact: bool
-   viewerCanReopen: bool
-   viewerCanSubscribe: bool
-   viewerCanUpdate: bool
-   viewerCannotUpdateReasons: list[CommentCannotUpdateReason]
-   viewerDidAuthor: bool
-   viewerSubscription: SubscriptionState
-   viewerThreadSubscriptionFormAction: ThreadSubscriptionFormAction
-   viewerThreadSubscriptionStatus: ThreadSubscriptionState
-
-class ProjectV2ItemContent(GQLObject): 
-   pass
-
-class ProjectV2ItemFieldDateValue(GQLObject):
-   createdAt: DateTime
-   creator: Actor
-   databaseId: int
-   date: Date
-   field: ProjectV2FieldConfiguration
-   id: ID
-   item: NewType('ProjectV2Item', GQLObject) ## Circular Reference for ProjectV2Item
-   updatedAt: DateTime
-
-class ProjectV2ItemFieldIterationValue(GQLObject):
-   createdAt: DateTime
-   creator: Actor
-   databaseId: int
-   duration: int
-   field: ProjectV2FieldConfiguration
-   id: ID
-   item: NewType('ProjectV2Item', GQLObject) ## Circular Reference for ProjectV2Item
-   iterationId: str
-   startDate: Date
-   title: str
-   titleHTML: str
-   updatedAt: DateTime
-
-class SRHIS_LabelConnection_Field(LabelConnection):
-   class LabelConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: LabelConnectionArgs
-
-
-
-class ProjectV2ItemFieldLabelValue(GQLObject):
-   field: ProjectV2FieldConfiguration
-   labels: SRHIS_LabelConnection_Field
-
-class ProjectV2ItemFieldMilestoneValue(GQLObject):
-   field: ProjectV2FieldConfiguration
-   milestone: Milestone
-
-class ProjectV2ItemFieldNumberValue(GQLObject):
-   createdAt: DateTime
-   creator: Actor
-   databaseId: int
-   field: ProjectV2FieldConfiguration
-   id: ID
-   item: NewType('ProjectV2Item', GQLObject) ## Circular Reference for ProjectV2Item
-   number: float
-   updatedAt: DateTime
-
-class NXHXB_PullRequestConnection_Field(Generic[PullRequestConnection]):
-   class PullRequestConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      orderBy: PullRequestOrder
-
-   _args: PullRequestConnectionArgs
-
-
-
-class ProjectV2ItemFieldPullRequestValue(GQLObject):
-   field: ProjectV2FieldConfiguration
-   pullRequests: NXHXB_PullRequestConnection_Field ## Circular Reference for PullRequestConnection
-
-class ProjectV2ItemFieldRepositoryValue(GQLObject):
-   field: ProjectV2FieldConfiguration
-   repository: Repository
-
-class RequestedReviewer(GQLObject): 
-   pass
-
-class RequestedReviewerEdge(GQLObject):
-   cursor: str
-   node: RequestedReviewer
-
-class list_RequestedReviewerEdge(list, RequestedReviewerEdge): pass
-
-class list_RequestedReviewer(list, RequestedReviewer): pass
-
-class RequestedReviewerConnection(GQLObject):
-   edges: list_RequestedReviewerEdge[RequestedReviewerEdge]
-   nodes: list_RequestedReviewer[RequestedReviewer]
-   pageInfo: PageInfo
-   totalCount: int
-
-class YKJZJ_RequestedReviewerConnection_Field(RequestedReviewerConnection):
-   class RequestedReviewerConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: RequestedReviewerConnectionArgs
-
-
-
-class ProjectV2ItemFieldReviewerValue(GQLObject):
-   field: ProjectV2FieldConfiguration
-   reviewers: YKJZJ_RequestedReviewerConnection_Field
-
-class ProjectV2ItemFieldSingleSelectValue(GQLObject):
-   color: ProjectV2SingleSelectFieldOptionColor
-   createdAt: DateTime
-   creator: Actor
-   databaseId: int
-   description: str
-   descriptionHTML: str
-   field: ProjectV2FieldConfiguration
-   id: ID
-   item: NewType('ProjectV2Item', GQLObject) ## Circular Reference for ProjectV2Item
-   name: str
-   nameHTML: str
-   optionId: str
-   updatedAt: DateTime
-
-class ProjectV2ItemFieldTextValue(GQLObject):
-   createdAt: DateTime
-   creator: Actor
-   databaseId: int
-   field: ProjectV2FieldConfiguration
-   id: ID
-   item: NewType('ProjectV2Item', GQLObject) ## Circular Reference for ProjectV2Item
-   text: str
-   updatedAt: DateTime
-
-class OTFNA_UserConnection_Field(UserConnection):
-   class UserConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: UserConnectionArgs
-
-
-
-class ProjectV2ItemFieldUserValue(GQLObject):
-   field: ProjectV2FieldConfiguration
-   users: OTFNA_UserConnection_Field
-
-class ProjectV2ItemFieldValue(GQLObject): 
-   pass
-
-class ProjectV2ItemFieldValueEdge(GQLObject):
-   cursor: str
-   node: ProjectV2ItemFieldValue
-
-class list_ProjectV2ItemFieldValueEdge(list, ProjectV2ItemFieldValueEdge): pass
-
-class list_ProjectV2ItemFieldValue(list, ProjectV2ItemFieldValue): pass
-
-class ProjectV2ItemFieldValueConnection(GQLObject):
-   edges: list_ProjectV2ItemFieldValueEdge[ProjectV2ItemFieldValueEdge]
-   nodes: list_ProjectV2ItemFieldValue[ProjectV2ItemFieldValue]
-   pageInfo: PageInfo
-   totalCount: int
-
-class SJUUS_ProjectV2ItemFieldValue_Field(ProjectV2ItemFieldValue):
-   class ProjectV2ItemFieldValueArgs(GQLArgsSet, GQLObject):
-      name: NonNull_str
-
-   _args: ProjectV2ItemFieldValueArgs
-
-
-
-class AWDBE_ProjectV2ItemFieldValueConnection_Field(ProjectV2ItemFieldValueConnection):
-   class ProjectV2ItemFieldValueConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      orderBy: ProjectV2ItemFieldValueOrder
-
-   _args: ProjectV2ItemFieldValueConnectionArgs
-
-
-
-class ProjectV2Item(GQLObject):
-   content: ProjectV2ItemContent
-   createdAt: DateTime
-   creator: Actor
-   databaseId: int
-   fieldValueByName: SJUUS_ProjectV2ItemFieldValue_Field
-   fieldValues: AWDBE_ProjectV2ItemFieldValueConnection_Field
-   id: ID
-   isArchived: bool
-   project: NewType('ProjectV2', GQLObject) ## Circular Reference for ProjectV2
-   type: ProjectV2ItemType
-   updatedAt: DateTime
-
-class ProjectV2ItemEdge(GQLObject):
-   cursor: str
-   node: ProjectV2Item
-
-class list_ProjectV2ItemEdge(list, ProjectV2ItemEdge): pass
-
-class list_ProjectV2Item(list, ProjectV2Item): pass
-
-class ProjectV2ItemConnection(GQLObject):
-   edges: list_ProjectV2ItemEdge[ProjectV2ItemEdge]
-   nodes: list_ProjectV2Item[ProjectV2Item]
-   pageInfo: PageInfo
-   totalCount: int
-
-class CMCOS_ProjectV2_Field(Generic[ProjectV2]):
-   class ProjectV2Args(GQLArgsSet, GQLObject):
-      number: NonNull_int
-
-   _args: ProjectV2Args
-
-
-
-class LDVXE_ProjectV2Connection_Field(ProjectV2Connection):
-   class ProjectV2ConnectionArgs(GQLArgsSet, GQLObject):
-      query: str
-      orderBy: ProjectV2Order
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: ProjectV2ConnectionArgs
-
-
-
-class ProjectV2Owner(GQLObject):
-   id: ID
-   projectV2: CMCOS_ProjectV2_Field ## Circular Reference for ProjectV2
-   projectsV2: LDVXE_ProjectV2Connection_Field
-
-class ProjectV2FieldEdge(GQLObject):
-   cursor: str
-   node: ProjectV2Field
-
-class list_ProjectV2FieldEdge(list, ProjectV2FieldEdge): pass
-
-class list_ProjectV2Field(list, ProjectV2Field): pass
-
-class ProjectV2FieldConnection(GQLObject):
-   edges: list_ProjectV2FieldEdge[ProjectV2FieldEdge]
-   nodes: list_ProjectV2Field[ProjectV2Field]
-   pageInfo: PageInfo
-   totalCount: int
-
-class ProjectV2SortBy(GQLObject):
-   direction: OrderDirection
-   field: ProjectV2Field
-
-class ProjectV2SortByEdge(GQLObject):
-   cursor: str
-   node: ProjectV2SortBy
-
-class list_ProjectV2SortByEdge(list, ProjectV2SortByEdge): pass
-
-class list_ProjectV2SortBy(list, ProjectV2SortBy): pass
-
-class ProjectV2SortByConnection(GQLObject):
-   edges: list_ProjectV2SortByEdge[ProjectV2SortByEdge]
-   nodes: list_ProjectV2SortBy[ProjectV2SortBy]
-   pageInfo: PageInfo
-   totalCount: int
-
-class ProjectV2SortByField(GQLObject):
-   direction: OrderDirection
-   field: ProjectV2FieldConfiguration
-
-class ProjectV2SortByFieldEdge(GQLObject):
-   cursor: str
-   node: ProjectV2SortByField
-
-class list_ProjectV2SortByFieldEdge(list, ProjectV2SortByFieldEdge): pass
-
-class list_ProjectV2SortByField(list, ProjectV2SortByField): pass
-
-class ProjectV2SortByFieldConnection(GQLObject):
-   edges: list_ProjectV2SortByFieldEdge[ProjectV2SortByFieldEdge]
-   nodes: list_ProjectV2SortByField[ProjectV2SortByField]
-   pageInfo: PageInfo
-   totalCount: int
-
-class OCUZZ_ProjectV2FieldConfigurationConnection_Field(ProjectV2FieldConfigurationConnection):
-   class ProjectV2FieldConfigurationConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      orderBy: ProjectV2FieldOrder
-
-   _args: ProjectV2FieldConfigurationConnectionArgs
-
-
-
-class TRTNJ_ProjectV2FieldConfigurationConnection_Field(ProjectV2FieldConfigurationConnection):
-   class ProjectV2FieldConfigurationConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      orderBy: ProjectV2FieldOrder
-
-   _args: ProjectV2FieldConfigurationConnectionArgs
-
-
-
-class ZLQTN_ProjectV2SortByFieldConnection_Field(ProjectV2SortByFieldConnection):
-   class ProjectV2SortByFieldConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: ProjectV2SortByFieldConnectionArgs
-
-
-
-class IDGHB_ProjectV2FieldConfigurationConnection_Field(ProjectV2FieldConfigurationConnection):
-   class ProjectV2FieldConfigurationConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      orderBy: ProjectV2FieldOrder
-
-   _args: ProjectV2FieldConfigurationConnectionArgs
-
-
-
-class ProjectV2View(GQLObject):
-   createdAt: DateTime
-   databaseId: int
-   fields: OCUZZ_ProjectV2FieldConfigurationConnection_Field
-   filter: str
-   groupByFields: TRTNJ_ProjectV2FieldConfigurationConnection_Field
-   id: ID
-   layout: ProjectV2ViewLayout
-   name: str
-   number: int
-   project: NewType('ProjectV2', GQLObject) ## Circular Reference for ProjectV2
-   sortByFields: ZLQTN_ProjectV2SortByFieldConnection_Field
-   updatedAt: DateTime
-   verticalGroupByFields: IDGHB_ProjectV2FieldConfigurationConnection_Field
-
-class ProjectV2ViewEdge(GQLObject):
-   cursor: str
-   node: ProjectV2View
-
-class list_ProjectV2ViewEdge(list, ProjectV2ViewEdge): pass
-
-class list_ProjectV2View(list, ProjectV2View): pass
-
-class ProjectV2ViewConnection(GQLObject):
-   edges: list_ProjectV2ViewEdge[ProjectV2ViewEdge]
-   nodes: list_ProjectV2View[ProjectV2View]
-   pageInfo: PageInfo
-   totalCount: int
-
-class ProjectV2Workflow(GQLObject):
-   createdAt: DateTime
-   databaseId: int
-   enabled: bool
-   id: ID
-   name: str
-   number: int
-   project: NewType('ProjectV2', GQLObject) ## Circular Reference for ProjectV2
-   updatedAt: DateTime
-
-class ProjectV2WorkflowEdge(GQLObject):
-   cursor: str
-   node: ProjectV2Workflow
-
-class list_ProjectV2WorkflowEdge(list, ProjectV2WorkflowEdge): pass
-
-class list_ProjectV2Workflow(list, ProjectV2Workflow): pass
-
-class ProjectV2WorkflowConnection(GQLObject):
-   edges: list_ProjectV2WorkflowEdge[ProjectV2WorkflowEdge]
-   nodes: list_ProjectV2Workflow[ProjectV2Workflow]
-   pageInfo: PageInfo
-   totalCount: int
-
-class AFDMY_ProjectV2FieldConfiguration_Field(ProjectV2FieldConfiguration):
-   class ProjectV2FieldConfigurationArgs(GQLArgsSet, GQLObject):
-      name: NonNull_str
-
-   _args: ProjectV2FieldConfigurationArgs
-
-
-
-class KYBVP_ProjectV2FieldConfigurationConnection_Field(ProjectV2FieldConfigurationConnection):
-   class ProjectV2FieldConfigurationConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      orderBy: ProjectV2FieldOrder
-
-   _args: ProjectV2FieldConfigurationConnectionArgs
-
-
-
-class PQDPA_ProjectV2ItemConnection_Field(ProjectV2ItemConnection):
-   class ProjectV2ItemConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      orderBy: ProjectV2ItemOrder
-
-   _args: ProjectV2ItemConnectionArgs
-
-
-
-class WHOHC_RepositoryConnection_Field(RepositoryConnection):
-   class RepositoryConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      orderBy: RepositoryOrder
-
-   _args: RepositoryConnectionArgs
-
-
-
-class OWPFA_TeamConnection_Field(TeamConnection):
-   class TeamConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      orderBy: TeamOrder
-
-   _args: TeamConnectionArgs
-
-
-
-class QTOLE_ProjectV2View_Field(ProjectV2View):
-   class ProjectV2ViewArgs(GQLArgsSet, GQLObject):
-      number: NonNull_int
-
-   _args: ProjectV2ViewArgs
-
-
-
-class OJMLM_ProjectV2ViewConnection_Field(ProjectV2ViewConnection):
-   class ProjectV2ViewConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      orderBy: ProjectV2ViewOrder
-
-   _args: ProjectV2ViewConnectionArgs
-
-
-
-class MHPZP_ProjectV2Workflow_Field(ProjectV2Workflow):
-   class ProjectV2WorkflowArgs(GQLArgsSet, GQLObject):
-      number: NonNull_int
-
-   _args: ProjectV2WorkflowArgs
-
-
-
-class HMDGD_ProjectV2WorkflowConnection_Field(ProjectV2WorkflowConnection):
-   class ProjectV2WorkflowConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      orderBy: ProjectV2WorkflowOrder
-
-   _args: ProjectV2WorkflowConnectionArgs
-
-
-
-class ProjectV2(GQLObject):
-   closed: bool
-   closedAt: DateTime
-   createdAt: DateTime
-   creator: Actor
-   databaseId: int
-   field: AFDMY_ProjectV2FieldConfiguration_Field
-   fields: KYBVP_ProjectV2FieldConfigurationConnection_Field
-   id: ID
-   items: PQDPA_ProjectV2ItemConnection_Field
-   number: int
-   owner: ProjectV2Owner
-   public: bool
-   readme: str
-   repositories: WHOHC_RepositoryConnection_Field
-   resourcePath: URI
-   shortDescription: str
-   teams: OWPFA_TeamConnection_Field
-   template: bool
-   title: str
-   updatedAt: DateTime
-   url: URI
-   view: QTOLE_ProjectV2View_Field
-   viewerCanClose: bool
-   viewerCanReopen: bool
-   viewerCanUpdate: bool
-   views: OJMLM_ProjectV2ViewConnection_Field
-   workflow: MHPZP_ProjectV2Workflow_Field
-   workflows: HMDGD_ProjectV2WorkflowConnection_Field
-
-class TeamRepositoryEdge(GQLObject):
-   cursor: str
-   node: Repository
-   permission: RepositoryPermission
-
-class list_TeamRepositoryEdge(list, TeamRepositoryEdge): pass
-
-class list_Repository(list, Repository): pass
-
-class TeamRepositoryConnection(GQLObject):
-   edges: list_TeamRepositoryEdge[TeamRepositoryEdge]
-   nodes: list_Repository[Repository]
-   pageInfo: PageInfo
-   totalCount: int
-
-class JRXGY_TeamConnection_Field(TeamConnection):
-   class TeamConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: TeamConnectionArgs
-
-
-
-class AJELI_TeamConnection_Field(TeamConnection):
-   class TeamConnectionArgs(GQLArgsSet, GQLObject):
-      orderBy: TeamOrder
-      userLogins: list[NonNull_str]
-      immediateOnly: bool
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: TeamConnectionArgs
-
-
-
-class NDUJX_TeamDiscussion_Field(TeamDiscussion):
-   class TeamDiscussionArgs(GQLArgsSet, GQLObject):
-      number: NonNull_int
-
-   _args: TeamDiscussionArgs
-
-
-
-class WOPZN_TeamDiscussionConnection_Field(TeamDiscussionConnection):
-   class TeamDiscussionConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      isPinned: bool
-      orderBy: TeamDiscussionOrder
-
-   _args: TeamDiscussionConnectionArgs
-
-
-
-class DJNTN_OrganizationInvitationConnection_Field(OrganizationInvitationConnection):
-   class OrganizationInvitationConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: OrganizationInvitationConnectionArgs
-
-
-
-class MPYRU_UserStatusConnection_Field(UserStatusConnection):
-   class UserStatusConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      orderBy: UserStatusOrder
-
-   _args: UserStatusConnectionArgs
-
-
-
-class HSBRN_TeamMemberConnection_Field(TeamMemberConnection):
-   class TeamMemberConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      query: str
-      membership: TeamMembershipType
-      role: TeamMemberRole
-      orderBy: TeamMemberOrder
-
-   _args: TeamMemberConnectionArgs
-
-
-
-class YGYUH_ProjectV2_Field(ProjectV2):
-   class ProjectV2Args(GQLArgsSet, GQLObject):
-      number: NonNull_int
-
-   _args: ProjectV2Args
-
-
-
-class FHPWM_ProjectV2Connection_Field(ProjectV2Connection):
-   class ProjectV2ConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      orderBy: ProjectV2Order
-      filterBy: ProjectV2Filters
-      query: str
-
-   _args: ProjectV2ConnectionArgs
-
-
-
-class DGUAG_TeamRepositoryConnection_Field(TeamRepositoryConnection):
-   class TeamRepositoryConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      query: str
-      orderBy: TeamRepositoryOrder
-
-   _args: TeamRepositoryConnectionArgs
-
-
-
-class Team(GQLObject):
-   ancestors: JRXGY_TeamConnection_Field
-   avatarUrl: GVDQD_URI_Field
-   childTeams: AJELI_TeamConnection_Field
-   combinedSlug: str
-   createdAt: DateTime
-   databaseId: int
-   description: str
-   discussion: NDUJX_TeamDiscussion_Field
-   discussions: WOPZN_TeamDiscussionConnection_Field
-   discussionsResourcePath: URI
-   discussionsUrl: URI
-   editTeamResourcePath: URI
-   editTeamUrl: URI
-   id: ID
-   invitations: DJNTN_OrganizationInvitationConnection_Field
-   memberStatuses: MPYRU_UserStatusConnection_Field
-   members: HSBRN_TeamMemberConnection_Field
-   membersResourcePath: URI
-   membersUrl: URI
-   name: str
-   newTeamResourcePath: URI
-   newTeamUrl: URI
-   notificationSetting: TeamNotificationSetting
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   parentTeam: NewType('Team', GQLObject) ## Circular Reference for Team
-   privacy: TeamPrivacy
-   projectV2: YGYUH_ProjectV2_Field
-   projectsV2: FHPWM_ProjectV2Connection_Field
-   repositories: DGUAG_TeamRepositoryConnection_Field
-   repositoriesResourcePath: URI
-   repositoriesUrl: URI
-   resourcePath: URI
-   slug: str
-   teamsResourcePath: URI
-   teamsUrl: URI
-   updatedAt: DateTime
-   url: URI
-   viewerCanAdminister: bool
-   viewerCanSubscribe: bool
-   viewerSubscription: SubscriptionState
-
-class BranchActorAllowanceActor(GQLObject): 
-   pass
-
-class BypassForcePushAllowance(GQLObject):
-   actor: BranchActorAllowanceActor
-   branchProtectionRule: NewType('BranchProtectionRule', GQLObject) ## Circular Reference for BranchProtectionRule
-   id: ID
-
-class BypassForcePushAllowanceEdge(GQLObject):
-   cursor: str
-   node: BypassForcePushAllowance
-
-class list_BypassForcePushAllowanceEdge(list, BypassForcePushAllowanceEdge): pass
-
-class list_BypassForcePushAllowance(list, BypassForcePushAllowance): pass
-
-class BypassForcePushAllowanceConnection(GQLObject):
-   edges: list_BypassForcePushAllowanceEdge[BypassForcePushAllowanceEdge]
-   nodes: list_BypassForcePushAllowance[BypassForcePushAllowance]
-   pageInfo: PageInfo
-   totalCount: int
-
-class BypassPullRequestAllowance(GQLObject):
-   actor: BranchActorAllowanceActor
-   branchProtectionRule: NewType('BranchProtectionRule', GQLObject) ## Circular Reference for BranchProtectionRule
-   id: ID
-
-class BypassPullRequestAllowanceEdge(GQLObject):
-   cursor: str
-   node: BypassPullRequestAllowance
-
-class list_BypassPullRequestAllowanceEdge(list, BypassPullRequestAllowanceEdge): pass
-
-class list_BypassPullRequestAllowance(list, BypassPullRequestAllowance): pass
-
-class BypassPullRequestAllowanceConnection(GQLObject):
-   edges: list_BypassPullRequestAllowanceEdge[BypassPullRequestAllowanceEdge]
-   nodes: list_BypassPullRequestAllowance[BypassPullRequestAllowance]
-   pageInfo: PageInfo
-   totalCount: int
-
-class PushAllowanceActor(GQLObject): 
-   pass
-
-class PushAllowance(GQLObject):
-   actor: PushAllowanceActor
-   branchProtectionRule: NewType('BranchProtectionRule', GQLObject) ## Circular Reference for BranchProtectionRule
-   id: ID
-
-class PushAllowanceEdge(GQLObject):
-   cursor: str
-   node: PushAllowance
-
-class list_PushAllowanceEdge(list, PushAllowanceEdge): pass
-
-class list_PushAllowance(list, PushAllowance): pass
-
-class PushAllowanceConnection(GQLObject):
-   edges: list_PushAllowanceEdge[PushAllowanceEdge]
-   nodes: list_PushAllowance[PushAllowance]
-   pageInfo: PageInfo
-   totalCount: int
-
-class RequiredStatusCheckDescription(GQLObject):
-   app: NewType('App', GQLObject) ## Circular Reference for App
-   context: str
-
-class ReviewDismissalAllowanceActor(GQLObject): 
-   pass
-
-class ReviewDismissalAllowance(GQLObject):
-   actor: ReviewDismissalAllowanceActor
-   branchProtectionRule: NewType('BranchProtectionRule', GQLObject) ## Circular Reference for BranchProtectionRule
-   id: ID
-
-class ReviewDismissalAllowanceEdge(GQLObject):
-   cursor: str
-   node: ReviewDismissalAllowance
-
-class list_ReviewDismissalAllowanceEdge(list, ReviewDismissalAllowanceEdge): pass
-
-class list_ReviewDismissalAllowance(list, ReviewDismissalAllowance): pass
-
-class ReviewDismissalAllowanceConnection(GQLObject):
-   edges: list_ReviewDismissalAllowanceEdge[ReviewDismissalAllowanceEdge]
-   nodes: list_ReviewDismissalAllowance[ReviewDismissalAllowance]
-   pageInfo: PageInfo
-   totalCount: int
-
-class CYTFC_BranchProtectionRuleConflictConnection_Field(BranchProtectionRuleConflictConnection):
-   class BranchProtectionRuleConflictConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: BranchProtectionRuleConflictConnectionArgs
-
-
-
-class XCKGY_BypassForcePushAllowanceConnection_Field(BypassForcePushAllowanceConnection):
-   class BypassForcePushAllowanceConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: BypassForcePushAllowanceConnectionArgs
-
-
-
-class ECYEY_BypassPullRequestAllowanceConnection_Field(BypassPullRequestAllowanceConnection):
-   class BypassPullRequestAllowanceConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: BypassPullRequestAllowanceConnectionArgs
-
-
-
-class TXATV_RefConnection_Field(RefConnection):
-   class RefConnectionArgs(GQLArgsSet, GQLObject):
-      query: str
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: RefConnectionArgs
-
-
-
-class NECPY_PushAllowanceConnection_Field(PushAllowanceConnection):
-   class PushAllowanceConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: PushAllowanceConnectionArgs
-
-
-
-class list_RequiredStatusCheckDescription(list, RequiredStatusCheckDescription): pass
-
-class IGDHQ_ReviewDismissalAllowanceConnection_Field(ReviewDismissalAllowanceConnection):
-   class ReviewDismissalAllowanceConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: ReviewDismissalAllowanceConnectionArgs
-
-
-
-class BranchProtectionRule(GQLObject):
-   allowsDeletions: bool
-   allowsForcePushes: bool
-   blocksCreations: bool
-   branchProtectionRuleConflicts: CYTFC_BranchProtectionRuleConflictConnection_Field
-   bypassForcePushAllowances: XCKGY_BypassForcePushAllowanceConnection_Field
-   bypassPullRequestAllowances: ECYEY_BypassPullRequestAllowanceConnection_Field
-   creator: Actor
-   databaseId: int
-   dismissesStaleReviews: bool
-   id: ID
-   isAdminEnforced: bool
-   lockAllowsFetchAndMerge: bool
-   lockBranch: bool
-   matchingRefs: TXATV_RefConnection_Field
-   pattern: str
-   pushAllowances: NECPY_PushAllowanceConnection_Field
-   repository: Repository
-   requireLastPushApproval: bool
-   requiredApprovingReviewCount: int
-   requiredDeploymentEnvironments: list[str]
-   requiredStatusCheckContexts: list[str]
-   requiredStatusChecks: list_RequiredStatusCheckDescription[RequiredStatusCheckDescription]
-   requiresApprovingReviews: bool
-   requiresCodeOwnerReviews: bool
-   requiresCommitSignatures: bool
-   requiresConversationResolution: bool
-   requiresDeployments: bool
-   requiresLinearHistory: bool
-   requiresStatusChecks: bool
-   requiresStrictStatusChecks: bool
-   restrictsPushes: bool
-   restrictsReviewDismissals: bool
-   reviewDismissalAllowances: IGDHQ_ReviewDismissalAllowanceConnection_Field
-
-class CommitEdge(GQLObject):
-   cursor: str
-   node: NewType('Commit', GQLObject) ## Circular Reference for Commit
-
-class list_CommitEdge(list, CommitEdge): pass
-
-class ComparisonCommitConnection(GQLObject):
-   authorCount: int
-   edges: list_CommitEdge[CommitEdge]
-   nodes: list_GQLObject[GQLObject] ## Circular Reference for Commit
-   pageInfo: PageInfo
-   totalCount: int
-
-class KPYTB_ComparisonCommitConnection_Field(ComparisonCommitConnection):
-   class ComparisonCommitConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: ComparisonCommitConnectionArgs
-
-
-
-class Comparison(GQLObject):
-   aheadBy: int
-   baseTarget: GitObject
-   behindBy: int
-   commits: KPYTB_ComparisonCommitConnection_Field
-   headTarget: GitObject
-   id: ID
-   status: ComparisonStatus
-
-class XJSBR_PullRequestConnection_Field(Generic[PullRequestConnection]):
-   class PullRequestConnectionArgs(GQLArgsSet, GQLObject):
-      states: list[NonNull_PullRequestState]
-      labels: list[NonNull_str]
-      headRefName: str
-      baseRefName: str
-      orderBy: IssueOrder
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: PullRequestConnectionArgs
-
-
-
-class KKYMB_Comparison_Field(Comparison):
-   class ComparisonArgs(GQLArgsSet, GQLObject):
-      headRef: NonNull_str
-
-   _args: ComparisonArgs
-
-
-
-class Ref(GQLObject):
-   associatedPullRequests: XJSBR_PullRequestConnection_Field ## Circular Reference for PullRequestConnection
-   branchProtectionRule: BranchProtectionRule
-   compare: KKYMB_Comparison_Field
-   id: ID
-   name: str
-   prefix: str
-   refUpdateRule: RefUpdateRule
-   repository: Repository
-   target: GitObject
-
-class PullRequestCommit(GQLObject):
-   commit: NewType('Commit', GQLObject) ## Circular Reference for Commit
-   id: ID
-   pullRequest: NewType('PullRequest', GQLObject) ## Circular Reference for PullRequest
-   resourcePath: URI
-   url: URI
-
-class PullRequestCommitEdge(GQLObject):
-   cursor: str
-   node: PullRequestCommit
-
-class list_PullRequestCommitEdge(list, PullRequestCommitEdge): pass
-
-class list_PullRequestCommit(list, PullRequestCommit): pass
-
-class PullRequestCommitConnection(GQLObject):
-   edges: list_PullRequestCommitEdge[PullRequestCommitEdge]
-   nodes: list_PullRequestCommit[PullRequestCommit]
-   pageInfo: PageInfo
-   totalCount: int
-
-class PullRequestChangedFileEdge(GQLObject):
-   cursor: str
-   node: PullRequestChangedFile
-
-class list_PullRequestChangedFileEdge(list, PullRequestChangedFileEdge): pass
-
-class list_PullRequestChangedFile(list, PullRequestChangedFile): pass
-
-class PullRequestChangedFileConnection(GQLObject):
-   edges: list_PullRequestChangedFileEdge[PullRequestChangedFileEdge]
-   nodes: list_PullRequestChangedFile[PullRequestChangedFile]
-   pageInfo: PageInfo
-   totalCount: int
-
-class MTPMS_ReactionConnection_Field(ReactionConnection):
-   class ReactionConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      content: ReactionContent
-      orderBy: ReactionOrder
-
-   _args: ReactionConnectionArgs
-
-
-
-class ASBHD_UserContentEditConnection_Field(UserContentEditConnection):
-   class UserContentEditConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: UserContentEditConnectionArgs
-
-
-
-class PullRequestReviewComment(GQLObject):
-   author: Actor
-   authorAssociation: CommentAuthorAssociation
-   body: str
-   bodyHTML: HTML
-   bodyText: str
-   commit: NewType('Commit', GQLObject) ## Circular Reference for Commit
-   createdAt: DateTime
-   createdViaEmail: bool
-   databaseId: int
-   diffHunk: str
-   draftedAt: DateTime
-   editor: Actor
-   id: ID
-   includesCreatedEdit: bool
-   isMinimized: bool
-   lastEditedAt: DateTime
-   line: int
-   minimizedReason: str
-   originalCommit: NewType('Commit', GQLObject) ## Circular Reference for Commit
-   originalLine: int
-   originalStartLine: int
-   outdated: bool
-   path: str
-   publishedAt: DateTime
-   pullRequest: NewType('PullRequest', GQLObject) ## Circular Reference for PullRequest
-   pullRequestReview: NewType('PullRequestReview', GQLObject) ## Circular Reference for PullRequestReview
-   reactionGroups: list_ReactionGroup[ReactionGroup]
-   reactions: MTPMS_ReactionConnection_Field
-   replyTo: NewType('PullRequestReviewComment', GQLObject) ## Circular Reference for PullRequestReviewComment
-   repository: Repository
-   resourcePath: URI
-   startLine: int
-   state: PullRequestReviewCommentState
-   subjectType: PullRequestReviewThreadSubjectType
-   updatedAt: DateTime
-   url: URI
-   userContentEdits: ASBHD_UserContentEditConnection_Field
-   viewerCanDelete: bool
-   viewerCanMinimize: bool
-   viewerCanReact: bool
-   viewerCanUpdate: bool
-   viewerCannotUpdateReasons: list[CommentCannotUpdateReason]
-   viewerDidAuthor: bool
-
-class PullRequestReviewCommentEdge(GQLObject):
-   cursor: str
-   node: PullRequestReviewComment
-
-class list_PullRequestReviewCommentEdge(list, PullRequestReviewCommentEdge): pass
-
-class list_PullRequestReviewComment(list, PullRequestReviewComment): pass
-
-class PullRequestReviewCommentConnection(GQLObject):
-   edges: list_PullRequestReviewCommentEdge[PullRequestReviewCommentEdge]
-   nodes: list_PullRequestReviewComment[PullRequestReviewComment]
-   pageInfo: PageInfo
-   totalCount: int
-
-class REYUS_PullRequestReviewCommentConnection_Field(PullRequestReviewCommentConnection):
-   class PullRequestReviewCommentConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: PullRequestReviewCommentConnectionArgs
-
-
-
-class GYJSQ_TeamConnection_Field(TeamConnection):
-   class TeamConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: TeamConnectionArgs
-
-
-
-class HVFSP_ReactionConnection_Field(ReactionConnection):
-   class ReactionConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      content: ReactionContent
-      orderBy: ReactionOrder
-
-   _args: ReactionConnectionArgs
-
-
-
-class MEIPU_UserContentEditConnection_Field(UserContentEditConnection):
-   class UserContentEditConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: UserContentEditConnectionArgs
-
-
-
-class PullRequestReview(GQLObject):
-   author: Actor
-   authorAssociation: CommentAuthorAssociation
-   authorCanPushToRepository: bool
-   body: str
-   bodyHTML: HTML
-   bodyText: str
-   comments: REYUS_PullRequestReviewCommentConnection_Field
-   commit: NewType('Commit', GQLObject) ## Circular Reference for Commit
-   createdAt: DateTime
-   createdViaEmail: bool
-   databaseId: int
-   editor: Actor
-   id: ID
-   includesCreatedEdit: bool
-   lastEditedAt: DateTime
-   onBehalfOf: GYJSQ_TeamConnection_Field
-   publishedAt: DateTime
-   pullRequest: NewType('PullRequest', GQLObject) ## Circular Reference for PullRequest
-   reactionGroups: list_ReactionGroup[ReactionGroup]
-   reactions: HVFSP_ReactionConnection_Field
-   repository: Repository
-   resourcePath: URI
-   state: PullRequestReviewState
-   submittedAt: DateTime
-   updatedAt: DateTime
-   url: URI
-   userContentEdits: MEIPU_UserContentEditConnection_Field
-   viewerCanDelete: bool
-   viewerCanReact: bool
-   viewerCanUpdate: bool
-   viewerCannotUpdateReasons: list[CommentCannotUpdateReason]
-   viewerDidAuthor: bool
-
-class PullRequestReviewEdge(GQLObject):
-   cursor: str
-   node: PullRequestReview
-
-class list_PullRequestReviewEdge(list, PullRequestReviewEdge): pass
-
-class list_PullRequestReview(list, PullRequestReview): pass
-
-class PullRequestReviewConnection(GQLObject):
-   edges: list_PullRequestReviewEdge[PullRequestReviewEdge]
-   nodes: list_PullRequestReview[PullRequestReview]
-   pageInfo: PageInfo
-   totalCount: int
-
-class ReviewRequest(GQLObject):
-   asCodeOwner: bool
-   databaseId: int
-   id: ID
-   pullRequest: NewType('PullRequest', GQLObject) ## Circular Reference for PullRequest
-   requestedReviewer: RequestedReviewer
-
-class ReviewRequestEdge(GQLObject):
-   cursor: str
-   node: ReviewRequest
-
-class list_ReviewRequestEdge(list, ReviewRequestEdge): pass
-
-class list_ReviewRequest(list, ReviewRequest): pass
-
-class ReviewRequestConnection(GQLObject):
-   edges: list_ReviewRequestEdge[ReviewRequestEdge]
-   nodes: list_ReviewRequest[ReviewRequest]
-   pageInfo: PageInfo
-   totalCount: int
-
-class PVFYN_PullRequestReviewCommentConnection_Field(PullRequestReviewCommentConnection):
-   class PullRequestReviewCommentConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      skip: int
-
-   _args: PullRequestReviewCommentConnectionArgs
-
-
-
-class PullRequestReviewThread(GQLObject):
-   comments: PVFYN_PullRequestReviewCommentConnection_Field
-   diffSide: DiffSide
-   id: ID
-   isCollapsed: bool
-   isOutdated: bool
-   isResolved: bool
-   line: int
-   originalLine: int
-   originalStartLine: int
-   path: str
-   pullRequest: NewType('PullRequest', GQLObject) ## Circular Reference for PullRequest
-   repository: Repository
-   resolvedBy: NewType('User', GQLObject) ## Circular Reference for User
-   startDiffSide: DiffSide
-   startLine: int
-   subjectType: PullRequestReviewThreadSubjectType
-   viewerCanReply: bool
-   viewerCanResolve: bool
-   viewerCanUnresolve: bool
-
-class PullRequestReviewThreadEdge(GQLObject):
-   cursor: str
-   node: PullRequestReviewThread
-
-class list_PullRequestReviewThreadEdge(list, PullRequestReviewThreadEdge): pass
-
-class list_PullRequestReviewThread(list, PullRequestReviewThread): pass
-
-class PullRequestReviewThreadConnection(GQLObject):
-   edges: list_PullRequestReviewThreadEdge[PullRequestReviewThreadEdge]
-   nodes: list_PullRequestReviewThread[PullRequestReviewThread]
-   pageInfo: PageInfo
-   totalCount: int
-
-class SuggestedReviewer(GQLObject):
-   isAuthor: bool
-   isCommenter: bool
-   reviewer: NewType('User', GQLObject) ## Circular Reference for User
-
-class BaseRefDeletedEvent(GQLObject):
-   actor: Actor
-   baseRefName: str
-   createdAt: DateTime
-   id: ID
-   pullRequest: NewType('PullRequest', GQLObject) ## Circular Reference for PullRequest
-
-class BaseRefForcePushedEvent(GQLObject):
-   actor: Actor
-   afterCommit: NewType('Commit', GQLObject) ## Circular Reference for Commit
-   beforeCommit: NewType('Commit', GQLObject) ## Circular Reference for Commit
-   createdAt: DateTime
-   id: ID
-   pullRequest: NewType('PullRequest', GQLObject) ## Circular Reference for PullRequest
-   ref: Ref
-
-class FTNSZ_CommitCommentConnection_Field(Generic[CommitCommentConnection]):
-   class CommitCommentConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: CommitCommentConnectionArgs
-
-
-
-class CommitCommentThread(GQLObject):
-   comments: FTNSZ_CommitCommentConnection_Field ## Circular Reference for CommitCommentConnection
-   commit: NewType('Commit', GQLObject) ## Circular Reference for Commit
-   id: ID
-   path: str
-   position: int
-   repository: Repository
-
-class DeployedEvent(GQLObject):
-   actor: Actor
-   createdAt: DateTime
-   databaseId: int
-   deployment: Deployment
-   id: ID
-   pullRequest: NewType('PullRequest', GQLObject) ## Circular Reference for PullRequest
-   ref: Ref
-
-class DeploymentEnvironmentChangedEvent(GQLObject):
-   actor: Actor
-   createdAt: DateTime
-   deploymentStatus: DeploymentStatus
-   id: ID
-   pullRequest: NewType('PullRequest', GQLObject) ## Circular Reference for PullRequest
-
-class HeadRefDeletedEvent(GQLObject):
-   actor: Actor
-   createdAt: DateTime
-   headRef: Ref
-   headRefName: str
-   id: ID
-   pullRequest: NewType('PullRequest', GQLObject) ## Circular Reference for PullRequest
-
-class HeadRefForcePushedEvent(GQLObject):
-   actor: Actor
-   afterCommit: NewType('Commit', GQLObject) ## Circular Reference for Commit
-   beforeCommit: NewType('Commit', GQLObject) ## Circular Reference for Commit
-   createdAt: DateTime
-   id: ID
-   pullRequest: NewType('PullRequest', GQLObject) ## Circular Reference for PullRequest
-   ref: Ref
-
-class HeadRefRestoredEvent(GQLObject):
-   actor: Actor
-   createdAt: DateTime
-   id: ID
-   pullRequest: NewType('PullRequest', GQLObject) ## Circular Reference for PullRequest
-
-class MergedEvent(GQLObject):
-   actor: Actor
-   commit: NewType('Commit', GQLObject) ## Circular Reference for Commit
-   createdAt: DateTime
-   id: ID
-   mergeRef: Ref
-   mergeRefName: str
-   pullRequest: NewType('PullRequest', GQLObject) ## Circular Reference for PullRequest
-   resourcePath: URI
-   url: URI
-
-class ReviewDismissedEvent(GQLObject):
-   actor: Actor
-   createdAt: DateTime
-   databaseId: int
-   dismissalMessage: str
-   dismissalMessageHTML: str
-   id: ID
-   previousReviewState: PullRequestReviewState
-   pullRequest: NewType('PullRequest', GQLObject) ## Circular Reference for PullRequest
-   pullRequestCommit: PullRequestCommit
-   resourcePath: URI
-   review: PullRequestReview
-   url: URI
-
-class ReviewRequestRemovedEvent(GQLObject):
-   actor: Actor
-   createdAt: DateTime
-   id: ID
-   pullRequest: NewType('PullRequest', GQLObject) ## Circular Reference for PullRequest
-   requestedReviewer: RequestedReviewer
-
-class ReviewRequestedEvent(GQLObject):
-   actor: Actor
-   createdAt: DateTime
-   id: ID
-   pullRequest: NewType('PullRequest', GQLObject) ## Circular Reference for PullRequest
-   requestedReviewer: RequestedReviewer
-
-class PullRequestTimelineItem(GQLObject): 
-   pass
-
-class PullRequestTimelineItemEdge(GQLObject):
-   cursor: str
-   node: PullRequestTimelineItem
-
-class list_PullRequestTimelineItemEdge(list, PullRequestTimelineItemEdge): pass
-
-class list_PullRequestTimelineItem(list, PullRequestTimelineItem): pass
-
-class PullRequestTimelineConnection(GQLObject):
-   edges: list_PullRequestTimelineItemEdge[PullRequestTimelineItemEdge]
-   nodes: list_PullRequestTimelineItem[PullRequestTimelineItem]
-   pageInfo: PageInfo
-   totalCount: int
-
-class AddedToMergeQueueEvent(GQLObject):
-   actor: Actor
-   createdAt: DateTime
-   enqueuer: NewType('User', GQLObject) ## Circular Reference for User
-   id: ID
-   mergeQueue: MergeQueue
-   pullRequest: NewType('PullRequest', GQLObject) ## Circular Reference for PullRequest
-
-class AutoMergeDisabledEvent(GQLObject):
-   actor: Actor
-   createdAt: DateTime
-   disabler: NewType('User', GQLObject) ## Circular Reference for User
-   id: ID
-   pullRequest: NewType('PullRequest', GQLObject) ## Circular Reference for PullRequest
-   reason: str
-   reasonCode: str
-
-class AutoMergeEnabledEvent(GQLObject):
-   actor: Actor
-   createdAt: DateTime
-   enabler: NewType('User', GQLObject) ## Circular Reference for User
-   id: ID
-   pullRequest: NewType('PullRequest', GQLObject) ## Circular Reference for PullRequest
-
-class AutoRebaseEnabledEvent(GQLObject):
-   actor: Actor
-   createdAt: DateTime
-   enabler: NewType('User', GQLObject) ## Circular Reference for User
-   id: ID
-   pullRequest: NewType('PullRequest', GQLObject) ## Circular Reference for PullRequest
-
-class AutoSquashEnabledEvent(GQLObject):
-   actor: Actor
-   createdAt: DateTime
-   enabler: NewType('User', GQLObject) ## Circular Reference for User
-   id: ID
-   pullRequest: NewType('PullRequest', GQLObject) ## Circular Reference for PullRequest
-
-class AutomaticBaseChangeFailedEvent(GQLObject):
-   actor: Actor
-   createdAt: DateTime
-   id: ID
-   newBase: str
-   oldBase: str
-   pullRequest: NewType('PullRequest', GQLObject) ## Circular Reference for PullRequest
-
-class AutomaticBaseChangeSucceededEvent(GQLObject):
-   actor: Actor
-   createdAt: DateTime
-   id: ID
-   newBase: str
-   oldBase: str
-   pullRequest: NewType('PullRequest', GQLObject) ## Circular Reference for PullRequest
-
-class BaseRefChangedEvent(GQLObject):
-   actor: Actor
-   createdAt: DateTime
-   currentRefName: str
-   databaseId: int
-   id: ID
-   previousRefName: str
-   pullRequest: NewType('PullRequest', GQLObject) ## Circular Reference for PullRequest
-
-class ConvertToDraftEvent(GQLObject):
-   actor: Actor
-   createdAt: DateTime
-   id: ID
-   pullRequest: NewType('PullRequest', GQLObject) ## Circular Reference for PullRequest
-   resourcePath: URI
-   url: URI
-
-class AIEEZ_CommitCommentConnection_Field(Generic[CommitCommentConnection]):
-   class CommitCommentConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: CommitCommentConnectionArgs
-
-
-
-class PullRequestCommitCommentThread(GQLObject):
-   comments: AIEEZ_CommitCommentConnection_Field ## Circular Reference for CommitCommentConnection
-   commit: NewType('Commit', GQLObject) ## Circular Reference for Commit
-   id: ID
-   path: str
-   position: int
-   pullRequest: NewType('PullRequest', GQLObject) ## Circular Reference for PullRequest
-   repository: Repository
-
-class PullRequestRevisionMarker(GQLObject):
-   createdAt: DateTime
-   lastSeenCommit: NewType('Commit', GQLObject) ## Circular Reference for Commit
-   pullRequest: NewType('PullRequest', GQLObject) ## Circular Reference for PullRequest
-
-class ReadyForReviewEvent(GQLObject):
-   actor: Actor
-   createdAt: DateTime
-   id: ID
-   pullRequest: NewType('PullRequest', GQLObject) ## Circular Reference for PullRequest
-   resourcePath: URI
-   url: URI
-
-class RemovedFromMergeQueueEvent(GQLObject):
-   actor: Actor
-   beforeCommit: NewType('Commit', GQLObject) ## Circular Reference for Commit
-   createdAt: DateTime
-   enqueuer: NewType('User', GQLObject) ## Circular Reference for User
-   id: ID
-   mergeQueue: MergeQueue
-   pullRequest: NewType('PullRequest', GQLObject) ## Circular Reference for PullRequest
-   reason: str
-
-class PullRequestTimelineItems(GQLObject): 
-   pass
-
-class PullRequestTimelineItemsEdge(GQLObject):
-   cursor: str
-   node: PullRequestTimelineItems
-
-class list_PullRequestTimelineItemsEdge(list, PullRequestTimelineItemsEdge): pass
-
-class list_PullRequestTimelineItems(list, PullRequestTimelineItems): pass
-
-class PullRequestTimelineItemsConnection(GQLObject):
-   edges: list_PullRequestTimelineItemsEdge[PullRequestTimelineItemsEdge]
-   filteredCount: int
-   nodes: list_PullRequestTimelineItems[PullRequestTimelineItems]
-   pageCount: int
-   pageInfo: PageInfo
-   totalCount: int
-   updatedAt: DateTime
-
-class NSYAG_UserConnection_Field(UserConnection):
-   class UserConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: UserConnectionArgs
-
-
-
-class MRHXN_IssueConnection_Field(IssueConnection):
-   class IssueConnectionArgs(GQLArgsSet, GQLObject):
-      userLinkedOnly: bool
-      after: str
-      before: str
-      first: int
-      last: int
-      orderBy: IssueOrder
-
-   _args: IssueConnectionArgs
-
-
-
-class JGXEP_IssueCommentConnection_Field(IssueCommentConnection):
-   class IssueCommentConnectionArgs(GQLArgsSet, GQLObject):
-      orderBy: IssueCommentOrder
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: IssueCommentConnectionArgs
-
-
-
-class XHVXV_PullRequestCommitConnection_Field(PullRequestCommitConnection):
-   class PullRequestCommitConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: PullRequestCommitConnectionArgs
-
-
-
-class DWWQC_PullRequestChangedFileConnection_Field(PullRequestChangedFileConnection):
-   class PullRequestChangedFileConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: PullRequestChangedFileConnectionArgs
-
-
-
-class PIAEK_Hovercard_Field(Hovercard):
-   class HovercardArgs(GQLArgsSet, GQLObject):
-      includeNotificationContexts: bool
-
-   _args: HovercardArgs
-
-
-
-class MHXPX_LabelConnection_Field(LabelConnection):
-   class LabelConnectionArgs(GQLArgsSet, GQLObject):
-      orderBy: LabelOrder
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: LabelConnectionArgs
-
-
-
-class NPPCM_PullRequestReviewConnection_Field(PullRequestReviewConnection):
-   class PullRequestReviewConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      writersOnly: bool
-
-   _args: PullRequestReviewConnectionArgs
-
-
-
-class SDLRD_PullRequestReviewConnection_Field(PullRequestReviewConnection):
-   class PullRequestReviewConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: PullRequestReviewConnectionArgs
-
-
-
-class UPCOT_UserConnection_Field(UserConnection):
-   class UserConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: UserConnectionArgs
-
-
-
-class QBTKI_ProjectCardConnection_Field(ProjectCardConnection):
-   class ProjectCardConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      archivedStates: list[ProjectCardArchivedState]
-
-   _args: ProjectCardConnectionArgs
-
-
-
-class LHCDO_ProjectV2ItemConnection_Field(ProjectV2ItemConnection):
-   class ProjectV2ItemConnectionArgs(GQLArgsSet, GQLObject):
-      includeArchived: bool
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: ProjectV2ItemConnectionArgs
-
-
-
-class YCJTU_ProjectV2_Field(ProjectV2):
-   class ProjectV2Args(GQLArgsSet, GQLObject):
-      number: NonNull_int
-
-   _args: ProjectV2Args
-
-
-
-class CRAKP_ProjectV2Connection_Field(ProjectV2Connection):
-   class ProjectV2ConnectionArgs(GQLArgsSet, GQLObject):
-      query: str
-      orderBy: ProjectV2Order
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: ProjectV2ConnectionArgs
-
-
-
-class QDUNN_ReactionConnection_Field(ReactionConnection):
-   class ReactionConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      content: ReactionContent
-      orderBy: ReactionOrder
-
-   _args: ReactionConnectionArgs
-
-
-
-class AFXMF_ReviewRequestConnection_Field(ReviewRequestConnection):
-   class ReviewRequestConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: ReviewRequestConnectionArgs
-
-
-
-class NXFLO_PullRequestReviewThreadConnection_Field(PullRequestReviewThreadConnection):
-   class PullRequestReviewThreadConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: PullRequestReviewThreadConnectionArgs
-
-
-
-class NonNull_PullRequestReviewState(GQLObject): pass
-
-class KJAEI_PullRequestReviewConnection_Field(PullRequestReviewConnection):
-   class PullRequestReviewConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      states: list[NonNull_PullRequestReviewState]
-      author: str
-
-   _args: PullRequestReviewConnectionArgs
-
-
-
-class list_SuggestedReviewer(list, SuggestedReviewer): pass
-
-class NonNull_PullRequestTimelineItemsItemType(GQLObject): pass
-
-class JKCYY_PullRequestTimelineItemsConnection_Field(PullRequestTimelineItemsConnection):
-   class PullRequestTimelineItemsConnectionArgs(GQLArgsSet, GQLObject):
-      since: DateTime
-      skip: int
-      itemTypes: list[NonNull_PullRequestTimelineItemsItemType]
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: PullRequestTimelineItemsConnectionArgs
-
-
-
-class KBFMN_UserContentEditConnection_Field(UserContentEditConnection):
-   class UserContentEditConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: UserContentEditConnectionArgs
-
-
-
-class PullRequest(GQLObject):
-   activeLockReason: LockReason
-   additions: int
-   assignees: NSYAG_UserConnection_Field
-   author: Actor
-   authorAssociation: CommentAuthorAssociation
-   autoMergeRequest: AutoMergeRequest
-   baseRef: Ref
-   baseRefName: str
-   baseRefOid: GitObjectID
-   baseRepository: Repository
-   body: str
-   bodyHTML: HTML
-   bodyText: str
-   changedFiles: int
-   checksResourcePath: URI
-   checksUrl: URI
-   closed: bool
-   closedAt: DateTime
-   closingIssuesReferences: MRHXN_IssueConnection_Field
-   comments: JGXEP_IssueCommentConnection_Field
-   commits: XHVXV_PullRequestCommitConnection_Field
-   createdAt: DateTime
-   createdViaEmail: bool
-   databaseId: int
-   deletions: int
-   editor: Actor
-   files: DWWQC_PullRequestChangedFileConnection_Field
-   headRef: Ref
-   headRefName: str
-   headRefOid: GitObjectID
-   headRepository: Repository
-   headRepositoryOwner: RepositoryOwner
-   hovercard: PIAEK_Hovercard_Field
-   id: ID
-   includesCreatedEdit: bool
-   isCrossRepository: bool
-   isDraft: bool
-   isReadByViewer: bool
-   labels: MHXPX_LabelConnection_Field
-   lastEditedAt: DateTime
-   latestOpinionatedReviews: NPPCM_PullRequestReviewConnection_Field
-   latestReviews: SDLRD_PullRequestReviewConnection_Field
-   locked: bool
-   maintainerCanModify: bool
-   mergeCommit: NewType('Commit', GQLObject) ## Circular Reference for Commit
-   mergeQueueEntry: MergeQueueEntry
-   mergeable: MergeableState
-   merged: bool
-   mergedAt: DateTime
-   mergedBy: Actor
-   milestone: Milestone
-   number: int
-   participants: UPCOT_UserConnection_Field
-   permalink: URI
-   potentialMergeCommit: NewType('Commit', GQLObject) ## Circular Reference for Commit
-   projectCards: QBTKI_ProjectCardConnection_Field
-   projectItems: LHCDO_ProjectV2ItemConnection_Field
-   projectV2: YCJTU_ProjectV2_Field
-   projectsV2: CRAKP_ProjectV2Connection_Field
-   publishedAt: DateTime
-   reactionGroups: list_ReactionGroup[ReactionGroup]
-   reactions: QDUNN_ReactionConnection_Field
-   repository: Repository
-   resourcePath: URI
-   revertResourcePath: URI
-   revertUrl: URI
-   reviewDecision: PullRequestReviewDecision
-   reviewRequests: AFXMF_ReviewRequestConnection_Field
-   reviewThreads: NXFLO_PullRequestReviewThreadConnection_Field
-   reviews: KJAEI_PullRequestReviewConnection_Field
-   state: PullRequestState
-   suggestedReviewers: list_SuggestedReviewer[SuggestedReviewer]
-   timelineItems: JKCYY_PullRequestTimelineItemsConnection_Field
-   title: str
-   titleHTML: HTML
-   totalCommentsCount: int
-   updatedAt: DateTime
-   url: URI
-   userContentEdits: KBFMN_UserContentEditConnection_Field
-   viewerCanApplySuggestion: bool
-   viewerCanClose: bool
-   viewerCanDeleteHeadRef: bool
-   viewerCanDisableAutoMerge: bool
-   viewerCanEditFiles: bool
-   viewerCanEnableAutoMerge: bool
-   viewerCanMergeAsAdmin: bool
-   viewerCanReact: bool
-   viewerCanReopen: bool
-   viewerCanSubscribe: bool
-   viewerCanUpdate: bool
-   viewerCanUpdateBranch: bool
-   viewerCannotUpdateReasons: list[CommentCannotUpdateReason]
-   viewerDidAuthor: bool
-   viewerLatestReview: PullRequestReview
-   viewerLatestReviewRequest: ReviewRequest
-   viewerMergeBodyText: SCKMP_viewerMergeBodyText_Field
-   viewerMergeHeadlineText: PMXXT_viewerMergeHeadlineText_Field
-   viewerSubscription: SubscriptionState
-
-class PullRequestEdge(GQLObject):
-   cursor: str
-   node: PullRequest
-
-class list_PullRequestEdge(list, PullRequestEdge): pass
-
-class list_PullRequest(list, PullRequest): pass
-
-class PullRequestConnection(GQLObject):
-   edges: list_PullRequestEdge[PullRequestEdge]
-   nodes: list_PullRequest[PullRequest]
-   pageInfo: PageInfo
-   totalCount: int
-
-class GitActor(GQLObject):
-   avatarUrl: NOIEG_URI_Field
-   date: GitTimestamp
-   email: str
-   name: str
-   user: NewType('User', GQLObject) ## Circular Reference for User
-
-class GitActorEdge(GQLObject):
-   cursor: str
-   node: GitActor
-
-class list_GitActorEdge(list, GitActorEdge): pass
-
-class list_GitActor(list, GitActor): pass
-
-class GitActorConnection(GQLObject):
-   edges: list_GitActorEdge[GitActorEdge]
-   nodes: list_GitActor[GitActor]
-   pageInfo: PageInfo
-   totalCount: int
-
-class BlameRange(GQLObject):
-   age: int
-   commit: NewType('Commit', GQLObject) ## Circular Reference for Commit
-   endingLine: int
-   startingLine: int
-
-class list_BlameRange(list, BlameRange): pass
-
-class Blame(GQLObject):
-   ranges: list_BlameRange[BlameRange]
-
-class CheckSuiteEdge(GQLObject):
-   cursor: str
-   node: NewType('CheckSuite', GQLObject) ## Circular Reference for CheckSuite
-
-class list_CheckSuiteEdge(list, CheckSuiteEdge): pass
-
-class CheckSuiteConnection(GQLObject):
-   edges: list_CheckSuiteEdge[CheckSuiteEdge]
-   nodes: list_GQLObject[GQLObject] ## Circular Reference for CheckSuite
-   pageInfo: PageInfo
-   totalCount: int
-
-class TreeEntry(GQLObject):
-   extension: str
-   isGenerated: bool
-   language: Language
-   lineCount: int
-   mode: int
-   name: str
-   nameRaw: Base64String
-   object: GitObject
-   oid: GitObjectID
-   path: str
-   pathRaw: Base64String
-   repository: Repository
-   size: int
-   submodule: Submodule
-   type: str
-
-class CommitHistoryConnection(GQLObject):
-   edges: list_CommitEdge[CommitEdge]
-   nodes: list_GQLObject[GQLObject] ## Circular Reference for Commit
-   pageInfo: PageInfo
-   totalCount: int
-
-class CommitConnection(GQLObject):
-   edges: list_CommitEdge[CommitEdge]
-   nodes: list_GQLObject[GQLObject] ## Circular Reference for Commit
-   pageInfo: PageInfo
-   totalCount: int
-
-class GitSignature(GQLObject):
-   email: str
-   isValid: bool
-   payload: str
-   signature: str
-   signer: NewType('User', GQLObject) ## Circular Reference for User
-   state: GitSignatureState
-   wasSignedByGitHub: bool
-
-class CheckAnnotationSpan(GQLObject):
-   end: CheckAnnotationPosition
-   start: CheckAnnotationPosition
-
-class CheckAnnotation(GQLObject):
-   annotationLevel: CheckAnnotationLevel
-   blobUrl: URI
-   databaseId: int
-   location: CheckAnnotationSpan
-   message: str
-   path: str
-   rawDetails: str
-   title: str
-
-class CheckAnnotationEdge(GQLObject):
-   cursor: str
-   node: CheckAnnotation
-
-class list_CheckAnnotationEdge(list, CheckAnnotationEdge): pass
-
-class list_CheckAnnotation(list, CheckAnnotation): pass
-
-class CheckAnnotationConnection(GQLObject):
-   edges: list_CheckAnnotationEdge[CheckAnnotationEdge]
-   nodes: list_CheckAnnotation[CheckAnnotation]
-   pageInfo: PageInfo
-   totalCount: int
-
-class QKTVX_DeploymentReviewerConnection_Field(DeploymentReviewerConnection):
-   class DeploymentReviewerConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: DeploymentReviewerConnectionArgs
-
-
-
-class DeploymentRequest(GQLObject):
-   currentUserCanApprove: bool
-   environment: Environment
-   reviewers: QKTVX_DeploymentReviewerConnection_Field
-   waitTimer: int
-   waitTimerStartedAt: DateTime
-
-class CheckStepEdge(GQLObject):
-   cursor: str
-   node: CheckStep
-
-class list_CheckStepEdge(list, CheckStepEdge): pass
-
-class list_CheckStep(list, CheckStep): pass
-
-class CheckStepConnection(GQLObject):
-   edges: list_CheckStepEdge[CheckStepEdge]
-   nodes: list_CheckStep[CheckStep]
-   pageInfo: PageInfo
-   totalCount: int
-
-class TNOOO_CheckAnnotationConnection_Field(CheckAnnotationConnection):
-   class CheckAnnotationConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: CheckAnnotationConnectionArgs
-
-
-
-class OKJDT_CheckStepConnection_Field(CheckStepConnection):
-   class CheckStepConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      number: int
-
-   _args: CheckStepConnectionArgs
-
-
-
-class CheckRun(GQLObject):
-   annotations: TNOOO_CheckAnnotationConnection_Field
-   checkSuite: NewType('CheckSuite', GQLObject) ## Circular Reference for CheckSuite
-   completedAt: DateTime
-   conclusion: CheckConclusionState
-   databaseId: int
-   deployment: Deployment
-   detailsUrl: URI
-   externalId: str
-   id: ID
-   isRequired: ZJXHH_isRequired_Field
-   name: str
-   pendingDeploymentRequest: DeploymentRequest
-   permalink: URI
-   repository: Repository
-   resourcePath: URI
-   startedAt: DateTime
-   status: CheckStatusState
-   steps: OKJDT_CheckStepConnection_Field
-   summary: str
-   text: str
-   title: str
-   url: URI
-
-class StatusContext(GQLObject):
-   avatarUrl: QXSLW_URI_Field
-   commit: NewType('Commit', GQLObject) ## Circular Reference for Commit
-   context: str
-   createdAt: DateTime
-   creator: Actor
-   description: str
-   id: ID
-   isRequired: IKYAO_isRequired_Field
-   state: StatusState
-   targetUrl: URI
-
-class StatusCheckRollupContext(GQLObject): 
-   pass
-
-class StatusCheckRollupContextEdge(GQLObject):
-   cursor: str
-   node: StatusCheckRollupContext
-
-class list_CheckRunStateCount(list, CheckRunStateCount): pass
-
-class list_StatusCheckRollupContextEdge(list, StatusCheckRollupContextEdge): pass
-
-class list_StatusCheckRollupContext(list, StatusCheckRollupContext): pass
-
-class list_StatusContextStateCount(list, StatusContextStateCount): pass
-
-class StatusCheckRollupContextConnection(GQLObject):
-   checkRunCount: int
-   checkRunCountsByState: list_CheckRunStateCount[CheckRunStateCount]
-   edges: list_StatusCheckRollupContextEdge[StatusCheckRollupContextEdge]
-   nodes: list_StatusCheckRollupContext[StatusCheckRollupContext]
-   pageInfo: PageInfo
-   statusContextCount: int
-   statusContextCountsByState: list_StatusContextStateCount[StatusContextStateCount]
-   totalCount: int
-
-class SAOOS_StatusCheckRollupContextConnection_Field(StatusCheckRollupContextConnection):
-   class StatusCheckRollupContextConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: StatusCheckRollupContextConnectionArgs
-
-
-
-class MNKQO_StatusContext_Field(StatusContext):
-   class StatusContextArgs(GQLArgsSet, GQLObject):
-      name: NonNull_str
-
-   _args: StatusContextArgs
-
-
-
-class list_StatusContext(list, StatusContext): pass
-
-class Status(GQLObject):
-   combinedContexts: SAOOS_StatusCheckRollupContextConnection_Field
-   commit: NewType('Commit', GQLObject) ## Circular Reference for Commit
-   context: MNKQO_StatusContext_Field
-   contexts: list_StatusContext[StatusContext]
-   id: ID
-   state: StatusState
-
-class WQZFN_StatusCheckRollupContextConnection_Field(StatusCheckRollupContextConnection):
-   class StatusCheckRollupContextConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: StatusCheckRollupContextConnectionArgs
-
-
-
-class StatusCheckRollup(GQLObject):
-   commit: NewType('Commit', GQLObject) ## Circular Reference for Commit
-   contexts: WQZFN_StatusCheckRollupContextConnection_Field
-   id: ID
-   state: StatusState
-
-class list_TreeEntry(list, TreeEntry): pass
-
-class Tree(GQLObject):
-   abbreviatedOid: str
-   commitResourcePath: URI
-   commitUrl: URI
-   entries: list_TreeEntry[TreeEntry]
-   id: ID
-   oid: GitObjectID
-   repository: Repository
-
-class AFHBT_PullRequestConnection_Field(PullRequestConnection):
-   class PullRequestConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      orderBy: PullRequestOrder
-
-   _args: PullRequestConnectionArgs
-
-
-
-class VEKGU_GitActorConnection_Field(GitActorConnection):
-   class GitActorConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: GitActorConnectionArgs
-
-
-
-class LWJVV_Blame_Field(Blame):
-   class BlameArgs(GQLArgsSet, GQLObject):
-      path: NonNull_str
-
-   _args: BlameArgs
-
-
-
-class NAHIJ_CheckSuiteConnection_Field(CheckSuiteConnection):
-   class CheckSuiteConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      filterBy: CheckSuiteFilter
-
-   _args: CheckSuiteConnectionArgs
-
-
-
-class MXKAT_CommitCommentConnection_Field(Generic[CommitCommentConnection]):
-   class CommitCommentConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: CommitCommentConnectionArgs
-
-
-
-class HRGTQ_DeploymentConnection_Field(DeploymentConnection):
-   class DeploymentConnectionArgs(GQLArgsSet, GQLObject):
-      environments: list[NonNull_str]
-      orderBy: DeploymentOrder
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: DeploymentConnectionArgs
-
-
-
-class FYSWE_TreeEntry_Field(TreeEntry):
-   class TreeEntryArgs(GQLArgsSet, GQLObject):
-      path: NonNull_str
-
-   _args: TreeEntryArgs
-
-
-
-class UICWA_CommitHistoryConnection_Field(CommitHistoryConnection):
-   class CommitHistoryConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      path: str
-      author: CommitAuthor
-      since: GitTimestamp
-      until: GitTimestamp
-
-   _args: CommitHistoryConnectionArgs
-
-
-
-class LPISZ_CommitConnection_Field(CommitConnection):
-   class CommitConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: CommitConnectionArgs
-
-
-
-class JSPFT_SubmoduleConnection_Field(SubmoduleConnection):
-   class SubmoduleConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: SubmoduleConnectionArgs
-
-
-
-class Commit(GQLObject):
-   abbreviatedOid: str
-   additions: int
-   associatedPullRequests: AFHBT_PullRequestConnection_Field
-   author: GitActor
-   authoredByCommitter: bool
-   authoredDate: DateTime
-   authors: VEKGU_GitActorConnection_Field
-   blame: LWJVV_Blame_Field
-   changedFilesIfAvailable: int
-   checkSuites: NAHIJ_CheckSuiteConnection_Field
-   comments: MXKAT_CommitCommentConnection_Field ## Circular Reference for CommitCommentConnection
-   commitResourcePath: URI
-   commitUrl: URI
-   committedDate: DateTime
-   committedViaWeb: bool
-   committer: GitActor
-   deletions: int
-   deployments: HRGTQ_DeploymentConnection_Field
-   file: FYSWE_TreeEntry_Field
-   history: UICWA_CommitHistoryConnection_Field
-   id: ID
-   message: str
-   messageBody: str
-   messageBodyHTML: HTML
-   messageHeadline: str
-   messageHeadlineHTML: HTML
-   oid: GitObjectID
-   onBehalfOf: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   parents: LPISZ_CommitConnection_Field
-   repository: Repository
-   resourcePath: URI
-   signature: GitSignature
-   status: Status
-   statusCheckRollup: StatusCheckRollup
-   submodules: JSPFT_SubmoduleConnection_Field
-   tarballUrl: URI
-   tree: Tree
-   treeResourcePath: URI
-   treeUrl: URI
-   url: URI
-   viewerCanSubscribe: bool
-   viewerSubscription: SubscriptionState
-   zipballUrl: URI
-
-class RPYZG_ReactionConnection_Field(ReactionConnection):
-   class ReactionConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      content: ReactionContent
-      orderBy: ReactionOrder
-
-   _args: ReactionConnectionArgs
-
-
-
-class QLNMA_UserContentEditConnection_Field(UserContentEditConnection):
-   class UserContentEditConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: UserContentEditConnectionArgs
-
-
-
-class CommitComment(GQLObject):
-   author: Actor
-   authorAssociation: CommentAuthorAssociation
-   body: str
-   bodyHTML: HTML
-   bodyText: str
-   commit: Commit
-   createdAt: DateTime
-   createdViaEmail: bool
-   databaseId: int
-   editor: Actor
-   id: ID
-   includesCreatedEdit: bool
-   isMinimized: bool
-   lastEditedAt: DateTime
-   minimizedReason: str
-   path: str
-   position: int
-   publishedAt: DateTime
-   reactionGroups: list_ReactionGroup[ReactionGroup]
-   reactions: RPYZG_ReactionConnection_Field
-   repository: Repository
-   resourcePath: URI
-   updatedAt: DateTime
-   url: URI
-   userContentEdits: QLNMA_UserContentEditConnection_Field
-   viewerCanDelete: bool
-   viewerCanMinimize: bool
-   viewerCanReact: bool
-   viewerCanUpdate: bool
-   viewerCannotUpdateReasons: list[CommentCannotUpdateReason]
-   viewerDidAuthor: bool
-
-class CommitCommentEdge(GQLObject):
-   cursor: str
-   node: CommitComment
-
-class list_CommitCommentEdge(list, CommitCommentEdge): pass
-
-class list_CommitComment(list, CommitComment): pass
-
-class CommitCommentConnection(GQLObject):
-   edges: list_CommitCommentEdge[CommitCommentEdge]
-   nodes: list_CommitComment[CommitComment]
-   pageInfo: PageInfo
-   totalCount: int
-
-class CreatedCommitContribution(GQLObject):
-   commitCount: int
-   isRestricted: bool
-   occurredAt: DateTime
-   repository: Repository
-   resourcePath: URI
-   url: URI
-   user: NewType('User', GQLObject) ## Circular Reference for User
-
-class CreatedCommitContributionEdge(GQLObject):
-   cursor: str
-   node: CreatedCommitContribution
-
-class list_CreatedCommitContributionEdge(list, CreatedCommitContributionEdge): pass
-
-class list_CreatedCommitContribution(list, CreatedCommitContribution): pass
-
-class CreatedCommitContributionConnection(GQLObject):
-   edges: list_CreatedCommitContributionEdge[CreatedCommitContributionEdge]
-   nodes: list_CreatedCommitContribution[CreatedCommitContribution]
-   pageInfo: PageInfo
-   totalCount: int
-
-class BTUIE_CreatedCommitContributionConnection_Field(CreatedCommitContributionConnection):
-   class CreatedCommitContributionConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      orderBy: CommitContributionOrder
-
-   _args: CreatedCommitContributionConnectionArgs
-
-
-
-class CommitContributionsByRepository(GQLObject):
-   contributions: BTUIE_CreatedCommitContributionConnection_Field
-   repository: Repository
-   resourcePath: URI
-   url: URI
-
-class list_ContributionCalendarDay(list, ContributionCalendarDay): pass
-
-class ContributionCalendarWeek(GQLObject):
-   contributionDays: list_ContributionCalendarDay[ContributionCalendarDay]
-   firstDay: Date
-
-class list_ContributionCalendarMonth(list, ContributionCalendarMonth): pass
-
-class list_ContributionCalendarWeek(list, ContributionCalendarWeek): pass
-
-class ContributionCalendar(GQLObject):
-   colors: list[str]
-   isHalloween: bool
-   months: list_ContributionCalendarMonth[ContributionCalendarMonth]
-   totalContributions: int
-   weeks: list_ContributionCalendarWeek[ContributionCalendarWeek]
-
-class CreatedIssueContribution(GQLObject):
-   isRestricted: bool
-   issue: Issue
-   occurredAt: DateTime
-   resourcePath: URI
-   url: URI
-   user: NewType('User', GQLObject) ## Circular Reference for User
-
-class RestrictedContribution(GQLObject):
-   isRestricted: bool
-   occurredAt: DateTime
-   resourcePath: URI
-   url: URI
-   user: NewType('User', GQLObject) ## Circular Reference for User
-
-class CreatedIssueOrRestrictedContribution(GQLObject): 
-   pass
-
-class CreatedPullRequestContribution(GQLObject):
-   isRestricted: bool
-   occurredAt: DateTime
-   pullRequest: PullRequest
-   resourcePath: URI
-   url: URI
-   user: NewType('User', GQLObject) ## Circular Reference for User
-
-class CreatedPullRequestOrRestrictedContribution(GQLObject): 
-   pass
-
-class CreatedRepositoryContribution(GQLObject):
-   isRestricted: bool
-   occurredAt: DateTime
-   repository: Repository
-   resourcePath: URI
-   url: URI
-   user: NewType('User', GQLObject) ## Circular Reference for User
-
-class CreatedRepositoryOrRestrictedContribution(GQLObject): 
-   pass
-
-class CreatedIssueContributionEdge(GQLObject):
-   cursor: str
-   node: CreatedIssueContribution
-
-class list_CreatedIssueContributionEdge(list, CreatedIssueContributionEdge): pass
-
-class list_CreatedIssueContribution(list, CreatedIssueContribution): pass
-
-class CreatedIssueContributionConnection(GQLObject):
-   edges: list_CreatedIssueContributionEdge[CreatedIssueContributionEdge]
-   nodes: list_CreatedIssueContribution[CreatedIssueContribution]
-   pageInfo: PageInfo
-   totalCount: int
-
-class JJERK_CreatedIssueContributionConnection_Field(CreatedIssueContributionConnection):
-   class CreatedIssueContributionConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      orderBy: ContributionOrder
-
-   _args: CreatedIssueContributionConnectionArgs
-
-
-
-class IssueContributionsByRepository(GQLObject):
-   contributions: JJERK_CreatedIssueContributionConnection_Field
-   repository: Repository
-
-class JoinedGitHubContribution(GQLObject):
-   isRestricted: bool
-   occurredAt: DateTime
-   resourcePath: URI
-   url: URI
-   user: NewType('User', GQLObject) ## Circular Reference for User
-
-class CreatedPullRequestContributionEdge(GQLObject):
-   cursor: str
-   node: CreatedPullRequestContribution
-
-class list_CreatedPullRequestContributionEdge(list, CreatedPullRequestContributionEdge): pass
-
-class list_CreatedPullRequestContribution(list, CreatedPullRequestContribution): pass
-
-class CreatedPullRequestContributionConnection(GQLObject):
-   edges: list_CreatedPullRequestContributionEdge[CreatedPullRequestContributionEdge]
-   nodes: list_CreatedPullRequestContribution[CreatedPullRequestContribution]
-   pageInfo: PageInfo
-   totalCount: int
-
-class BXFMO_CreatedPullRequestContributionConnection_Field(CreatedPullRequestContributionConnection):
-   class CreatedPullRequestContributionConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      orderBy: ContributionOrder
-
-   _args: CreatedPullRequestContributionConnectionArgs
-
-
-
-class PullRequestContributionsByRepository(GQLObject):
-   contributions: BXFMO_CreatedPullRequestContributionConnection_Field
-   repository: Repository
-
-class CreatedPullRequestReviewContribution(GQLObject):
-   isRestricted: bool
-   occurredAt: DateTime
-   pullRequest: PullRequest
-   pullRequestReview: PullRequestReview
-   repository: Repository
-   resourcePath: URI
-   url: URI
-   user: NewType('User', GQLObject) ## Circular Reference for User
-
-class CreatedPullRequestReviewContributionEdge(GQLObject):
-   cursor: str
-   node: CreatedPullRequestReviewContribution
-
-class list_CreatedPullRequestReviewContributionEdge(list, CreatedPullRequestReviewContributionEdge): pass
-
-class list_CreatedPullRequestReviewContribution(list, CreatedPullRequestReviewContribution): pass
-
-class CreatedPullRequestReviewContributionConnection(GQLObject):
-   edges: list_CreatedPullRequestReviewContributionEdge[CreatedPullRequestReviewContributionEdge]
-   nodes: list_CreatedPullRequestReviewContribution[CreatedPullRequestReviewContribution]
-   pageInfo: PageInfo
-   totalCount: int
-
-class MQDUP_CreatedPullRequestReviewContributionConnection_Field(CreatedPullRequestReviewContributionConnection):
-   class CreatedPullRequestReviewContributionConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      orderBy: ContributionOrder
-
-   _args: CreatedPullRequestReviewContributionConnectionArgs
-
-
-
-class PullRequestReviewContributionsByRepository(GQLObject):
-   contributions: MQDUP_CreatedPullRequestReviewContributionConnection_Field
-   repository: Repository
-
-class CreatedRepositoryContributionEdge(GQLObject):
-   cursor: str
-   node: CreatedRepositoryContribution
-
-class list_CreatedRepositoryContributionEdge(list, CreatedRepositoryContributionEdge): pass
-
-class list_CreatedRepositoryContribution(list, CreatedRepositoryContribution): pass
-
-class CreatedRepositoryContributionConnection(GQLObject):
-   edges: list_CreatedRepositoryContributionEdge[CreatedRepositoryContributionEdge]
-   nodes: list_CreatedRepositoryContribution[CreatedRepositoryContribution]
-   pageInfo: PageInfo
-   totalCount: int
-
-class ZOCII_CommitContributionsByRepository_Field(CommitContributionsByRepository):
-   class CommitContributionsByRepositoryArgs(GQLArgsSet, GQLObject):
-      maxRepositories: int
-
-   _args: CommitContributionsByRepositoryArgs
-
-
-
-class list_CommitContributionsByRepository(list, CommitContributionsByRepository): pass
-
-class DEJGI_CreatedIssueContributionConnection_Field(CreatedIssueContributionConnection):
-   class CreatedIssueContributionConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      excludeFirst: bool
-      excludePopular: bool
-      orderBy: ContributionOrder
-
-   _args: CreatedIssueContributionConnectionArgs
-
-
-
-class UVBZB_IssueContributionsByRepository_Field(IssueContributionsByRepository):
-   class IssueContributionsByRepositoryArgs(GQLArgsSet, GQLObject):
-      maxRepositories: int
-      excludeFirst: bool
-      excludePopular: bool
-
-   _args: IssueContributionsByRepositoryArgs
-
-
-
-class list_IssueContributionsByRepository(list, IssueContributionsByRepository): pass
-
-class INNKA_CreatedPullRequestContributionConnection_Field(CreatedPullRequestContributionConnection):
-   class CreatedPullRequestContributionConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      excludeFirst: bool
-      excludePopular: bool
-      orderBy: ContributionOrder
-
-   _args: CreatedPullRequestContributionConnectionArgs
-
-
-
-class CZUFM_PullRequestContributionsByRepository_Field(PullRequestContributionsByRepository):
-   class PullRequestContributionsByRepositoryArgs(GQLArgsSet, GQLObject):
-      maxRepositories: int
-      excludeFirst: bool
-      excludePopular: bool
-
-   _args: PullRequestContributionsByRepositoryArgs
-
-
-
-class list_PullRequestContributionsByRepository(list, PullRequestContributionsByRepository): pass
-
-class YGUFP_CreatedPullRequestReviewContributionConnection_Field(CreatedPullRequestReviewContributionConnection):
-   class CreatedPullRequestReviewContributionConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      orderBy: ContributionOrder
-
-   _args: CreatedPullRequestReviewContributionConnectionArgs
-
-
-
-class EKBPL_PullRequestReviewContributionsByRepository_Field(PullRequestReviewContributionsByRepository):
-   class PullRequestReviewContributionsByRepositoryArgs(GQLArgsSet, GQLObject):
-      maxRepositories: int
-
-   _args: PullRequestReviewContributionsByRepositoryArgs
-
-
-
-class list_PullRequestReviewContributionsByRepository(list, PullRequestReviewContributionsByRepository): pass
-
-class DHZBW_CreatedRepositoryContributionConnection_Field(CreatedRepositoryContributionConnection):
-   class CreatedRepositoryContributionConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      excludeFirst: bool
-      orderBy: ContributionOrder
-
-   _args: CreatedRepositoryContributionConnectionArgs
-
-
-
-class ContributionsCollection(GQLObject):
-   commitContributionsByRepository: ZOCII_CommitContributionsByRepository_Field
-   contributionCalendar: ContributionCalendar
-   contributionYears: list[int]
-   doesEndInCurrentMonth: bool
-   earliestRestrictedContributionDate: Date
-   endedAt: DateTime
-   firstIssueContribution: CreatedIssueOrRestrictedContribution
-   firstPullRequestContribution: CreatedPullRequestOrRestrictedContribution
-   firstRepositoryContribution: CreatedRepositoryOrRestrictedContribution
-   hasActivityInThePast: bool
-   hasAnyContributions: bool
-   hasAnyRestrictedContributions: bool
-   isSingleDay: bool
-   issueContributions: DEJGI_CreatedIssueContributionConnection_Field
-   issueContributionsByRepository: UVBZB_IssueContributionsByRepository_Field
-   joinedGitHubContribution: JoinedGitHubContribution
-   latestRestrictedContributionDate: Date
-   mostRecentCollectionWithActivity: NewType('ContributionsCollection', GQLObject) ## Circular Reference for ContributionsCollection
-   mostRecentCollectionWithoutActivity: NewType('ContributionsCollection', GQLObject) ## Circular Reference for ContributionsCollection
-   popularIssueContribution: CreatedIssueContribution
-   popularPullRequestContribution: CreatedPullRequestContribution
-   pullRequestContributions: INNKA_CreatedPullRequestContributionConnection_Field
-   pullRequestContributionsByRepository: CZUFM_PullRequestContributionsByRepository_Field
-   pullRequestReviewContributions: YGUFP_CreatedPullRequestReviewContributionConnection_Field
-   pullRequestReviewContributionsByRepository: EKBPL_PullRequestReviewContributionsByRepository_Field
-   repositoryContributions: DHZBW_CreatedRepositoryContributionConnection_Field
-   restrictedContributionsCount: int
-   startedAt: DateTime
-   totalCommitContributions: int
-   totalIssueContributions: QGEPN_totalIssueContributions_Field
-   totalPullRequestContributions: TDTJO_totalPullRequestContributions_Field
-   totalPullRequestReviewContributions: int
-   totalRepositoriesWithContributedCommits: int
-   totalRepositoriesWithContributedIssues: AZLBL_totalRepositoriesWithContributedIssues_Field
-   totalRepositoriesWithContributedPullRequestReviews: int
-   totalRepositoriesWithContributedPullRequests: CLSWT_totalRepositoriesWithContributedPullRequests_Field
-   totalRepositoryContributions: RESLG_totalRepositoryContributions_Field
-   user: NewType('User', GQLObject) ## Circular Reference for User
-
-class FollowerConnection(GQLObject):
-   edges: list_UserEdge[UserEdge]
-   nodes: list_GQLObject[GQLObject] ## Circular Reference for User
-   pageInfo: PageInfo
-   totalCount: int
-
-class FollowingConnection(GQLObject):
-   edges: list_UserEdge[UserEdge]
-   nodes: list_GQLObject[GQLObject] ## Circular Reference for User
-   pageInfo: PageInfo
-   totalCount: int
-
-class XMCKY_UserContentEditConnection_Field(UserContentEditConnection):
-   class UserContentEditConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: UserContentEditConnectionArgs
-
-
-
-class GistComment(GQLObject):
-   author: Actor
-   authorAssociation: CommentAuthorAssociation
-   body: str
-   bodyHTML: HTML
-   bodyText: str
-   createdAt: DateTime
-   createdViaEmail: bool
-   databaseId: int
-   editor: Actor
-   gist: NewType('Gist', GQLObject) ## Circular Reference for Gist
-   id: ID
-   includesCreatedEdit: bool
-   isMinimized: bool
-   lastEditedAt: DateTime
-   minimizedReason: str
-   publishedAt: DateTime
-   updatedAt: DateTime
-   userContentEdits: XMCKY_UserContentEditConnection_Field
-   viewerCanDelete: bool
-   viewerCanMinimize: bool
-   viewerCanUpdate: bool
-   viewerCannotUpdateReasons: list[CommentCannotUpdateReason]
-   viewerDidAuthor: bool
-
-class GistCommentEdge(GQLObject):
-   cursor: str
-   node: GistComment
-
-class list_GistCommentEdge(list, GistCommentEdge): pass
-
-class list_GistComment(list, GistComment): pass
-
-class GistCommentConnection(GQLObject):
-   edges: list_GistCommentEdge[GistCommentEdge]
-   nodes: list_GistComment[GistComment]
-   pageInfo: PageInfo
-   totalCount: int
-
-class GistFile(GQLObject):
-   encodedName: str
-   encoding: str
-   extension: str
-   isImage: bool
-   isTruncated: bool
-   language: Language
-   name: str
-   size: int
-   text: ZKQVF_text_Field
-
-class GistEdge(GQLObject):
-   cursor: str
-   node: NewType('Gist', GQLObject) ## Circular Reference for Gist
-
-class list_GistEdge(list, GistEdge): pass
-
-class GistConnection(GQLObject):
-   edges: list_GistEdge[GistEdge]
-   nodes: list_GQLObject[GQLObject] ## Circular Reference for Gist
-   pageInfo: PageInfo
-   totalCount: int
-
-class KURCB_GistCommentConnection_Field(GistCommentConnection):
-   class GistCommentConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: GistCommentConnectionArgs
-
-
-
-class AJBXP_GistFile_Field(GistFile):
-   class GistFileArgs(GQLArgsSet, GQLObject):
-      limit: int
-      oid: GitObjectID
-
-   _args: GistFileArgs
-
-
-
-class list_GistFile(list, GistFile): pass
-
-class OKNYQ_GistConnection_Field(GistConnection):
-   class GistConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      orderBy: GistOrder
-
-   _args: GistConnectionArgs
-
-
-
-class UAKSI_StargazerConnection_Field(StargazerConnection):
-   class StargazerConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      orderBy: StarOrder
-
-   _args: StargazerConnectionArgs
-
-
-
-class Gist(GQLObject):
-   comments: KURCB_GistCommentConnection_Field
-   createdAt: DateTime
-   description: str
-   files: AJBXP_GistFile_Field
-   forks: OKNYQ_GistConnection_Field
-   id: ID
-   isFork: bool
-   isPublic: bool
-   name: str
-   owner: RepositoryOwner
-   pushedAt: DateTime
-   resourcePath: URI
-   stargazerCount: int
-   stargazers: UAKSI_StargazerConnection_Field
-   updatedAt: DateTime
-   url: URI
-   viewerHasStarred: bool
-
-class PinnableItem(GQLObject): 
-   pass
-
-class PinnableItemEdge(GQLObject):
-   cursor: str
-   node: PinnableItem
-
-class list_PinnableItemEdge(list, PinnableItemEdge): pass
-
-class list_PinnableItem(list, PinnableItem): pass
-
-class PinnableItemConnection(GQLObject):
-   edges: list_PinnableItemEdge[PinnableItemEdge]
-   nodes: list_PinnableItem[PinnableItem]
-   pageInfo: PageInfo
-   totalCount: int
-
-class AJGZE_PinnableItemConnection_Field(PinnableItemConnection):
-   class PinnableItemConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: PinnableItemConnectionArgs
-
-
-
-class ProfileItemShowcase(GQLObject):
-   hasPinnedItems: bool
-   items: AJGZE_PinnableItemConnection_Field
-
-class OrganizationEdge(GQLObject):
-   cursor: str
-   node: NewType('Organization', GQLObject) ## Circular Reference for Organization
-
-class list_OrganizationEdge(list, OrganizationEdge): pass
-
-class OrganizationConnection(GQLObject):
-   edges: list_OrganizationEdge[OrganizationEdge]
-   nodes: list_GQLObject[GQLObject] ## Circular Reference for Organization
-   pageInfo: PageInfo
-   totalCount: int
-
-class PublicKeyEdge(GQLObject):
-   cursor: str
-   node: PublicKey
-
-class list_PublicKeyEdge(list, PublicKeyEdge): pass
-
-class list_PublicKey(list, PublicKey): pass
-
-class PublicKeyConnection(GQLObject):
-   edges: list_PublicKeyEdge[PublicKeyEdge]
-   nodes: list_PublicKey[PublicKey]
-   pageInfo: PageInfo
-   totalCount: int
-
-class SavedReply(GQLObject):
-   body: str
-   bodyHTML: HTML
-   databaseId: int
-   id: ID
-   title: str
-   user: Actor
-
-class SavedReplyEdge(GQLObject):
-   cursor: str
-   node: SavedReply
-
-class list_SavedReplyEdge(list, SavedReplyEdge): pass
-
-class list_SavedReply(list, SavedReply): pass
-
-class SavedReplyConnection(GQLObject):
-   edges: list_SavedReplyEdge[SavedReplyEdge]
-   nodes: list_SavedReply[SavedReply]
-   pageInfo: PageInfo
-   totalCount: int
-
-class SocialAccountEdge(GQLObject):
-   cursor: str
-   node: SocialAccount
-
-class list_SocialAccountEdge(list, SocialAccountEdge): pass
-
-class list_SocialAccount(list, SocialAccount): pass
-
-class SocialAccountConnection(GQLObject):
-   edges: list_SocialAccountEdge[SocialAccountEdge]
-   nodes: list_SocialAccount[SocialAccount]
-   pageInfo: PageInfo
-   totalCount: int
-
-class Sponsor(GQLObject): 
-   pass
-
-class SponsorEdge(GQLObject):
-   cursor: str
-   node: Sponsor
-
-class list_SponsorEdge(list, SponsorEdge): pass
-
-class list_Sponsor(list, Sponsor): pass
-
-class SponsorConnection(GQLObject):
-   edges: list_SponsorEdge[SponsorEdge]
-   nodes: list_Sponsor[Sponsor]
-   pageInfo: PageInfo
-   totalCount: int
-
-class StripeConnectAccount(GQLObject):
-   accountId: str
-   billingCountryOrRegion: str
-   countryOrRegion: str
-   isActive: bool
-   sponsorsListing: NewType('SponsorsListing', GQLObject) ## Circular Reference for SponsorsListing
-   stripeDashboardUrl: URI
-
-class SponsorsListingFeatureableItem(GQLObject): 
-   pass
-
-class SponsorsListingFeaturedItem(GQLObject):
-   createdAt: DateTime
-   description: str
-   featureable: SponsorsListingFeatureableItem
-   id: ID
-   position: int
-   sponsorsListing: NewType('SponsorsListing', GQLObject) ## Circular Reference for SponsorsListing
-   updatedAt: DateTime
-
-class SponsorsTierEdge(GQLObject):
-   cursor: str
-   node: NewType('SponsorsTier', GQLObject) ## Circular Reference for SponsorsTier
-
-class list_SponsorsTierEdge(list, SponsorsTierEdge): pass
-
-class SponsorsTierConnection(GQLObject):
-   edges: list_SponsorsTierEdge[SponsorsTierEdge]
-   nodes: list_GQLObject[GQLObject] ## Circular Reference for SponsorsTier
-   pageInfo: PageInfo
-   totalCount: int
-
-class NonNull_SponsorsListingFeaturedItemFeatureableType(GQLObject): pass
-
-class BFUQT_SponsorsListingFeaturedItem_Field(SponsorsListingFeaturedItem):
-   class SponsorsListingFeaturedItemArgs(GQLArgsSet, GQLObject):
-      featureableTypes: list[NonNull_SponsorsListingFeaturedItemFeatureableType]
-
-   _args: SponsorsListingFeaturedItemArgs
-
-
-
-class list_SponsorsListingFeaturedItem(list, SponsorsListingFeaturedItem): pass
-
-class ZNCAJ_SponsorsTierConnection_Field(SponsorsTierConnection):
-   class SponsorsTierConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      orderBy: SponsorsTierOrder
-      includeUnpublished: bool
-
-   _args: SponsorsTierConnectionArgs
-
-
-
-class SponsorsListing(GQLObject):
-   activeGoal: SponsorsGoal
-   activeStripeConnectAccount: StripeConnectAccount
-   billingCountryOrRegion: str
-   contactEmailAddress: str
-   createdAt: DateTime
-   dashboardResourcePath: URI
-   dashboardUrl: URI
-   featuredItems: BFUQT_SponsorsListingFeaturedItem_Field
-   fiscalHost: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   fullDescription: str
-   fullDescriptionHTML: HTML
-   id: ID
-   isPublic: bool
-   name: str
-   nextPayoutDate: Date
-   residenceCountryOrRegion: str
-   resourcePath: URI
-   shortDescription: str
-   slug: str
-   sponsorable: NewType('Sponsorable', GQLObject) ## Circular Reference for Sponsorable
-   tiers: ZNCAJ_SponsorsTierConnection_Field
-   url: URI
-
-class SponsorshipNewsletter(GQLObject):
-   author: NewType('User', GQLObject) ## Circular Reference for User
-   body: str
-   createdAt: DateTime
-   id: ID
-   isPublished: bool
-   sponsorable: NewType('Sponsorable', GQLObject) ## Circular Reference for Sponsorable
-   subject: str
-   updatedAt: DateTime
-
-class SponsorshipNewsletterEdge(GQLObject):
-   cursor: str
-   node: SponsorshipNewsletter
-
-class list_SponsorshipNewsletterEdge(list, SponsorshipNewsletterEdge): pass
-
-class list_SponsorshipNewsletter(list, SponsorshipNewsletter): pass
-
-class SponsorshipNewsletterConnection(GQLObject):
-   edges: list_SponsorshipNewsletterEdge[SponsorshipNewsletterEdge]
-   nodes: list_SponsorshipNewsletter[SponsorshipNewsletter]
-   pageInfo: PageInfo
-   totalCount: int
-
-class VQCBY_SponsorConnection_Field(SponsorConnection):
-   class SponsorConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      orderBy: SponsorOrder
-
-   _args: SponsorConnectionArgs
-
-
-
-class DANZE_SponsorConnection_Field(SponsorConnection):
-   class SponsorConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      tierId: ID
-      orderBy: SponsorOrder
-
-   _args: SponsorConnectionArgs
-
-
-
-class NonNull_SponsorsActivityAction(GQLObject): pass
-
-class DENEN_SponsorsActivityConnection_Field(Generic[SponsorsActivityConnection]):
-   class SponsorsActivityConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      period: SponsorsActivityPeriod
-      since: DateTime
-      until: DateTime
-      orderBy: SponsorsActivityOrder
-      actions: list[NonNull_SponsorsActivityAction]
-      includeAsSponsor: bool
-      includePrivate: bool
-
-   _args: SponsorsActivityConnectionArgs
-
-
-
-class DKCDZ_Sponsorship_Field(Generic[Sponsorship]):
-   class SponsorshipArgs(GQLArgsSet, GQLObject):
-      activeOnly: bool
-
-   _args: SponsorshipArgs
-
-
-
-class YJHYS_Sponsorship_Field(Generic[Sponsorship]):
-   class SponsorshipArgs(GQLArgsSet, GQLObject):
-      activeOnly: bool
-
-   _args: SponsorshipArgs
-
-
-
-class AZCVN_SponsorshipNewsletterConnection_Field(SponsorshipNewsletterConnection):
-   class SponsorshipNewsletterConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      orderBy: SponsorshipNewsletterOrder
-
-   _args: SponsorshipNewsletterConnectionArgs
-
-
-
-class JBIAM_SponsorshipConnection_Field(Generic[SponsorshipConnection]):
-   class SponsorshipConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      includePrivate: bool
-      orderBy: SponsorshipOrder
-      activeOnly: bool
-
-   _args: SponsorshipConnectionArgs
-
-
-
-class QFOJG_SponsorshipConnection_Field(Generic[SponsorshipConnection]):
-   class SponsorshipConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      orderBy: SponsorshipOrder
-      maintainerLogins: list[NonNull_str]
-      activeOnly: bool
-
-   _args: SponsorshipConnectionArgs
-
-
-
-class Sponsorable(GQLObject):
-   estimatedNextSponsorsPayoutInCents: int
-   hasSponsorsListing: bool
-   isSponsoredBy: VYVTZ_isSponsoredBy_Field
-   isSponsoringViewer: bool
-   monthlyEstimatedSponsorsIncomeInCents: int
-   sponsoring: VQCBY_SponsorConnection_Field
-   sponsors: DANZE_SponsorConnection_Field
-   sponsorsActivities: DENEN_SponsorsActivityConnection_Field ## Circular Reference for SponsorsActivityConnection
-   sponsorsListing: SponsorsListing
-   sponsorshipForViewerAsSponsor: DKCDZ_Sponsorship_Field ## Circular Reference for Sponsorship
-   sponsorshipForViewerAsSponsorable: YJHYS_Sponsorship_Field ## Circular Reference for Sponsorship
-   sponsorshipNewsletters: AZCVN_SponsorshipNewsletterConnection_Field
-   sponsorshipsAsMaintainer: JBIAM_SponsorshipConnection_Field ## Circular Reference for SponsorshipConnection
-   sponsorshipsAsSponsor: QFOJG_SponsorshipConnection_Field ## Circular Reference for SponsorshipConnection
-   totalSponsorshipAmountAsSponsorInCents: FZWIV_totalSponsorshipAmountAsSponsorInCents_Field
-   viewerCanSponsor: bool
-   viewerIsSponsoring: bool
-
-class Sponsorship(GQLObject):
-   createdAt: DateTime
-   id: ID
-   isActive: bool
-   isOneTimePayment: bool
-   isSponsorOptedIntoEmail: bool
-   privacyLevel: SponsorshipPrivacy
-   sponsorEntity: Sponsor
-   sponsorable: Sponsorable
-   tier: NewType('SponsorsTier', GQLObject) ## Circular Reference for SponsorsTier
-   tierSelectedAt: DateTime
-
-class SponsorshipEdge(GQLObject):
-   cursor: str
-   node: Sponsorship
-
-class list_SponsorshipEdge(list, SponsorshipEdge): pass
-
-class list_Sponsorship(list, Sponsorship): pass
-
-class SponsorshipConnection(GQLObject):
-   edges: list_SponsorshipEdge[SponsorshipEdge]
-   nodes: list_Sponsorship[Sponsorship]
-   pageInfo: PageInfo
-   totalCount: int
-   totalRecurringMonthlyPriceInCents: int
-   totalRecurringMonthlyPriceInDollars: int
-
-class EBOLO_SponsorshipConnection_Field(SponsorshipConnection):
-   class SponsorshipConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      includePrivate: bool
-      orderBy: SponsorshipOrder
-
-   _args: SponsorshipConnectionArgs
-
-
-
-class SponsorsTierAdminInfo(GQLObject):
-   isDraft: bool
-   isPublished: bool
-   isRetired: bool
-   sponsorships: EBOLO_SponsorshipConnection_Field
-
-class SponsorsTier(GQLObject):
-   adminInfo: SponsorsTierAdminInfo
-   closestLesserValueTier: NewType('SponsorsTier', GQLObject) ## Circular Reference for SponsorsTier
-   createdAt: DateTime
-   description: str
-   descriptionHTML: HTML
-   id: ID
-   isCustomAmount: bool
-   isOneTime: bool
-   monthlyPriceInCents: int
-   monthlyPriceInDollars: int
-   name: str
-   sponsorsListing: SponsorsListing
-   updatedAt: DateTime
-
-class SponsorsActivity(GQLObject):
-   action: SponsorsActivityAction
-   currentPrivacyLevel: SponsorshipPrivacy
-   id: ID
-   previousSponsorsTier: SponsorsTier
-   sponsor: Sponsor
-   sponsorable: Sponsorable
-   sponsorsTier: SponsorsTier
-   timestamp: DateTime
-   viaBulkSponsorship: bool
-
-class SponsorsActivityEdge(GQLObject):
-   cursor: str
-   node: SponsorsActivity
-
-class list_SponsorsActivityEdge(list, SponsorsActivityEdge): pass
-
-class list_SponsorsActivity(list, SponsorsActivity): pass
-
-class SponsorsActivityConnection(GQLObject):
-   edges: list_SponsorsActivityEdge[SponsorsActivityEdge]
-   nodes: list_SponsorsActivity[SponsorsActivity]
-   pageInfo: PageInfo
-   totalCount: int
-
-class StarredRepositoryEdge(GQLObject):
-   cursor: str
-   node: Repository
-   starredAt: DateTime
-
-class list_StarredRepositoryEdge(list, StarredRepositoryEdge): pass
-
-class StarredRepositoryConnection(GQLObject):
-   edges: list_StarredRepositoryEdge[StarredRepositoryEdge]
-   isOverLimit: bool
-   nodes: list_Repository[Repository]
-   pageInfo: PageInfo
-   totalCount: int
-
-class ATRDG_CommitCommentConnection_Field(CommitCommentConnection):
-   class CommitCommentConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: CommitCommentConnectionArgs
-
-
-
-class FJBNJ_ContributionsCollection_Field(ContributionsCollection):
-   class ContributionsCollectionArgs(GQLArgsSet, GQLObject):
-      organizationID: ID
-      from_: DateTime
-      to: DateTime
-
-   _args: ContributionsCollectionArgs
-
-
-
-class ZVCDA_FollowerConnection_Field(FollowerConnection):
-   class FollowerConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: FollowerConnectionArgs
-
-
-
-class XJEAZ_FollowingConnection_Field(FollowingConnection):
-   class FollowingConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: FollowingConnectionArgs
-
-
-
-class OZFCS_Gist_Field(Gist):
-   class GistArgs(GQLArgsSet, GQLObject):
-      name: NonNull_str
-
-   _args: GistArgs
-
-
-
-class DWJAM_GistCommentConnection_Field(GistCommentConnection):
-   class GistCommentConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: GistCommentConnectionArgs
-
-
-
-class SQBKL_GistConnection_Field(GistConnection):
-   class GistConnectionArgs(GQLArgsSet, GQLObject):
-      privacy: GistPrivacy
-      orderBy: GistOrder
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: GistConnectionArgs
-
-
-
-class AFPXF_Hovercard_Field(Hovercard):
-   class HovercardArgs(GQLArgsSet, GQLObject):
-      primarySubjectId: ID
-
-   _args: HovercardArgs
-
-
-
-class HUKFR_IssueCommentConnection_Field(IssueCommentConnection):
-   class IssueCommentConnectionArgs(GQLArgsSet, GQLObject):
-      orderBy: IssueCommentOrder
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: IssueCommentConnectionArgs
-
-
-
-class IIJOM_IssueConnection_Field(IssueConnection):
-   class IssueConnectionArgs(GQLArgsSet, GQLObject):
-      orderBy: IssueOrder
-      labels: list[NonNull_str]
-      states: list[NonNull_IssueState]
-      filterBy: IssueFilters
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: IssueConnectionArgs
-
-
-
-class XKNAK_Organization_Field(Generic[Organization]):
-   class OrganizationArgs(GQLArgsSet, GQLObject):
-      login: NonNull_str
-
-   _args: OrganizationArgs
-
-
-
-class PAUUO_OrganizationConnection_Field(OrganizationConnection):
-   class OrganizationConnectionArgs(GQLArgsSet, GQLObject):
-      orderBy: OrganizationOrder
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: OrganizationConnectionArgs
-
-
-
-class NGADS_PackageConnection_Field(PackageConnection):
-   class PackageConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      names: list[str]
-      repositoryId: ID
-      packageType: PackageType
-      orderBy: PackageOrder
-
-   _args: PackageConnectionArgs
-
-
-
-class NonNull_PinnableItemType(GQLObject): pass
-
-class KQFBY_PinnableItemConnection_Field(PinnableItemConnection):
-   class PinnableItemConnectionArgs(GQLArgsSet, GQLObject):
-      types: list[NonNull_PinnableItemType]
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: PinnableItemConnectionArgs
-
-
-
-class AGVMD_PinnableItemConnection_Field(PinnableItemConnection):
-   class PinnableItemConnectionArgs(GQLArgsSet, GQLObject):
-      types: list[NonNull_PinnableItemType]
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: PinnableItemConnectionArgs
-
-
-
-class EVYBF_Project_Field(Project):
-   class ProjectArgs(GQLArgsSet, GQLObject):
-      number: NonNull_int
-
-   _args: ProjectArgs
-
-
-
-class BYVYE_ProjectV2_Field(ProjectV2):
-   class ProjectV2Args(GQLArgsSet, GQLObject):
-      number: NonNull_int
-
-   _args: ProjectV2Args
-
-
-
-class FFSPZ_ProjectConnection_Field(ProjectConnection):
-   class ProjectConnectionArgs(GQLArgsSet, GQLObject):
-      orderBy: ProjectOrder
-      search: str
-      states: list[NonNull_ProjectState]
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: ProjectConnectionArgs
-
-
-
-class TPHGE_ProjectV2Connection_Field(ProjectV2Connection):
-   class ProjectV2ConnectionArgs(GQLArgsSet, GQLObject):
-      query: str
-      orderBy: ProjectV2Order
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: ProjectV2ConnectionArgs
-
-
-
-class VWXVZ_PublicKeyConnection_Field(PublicKeyConnection):
-   class PublicKeyConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: PublicKeyConnectionArgs
-
-
-
-class KWEMX_PullRequestConnection_Field(PullRequestConnection):
-   class PullRequestConnectionArgs(GQLArgsSet, GQLObject):
-      states: list[NonNull_PullRequestState]
-      labels: list[NonNull_str]
-      headRefName: str
-      baseRefName: str
-      orderBy: IssueOrder
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: PullRequestConnectionArgs
-
-
-
-class ZQSWF_ProjectV2Connection_Field(ProjectV2Connection):
-   class ProjectV2ConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: ProjectV2ConnectionArgs
-
-
-
-class UFZIS_RepositoryConnection_Field(RepositoryConnection):
-   class RepositoryConnectionArgs(GQLArgsSet, GQLObject):
-      privacy: RepositoryPrivacy
-      orderBy: RepositoryOrder
-      affiliations: list[RepositoryAffiliation]
-      ownerAffiliations: list[RepositoryAffiliation]
-      isLocked: bool
-      hasIssuesEnabled: bool
-      after: str
-      before: str
-      first: int
-      last: int
-      isArchived: bool
-      isFork: bool
-
-   _args: RepositoryConnectionArgs
-
-
-
-class RLAWQ_RepositoryConnection_Field(RepositoryConnection):
-   class RepositoryConnectionArgs(GQLArgsSet, GQLObject):
-      privacy: RepositoryPrivacy
-      orderBy: RepositoryOrder
-      isLocked: bool
-      hasIssues: bool
-      includeUserRepositories: bool
-      contributionTypes: list[RepositoryContributionType]
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: RepositoryConnectionArgs
-
-
-
-class KCTRS_Repository_Field(Repository):
-   class RepositoryArgs(GQLArgsSet, GQLObject):
-      name: NonNull_str
-      followRenames: bool
-
-   _args: RepositoryArgs
-
-
-
-class TOKNB_DiscussionCommentConnection_Field(DiscussionCommentConnection):
-   class DiscussionCommentConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      repositoryId: ID
-      onlyAnswers: bool
-
-   _args: DiscussionCommentConnectionArgs
-
-
-
-class CKGRZ_DiscussionConnection_Field(DiscussionConnection):
-   class DiscussionConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      orderBy: DiscussionOrder
-      repositoryId: ID
-      answered: bool
-      states: list[NonNull_DiscussionState]
-
-   _args: DiscussionConnectionArgs
-
-
-
-class NTTDY_SavedReplyConnection_Field(SavedReplyConnection):
-   class SavedReplyConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      orderBy: SavedReplyOrder
-
-   _args: SavedReplyConnectionArgs
-
-
-
-class SLFYU_SocialAccountConnection_Field(SocialAccountConnection):
-   class SocialAccountConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: SocialAccountConnectionArgs
-
-
-
-class QDWJH_SponsorConnection_Field(SponsorConnection):
-   class SponsorConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      orderBy: SponsorOrder
-
-   _args: SponsorConnectionArgs
-
-
-
-class MGBBS_SponsorConnection_Field(SponsorConnection):
-   class SponsorConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      tierId: ID
-      orderBy: SponsorOrder
-
-   _args: SponsorConnectionArgs
-
-
-
-class FORZD_SponsorsActivityConnection_Field(SponsorsActivityConnection):
-   class SponsorsActivityConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      period: SponsorsActivityPeriod
-      since: DateTime
-      until: DateTime
-      orderBy: SponsorsActivityOrder
-      actions: list[NonNull_SponsorsActivityAction]
-      includeAsSponsor: bool
-      includePrivate: bool
-
-   _args: SponsorsActivityConnectionArgs
-
-
-
-class LJQFF_Sponsorship_Field(Sponsorship):
-   class SponsorshipArgs(GQLArgsSet, GQLObject):
-      activeOnly: bool
-
-   _args: SponsorshipArgs
-
-
-
-class IOFTT_Sponsorship_Field(Sponsorship):
-   class SponsorshipArgs(GQLArgsSet, GQLObject):
-      activeOnly: bool
-
-   _args: SponsorshipArgs
-
-
-
-class IIICM_SponsorshipNewsletterConnection_Field(SponsorshipNewsletterConnection):
-   class SponsorshipNewsletterConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      orderBy: SponsorshipNewsletterOrder
-
-   _args: SponsorshipNewsletterConnectionArgs
-
-
-
-class PKNIC_SponsorshipConnection_Field(SponsorshipConnection):
-   class SponsorshipConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      includePrivate: bool
-      orderBy: SponsorshipOrder
-      activeOnly: bool
-
-   _args: SponsorshipConnectionArgs
-
-
-
-class TOSHB_SponsorshipConnection_Field(SponsorshipConnection):
-   class SponsorshipConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      orderBy: SponsorshipOrder
-      maintainerLogins: list[NonNull_str]
-      activeOnly: bool
-
-   _args: SponsorshipConnectionArgs
-
-
-
-class YYWES_StarredRepositoryConnection_Field(StarredRepositoryConnection):
-   class StarredRepositoryConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      ownedByViewer: bool
-      orderBy: StarOrder
-
-   _args: StarredRepositoryConnectionArgs
-
-
-
-class NonNull_RepositoryOrder(RepositoryOrder): pass
-
-class LXTPU_RepositoryConnection_Field(RepositoryConnection):
-   class RepositoryConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      orderBy: NonNull_RepositoryOrder
-      since: DateTime
-
-   _args: RepositoryConnectionArgs
-
-
-
-class XUSHR_RepositoryConnection_Field(RepositoryConnection):
-   class RepositoryConnectionArgs(GQLArgsSet, GQLObject):
-      privacy: RepositoryPrivacy
-      orderBy: RepositoryOrder
-      affiliations: list[RepositoryAffiliation]
-      ownerAffiliations: list[RepositoryAffiliation]
-      isLocked: bool
-      hasIssuesEnabled: bool
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: RepositoryConnectionArgs
-
-
-
-class User(GQLObject):
-   anyPinnableItems: KNSCJ_anyPinnableItems_Field
-   avatarUrl: FVDOD_URI_Field
-   bio: str
-   bioHTML: HTML
-   canReceiveOrganizationEmailsWhenNotificationsRestricted: XNNAF_canReceiveOrganizationEmailsWhenNotificationsRestricted_Field
-   commitComments: ATRDG_CommitCommentConnection_Field
-   company: str
-   companyHTML: HTML
-   contributionsCollection: FJBNJ_ContributionsCollection_Field
-   createdAt: DateTime
-   databaseId: int
-   email: str
-   estimatedNextSponsorsPayoutInCents: int
-   followers: ZVCDA_FollowerConnection_Field
-   following: XJEAZ_FollowingConnection_Field
-   gist: OZFCS_Gist_Field
-   gistComments: DWJAM_GistCommentConnection_Field
-   gists: SQBKL_GistConnection_Field
-   hasSponsorsListing: bool
-   hovercard: AFPXF_Hovercard_Field
-   id: ID
-   interactionAbility: RepositoryInteractionAbility
-   isBountyHunter: bool
-   isCampusExpert: bool
-   isDeveloperProgramMember: bool
-   isEmployee: bool
-   isFollowingViewer: bool
-   isGitHubStar: bool
-   isHireable: bool
-   isSiteAdmin: bool
-   isSponsoredBy: RLUJY_isSponsoredBy_Field
-   isSponsoringViewer: bool
-   isViewer: bool
-   issueComments: HUKFR_IssueCommentConnection_Field
-   issues: IIJOM_IssueConnection_Field
-   itemShowcase: ProfileItemShowcase
-   location: str
-   login: str
-   monthlyEstimatedSponsorsIncomeInCents: int
-   name: str
-   organization: XKNAK_Organization_Field ## Circular Reference for Organization
-   organizationVerifiedDomainEmails: YGKUA_organizationVerifiedDomainEmails_Field
-   organizations: PAUUO_OrganizationConnection_Field
-   packages: NGADS_PackageConnection_Field
-   pinnableItems: KQFBY_PinnableItemConnection_Field
-   pinnedItems: AGVMD_PinnableItemConnection_Field
-   pinnedItemsRemaining: int
-   project: EVYBF_Project_Field
-   projectV2: BYVYE_ProjectV2_Field
-   projects: FFSPZ_ProjectConnection_Field
-   projectsResourcePath: URI
-   projectsUrl: URI
-   projectsV2: TPHGE_ProjectV2Connection_Field
-   pronouns: str
-   publicKeys: VWXVZ_PublicKeyConnection_Field
-   pullRequests: KWEMX_PullRequestConnection_Field
-   recentProjects: ZQSWF_ProjectV2Connection_Field
-   repositories: UFZIS_RepositoryConnection_Field
-   repositoriesContributedTo: RLAWQ_RepositoryConnection_Field
-   repository: KCTRS_Repository_Field
-   repositoryDiscussionComments: TOKNB_DiscussionCommentConnection_Field
-   repositoryDiscussions: CKGRZ_DiscussionConnection_Field
-   resourcePath: URI
-   savedReplies: NTTDY_SavedReplyConnection_Field
-   socialAccounts: SLFYU_SocialAccountConnection_Field
-   sponsoring: QDWJH_SponsorConnection_Field
-   sponsors: MGBBS_SponsorConnection_Field
-   sponsorsActivities: FORZD_SponsorsActivityConnection_Field
-   sponsorsListing: SponsorsListing
-   sponsorshipForViewerAsSponsor: LJQFF_Sponsorship_Field
-   sponsorshipForViewerAsSponsorable: IOFTT_Sponsorship_Field
-   sponsorshipNewsletters: IIICM_SponsorshipNewsletterConnection_Field
-   sponsorshipsAsMaintainer: PKNIC_SponsorshipConnection_Field
-   sponsorshipsAsSponsor: TOSHB_SponsorshipConnection_Field
-   starredRepositories: YYWES_StarredRepositoryConnection_Field
-   status: UserStatus
-   topRepositories: LXTPU_RepositoryConnection_Field
-   totalSponsorshipAmountAsSponsorInCents: HJMVV_totalSponsorshipAmountAsSponsorInCents_Field
-   twitterUsername: str
-   updatedAt: DateTime
-   url: URI
-   viewerCanChangePinnedItems: bool
-   viewerCanCreateProjects: bool
-   viewerCanFollow: bool
-   viewerCanSponsor: bool
-   viewerIsFollowing: bool
-   viewerIsSponsoring: bool
-   watching: XUSHR_RepositoryConnection_Field
-   websiteUrl: URI
-
-class AuditEntryActor(GQLObject): 
-   pass
-
-class MembersCanDeleteReposClearAuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   createdAt: PreciseDateTime
-   enterpriseResourcePath: URI
-   enterpriseSlug: str
-   enterpriseUrl: URI
-   id: ID
-   operationType: OperationType
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-
-class MembersCanDeleteReposDisableAuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   createdAt: PreciseDateTime
-   enterpriseResourcePath: URI
-   enterpriseSlug: str
-   enterpriseUrl: URI
-   id: ID
-   operationType: OperationType
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-
-class MembersCanDeleteReposEnableAuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   createdAt: PreciseDateTime
-   enterpriseResourcePath: URI
-   enterpriseSlug: str
-   enterpriseUrl: URI
-   id: ID
-   operationType: OperationType
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-
-class OauthApplicationCreateAuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   applicationUrl: URI
-   callbackUrl: URI
-   createdAt: PreciseDateTime
-   id: ID
-   oauthApplicationName: str
-   oauthApplicationResourcePath: URI
-   oauthApplicationUrl: URI
-   operationType: OperationType
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-   rateLimit: int
-   state: OauthApplicationCreateAuditEntryState
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-
-class OrgAddBillingManagerAuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   createdAt: PreciseDateTime
-   id: ID
-   invitationEmail: str
-   operationType: OperationType
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-
-class OrgAddMemberAuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   createdAt: PreciseDateTime
-   id: ID
-   operationType: OperationType
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-   permission: OrgAddMemberAuditEntryPermission
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-
-class OrgBlockUserAuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   blockedUser: User
-   blockedUserName: str
-   blockedUserResourcePath: URI
-   blockedUserUrl: URI
-   createdAt: PreciseDateTime
-   id: ID
-   operationType: OperationType
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-
-class OrgConfigDisableCollaboratorsOnlyAuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   createdAt: PreciseDateTime
-   id: ID
-   operationType: OperationType
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-
-class OrgConfigEnableCollaboratorsOnlyAuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   createdAt: PreciseDateTime
-   id: ID
-   operationType: OperationType
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-
-class OrgCreateAuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   billingPlan: OrgCreateAuditEntryBillingPlan
-   createdAt: PreciseDateTime
-   id: ID
-   operationType: OperationType
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-
-class OrgDisableOauthAppRestrictionsAuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   createdAt: PreciseDateTime
-   id: ID
-   operationType: OperationType
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-
-class OrgDisableSamlAuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   createdAt: PreciseDateTime
-   digestMethodUrl: URI
-   id: ID
-   issuerUrl: URI
-   operationType: OperationType
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-   signatureMethodUrl: URI
-   singleSignOnUrl: URI
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-
-class OrgDisableTwoFactorRequirementAuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   createdAt: PreciseDateTime
-   id: ID
-   operationType: OperationType
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-
-class OrgEnableOauthAppRestrictionsAuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   createdAt: PreciseDateTime
-   id: ID
-   operationType: OperationType
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-
-class OrgEnableSamlAuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   createdAt: PreciseDateTime
-   digestMethodUrl: URI
-   id: ID
-   issuerUrl: URI
-   operationType: OperationType
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-   signatureMethodUrl: URI
-   singleSignOnUrl: URI
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-
-class OrgEnableTwoFactorRequirementAuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   createdAt: PreciseDateTime
-   id: ID
-   operationType: OperationType
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-
-class OrgInviteMemberAuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   createdAt: PreciseDateTime
-   email: str
-   id: ID
-   operationType: OperationType
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationInvitation: OrganizationInvitation
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-
-class OrgInviteToBusinessAuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   createdAt: PreciseDateTime
-   enterpriseResourcePath: URI
-   enterpriseSlug: str
-   enterpriseUrl: URI
-   id: ID
-   operationType: OperationType
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-
-class OrgOauthAppAccessApprovedAuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   createdAt: PreciseDateTime
-   id: ID
-   oauthApplicationName: str
-   oauthApplicationResourcePath: URI
-   oauthApplicationUrl: URI
-   operationType: OperationType
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-
-class OrgOauthAppAccessBlockedAuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   createdAt: PreciseDateTime
-   id: ID
-   oauthApplicationName: str
-   oauthApplicationResourcePath: URI
-   oauthApplicationUrl: URI
-   operationType: OperationType
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-
-class OrgOauthAppAccessDeniedAuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   createdAt: PreciseDateTime
-   id: ID
-   oauthApplicationName: str
-   oauthApplicationResourcePath: URI
-   oauthApplicationUrl: URI
-   operationType: OperationType
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-
-class OrgOauthAppAccessRequestedAuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   createdAt: PreciseDateTime
-   id: ID
-   oauthApplicationName: str
-   oauthApplicationResourcePath: URI
-   oauthApplicationUrl: URI
-   operationType: OperationType
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-
-class OrgOauthAppAccessUnblockedAuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   createdAt: PreciseDateTime
-   id: ID
-   oauthApplicationName: str
-   oauthApplicationResourcePath: URI
-   oauthApplicationUrl: URI
-   operationType: OperationType
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-
-class OrgRemoveBillingManagerAuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   createdAt: PreciseDateTime
-   id: ID
-   operationType: OperationType
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-   reason: OrgRemoveBillingManagerAuditEntryReason
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-
-class OrgRemoveMemberAuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   createdAt: PreciseDateTime
-   id: ID
-   membershipTypes: list[OrgRemoveMemberAuditEntryMembershipType]
-   operationType: OperationType
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-   reason: OrgRemoveMemberAuditEntryReason
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-
-class OrgRemoveOutsideCollaboratorAuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   createdAt: PreciseDateTime
-   id: ID
-   membershipTypes: list[OrgRemoveOutsideCollaboratorAuditEntryMembershipType]
-   operationType: OperationType
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-   reason: OrgRemoveOutsideCollaboratorAuditEntryReason
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-
-class OrgRestoreMemberMembershipOrganizationAuditEntryData(GQLObject):
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-
-class OrgRestoreMemberMembershipRepositoryAuditEntryData(GQLObject):
-   repository: Repository
-   repositoryName: str
-   repositoryResourcePath: URI
-   repositoryUrl: URI
-
-class OrgRestoreMemberMembershipTeamAuditEntryData(GQLObject):
-   team: Team
-   teamName: str
-   teamResourcePath: URI
-   teamUrl: URI
-
-class OrgRestoreMemberAuditEntryMembership(GQLObject): 
-   pass
-
-class list_OrgRestoreMemberAuditEntryMembership(list, OrgRestoreMemberAuditEntryMembership): pass
-
-class OrgRestoreMemberAuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   createdAt: PreciseDateTime
-   id: ID
-   operationType: OperationType
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-   restoredCustomEmailRoutingsCount: int
-   restoredIssueAssignmentsCount: int
-   restoredMemberships: list_OrgRestoreMemberAuditEntryMembership[OrgRestoreMemberAuditEntryMembership]
-   restoredMembershipsCount: int
-   restoredRepositoriesCount: int
-   restoredRepositoryStarsCount: int
-   restoredRepositoryWatchesCount: int
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-
-class OrgUnblockUserAuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   blockedUser: User
-   blockedUserName: str
-   blockedUserResourcePath: URI
-   blockedUserUrl: URI
-   createdAt: PreciseDateTime
-   id: ID
-   operationType: OperationType
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-
-class OrgUpdateDefaultRepositoryPermissionAuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   createdAt: PreciseDateTime
-   id: ID
-   operationType: OperationType
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-   permission: OrgUpdateDefaultRepositoryPermissionAuditEntryPermission
-   permissionWas: OrgUpdateDefaultRepositoryPermissionAuditEntryPermission
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-
-class OrgUpdateMemberAuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   createdAt: PreciseDateTime
-   id: ID
-   operationType: OperationType
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-   permission: OrgUpdateMemberAuditEntryPermission
-   permissionWas: OrgUpdateMemberAuditEntryPermission
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-
-class OrgUpdateMemberRepositoryCreationPermissionAuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   canCreateRepositories: bool
-   createdAt: PreciseDateTime
-   id: ID
-   operationType: OperationType
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-   visibility: OrgUpdateMemberRepositoryCreationPermissionAuditEntryVisibility
-
-class OrgUpdateMemberRepositoryInvitationPermissionAuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   canInviteOutsideCollaboratorsToRepositories: bool
-   createdAt: PreciseDateTime
-   id: ID
-   operationType: OperationType
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-
-class PrivateRepositoryForkingDisableAuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   createdAt: PreciseDateTime
-   enterpriseResourcePath: URI
-   enterpriseSlug: str
-   enterpriseUrl: URI
-   id: ID
-   operationType: OperationType
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-   repository: Repository
-   repositoryName: str
-   repositoryResourcePath: URI
-   repositoryUrl: URI
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-
-class PrivateRepositoryForkingEnableAuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   createdAt: PreciseDateTime
-   enterpriseResourcePath: URI
-   enterpriseSlug: str
-   enterpriseUrl: URI
-   id: ID
-   operationType: OperationType
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-   repository: Repository
-   repositoryName: str
-   repositoryResourcePath: URI
-   repositoryUrl: URI
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-
-class RepoAccessAuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   createdAt: PreciseDateTime
-   id: ID
-   operationType: OperationType
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-   repository: Repository
-   repositoryName: str
-   repositoryResourcePath: URI
-   repositoryUrl: URI
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-   visibility: RepoAccessAuditEntryVisibility
-
-class RepoAddMemberAuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   createdAt: PreciseDateTime
-   id: ID
-   operationType: OperationType
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-   repository: Repository
-   repositoryName: str
-   repositoryResourcePath: URI
-   repositoryUrl: URI
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-   visibility: RepoAddMemberAuditEntryVisibility
-
-class RepoAddTopicAuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   createdAt: PreciseDateTime
-   id: ID
-   operationType: OperationType
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-   repository: Repository
-   repositoryName: str
-   repositoryResourcePath: URI
-   repositoryUrl: URI
-   topic: Topic
-   topicName: str
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-
-class RepoArchivedAuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   createdAt: PreciseDateTime
-   id: ID
-   operationType: OperationType
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-   repository: Repository
-   repositoryName: str
-   repositoryResourcePath: URI
-   repositoryUrl: URI
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-   visibility: RepoArchivedAuditEntryVisibility
-
-class RepoChangeMergeSettingAuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   createdAt: PreciseDateTime
-   id: ID
-   isEnabled: bool
-   mergeType: RepoChangeMergeSettingAuditEntryMergeType
-   operationType: OperationType
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-   repository: Repository
-   repositoryName: str
-   repositoryResourcePath: URI
-   repositoryUrl: URI
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-
-class RepoConfigDisableAnonymousGitAccessAuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   createdAt: PreciseDateTime
-   id: ID
-   operationType: OperationType
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-   repository: Repository
-   repositoryName: str
-   repositoryResourcePath: URI
-   repositoryUrl: URI
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-
-class RepoConfigDisableCollaboratorsOnlyAuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   createdAt: PreciseDateTime
-   id: ID
-   operationType: OperationType
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-   repository: Repository
-   repositoryName: str
-   repositoryResourcePath: URI
-   repositoryUrl: URI
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-
-class RepoConfigDisableContributorsOnlyAuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   createdAt: PreciseDateTime
-   id: ID
-   operationType: OperationType
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-   repository: Repository
-   repositoryName: str
-   repositoryResourcePath: URI
-   repositoryUrl: URI
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-
-class RepoConfigDisableSockpuppetDisallowedAuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   createdAt: PreciseDateTime
-   id: ID
-   operationType: OperationType
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-   repository: Repository
-   repositoryName: str
-   repositoryResourcePath: URI
-   repositoryUrl: URI
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-
-class RepoConfigEnableAnonymousGitAccessAuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   createdAt: PreciseDateTime
-   id: ID
-   operationType: OperationType
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-   repository: Repository
-   repositoryName: str
-   repositoryResourcePath: URI
-   repositoryUrl: URI
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-
-class RepoConfigEnableCollaboratorsOnlyAuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   createdAt: PreciseDateTime
-   id: ID
-   operationType: OperationType
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-   repository: Repository
-   repositoryName: str
-   repositoryResourcePath: URI
-   repositoryUrl: URI
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-
-class RepoConfigEnableContributorsOnlyAuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   createdAt: PreciseDateTime
-   id: ID
-   operationType: OperationType
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-   repository: Repository
-   repositoryName: str
-   repositoryResourcePath: URI
-   repositoryUrl: URI
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-
-class RepoConfigEnableSockpuppetDisallowedAuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   createdAt: PreciseDateTime
-   id: ID
-   operationType: OperationType
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-   repository: Repository
-   repositoryName: str
-   repositoryResourcePath: URI
-   repositoryUrl: URI
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-
-class RepoConfigLockAnonymousGitAccessAuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   createdAt: PreciseDateTime
-   id: ID
-   operationType: OperationType
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-   repository: Repository
-   repositoryName: str
-   repositoryResourcePath: URI
-   repositoryUrl: URI
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-
-class RepoConfigUnlockAnonymousGitAccessAuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   createdAt: PreciseDateTime
-   id: ID
-   operationType: OperationType
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-   repository: Repository
-   repositoryName: str
-   repositoryResourcePath: URI
-   repositoryUrl: URI
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-
-class RepoCreateAuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   createdAt: PreciseDateTime
-   forkParentName: str
-   forkSourceName: str
-   id: ID
-   operationType: OperationType
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-   repository: Repository
-   repositoryName: str
-   repositoryResourcePath: URI
-   repositoryUrl: URI
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-   visibility: RepoCreateAuditEntryVisibility
-
-class RepoDestroyAuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   createdAt: PreciseDateTime
-   id: ID
-   operationType: OperationType
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-   repository: Repository
-   repositoryName: str
-   repositoryResourcePath: URI
-   repositoryUrl: URI
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-   visibility: RepoDestroyAuditEntryVisibility
-
-class RepoRemoveMemberAuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   createdAt: PreciseDateTime
-   id: ID
-   operationType: OperationType
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-   repository: Repository
-   repositoryName: str
-   repositoryResourcePath: URI
-   repositoryUrl: URI
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-   visibility: RepoRemoveMemberAuditEntryVisibility
-
-class RepoRemoveTopicAuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   createdAt: PreciseDateTime
-   id: ID
-   operationType: OperationType
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-   repository: Repository
-   repositoryName: str
-   repositoryResourcePath: URI
-   repositoryUrl: URI
-   topic: Topic
-   topicName: str
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-
-class RepositoryVisibilityChangeDisableAuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   createdAt: PreciseDateTime
-   enterpriseResourcePath: URI
-   enterpriseSlug: str
-   enterpriseUrl: URI
-   id: ID
-   operationType: OperationType
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-
-class RepositoryVisibilityChangeEnableAuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   createdAt: PreciseDateTime
-   enterpriseResourcePath: URI
-   enterpriseSlug: str
-   enterpriseUrl: URI
-   id: ID
-   operationType: OperationType
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-
-class TeamAddMemberAuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   createdAt: PreciseDateTime
-   id: ID
-   isLdapMapped: bool
-   operationType: OperationType
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-   team: Team
-   teamName: str
-   teamResourcePath: URI
-   teamUrl: URI
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-
-class TeamAddRepositoryAuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   createdAt: PreciseDateTime
-   id: ID
-   isLdapMapped: bool
-   operationType: OperationType
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-   repository: Repository
-   repositoryName: str
-   repositoryResourcePath: URI
-   repositoryUrl: URI
-   team: Team
-   teamName: str
-   teamResourcePath: URI
-   teamUrl: URI
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-
-class TeamChangeParentTeamAuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   createdAt: PreciseDateTime
-   id: ID
-   isLdapMapped: bool
-   operationType: OperationType
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-   parentTeam: Team
-   parentTeamName: str
-   parentTeamNameWas: str
-   parentTeamResourcePath: URI
-   parentTeamUrl: URI
-   parentTeamWas: Team
-   parentTeamWasResourcePath: URI
-   parentTeamWasUrl: URI
-   team: Team
-   teamName: str
-   teamResourcePath: URI
-   teamUrl: URI
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-
-class TeamRemoveMemberAuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   createdAt: PreciseDateTime
-   id: ID
-   isLdapMapped: bool
-   operationType: OperationType
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-   team: Team
-   teamName: str
-   teamResourcePath: URI
-   teamUrl: URI
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-
-class TeamRemoveRepositoryAuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   createdAt: PreciseDateTime
-   id: ID
-   isLdapMapped: bool
-   operationType: OperationType
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-   repository: Repository
-   repositoryName: str
-   repositoryResourcePath: URI
-   repositoryUrl: URI
-   team: Team
-   teamName: str
-   teamResourcePath: URI
-   teamUrl: URI
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-
-class OrganizationAuditEntry(GQLObject): 
-   pass
-
-class OrganizationAuditEntryEdge(GQLObject):
-   cursor: str
-   node: OrganizationAuditEntry
-
-class list_OrganizationAuditEntryEdge(list, OrganizationAuditEntryEdge): pass
-
-class list_OrganizationAuditEntry(list, OrganizationAuditEntry): pass
-
-class OrganizationAuditEntryConnection(GQLObject):
-   edges: list_OrganizationAuditEntryEdge[OrganizationAuditEntryEdge]
-   nodes: list_OrganizationAuditEntry[OrganizationAuditEntry]
-   pageInfo: PageInfo
-   totalCount: int
-
-class VerifiableDomainOwner(GQLObject): 
-   pass
-
-class VerifiableDomain(GQLObject):
-   createdAt: DateTime
-   databaseId: int
-   dnsHostName: URI
-   domain: URI
-   hasFoundHostName: bool
-   hasFoundVerificationToken: bool
-   id: ID
-   isApproved: bool
-   isRequiredForPolicyEnforcement: bool
-   isVerified: bool
-   owner: VerifiableDomainOwner
-   punycodeEncodedDomain: URI
-   tokenExpirationTime: DateTime
-   updatedAt: DateTime
-   verificationToken: str
-
-class VerifiableDomainEdge(GQLObject):
-   cursor: str
-   node: VerifiableDomain
-
-class list_VerifiableDomainEdge(list, VerifiableDomainEdge): pass
-
-class list_VerifiableDomain(list, VerifiableDomain): pass
-
-class VerifiableDomainConnection(GQLObject):
-   edges: list_VerifiableDomainEdge[VerifiableDomainEdge]
-   nodes: list_VerifiableDomain[VerifiableDomain]
-   pageInfo: PageInfo
-   totalCount: int
-
-class OrganizationEnterpriseOwnerEdge(GQLObject):
-   cursor: str
-   node: User
-   organizationRole: RoleInOrganization
-
-class list_OrganizationEnterpriseOwnerEdge(list, OrganizationEnterpriseOwnerEdge): pass
-
-class list_User(list, User): pass
-
-class OrganizationEnterpriseOwnerConnection(GQLObject):
-   edges: list_OrganizationEnterpriseOwnerEdge[OrganizationEnterpriseOwnerEdge]
-   nodes: list_User[User]
-   pageInfo: PageInfo
-   totalCount: int
-
-class MannequinEdge(GQLObject):
-   cursor: str
-   node: Mannequin
-
-class list_MannequinEdge(list, MannequinEdge): pass
-
-class list_Mannequin(list, Mannequin): pass
-
-class MannequinConnection(GQLObject):
-   edges: list_MannequinEdge[MannequinEdge]
-   nodes: list_Mannequin[Mannequin]
-   pageInfo: PageInfo
-   totalCount: int
-
-class OrganizationMemberEdge(GQLObject):
-   cursor: str
-   hasTwoFactorEnabled: bool
-   node: User
-   role: OrganizationMemberRole
-
-class list_OrganizationMemberEdge(list, OrganizationMemberEdge): pass
-
-class OrganizationMemberConnection(GQLObject):
-   edges: list_OrganizationMemberEdge[OrganizationMemberEdge]
-   nodes: list_User[User]
-   pageInfo: PageInfo
-   totalCount: int
-
-class RepositoryMigration(GQLObject):
-   continueOnError: bool
-   createdAt: DateTime
-   databaseId: str
-   failureReason: str
-   id: ID
-   migrationLogUrl: URI
-   migrationSource: MigrationSource
-   repositoryName: str
-   sourceUrl: URI
-   state: MigrationState
-   warningsCount: int
-
-class RepositoryMigrationEdge(GQLObject):
-   cursor: str
-   node: RepositoryMigration
-
-class list_RepositoryMigrationEdge(list, RepositoryMigrationEdge): pass
-
-class list_RepositoryMigration(list, RepositoryMigration): pass
-
-class RepositoryMigrationConnection(GQLObject):
-   edges: list_RepositoryMigrationEdge[RepositoryMigrationEdge]
-   nodes: list_RepositoryMigration[RepositoryMigration]
-   pageInfo: PageInfo
-   totalCount: int
-
-class list_ExternalIdentityAttribute(list, ExternalIdentityAttribute): pass
-
-class list_UserEmailMetadata(list, UserEmailMetadata): pass
-
-class ExternalIdentitySamlAttributes(GQLObject):
-   attributes: list_ExternalIdentityAttribute[ExternalIdentityAttribute]
-   emails: list_UserEmailMetadata[UserEmailMetadata]
-   familyName: str
-   givenName: str
-   groups: list[str]
-   nameId: str
-   username: str
-
-class ExternalIdentityScimAttributes(GQLObject):
-   emails: list_UserEmailMetadata[UserEmailMetadata]
-   familyName: str
-   givenName: str
-   groups: list[str]
-   username: str
-
-class ExternalIdentity(GQLObject):
-   guid: str
-   id: ID
-   organizationInvitation: OrganizationInvitation
-   samlIdentity: ExternalIdentitySamlAttributes
-   scimIdentity: ExternalIdentityScimAttributes
-   user: User
-
-class ExternalIdentityEdge(GQLObject):
-   cursor: str
-   node: ExternalIdentity
-
-class list_ExternalIdentityEdge(list, ExternalIdentityEdge): pass
-
-class list_ExternalIdentity(list, ExternalIdentity): pass
-
-class ExternalIdentityConnection(GQLObject):
-   edges: list_ExternalIdentityEdge[ExternalIdentityEdge]
-   nodes: list_ExternalIdentity[ExternalIdentity]
-   pageInfo: PageInfo
-   totalCount: int
-
-class PXQID_ExternalIdentityConnection_Field(ExternalIdentityConnection):
-   class ExternalIdentityConnectionArgs(GQLArgsSet, GQLObject):
-      membersOnly: bool
-      login: str
-      userName: str
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: ExternalIdentityConnectionArgs
-
-
-
-class OrganizationIdentityProvider(GQLObject):
-   digestMethod: URI
-   externalIdentities: PXQID_ExternalIdentityConnection_Field
-   id: ID
-   idpCertificate: X509Certificate
-   issuer: str
-   organization: NewType('Organization', GQLObject) ## Circular Reference for Organization
-   signatureMethod: URI
-   ssoUrl: URI
-
-class IGWOA_OrganizationAuditEntryConnection_Field(OrganizationAuditEntryConnection):
-   class OrganizationAuditEntryConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      query: str
-      orderBy: AuditLogOrder
-
-   _args: OrganizationAuditEntryConnectionArgs
-
-
-
-class VROOV_VerifiableDomainConnection_Field(VerifiableDomainConnection):
-   class VerifiableDomainConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      isVerified: bool
-      isApproved: bool
-      orderBy: VerifiableDomainOrder
-
-   _args: VerifiableDomainConnectionArgs
-
-
-
-class OQWMB_OrganizationEnterpriseOwnerConnection_Field(OrganizationEnterpriseOwnerConnection):
-   class OrganizationEnterpriseOwnerConnectionArgs(GQLArgsSet, GQLObject):
-      query: str
-      organizationRole: RoleInOrganization
-      orderBy: OrgEnterpriseOwnerOrder
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: OrganizationEnterpriseOwnerConnectionArgs
-
-
-
-class TYVHX_IpAllowListEntryConnection_Field(Generic[IpAllowListEntryConnection]):
-   class IpAllowListEntryConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      orderBy: IpAllowListEntryOrder
-
-   _args: IpAllowListEntryConnectionArgs
-
-
-
-class KHPXO_MannequinConnection_Field(MannequinConnection):
-   class MannequinConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      login: str
-      orderBy: MannequinOrder
-
-   _args: MannequinConnectionArgs
-
-
-
-class ZOGMB_UserStatusConnection_Field(UserStatusConnection):
-   class UserStatusConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      orderBy: UserStatusOrder
-
-   _args: UserStatusConnectionArgs
-
-
-
-class QSVSC_OrganizationMemberConnection_Field(OrganizationMemberConnection):
-   class OrganizationMemberConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: OrganizationMemberConnectionArgs
-
-
-
-class SMAVH_PackageConnection_Field(PackageConnection):
-   class PackageConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      names: list[str]
-      repositoryId: ID
-      packageType: PackageType
-      orderBy: PackageOrder
-
-   _args: PackageConnectionArgs
-
-
-
-class PZDIC_UserConnection_Field(UserConnection):
-   class UserConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: UserConnectionArgs
-
-
-
-class TKOIP_PinnableItemConnection_Field(PinnableItemConnection):
-   class PinnableItemConnectionArgs(GQLArgsSet, GQLObject):
-      types: list[NonNull_PinnableItemType]
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: PinnableItemConnectionArgs
-
-
-
-class SKXCK_PinnableItemConnection_Field(PinnableItemConnection):
-   class PinnableItemConnectionArgs(GQLArgsSet, GQLObject):
-      types: list[NonNull_PinnableItemType]
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: PinnableItemConnectionArgs
-
-
-
-class CXSSM_Project_Field(Project):
-   class ProjectArgs(GQLArgsSet, GQLObject):
-      number: NonNull_int
-
-   _args: ProjectArgs
-
-
-
-class DPBVP_ProjectV2_Field(ProjectV2):
-   class ProjectV2Args(GQLArgsSet, GQLObject):
-      number: NonNull_int
-
-   _args: ProjectV2Args
-
-
-
-class ATIUS_ProjectConnection_Field(ProjectConnection):
-   class ProjectConnectionArgs(GQLArgsSet, GQLObject):
-      orderBy: ProjectOrder
-      search: str
-      states: list[NonNull_ProjectState]
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: ProjectConnectionArgs
-
-
-
-class WQCOY_ProjectV2Connection_Field(ProjectV2Connection):
-   class ProjectV2ConnectionArgs(GQLArgsSet, GQLObject):
-      query: str
-      orderBy: ProjectV2Order
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: ProjectV2ConnectionArgs
-
-
-
-class ADJON_ProjectV2Connection_Field(ProjectV2Connection):
-   class ProjectV2ConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: ProjectV2ConnectionArgs
-
-
-
-class NZHYP_RepositoryConnection_Field(RepositoryConnection):
-   class RepositoryConnectionArgs(GQLArgsSet, GQLObject):
-      privacy: RepositoryPrivacy
-      orderBy: RepositoryOrder
-      affiliations: list[RepositoryAffiliation]
-      ownerAffiliations: list[RepositoryAffiliation]
-      isLocked: bool
-      hasIssuesEnabled: bool
-      after: str
-      before: str
-      first: int
-      last: int
-      isArchived: bool
-      isFork: bool
-
-   _args: RepositoryConnectionArgs
-
-
-
-class GMLWV_Repository_Field(Repository):
-   class RepositoryArgs(GQLArgsSet, GQLObject):
-      name: NonNull_str
-      followRenames: bool
-
-   _args: RepositoryArgs
-
-
-
-class EZVIX_DiscussionCommentConnection_Field(DiscussionCommentConnection):
-   class DiscussionCommentConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      repositoryId: ID
-      onlyAnswers: bool
-
-   _args: DiscussionCommentConnectionArgs
-
-
-
-class YDJUI_DiscussionConnection_Field(DiscussionConnection):
-   class DiscussionConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      orderBy: DiscussionOrder
-      repositoryId: ID
-      answered: bool
-      states: list[NonNull_DiscussionState]
-
-   _args: DiscussionConnectionArgs
-
-
-
-class JJHDF_RepositoryMigrationConnection_Field(RepositoryMigrationConnection):
-   class RepositoryMigrationConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      state: MigrationState
-      repositoryName: str
-      orderBy: RepositoryMigrationOrder
-
-   _args: RepositoryMigrationConnectionArgs
-
-
-
-class ADXTB_RepositoryRuleset_Field(RepositoryRuleset):
-   class RepositoryRulesetArgs(GQLArgsSet, GQLObject):
-      databaseId: NonNull_int
-
-   _args: RepositoryRulesetArgs
-
-
-
-class KWZXW_RepositoryRulesetConnection_Field(RepositoryRulesetConnection):
-   class RepositoryRulesetConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      includeParents: bool
-
-   _args: RepositoryRulesetConnectionArgs
-
-
-
-class MQBHK_SponsorConnection_Field(SponsorConnection):
-   class SponsorConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      orderBy: SponsorOrder
-
-   _args: SponsorConnectionArgs
-
-
-
-class FUDBH_SponsorConnection_Field(SponsorConnection):
-   class SponsorConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      tierId: ID
-      orderBy: SponsorOrder
-
-   _args: SponsorConnectionArgs
-
-
-
-class HBOKI_SponsorsActivityConnection_Field(SponsorsActivityConnection):
-   class SponsorsActivityConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      period: SponsorsActivityPeriod
-      since: DateTime
-      until: DateTime
-      orderBy: SponsorsActivityOrder
-      actions: list[NonNull_SponsorsActivityAction]
-      includeAsSponsor: bool
-      includePrivate: bool
-
-   _args: SponsorsActivityConnectionArgs
-
-
-
-class ZCNNO_Sponsorship_Field(Sponsorship):
-   class SponsorshipArgs(GQLArgsSet, GQLObject):
-      activeOnly: bool
-
-   _args: SponsorshipArgs
-
-
-
-class DJHKV_Sponsorship_Field(Sponsorship):
-   class SponsorshipArgs(GQLArgsSet, GQLObject):
-      activeOnly: bool
-
-   _args: SponsorshipArgs
-
-
-
-class WENIA_SponsorshipNewsletterConnection_Field(SponsorshipNewsletterConnection):
-   class SponsorshipNewsletterConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      orderBy: SponsorshipNewsletterOrder
-
-   _args: SponsorshipNewsletterConnectionArgs
-
-
-
-class QPBDP_SponsorshipConnection_Field(SponsorshipConnection):
-   class SponsorshipConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      includePrivate: bool
-      orderBy: SponsorshipOrder
-      activeOnly: bool
-
-   _args: SponsorshipConnectionArgs
-
-
-
-class IMKOF_SponsorshipConnection_Field(SponsorshipConnection):
-   class SponsorshipConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      orderBy: SponsorshipOrder
-      maintainerLogins: list[NonNull_str]
-      activeOnly: bool
-
-   _args: SponsorshipConnectionArgs
-
-
-
-class HJBPS_Team_Field(Team):
-   class TeamArgs(GQLArgsSet, GQLObject):
-      slug: NonNull_str
-
-   _args: TeamArgs
-
-
-
-class PSHXZ_TeamConnection_Field(TeamConnection):
-   class TeamConnectionArgs(GQLArgsSet, GQLObject):
-      privacy: TeamPrivacy
-      notificationSetting: TeamNotificationSetting
-      role: TeamRole
-      query: str
-      userLogins: list[NonNull_str]
-      orderBy: TeamOrder
-      ldapMapped: bool
-      rootTeamsOnly: bool
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: TeamConnectionArgs
-
-
-
-class Organization(GQLObject):
-   announcement: str
-   announcementExpiresAt: DateTime
-   announcementUserDismissible: bool
-   anyPinnableItems: VEATV_anyPinnableItems_Field
-   auditLog: IGWOA_OrganizationAuditEntryConnection_Field
-   avatarUrl: WSHCQ_URI_Field
-   createdAt: DateTime
-   databaseId: int
-   description: str
-   descriptionHTML: str
-   domains: VROOV_VerifiableDomainConnection_Field
-   email: str
-   enterpriseOwners: OQWMB_OrganizationEnterpriseOwnerConnection_Field
-   estimatedNextSponsorsPayoutInCents: int
-   hasSponsorsListing: bool
-   id: ID
-   interactionAbility: RepositoryInteractionAbility
-   ipAllowListEnabledSetting: IpAllowListEnabledSettingValue
-   ipAllowListEntries: TYVHX_IpAllowListEntryConnection_Field ## Circular Reference for IpAllowListEntryConnection
-   ipAllowListForInstalledAppsEnabledSetting: IpAllowListForInstalledAppsEnabledSettingValue
-   isSponsoredBy: ICQLW_isSponsoredBy_Field
-   isSponsoringViewer: bool
-   isVerified: bool
-   itemShowcase: ProfileItemShowcase
-   location: str
-   login: str
-   mannequins: KHPXO_MannequinConnection_Field
-   memberStatuses: ZOGMB_UserStatusConnection_Field
-   membersCanForkPrivateRepositories: bool
-   membersWithRole: QSVSC_OrganizationMemberConnection_Field
-   monthlyEstimatedSponsorsIncomeInCents: int
-   name: str
-   newTeamResourcePath: URI
-   newTeamUrl: URI
-   notificationDeliveryRestrictionEnabledSetting: NotificationRestrictionSettingValue
-   organizationBillingEmail: str
-   packages: SMAVH_PackageConnection_Field
-   pendingMembers: PZDIC_UserConnection_Field
-   pinnableItems: TKOIP_PinnableItemConnection_Field
-   pinnedItems: SKXCK_PinnableItemConnection_Field
-   pinnedItemsRemaining: int
-   project: CXSSM_Project_Field
-   projectV2: DPBVP_ProjectV2_Field
-   projects: ATIUS_ProjectConnection_Field
-   projectsResourcePath: URI
-   projectsUrl: URI
-   projectsV2: WQCOY_ProjectV2Connection_Field
-   recentProjects: ADJON_ProjectV2Connection_Field
-   repositories: NZHYP_RepositoryConnection_Field
-   repository: GMLWV_Repository_Field
-   repositoryDiscussionComments: EZVIX_DiscussionCommentConnection_Field
-   repositoryDiscussions: YDJUI_DiscussionConnection_Field
-   repositoryMigrations: JJHDF_RepositoryMigrationConnection_Field
-   requiresTwoFactorAuthentication: bool
-   resourcePath: URI
-   ruleset: ADXTB_RepositoryRuleset_Field
-   rulesets: KWZXW_RepositoryRulesetConnection_Field
-   samlIdentityProvider: OrganizationIdentityProvider
-   sponsoring: MQBHK_SponsorConnection_Field
-   sponsors: FUDBH_SponsorConnection_Field
-   sponsorsActivities: HBOKI_SponsorsActivityConnection_Field
-   sponsorsListing: SponsorsListing
-   sponsorshipForViewerAsSponsor: ZCNNO_Sponsorship_Field
-   sponsorshipForViewerAsSponsorable: DJHKV_Sponsorship_Field
-   sponsorshipNewsletters: WENIA_SponsorshipNewsletterConnection_Field
-   sponsorshipsAsMaintainer: QPBDP_SponsorshipConnection_Field
-   sponsorshipsAsSponsor: IMKOF_SponsorshipConnection_Field
-   team: HJBPS_Team_Field
-   teams: PSHXZ_TeamConnection_Field
-   teamsResourcePath: URI
-   teamsUrl: URI
-   totalSponsorshipAmountAsSponsorInCents: QUYEZ_totalSponsorshipAmountAsSponsorInCents_Field
-   twitterUsername: str
-   updatedAt: DateTime
-   url: URI
-   viewerCanAdminister: bool
-   viewerCanChangePinnedItems: bool
-   viewerCanCreateProjects: bool
-   viewerCanCreateRepositories: bool
-   viewerCanCreateTeams: bool
-   viewerCanSponsor: bool
-   viewerIsAMember: bool
-   viewerIsFollowing: bool
-   viewerIsSponsoring: bool
-   webCommitSignoffRequired: bool
-   websiteUrl: URI
-
-class EnterpriseOrganizationMembershipEdge(GQLObject):
-   cursor: str
-   node: Organization
-   role: EnterpriseUserAccountMembershipRole
-
-class list_EnterpriseOrganizationMembershipEdge(list, EnterpriseOrganizationMembershipEdge): pass
-
-class list_Organization(list, Organization): pass
-
-class EnterpriseOrganizationMembershipConnection(GQLObject):
-   edges: list_EnterpriseOrganizationMembershipEdge[EnterpriseOrganizationMembershipEdge]
-   nodes: list_Organization[Organization]
-   pageInfo: PageInfo
-   totalCount: int
-
-class CJYQJ_EnterpriseServerInstallationMembershipConnection_Field(EnterpriseServerInstallationMembershipConnection):
-   class EnterpriseServerInstallationMembershipConnectionArgs(GQLArgsSet, GQLObject):
-      query: str
-      orderBy: EnterpriseServerInstallationOrder
-      role: EnterpriseUserAccountMembershipRole
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: EnterpriseServerInstallationMembershipConnectionArgs
-
-
-
-class WESDT_EnterpriseOrganizationMembershipConnection_Field(EnterpriseOrganizationMembershipConnection):
-   class EnterpriseOrganizationMembershipConnectionArgs(GQLArgsSet, GQLObject):
-      query: str
-      orderBy: OrganizationOrder
-      role: EnterpriseUserAccountMembershipRole
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: EnterpriseOrganizationMembershipConnectionArgs
-
-
-
-class EnterpriseUserAccount(GQLObject):
-   avatarUrl: WAVPH_URI_Field
-   createdAt: DateTime
-   enterprise: NewType('Enterprise', GQLObject) ## Circular Reference for Enterprise
-   enterpriseInstallations: CJYQJ_EnterpriseServerInstallationMembershipConnection_Field
-   id: ID
-   login: str
-   name: str
-   organizations: WESDT_EnterpriseOrganizationMembershipConnection_Field
-   resourcePath: URI
-   updatedAt: DateTime
-   url: URI
-   user: User
-
-class EnterpriseMember(GQLObject): 
-   pass
-
-class EnterpriseMemberEdge(GQLObject):
-   cursor: str
-   node: EnterpriseMember
-
-class list_EnterpriseMemberEdge(list, EnterpriseMemberEdge): pass
-
-class list_EnterpriseMember(list, EnterpriseMember): pass
-
-class EnterpriseMemberConnection(GQLObject):
-   edges: list_EnterpriseMemberEdge[EnterpriseMemberEdge]
-   nodes: list_EnterpriseMember[EnterpriseMember]
-   pageInfo: PageInfo
-   totalCount: int
-
-class EnterpriseAdministratorEdge(GQLObject):
-   cursor: str
-   node: User
-   role: EnterpriseAdministratorRole
-
-class list_EnterpriseAdministratorEdge(list, EnterpriseAdministratorEdge): pass
-
-class EnterpriseAdministratorConnection(GQLObject):
-   edges: list_EnterpriseAdministratorEdge[EnterpriseAdministratorEdge]
-   nodes: list_User[User]
-   pageInfo: PageInfo
-   totalCount: int
-
-class EnterpriseServerInstallationEdge(GQLObject):
-   cursor: str
-   node: EnterpriseServerInstallation
-
-class list_EnterpriseServerInstallationEdge(list, EnterpriseServerInstallationEdge): pass
-
-class EnterpriseServerInstallationConnection(GQLObject):
-   edges: list_EnterpriseServerInstallationEdge[EnterpriseServerInstallationEdge]
-   nodes: list_EnterpriseServerInstallation[EnterpriseServerInstallation]
-   pageInfo: PageInfo
-   totalCount: int
-
-class EnterpriseFailedInvitationEdge(GQLObject):
-   cursor: str
-   node: OrganizationInvitation
-
-class list_EnterpriseFailedInvitationEdge(list, EnterpriseFailedInvitationEdge): pass
-
-class EnterpriseFailedInvitationConnection(GQLObject):
-   edges: list_EnterpriseFailedInvitationEdge[EnterpriseFailedInvitationEdge]
-   nodes: list_OrganizationInvitation[OrganizationInvitation]
-   pageInfo: PageInfo
-   totalCount: int
-   totalUniqueUserCount: int
-
-class OETYR_ExternalIdentityConnection_Field(ExternalIdentityConnection):
-   class ExternalIdentityConnectionArgs(GQLArgsSet, GQLObject):
-      membersOnly: bool
-      login: str
-      userName: str
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: ExternalIdentityConnectionArgs
-
-
-
-class OIDCProvider(GQLObject):
-   enterprise: NewType('Enterprise', GQLObject) ## Circular Reference for Enterprise
-   externalIdentities: OETYR_ExternalIdentityConnection_Field
-   id: ID
-   providerType: OIDCProviderType
-   tenantId: str
-
-class EnterpriseRepositoryInfoEdge(GQLObject):
-   cursor: str
-   node: EnterpriseRepositoryInfo
-
-class list_EnterpriseRepositoryInfoEdge(list, EnterpriseRepositoryInfoEdge): pass
-
-class list_EnterpriseRepositoryInfo(list, EnterpriseRepositoryInfo): pass
-
-class EnterpriseRepositoryInfoConnection(GQLObject):
-   edges: list_EnterpriseRepositoryInfoEdge[EnterpriseRepositoryInfoEdge]
-   nodes: list_EnterpriseRepositoryInfo[EnterpriseRepositoryInfo]
-   pageInfo: PageInfo
-   totalCount: int
-
-class RWHXZ_EnterpriseRepositoryInfoConnection_Field(EnterpriseRepositoryInfoConnection):
-   class EnterpriseRepositoryInfoConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      orderBy: RepositoryOrder
-
-   _args: EnterpriseRepositoryInfoConnectionArgs
-
-
-
-class EnterpriseOutsideCollaboratorEdge(GQLObject):
-   cursor: str
-   node: User
-   repositories: RWHXZ_EnterpriseRepositoryInfoConnection_Field
-
-class list_EnterpriseOutsideCollaboratorEdge(list, EnterpriseOutsideCollaboratorEdge): pass
-
-class EnterpriseOutsideCollaboratorConnection(GQLObject):
-   edges: list_EnterpriseOutsideCollaboratorEdge[EnterpriseOutsideCollaboratorEdge]
-   nodes: list_User[User]
-   pageInfo: PageInfo
-   totalCount: int
-
-class EnterpriseAdministratorInvitation(GQLObject):
-   createdAt: DateTime
-   email: str
-   enterprise: NewType('Enterprise', GQLObject) ## Circular Reference for Enterprise
-   id: ID
-   invitee: User
-   inviter: User
-   role: EnterpriseAdministratorRole
-
-class EnterpriseAdministratorInvitationEdge(GQLObject):
-   cursor: str
-   node: EnterpriseAdministratorInvitation
-
-class list_EnterpriseAdministratorInvitationEdge(list, EnterpriseAdministratorInvitationEdge): pass
-
-class list_EnterpriseAdministratorInvitation(list, EnterpriseAdministratorInvitation): pass
-
-class EnterpriseAdministratorInvitationConnection(GQLObject):
-   edges: list_EnterpriseAdministratorInvitationEdge[EnterpriseAdministratorInvitationEdge]
-   nodes: list_EnterpriseAdministratorInvitation[EnterpriseAdministratorInvitation]
-   pageInfo: PageInfo
-   totalCount: int
-
-class RepositoryInfo(GQLObject):
-   archivedAt: DateTime
-   createdAt: DateTime
-   description: str
-   descriptionHTML: HTML
-   forkCount: int
-   hasDiscussionsEnabled: bool
-   hasIssuesEnabled: bool
-   hasProjectsEnabled: bool
-   hasWikiEnabled: bool
-   homepageUrl: URI
-   isArchived: bool
-   isFork: bool
-   isInOrganization: bool
-   isLocked: bool
-   isMirror: bool
-   isPrivate: bool
-   isTemplate: bool
-   licenseInfo: License
-   lockReason: RepositoryLockReason
-   mirrorUrl: URI
-   name: str
-   nameWithOwner: str
-   openGraphImageUrl: URI
-   owner: RepositoryOwner
-   pushedAt: DateTime
-   resourcePath: URI
-   shortDescriptionHTML: KFLRK_HTML_Field
-   updatedAt: DateTime
-   url: URI
-   usesCustomOpenGraphImage: bool
-   visibility: RepositoryVisibility
-
-class RepositoryInvitation(GQLObject):
-   email: str
-   id: ID
-   invitee: User
-   inviter: User
-   permalink: URI
-   permission: RepositoryPermission
-   repository: RepositoryInfo
-
-class RepositoryInvitationEdge(GQLObject):
-   cursor: str
-   node: RepositoryInvitation
-
-class list_RepositoryInvitationEdge(list, RepositoryInvitationEdge): pass
-
-class list_RepositoryInvitation(list, RepositoryInvitation): pass
-
-class RepositoryInvitationConnection(GQLObject):
-   edges: list_RepositoryInvitationEdge[RepositoryInvitationEdge]
-   nodes: list_RepositoryInvitation[RepositoryInvitation]
-   pageInfo: PageInfo
-   totalCount: int
-
-class EnterprisePendingMemberInvitationEdge(GQLObject):
-   cursor: str
-   node: OrganizationInvitation
-
-class list_EnterprisePendingMemberInvitationEdge(list, EnterprisePendingMemberInvitationEdge): pass
-
-class EnterprisePendingMemberInvitationConnection(GQLObject):
-   edges: list_EnterprisePendingMemberInvitationEdge[EnterprisePendingMemberInvitationEdge]
-   nodes: list_OrganizationInvitation[OrganizationInvitation]
-   pageInfo: PageInfo
-   totalCount: int
-   totalUniqueUserCount: int
-
-class LPWDD_ExternalIdentityConnection_Field(ExternalIdentityConnection):
-   class ExternalIdentityConnectionArgs(GQLArgsSet, GQLObject):
-      membersOnly: bool
-      login: str
-      userName: str
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: ExternalIdentityConnectionArgs
-
-
-
-class EnterpriseIdentityProvider(GQLObject):
-   digestMethod: SamlDigestAlgorithm
-   enterprise: NewType('Enterprise', GQLObject) ## Circular Reference for Enterprise
-   externalIdentities: LPWDD_ExternalIdentityConnection_Field
-   id: ID
-   idpCertificate: X509Certificate
-   issuer: str
-   recoveryCodes: list[str]
-   signatureMethod: SamlSignatureAlgorithm
-   ssoUrl: URI
-
-class DLBLU_EnterpriseAdministratorConnection_Field(EnterpriseAdministratorConnection):
-   class EnterpriseAdministratorConnectionArgs(GQLArgsSet, GQLObject):
-      organizationLogins: list[NonNull_str]
-      query: str
-      role: EnterpriseAdministratorRole
-      orderBy: EnterpriseMemberOrder
-      hasTwoFactorEnabled: bool
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: EnterpriseAdministratorConnectionArgs
-
-
-
-class XOPKA_UserConnection_Field(UserConnection):
-   class UserConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: UserConnectionArgs
-
-
-
-class RGPPZ_OrganizationConnection_Field(OrganizationConnection):
-   class OrganizationConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      value: NonNull_bool
-      orderBy: OrganizationOrder
-
-   _args: OrganizationConnectionArgs
-
-
-
-class NonNull_DefaultRepositoryPermissionField(GQLObject): pass
-
-class CGFPG_OrganizationConnection_Field(OrganizationConnection):
-   class OrganizationConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      value: NonNull_DefaultRepositoryPermissionField
-      orderBy: OrganizationOrder
-
-   _args: OrganizationConnectionArgs
-
-
-
-class WWPGU_VerifiableDomainConnection_Field(VerifiableDomainConnection):
-   class VerifiableDomainConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      isVerified: bool
-      isApproved: bool
-      orderBy: VerifiableDomainOrder
-
-   _args: VerifiableDomainConnectionArgs
-
-
-
-class ZYEDV_EnterpriseServerInstallationConnection_Field(EnterpriseServerInstallationConnection):
-   class EnterpriseServerInstallationConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      connectedOnly: bool
-      orderBy: EnterpriseServerInstallationOrder
-
-   _args: EnterpriseServerInstallationConnectionArgs
-
-
-
-class LRDNU_EnterpriseFailedInvitationConnection_Field(EnterpriseFailedInvitationConnection):
-   class EnterpriseFailedInvitationConnectionArgs(GQLArgsSet, GQLObject):
-      query: str
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: EnterpriseFailedInvitationConnectionArgs
-
-
-
-class ADSTU_IpAllowListEntryConnection_Field(Generic[IpAllowListEntryConnection]):
-   class IpAllowListEntryConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      orderBy: IpAllowListEntryOrder
-
-   _args: IpAllowListEntryConnectionArgs
-
-
-
-class KBBLH_OrganizationConnection_Field(OrganizationConnection):
-   class OrganizationConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      value: NonNull_bool
-      orderBy: OrganizationOrder
-
-   _args: OrganizationConnectionArgs
-
-
-
-class NonNull_OrganizationMembersCanCreateRepositoriesSettingValue(GQLObject): pass
-
-class EOGRB_OrganizationConnection_Field(OrganizationConnection):
-   class OrganizationConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      value: NonNull_OrganizationMembersCanCreateRepositoriesSettingValue
-      orderBy: OrganizationOrder
-
-   _args: OrganizationConnectionArgs
-
-
-
-class NHVPE_OrganizationConnection_Field(OrganizationConnection):
-   class OrganizationConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      value: NonNull_bool
-      orderBy: OrganizationOrder
-
-   _args: OrganizationConnectionArgs
-
-
-
-class WOMJY_OrganizationConnection_Field(OrganizationConnection):
-   class OrganizationConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      value: NonNull_bool
-      orderBy: OrganizationOrder
-
-   _args: OrganizationConnectionArgs
-
-
-
-class RJQHG_OrganizationConnection_Field(OrganizationConnection):
-   class OrganizationConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      value: NonNull_bool
-      orderBy: OrganizationOrder
-
-   _args: OrganizationConnectionArgs
-
-
-
-class QICQU_OrganizationConnection_Field(OrganizationConnection):
-   class OrganizationConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      value: NonNull_bool
-      orderBy: OrganizationOrder
-
-   _args: OrganizationConnectionArgs
-
-
-
-class EGCSV_OrganizationConnection_Field(OrganizationConnection):
-   class OrganizationConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      value: NonNull_bool
-      orderBy: OrganizationOrder
-
-   _args: OrganizationConnectionArgs
-
-
-
-class FCPJA_OrganizationConnection_Field(OrganizationConnection):
-   class OrganizationConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      value: NonNull_bool
-      orderBy: OrganizationOrder
-
-   _args: OrganizationConnectionArgs
-
-
-
-class HAXTC_EnterpriseOutsideCollaboratorConnection_Field(EnterpriseOutsideCollaboratorConnection):
-   class EnterpriseOutsideCollaboratorConnectionArgs(GQLArgsSet, GQLObject):
-      login: str
-      query: str
-      orderBy: EnterpriseMemberOrder
-      visibility: RepositoryVisibility
-      hasTwoFactorEnabled: bool
-      organizationLogins: list[NonNull_str]
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: EnterpriseOutsideCollaboratorConnectionArgs
-
-
-
-class VMEQE_EnterpriseAdministratorInvitationConnection_Field(EnterpriseAdministratorInvitationConnection):
-   class EnterpriseAdministratorInvitationConnectionArgs(GQLArgsSet, GQLObject):
-      query: str
-      orderBy: EnterpriseAdministratorInvitationOrder
-      role: EnterpriseAdministratorRole
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: EnterpriseAdministratorInvitationConnectionArgs
-
-
-
-class REZAX_RepositoryInvitationConnection_Field(RepositoryInvitationConnection):
-   class RepositoryInvitationConnectionArgs(GQLArgsSet, GQLObject):
-      query: str
-      orderBy: RepositoryInvitationOrder
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: RepositoryInvitationConnectionArgs
-
-
-
-class QTWJC_EnterprisePendingMemberInvitationConnection_Field(EnterprisePendingMemberInvitationConnection):
-   class EnterprisePendingMemberInvitationConnectionArgs(GQLArgsSet, GQLObject):
-      query: str
-      organizationLogins: list[NonNull_str]
-      invitationSource: OrganizationInvitationSource
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: EnterprisePendingMemberInvitationConnectionArgs
-
-
-
-class DHKQA_OrganizationConnection_Field(OrganizationConnection):
-   class OrganizationConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      value: NonNull_bool
-      orderBy: OrganizationOrder
-
-   _args: OrganizationConnectionArgs
-
-
-
-class NonNull_IdentityProviderConfigurationState(GQLObject): pass
-
-class LUHRB_OrganizationConnection_Field(OrganizationConnection):
-   class OrganizationConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      value: NonNull_IdentityProviderConfigurationState
-      orderBy: OrganizationOrder
-
-   _args: OrganizationConnectionArgs
-
-
-
-class NXVTC_EnterpriseMemberConnection_Field(EnterpriseMemberConnection):
-   class EnterpriseMemberConnectionArgs(GQLArgsSet, GQLObject):
-      orderBy: EnterpriseMemberOrder
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: EnterpriseMemberConnectionArgs
-
-
-
-class BOSCI_OrganizationConnection_Field(OrganizationConnection):
-   class OrganizationConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      value: NonNull_bool
-      orderBy: OrganizationOrder
-
-   _args: OrganizationConnectionArgs
-
-
-
-class CQJAG_OrganizationConnection_Field(OrganizationConnection):
-   class OrganizationConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      value: NonNull_bool
-      orderBy: OrganizationOrder
-
-   _args: OrganizationConnectionArgs
-
-
-
-class EnterpriseOwnerInfo(GQLObject):
-   admins: DLBLU_EnterpriseAdministratorConnection_Field
-   affiliatedUsersWithTwoFactorDisabled: XOPKA_UserConnection_Field
-   affiliatedUsersWithTwoFactorDisabledExist: bool
-   allowPrivateRepositoryForkingSetting: EnterpriseEnabledDisabledSettingValue
-   allowPrivateRepositoryForkingSettingOrganizations: RGPPZ_OrganizationConnection_Field
-   allowPrivateRepositoryForkingSettingPolicyValue: EnterpriseAllowPrivateRepositoryForkingPolicyValue
-   defaultRepositoryPermissionSetting: EnterpriseDefaultRepositoryPermissionSettingValue
-   defaultRepositoryPermissionSettingOrganizations: CGFPG_OrganizationConnection_Field
-   domains: WWPGU_VerifiableDomainConnection_Field
-   enterpriseServerInstallations: ZYEDV_EnterpriseServerInstallationConnection_Field
-   failedInvitations: LRDNU_EnterpriseFailedInvitationConnection_Field
-   ipAllowListEnabledSetting: IpAllowListEnabledSettingValue
-   ipAllowListEntries: ADSTU_IpAllowListEntryConnection_Field ## Circular Reference for IpAllowListEntryConnection
-   ipAllowListForInstalledAppsEnabledSetting: IpAllowListForInstalledAppsEnabledSettingValue
-   isUpdatingDefaultRepositoryPermission: bool
-   isUpdatingTwoFactorRequirement: bool
-   membersCanChangeRepositoryVisibilitySetting: EnterpriseEnabledDisabledSettingValue
-   membersCanChangeRepositoryVisibilitySettingOrganizations: KBBLH_OrganizationConnection_Field
-   membersCanCreateInternalRepositoriesSetting: bool
-   membersCanCreatePrivateRepositoriesSetting: bool
-   membersCanCreatePublicRepositoriesSetting: bool
-   membersCanCreateRepositoriesSetting: EnterpriseMembersCanCreateRepositoriesSettingValue
-   membersCanCreateRepositoriesSettingOrganizations: EOGRB_OrganizationConnection_Field
-   membersCanDeleteIssuesSetting: EnterpriseEnabledDisabledSettingValue
-   membersCanDeleteIssuesSettingOrganizations: NHVPE_OrganizationConnection_Field
-   membersCanDeleteRepositoriesSetting: EnterpriseEnabledDisabledSettingValue
-   membersCanDeleteRepositoriesSettingOrganizations: WOMJY_OrganizationConnection_Field
-   membersCanInviteCollaboratorsSetting: EnterpriseEnabledDisabledSettingValue
-   membersCanInviteCollaboratorsSettingOrganizations: RJQHG_OrganizationConnection_Field
-   membersCanMakePurchasesSetting: EnterpriseMembersCanMakePurchasesSettingValue
-   membersCanUpdateProtectedBranchesSetting: EnterpriseEnabledDisabledSettingValue
-   membersCanUpdateProtectedBranchesSettingOrganizations: QICQU_OrganizationConnection_Field
-   membersCanViewDependencyInsightsSetting: EnterpriseEnabledDisabledSettingValue
-   membersCanViewDependencyInsightsSettingOrganizations: EGCSV_OrganizationConnection_Field
-   notificationDeliveryRestrictionEnabledSetting: NotificationRestrictionSettingValue
-   oidcProvider: OIDCProvider
-   organizationProjectsSetting: EnterpriseEnabledDisabledSettingValue
-   organizationProjectsSettingOrganizations: FCPJA_OrganizationConnection_Field
-   outsideCollaborators: HAXTC_EnterpriseOutsideCollaboratorConnection_Field
-   pendingAdminInvitations: VMEQE_EnterpriseAdministratorInvitationConnection_Field
-   pendingCollaboratorInvitations: REZAX_RepositoryInvitationConnection_Field
-   pendingMemberInvitations: QTWJC_EnterprisePendingMemberInvitationConnection_Field
-   repositoryProjectsSetting: EnterpriseEnabledDisabledSettingValue
-   repositoryProjectsSettingOrganizations: DHKQA_OrganizationConnection_Field
-   samlIdentityProvider: EnterpriseIdentityProvider
-   samlIdentityProviderSettingOrganizations: LUHRB_OrganizationConnection_Field
-   supportEntitlements: NXVTC_EnterpriseMemberConnection_Field
-   teamDiscussionsSetting: EnterpriseEnabledDisabledSettingValue
-   teamDiscussionsSettingOrganizations: BOSCI_OrganizationConnection_Field
-   twoFactorRequiredSetting: EnterpriseEnabledSettingValue
-   twoFactorRequiredSettingOrganizations: CQJAG_OrganizationConnection_Field
-
-class KHPMC_EnterpriseMemberConnection_Field(EnterpriseMemberConnection):
-   class EnterpriseMemberConnectionArgs(GQLArgsSet, GQLObject):
-      organizationLogins: list[NonNull_str]
-      query: str
-      orderBy: EnterpriseMemberOrder
-      role: EnterpriseUserAccountMembershipRole
-      deployment: EnterpriseUserDeployment
-      hasTwoFactorEnabled: bool
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: EnterpriseMemberConnectionArgs
-
-
-
-class JPCZO_OrganizationConnection_Field(OrganizationConnection):
-   class OrganizationConnectionArgs(GQLArgsSet, GQLObject):
-      query: str
-      viewerOrganizationRole: RoleInOrganization
-      orderBy: OrganizationOrder
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: OrganizationConnectionArgs
-
-
-
-class Enterprise(GQLObject):
-   announcement: str
-   announcementExpiresAt: DateTime
-   announcementUserDismissible: bool
-   avatarUrl: HQOKI_URI_Field
-   billingInfo: EnterpriseBillingInfo
-   createdAt: DateTime
-   databaseId: int
-   description: str
-   descriptionHTML: HTML
-   id: ID
-   location: str
-   members: KHPMC_EnterpriseMemberConnection_Field
-   name: str
-   organizations: JPCZO_OrganizationConnection_Field
-   ownerInfo: EnterpriseOwnerInfo
-   resourcePath: URI
-   slug: str
-   url: URI
-   viewerIsAdmin: bool
-   websiteUrl: URI
-
-class IpAllowListOwner(GQLObject): 
-   pass
-
-class IpAllowListEntry(GQLObject):
-   allowListValue: str
-   createdAt: DateTime
-   id: ID
-   isActive: bool
-   name: str
-   owner: IpAllowListOwner
-   updatedAt: DateTime
-
-class IpAllowListEntryEdge(GQLObject):
-   cursor: str
-   node: IpAllowListEntry
-
-class list_IpAllowListEntryEdge(list, IpAllowListEntryEdge): pass
-
-class list_IpAllowListEntry(list, IpAllowListEntry): pass
-
-class IpAllowListEntryConnection(GQLObject):
-   edges: list_IpAllowListEntryEdge[IpAllowListEntryEdge]
-   nodes: list_IpAllowListEntry[IpAllowListEntry]
-   pageInfo: PageInfo
-   totalCount: int
-
-class OBPXN_IpAllowListEntryConnection_Field(IpAllowListEntryConnection):
-   class IpAllowListEntryConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      orderBy: IpAllowListEntryOrder
-
-   _args: IpAllowListEntryConnectionArgs
-
-
-
-class App(GQLObject):
-   createdAt: DateTime
-   databaseId: int
-   description: str
-   id: ID
-   ipAllowListEntries: OBPXN_IpAllowListEntryConnection_Field
-   logoBackgroundColor: str
-   logoUrl: POFHR_URI_Field
-   name: str
-   slug: str
-   updatedAt: DateTime
-   url: URI
-
-class CheckRunEdge(GQLObject):
-   cursor: str
-   node: CheckRun
-
-class list_CheckRunEdge(list, CheckRunEdge): pass
-
-class list_CheckRun(list, CheckRun): pass
-
-class CheckRunConnection(GQLObject):
-   edges: list_CheckRunEdge[CheckRunEdge]
-   nodes: list_CheckRun[CheckRun]
-   pageInfo: PageInfo
-   totalCount: int
-
-class Push(GQLObject):
-   id: ID
-   nextSha: GitObjectID
-   permalink: URI
-   previousSha: GitObjectID
-   pusher: Actor
-   repository: Repository
-
-class XKWJD_CheckRunConnection_Field(CheckRunConnection):
-   class CheckRunConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      filterBy: CheckRunFilter
-
-   _args: CheckRunConnectionArgs
-
-
-
-class MJHVB_PullRequestConnection_Field(PullRequestConnection):
-   class PullRequestConnectionArgs(GQLArgsSet, GQLObject):
-      states: list[NonNull_PullRequestState]
-      labels: list[NonNull_str]
-      headRefName: str
-      baseRefName: str
-      orderBy: IssueOrder
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: PullRequestConnectionArgs
-
-
-
-class CheckSuite(GQLObject):
-   app: App
-   branch: Ref
-   checkRuns: XKWJD_CheckRunConnection_Field
-   commit: Commit
-   conclusion: CheckConclusionState
-   createdAt: DateTime
-   creator: User
-   databaseId: int
-   id: ID
-   matchingPullRequests: MJHVB_PullRequestConnection_Field
-   push: Push
-   repository: Repository
-   resourcePath: URI
-   status: CheckStatusState
-   updatedAt: DateTime
-   url: URI
-   workflowRun: NewType('WorkflowRun', GQLObject) ## Circular Reference for WorkflowRun
-
-class TEUPV_EnvironmentConnection_Field(EnvironmentConnection):
-   class EnvironmentConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: EnvironmentConnectionArgs
-
-
-
-class DeploymentReview(GQLObject):
-   comment: str
-   databaseId: int
-   environments: TEUPV_EnvironmentConnection_Field
-   id: ID
-   state: DeploymentReviewState
-   user: User
-
-class DeploymentReviewEdge(GQLObject):
-   cursor: str
-   node: DeploymentReview
-
-class list_DeploymentReviewEdge(list, DeploymentReviewEdge): pass
-
-class list_DeploymentReview(list, DeploymentReview): pass
-
-class DeploymentReviewConnection(GQLObject):
-   edges: list_DeploymentReviewEdge[DeploymentReviewEdge]
-   nodes: list_DeploymentReview[DeploymentReview]
-   pageInfo: PageInfo
-   totalCount: int
-
-class WorkflowRunFile(GQLObject):
-   id: ID
-   path: str
-   repositoryFileUrl: URI
-   repositoryName: URI
-   resourcePath: URI
-   run: NewType('WorkflowRun', GQLObject) ## Circular Reference for WorkflowRun
-   url: URI
-   viewerCanPushRepository: bool
-   viewerCanReadRepository: bool
-
-class DeploymentRequestEdge(GQLObject):
-   cursor: str
-   node: DeploymentRequest
-
-class list_DeploymentRequestEdge(list, DeploymentRequestEdge): pass
-
-class list_DeploymentRequest(list, DeploymentRequest): pass
-
-class DeploymentRequestConnection(GQLObject):
-   edges: list_DeploymentRequestEdge[DeploymentRequestEdge]
-   nodes: list_DeploymentRequest[DeploymentRequest]
-   pageInfo: PageInfo
-   totalCount: int
-
-class OCKSS_WorkflowRunConnection_Field(Generic[WorkflowRunConnection]):
-   class WorkflowRunConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      orderBy: WorkflowRunOrder
-
-   _args: WorkflowRunConnectionArgs
-
-
-
-class Workflow(GQLObject):
-   createdAt: DateTime
-   databaseId: int
-   id: ID
-   name: str
-   resourcePath: URI
-   runs: OCKSS_WorkflowRunConnection_Field ## Circular Reference for WorkflowRunConnection
-   state: WorkflowState
-   updatedAt: DateTime
-   url: URI
-
-class NXCJH_DeploymentReviewConnection_Field(DeploymentReviewConnection):
-   class DeploymentReviewConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: DeploymentReviewConnectionArgs
-
-
-
-class FYNFM_DeploymentRequestConnection_Field(DeploymentRequestConnection):
-   class DeploymentRequestConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: DeploymentRequestConnectionArgs
-
-
-
-class WorkflowRun(GQLObject):
-   checkSuite: CheckSuite
-   createdAt: DateTime
-   databaseId: int
-   deploymentReviews: NXCJH_DeploymentReviewConnection_Field
-   event: str
-   file: WorkflowRunFile
-   id: ID
-   pendingDeploymentRequests: FYNFM_DeploymentRequestConnection_Field
-   resourcePath: URI
-   runNumber: int
-   updatedAt: DateTime
-   url: URI
-   workflow: Workflow
-
-class WorkflowRunEdge(GQLObject):
-   cursor: str
-   node: WorkflowRun
-
-class list_WorkflowRunEdge(list, WorkflowRunEdge): pass
-
-class list_WorkflowRun(list, WorkflowRun): pass
-
-class WorkflowRunConnection(GQLObject):
-   edges: list_WorkflowRunEdge[WorkflowRunEdge]
-   nodes: list_WorkflowRun[WorkflowRun]
-   pageInfo: PageInfo
-   totalCount: int
-
-class list_Team(list, Team): pass
-
-class UpdateTeamsRepositoryPayload(GQLObject):
-   clientMutationId: str
-   repository: Repository
-   teams: list_Team[Team]
-
-class list_StatusCheckConfigurationInput(list, StatusCheckConfigurationInput): pass
-
-class RequiredStatusChecksParametersInput(GQLObject):
-   requiredStatusChecks: list_StatusCheckConfigurationInput[StatusCheckConfigurationInput]
-   strictRequiredStatusChecksPolicy: bool
-
-class RuleParametersInput(GQLObject):
-   update: UpdateParametersInput
-   requiredDeployments: RequiredDeploymentsParametersInput
-   pullRequest: PullRequestParametersInput
-   requiredStatusChecks: RequiredStatusChecksParametersInput
-   commitMessagePattern: CommitMessagePatternParametersInput
-   commitAuthorEmailPattern: CommitAuthorEmailPatternParametersInput
-   committerEmailPattern: CommitterEmailPatternParametersInput
-   branchNamePattern: BranchNamePatternParametersInput
-   tagNamePattern: TagNamePatternParametersInput
-
-class RepositoryRuleInput(GQLObject):
-   id: ID
-   type: RepositoryRuleType
-   parameters: RuleParametersInput
-
-class RepositoryRuleConditionsInput(GQLObject):
-   refName: RefNameConditionTargetInput
-   repositoryName: RepositoryNameConditionTargetInput
-   repositoryId: RepositoryIdConditionTargetInput
-
-class list_RepositoryRuleInput(list, RepositoryRuleInput): pass
-
-class list_RepositoryRulesetBypassActorInput(list, RepositoryRulesetBypassActorInput): pass
-
-class UpdateRepositoryRulesetInput(GQLObject):
-   repositoryRulesetId: ID
-   name: str
-   target: RepositoryRulesetTarget
-   rules: list_RepositoryRuleInput[RepositoryRuleInput]
-   conditions: RepositoryRuleConditionsInput
-   enforcement: RuleEnforcement
-   bypassActors: list_RepositoryRulesetBypassActorInput[RepositoryRulesetBypassActorInput]
-   clientMutationId: str
-
-class UpdatePullRequestPayload(GQLObject):
-   actor: Actor
-   clientMutationId: str
-   pullRequest: PullRequest
-
-class UpdateIssuePayload(GQLObject):
-   actor: Actor
-   clientMutationId: str
-   issue: Issue
-
-class CheckAnnotationData(GQLObject):
-   path: str
-   location: CheckAnnotationRange
-   annotationLevel: CheckAnnotationLevel
-   message: str
-   title: str
-   rawDetails: str
-
-class list_CheckAnnotationData(list, CheckAnnotationData): pass
-
-class list_CheckRunOutputImage(list, CheckRunOutputImage): pass
-
-class CheckRunOutput(GQLObject):
-   title: str
-   summary: str
-   text: str
-   annotations: list_CheckAnnotationData[CheckAnnotationData]
-   images: list_CheckRunOutputImage[CheckRunOutputImage]
-
-class list_CheckRunAction(list, CheckRunAction): pass
-
-class UpdateCheckRunInput(GQLObject):
-   repositoryId: ID
-   checkRunId: ID
-   name: str
-   detailsUrl: URI
-   externalId: str
-   status: RequestableCheckStatusState
-   startedAt: DateTime
-   conclusion: CheckConclusionState
-   completedAt: DateTime
-   output: CheckRunOutput
-   actions: list_CheckRunAction[CheckRunAction]
-   clientMutationId: str
-
-class UnlockLockablePayload(GQLObject):
-   actor: Actor
-   clientMutationId: str
-   unlockedRecord: Lockable
-
-class UnlinkRepositoryFromProjectPayload(GQLObject):
-   clientMutationId: str
-   project: Project
-   repository: Repository
-
-class Tag(GQLObject):
-   abbreviatedOid: str
-   commitResourcePath: URI
-   commitUrl: URI
-   id: ID
-   message: str
-   name: str
-   oid: GitObjectID
-   repository: Repository
-   tagger: GitActor
-   target: GitObject
-
-class SponsorableItem(GQLObject): 
-   pass
-
-class SponsorableItemEdge(GQLObject):
-   cursor: str
-   node: SponsorableItem
-
-class list_SponsorableItemEdge(list, SponsorableItemEdge): pass
-
-class list_SponsorableItem(list, SponsorableItem): pass
-
-class SponsorableItemConnection(GQLObject):
-   edges: list_SponsorableItemEdge[SponsorableItemEdge]
-   nodes: list_SponsorableItem[SponsorableItem]
-   pageInfo: PageInfo
-   totalCount: int
-
-class SecurityAdvisoryEdge(GQLObject):
-   cursor: str
-   node: SecurityAdvisory
-
-class list_SecurityAdvisoryEdge(list, SecurityAdvisoryEdge): pass
-
-class list_SecurityAdvisory(list, SecurityAdvisory): pass
-
-class SecurityAdvisoryConnection(GQLObject):
-   edges: list_SecurityAdvisoryEdge[SecurityAdvisoryEdge]
-   nodes: list_SecurityAdvisory[SecurityAdvisory]
-   pageInfo: PageInfo
-   totalCount: int
-
-class MarketplaceListing(GQLObject):
-   app: App
-   companyUrl: URI
-   configurationResourcePath: URI
-   configurationUrl: URI
-   documentationUrl: URI
-   extendedDescription: str
-   extendedDescriptionHTML: HTML
-   fullDescription: str
-   fullDescriptionHTML: HTML
-   hasPublishedFreeTrialPlans: bool
-   hasTermsOfService: bool
-   hasVerifiedOwner: bool
-   howItWorks: str
-   howItWorksHTML: HTML
-   id: ID
-   installationUrl: URI
-   installedForViewer: bool
-   isArchived: bool
-   isDraft: bool
-   isPaid: bool
-   isPublic: bool
-   isRejected: bool
-   isUnverified: bool
-   isUnverifiedPending: bool
-   isVerificationPendingFromDraft: bool
-   isVerificationPendingFromUnverified: bool
-   isVerified: bool
-   logoBackgroundColor: str
-   logoUrl: KXYTK_URI_Field
-   name: str
-   normalizedShortDescription: str
-   pricingUrl: URI
-   primaryCategory: MarketplaceCategory
-   privacyPolicyUrl: URI
-   resourcePath: URI
-   screenshotUrls: list[str]
-   secondaryCategory: MarketplaceCategory
-   shortDescription: str
-   slug: str
-   statusUrl: URI
-   supportEmail: str
-   supportUrl: URI
-   termsOfServiceUrl: URI
-   url: URI
-   viewerCanAddPlans: bool
-   viewerCanApprove: bool
-   viewerCanDelist: bool
-   viewerCanEdit: bool
-   viewerCanEditCategories: bool
-   viewerCanEditPlans: bool
-   viewerCanRedraft: bool
-   viewerCanReject: bool
-   viewerCanRequestApproval: bool
-   viewerHasPurchased: bool
-   viewerHasPurchasedForAllOrganizations: bool
-   viewerIsListingAdmin: bool
-
-class SearchResultItem(GQLObject): 
-   pass
-
-class list_TextMatchHighlight(list, TextMatchHighlight): pass
-
-class TextMatch(GQLObject):
-   fragment: str
-   highlights: list_TextMatchHighlight[TextMatchHighlight]
-   property: str
-
-class list_TextMatch(list, TextMatch): pass
-
-class SearchResultItemEdge(GQLObject):
-   cursor: str
-   node: SearchResultItem
-   textMatches: list_TextMatch[TextMatch]
-
-class list_SearchResultItemEdge(list, SearchResultItemEdge): pass
-
-class list_SearchResultItem(list, SearchResultItem): pass
-
-class SearchResultItemConnection(GQLObject):
-   codeCount: int
-   discussionCount: int
-   edges: list_SearchResultItemEdge[SearchResultItemEdge]
-   issueCount: int
-   nodes: list_SearchResultItem[SearchResultItem]
-   pageInfo: PageInfo
-   repositoryCount: int
-   userCount: int
-   wikiCount: int
-
-class RevertPullRequestPayload(GQLObject):
-   clientMutationId: str
-   pullRequest: PullRequest
-   revertPullRequest: PullRequest
-
-class RequestReviewsPayload(GQLObject):
-   actor: Actor
-   clientMutationId: str
-   pullRequest: PullRequest
-   requestedReviewersEdge: UserEdge
-
-class RemoveReactionPayload(GQLObject):
-   clientMutationId: str
-   reaction: Reaction
-   reactionGroups: list_ReactionGroup[ReactionGroup]
-   subject: Reactable
-
-class RemoveEnterpriseOrganizationPayload(GQLObject):
-   clientMutationId: str
-   enterprise: Enterprise
-   organization: Organization
-   viewer: User
-
-class RemoveEnterpriseMemberPayload(GQLObject):
-   clientMutationId: str
-   enterprise: Enterprise
-   user: User
-   viewer: User
-
-class RemoveEnterpriseAdminPayload(GQLObject):
-   admin: User
-   clientMutationId: str
-   enterprise: Enterprise
-   message: str
-   viewer: User
-
-class ZTZAG_PullRequestReviewCommentConnection_Field(PullRequestReviewCommentConnection):
-   class PullRequestReviewCommentConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      skip: int
-
-   _args: PullRequestReviewCommentConnectionArgs
-
-
-
-class PullRequestThread(GQLObject):
-   comments: ZTZAG_PullRequestReviewCommentConnection_Field
-   diffSide: DiffSide
-   id: ID
-   isCollapsed: bool
-   isOutdated: bool
-   isResolved: bool
-   line: int
-   path: str
-   pullRequest: PullRequest
-   repository: Repository
-   resolvedBy: User
-   startDiffSide: DiffSide
-   startLine: int
-   subjectType: PullRequestReviewThreadSubjectType
-   viewerCanReply: bool
-   viewerCanResolve: bool
-   viewerCanUnresolve: bool
-
-class ProjectV2ItemFieldValueCommon(GQLObject):
-   createdAt: DateTime
-   creator: Actor
-   databaseId: int
-   field: ProjectV2FieldConfiguration
-   id: ID
-   item: ProjectV2Item
-   updatedAt: DateTime
-
-class ProjectV2Actor(GQLObject): 
-   pass
-
-class ProjectV2ActorEdge(GQLObject):
-   cursor: str
-   node: ProjectV2Actor
-
-class list_ProjectV2ActorEdge(list, ProjectV2ActorEdge): pass
-
-class list_ProjectV2Actor(list, ProjectV2Actor): pass
-
-class ProjectV2ActorConnection(GQLObject):
-   edges: list_ProjectV2ActorEdge[ProjectV2ActorEdge]
-   nodes: list_ProjectV2Actor[ProjectV2Actor]
-   pageInfo: PageInfo
-   totalCount: int
-
-class HTWOY_PinnableItemConnection_Field(PinnableItemConnection):
-   class PinnableItemConnectionArgs(GQLArgsSet, GQLObject):
-      types: list[NonNull_PinnableItemType]
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: PinnableItemConnectionArgs
-
-
-
-class OPFYQ_PinnableItemConnection_Field(PinnableItemConnection):
-   class PinnableItemConnectionArgs(GQLArgsSet, GQLObject):
-      types: list[NonNull_PinnableItemType]
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: PinnableItemConnectionArgs
-
-
-
-class ProfileOwner(GQLObject):
-   anyPinnableItems: KISEW_anyPinnableItems_Field
-   email: str
-   id: ID
-   itemShowcase: ProfileItemShowcase
-   location: str
-   login: str
-   name: str
-   pinnableItems: HTWOY_PinnableItemConnection_Field
-   pinnedItems: OPFYQ_PinnableItemConnection_Field
-   pinnedItemsRemaining: int
-   viewerCanChangePinnedItems: bool
-   websiteUrl: URI
-
-class OrganizationOrUser(GQLObject): 
-   pass
-
-class MergePullRequestPayload(GQLObject):
-   actor: Actor
-   clientMutationId: str
-   pullRequest: PullRequest
-
-class MarketplaceListingEdge(GQLObject):
-   cursor: str
-   node: MarketplaceListing
-
-class list_MarketplaceListingEdge(list, MarketplaceListingEdge): pass
-
-class list_MarketplaceListing(list, MarketplaceListing): pass
-
-class MarketplaceListingConnection(GQLObject):
-   edges: list_MarketplaceListingEdge[MarketplaceListingEdge]
-   nodes: list_MarketplaceListing[MarketplaceListing]
-   pageInfo: PageInfo
-   totalCount: int
-
-class LockLockablePayload(GQLObject):
-   actor: Actor
-   clientMutationId: str
-   lockedRecord: Lockable
-
-class LinkRepositoryToProjectPayload(GQLObject):
-   clientMutationId: str
-   project: Project
-   repository: Repository
-
-class list_FileDeletion(list, FileDeletion): pass
-
-class list_FileAddition(list, FileAddition): pass
-
-class FileChanges(GQLObject):
-   deletions: list_FileDeletion[FileDeletion]
-   additions: list_FileAddition[FileAddition]
-
-class EnablePullRequestAutoMergePayload(GQLObject):
-   actor: Actor
-   clientMutationId: str
-   pullRequest: PullRequest
-
-class DisablePullRequestAutoMergePayload(GQLObject):
-   actor: Actor
-   clientMutationId: str
-   pullRequest: PullRequest
-
-class DeletePullRequestReviewCommentPayload(GQLObject):
-   clientMutationId: str
-   pullRequestReview: PullRequestReview
-   pullRequestReviewComment: PullRequestReviewComment
-
-class CreateRepositoryRulesetInput(GQLObject):
-   sourceId: ID
-   name: str
-   target: RepositoryRulesetTarget
-   rules: list_RepositoryRuleInput[RepositoryRuleInput]
-   conditions: RepositoryRuleConditionsInput
-   enforcement: RuleEnforcement
-   bypassActors: list_RepositoryRulesetBypassActorInput[RepositoryRulesetBypassActorInput]
-   clientMutationId: str
-
-class CreateEnterpriseOrganizationPayload(GQLObject):
-   clientMutationId: str
-   enterprise: Enterprise
-   organization: Organization
-
-class CreateCommitOnBranchPayload(GQLObject):
-   clientMutationId: str
-   commit: Commit
-   ref: Ref
-
-class CreateCommitOnBranchInput(GQLObject):
-   branch: CommittableBranch
-   fileChanges: FileChanges
-   message: CommitMessage
-   expectedHeadOid: GitObjectID
-   clientMutationId: str
-
-class CreateCheckRunInput(GQLObject):
-   repositoryId: ID
-   name: str
-   headSha: GitObjectID
-   detailsUrl: URI
-   externalId: str
-   status: RequestableCheckStatusState
-   startedAt: DateTime
-   conclusion: CheckConclusionState
-   completedAt: DateTime
-   output: CheckRunOutput
-   actions: list_CheckRunAction[CheckRunAction]
-   clientMutationId: str
-
-class Claimable(GQLObject): 
-   pass
-
-class CreateAttributionInvitationPayload(GQLObject):
-   clientMutationId: str
-   owner: Organization
-   source: Claimable
-   target: Claimable
-
-class WYTZJ_UserContentEditConnection_Field(UserContentEditConnection):
-   class UserContentEditConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: UserContentEditConnectionArgs
-
-
-
-class Comment(GQLObject):
-   author: Actor
-   authorAssociation: CommentAuthorAssociation
-   body: str
-   bodyHTML: HTML
-   bodyText: str
-   createdAt: DateTime
-   createdViaEmail: bool
-   editor: Actor
-   id: ID
-   includesCreatedEdit: bool
-   lastEditedAt: DateTime
-   publishedAt: DateTime
-   updatedAt: DateTime
-   userContentEdits: WYTZJ_UserContentEditConnection_Field
-   viewerDidAuthor: bool
-
-class AuditEntry(GQLObject):
-   action: str
-   actor: AuditEntryActor
-   actorIp: str
-   actorLocation: ActorLocation
-   actorLogin: str
-   actorResourcePath: URI
-   actorUrl: URI
-   createdAt: PreciseDateTime
-   operationType: OperationType
-   user: User
-   userLogin: str
-   userResourcePath: URI
-   userUrl: URI
-
-class AddReactionPayload(GQLObject):
-   clientMutationId: str
-   reaction: Reaction
-   reactionGroups: list_ReactionGroup[ReactionGroup]
-   subject: Reactable
-
-class AddPullRequestReviewPayload(GQLObject):
-   clientMutationId: str
-   pullRequestReview: PullRequestReview
-   reviewEdge: PullRequestReviewEdge
-
-class list_DraftPullRequestReviewComment(list, DraftPullRequestReviewComment): pass
-
-class list_DraftPullRequestReviewThread(list, DraftPullRequestReviewThread): pass
-
-class AddPullRequestReviewInput(GQLObject):
-   pullRequestId: ID
-   commitOID: GitObjectID
-   body: str
-   event: PullRequestReviewEvent
-   comments: list_DraftPullRequestReviewComment[DraftPullRequestReviewComment]
-   threads: list_DraftPullRequestReviewThread[DraftPullRequestReviewThread]
-   clientMutationId: str
-
-class AddPullRequestReviewCommentPayload(GQLObject):
-   clientMutationId: str
-   comment: PullRequestReviewComment
-   commentEdge: PullRequestReviewCommentEdge
-
-class AddProjectColumnPayload(GQLObject):
-   clientMutationId: str
-   columnEdge: ProjectColumnEdge
-   project: Project
-
-class AddProjectCardPayload(GQLObject):
-   cardEdge: ProjectCardEdge
-   clientMutationId: str
-   projectColumn: ProjectColumn
-
-class AddCommentPayload(GQLObject):
-   clientMutationId: str
-   commentEdge: IssueCommentEdge
-   subject: Node
-   timelineEdge: IssueTimelineItemEdge
-
-class AcceptEnterpriseAdministratorInvitationPayload(GQLObject):
-   clientMutationId: str
-   invitation: EnterpriseAdministratorInvitation
-   message: str
-
-class AcceptTopicSuggestionPayload(GQLObject):
-   clientMutationId: str
-   topic: Topic
-
-class AddAssigneesToAssignablePayload(GQLObject):
-   assignable: Assignable
-   clientMutationId: str
-
-class AddDiscussionCommentPayload(GQLObject):
-   clientMutationId: str
-   comment: DiscussionComment
-
-class AddDiscussionPollVotePayload(GQLObject):
-   clientMutationId: str
-   pollOption: DiscussionPollOption
-
-class AddEnterpriseOrganizationMemberPayload(GQLObject):
-   clientMutationId: str
-   users: list_User[User]
-
-class AddLabelsToLabelablePayload(GQLObject):
-   clientMutationId: str
-   labelable: Labelable
-
-class AddProjectV2DraftIssuePayload(GQLObject):
-   clientMutationId: str
-   projectItem: ProjectV2Item
-
-class AddProjectV2ItemByIdPayload(GQLObject):
-   clientMutationId: str
-   item: ProjectV2Item
-
-class AddPullRequestReviewThreadPayload(GQLObject):
-   clientMutationId: str
-   thread: PullRequestReviewThread
-
-class AddPullRequestReviewThreadReplyPayload(GQLObject):
-   clientMutationId: str
-   comment: PullRequestReviewComment
-
-class HVHQL_StargazerConnection_Field(StargazerConnection):
-   class StargazerConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      orderBy: StarOrder
-
-   _args: StargazerConnectionArgs
-
-
-
-class Starrable(GQLObject):
-   id: ID
-   stargazerCount: int
-   stargazers: HVHQL_StargazerConnection_Field
-   viewerHasStarred: bool
-
-class AddStarPayload(GQLObject):
-   clientMutationId: str
-   starrable: Starrable
-
-class AddUpvotePayload(GQLObject):
-   clientMutationId: str
-   subject: Votable
-
-class AddVerifiableDomainPayload(GQLObject):
-   clientMutationId: str
-   domain: VerifiableDomain
-
-class ApproveDeploymentsPayload(GQLObject):
-   clientMutationId: str
-   deployments: list_Deployment[Deployment]
-
-class ApproveVerifiableDomainPayload(GQLObject):
-   clientMutationId: str
-   domain: VerifiableDomain
-
-class ArchiveProjectV2ItemPayload(GQLObject):
-   clientMutationId: str
-   item: ProjectV2Item
-
-class ArchiveRepositoryPayload(GQLObject):
-   clientMutationId: str
-   repository: Repository
-
-class Blob(GQLObject):
-   abbreviatedOid: str
-   byteSize: int
-   commitResourcePath: URI
-   commitUrl: URI
-   id: ID
-   isBinary: bool
-   isTruncated: bool
-   oid: GitObjectID
-   repository: Repository
-   text: str
-
-class CancelEnterpriseAdminInvitationPayload(GQLObject):
-   clientMutationId: str
-   invitation: EnterpriseAdministratorInvitation
-   message: str
-
-class CancelSponsorshipPayload(GQLObject):
-   clientMutationId: str
-   sponsorsTier: SponsorsTier
-
-class ChangeUserStatusPayload(GQLObject):
-   clientMutationId: str
-   status: UserStatus
-
-class ClearLabelsFromLabelablePayload(GQLObject):
-   clientMutationId: str
-   labelable: Labelable
-
-class ClearProjectV2ItemFieldValuePayload(GQLObject):
-   clientMutationId: str
-   projectV2Item: ProjectV2Item
-
-class CloneProjectPayload(GQLObject):
-   clientMutationId: str
-   jobStatusId: str
-   project: Project
-
-class CloneTemplateRepositoryPayload(GQLObject):
-   clientMutationId: str
-   repository: Repository
-
-class CloseDiscussionPayload(GQLObject):
-   clientMutationId: str
-   discussion: Discussion
-
-class CloseIssuePayload(GQLObject):
-   clientMutationId: str
-   issue: Issue
-
-class ClosePullRequestPayload(GQLObject):
-   clientMutationId: str
-   pullRequest: PullRequest
-
-class Contribution(GQLObject):
-   isRestricted: bool
-   occurredAt: DateTime
-   resourcePath: URI
-   url: URI
-   user: User
-
-class ConvertProjectCardNoteToIssuePayload(GQLObject):
-   clientMutationId: str
-   projectCard: ProjectCard
-
-class ConvertPullRequestToDraftPayload(GQLObject):
-   clientMutationId: str
-   pullRequest: PullRequest
-
-class CopyProjectV2Payload(GQLObject):
-   clientMutationId: str
-   projectV2: ProjectV2
-
-class list_RequiredStatusCheckInput(list, RequiredStatusCheckInput): pass
-
-class CreateBranchProtectionRuleInput(GQLObject):
-   repositoryId: ID
-   pattern: str
-   requiresApprovingReviews: bool
-   requiredApprovingReviewCount: int
-   requiresCommitSignatures: bool
-   requiresLinearHistory: bool
-   blocksCreations: bool
-   allowsForcePushes: bool
-   allowsDeletions: bool
-   isAdminEnforced: bool
-   requiresStatusChecks: bool
-   requiresStrictStatusChecks: bool
-   requiresCodeOwnerReviews: bool
-   dismissesStaleReviews: bool
-   restrictsReviewDismissals: bool
-   reviewDismissalActorIds: list[ID]
-   bypassPullRequestActorIds: list[ID]
-   bypassForcePushActorIds: list[ID]
-   restrictsPushes: bool
-   pushActorIds: list[ID]
-   requiredStatusCheckContexts: list[str]
-   requiredStatusChecks: list_RequiredStatusCheckInput[RequiredStatusCheckInput]
-   requiresDeployments: bool
-   requiredDeploymentEnvironments: list[str]
-   requiresConversationResolution: bool
-   requireLastPushApproval: bool
-   lockBranch: bool
-   lockAllowsFetchAndMerge: bool
-   clientMutationId: str
-
-class CreateBranchProtectionRulePayload(GQLObject):
-   branchProtectionRule: BranchProtectionRule
-   clientMutationId: str
-
-class CreateCheckRunPayload(GQLObject):
-   checkRun: CheckRun
-   clientMutationId: str
-
-class CreateCheckSuitePayload(GQLObject):
-   checkSuite: CheckSuite
-   clientMutationId: str
-
-class CreateDiscussionPayload(GQLObject):
-   clientMutationId: str
-   discussion: Discussion
-
-class CreateEnvironmentPayload(GQLObject):
-   clientMutationId: str
-   environment: Environment
-
-class CreateIpAllowListEntryPayload(GQLObject):
-   clientMutationId: str
-   ipAllowListEntry: IpAllowListEntry
-
-class CreateIssuePayload(GQLObject):
-   clientMutationId: str
-   issue: Issue
-
-class CreateLinkedBranchPayload(GQLObject):
-   clientMutationId: str
-   linkedBranch: LinkedBranch
-
-class CreateMigrationSourcePayload(GQLObject):
-   clientMutationId: str
-   migrationSource: MigrationSource
-
-class CreateProjectPayload(GQLObject):
-   clientMutationId: str
-   project: Project
-
-class list_ProjectV2SingleSelectFieldOptionInput(list, ProjectV2SingleSelectFieldOptionInput): pass
-
-class CreateProjectV2FieldInput(GQLObject):
-   projectId: ID
-   dataType: ProjectV2CustomFieldType
-   name: str
-   singleSelectOptions: list_ProjectV2SingleSelectFieldOptionInput[ProjectV2SingleSelectFieldOptionInput]
-   clientMutationId: str
-
-class CreateProjectV2FieldPayload(GQLObject):
-   clientMutationId: str
-   projectV2Field: ProjectV2FieldConfiguration
-
-class CreateProjectV2Payload(GQLObject):
-   clientMutationId: str
-   projectV2: ProjectV2
-
-class CreatePullRequestPayload(GQLObject):
-   clientMutationId: str
-   pullRequest: PullRequest
-
-class CreateRefPayload(GQLObject):
-   clientMutationId: str
-   ref: Ref
-
-class CreateRepositoryPayload(GQLObject):
-   clientMutationId: str
-   repository: Repository
-
-class CreateRepositoryRulesetPayload(GQLObject):
-   clientMutationId: str
-   ruleset: RepositoryRuleset
-
-class CreateSponsorsListingPayload(GQLObject):
-   clientMutationId: str
-   sponsorsListing: SponsorsListing
-
-class CreateSponsorsTierPayload(GQLObject):
-   clientMutationId: str
-   sponsorsTier: SponsorsTier
-
-class CreateSponsorshipPayload(GQLObject):
-   clientMutationId: str
-   sponsorship: Sponsorship
-
-class list_BulkSponsorship(list, BulkSponsorship): pass
-
-class CreateSponsorshipsInput(GQLObject):
-   sponsorLogin: str
-   sponsorships: list_BulkSponsorship[BulkSponsorship]
-   receiveEmails: bool
-   privacyLevel: SponsorshipPrivacy
-   clientMutationId: str
-
-class list_Sponsorable(list, Sponsorable): pass
-
-class CreateSponsorshipsPayload(GQLObject):
-   clientMutationId: str
-   sponsorables: list_Sponsorable[Sponsorable]
-
-class CreateTeamDiscussionCommentPayload(GQLObject):
-   clientMutationId: str
-
-class CreateTeamDiscussionPayload(GQLObject):
-   clientMutationId: str
-
-class DeclineTopicSuggestionPayload(GQLObject):
-   clientMutationId: str
-   topic: Topic
-
-class DeleteDiscussionCommentPayload(GQLObject):
-   clientMutationId: str
-   comment: DiscussionComment
-
-class DeleteDiscussionPayload(GQLObject):
-   clientMutationId: str
-   discussion: Discussion
-
-class DeleteIpAllowListEntryPayload(GQLObject):
-   clientMutationId: str
-   ipAllowListEntry: IpAllowListEntry
-
-class DeleteIssuePayload(GQLObject):
-   clientMutationId: str
-   repository: Repository
-
-class DeleteLinkedBranchPayload(GQLObject):
-   clientMutationId: str
-   issue: Issue
-
-class DeleteProjectCardPayload(GQLObject):
-   clientMutationId: str
-   column: ProjectColumn
-   deletedCardId: ID
-
-class DeleteProjectColumnPayload(GQLObject):
-   clientMutationId: str
-   deletedColumnId: ID
-   project: Project
-
-class DeleteProjectPayload(GQLObject):
-   clientMutationId: str
-   owner: ProjectOwner
-
-class DeleteProjectV2FieldPayload(GQLObject):
-   clientMutationId: str
-   projectV2Field: ProjectV2FieldConfiguration
-
-class DeleteProjectV2Payload(GQLObject):
-   clientMutationId: str
-   projectV2: ProjectV2
-
-class DeleteProjectV2WorkflowPayload(GQLObject):
-   clientMutationId: str
-   deletedWorkflowId: ID
-   projectV2: ProjectV2
-
-class DeletePullRequestReviewPayload(GQLObject):
-   clientMutationId: str
-   pullRequestReview: PullRequestReview
-
-class DeleteVerifiableDomainPayload(GQLObject):
-   clientMutationId: str
-   owner: VerifiableDomainOwner
-
-class DequeuePullRequestPayload(GQLObject):
-   clientMutationId: str
-   mergeQueueEntry: MergeQueueEntry
-
-class DismissPullRequestReviewPayload(GQLObject):
-   clientMutationId: str
-   pullRequestReview: PullRequestReview
-
-class DismissRepositoryVulnerabilityAlertPayload(GQLObject):
-   clientMutationId: str
-   repositoryVulnerabilityAlert: RepositoryVulnerabilityAlert
-
-class EnqueuePullRequestPayload(GQLObject):
-   clientMutationId: str
-   mergeQueueEntry: MergeQueueEntry
-
-class FollowOrganizationPayload(GQLObject):
-   clientMutationId: str
-   organization: Organization
-
-class FollowUserPayload(GQLObject):
-   clientMutationId: str
-   user: User
-
-class GpgSignature(GQLObject):
-   email: str
-   isValid: bool
-   keyId: str
-   payload: str
-   signature: str
-   signer: User
-   state: GitSignatureState
-   wasSignedByGitHub: bool
-
-class LLPSS_OrganizationConnection_Field(OrganizationConnection):
-   class OrganizationConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: OrganizationConnectionArgs
-
-
-
-class GrantEnterpriseOrganizationsMigratorRolePayload(GQLObject):
-   clientMutationId: str
-   organizations: LLPSS_OrganizationConnection_Field
-
-class InviteEnterpriseAdminPayload(GQLObject):
-   clientMutationId: str
-   invitation: EnterpriseAdministratorInvitation
-
-class LinkProjectV2ToRepositoryPayload(GQLObject):
-   clientMutationId: str
-   repository: Repository
-
-class LinkProjectV2ToTeamPayload(GQLObject):
-   clientMutationId: str
-   team: Team
-
-class MarkDiscussionCommentAsAnswerPayload(GQLObject):
-   clientMutationId: str
-   discussion: Discussion
-
-class MarkFileAsViewedPayload(GQLObject):
-   clientMutationId: str
-   pullRequest: PullRequest
-
-class MarkProjectV2AsTemplatePayload(GQLObject):
-   clientMutationId: str
-   projectV2: ProjectV2
-
-class MarkPullRequestReadyForReviewPayload(GQLObject):
-   clientMutationId: str
-   pullRequest: PullRequest
-
-class LTZQG_UserStatusConnection_Field(UserStatusConnection):
-   class UserStatusConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      orderBy: UserStatusOrder
-
-   _args: UserStatusConnectionArgs
-
-
-
-class MemberStatusable(GQLObject):
-   memberStatuses: LTZQG_UserStatusConnection_Field
-
-class MergeBranchPayload(GQLObject):
-   clientMutationId: str
-   mergeCommit: Commit
-
-class Migration(GQLObject):
-   continueOnError: bool
-   createdAt: DateTime
-   databaseId: str
-   failureReason: str
-   id: ID
-   migrationLogUrl: URI
-   migrationSource: MigrationSource
-   repositoryName: str
-   sourceUrl: URI
-   state: MigrationState
-   warningsCount: int
-
-class MinimizeCommentPayload(GQLObject):
-   clientMutationId: str
-   minimizedComment: Minimizable
-
-class MoveProjectCardPayload(GQLObject):
-   cardEdge: ProjectCardEdge
-   clientMutationId: str
-
-class MoveProjectColumnPayload(GQLObject):
-   clientMutationId: str
-   columnEdge: ProjectColumnEdge
-
-class OrganizationAuditEntryData(GQLObject):
-   organization: Organization
-   organizationName: str
-   organizationResourcePath: URI
-   organizationUrl: URI
-
-class ZVBYL_TeamConnection_Field(TeamConnection):
-   class TeamConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: TeamConnectionArgs
-
-
-
-class OrganizationTeamsHovercardContext(GQLObject):
-   message: str
-   octicon: str
-   relevantTeams: ZVBYL_TeamConnection_Field
-   teamsResourcePath: URI
-   teamsUrl: URI
-   totalTeamCount: int
-
-class NWHEU_OrganizationConnection_Field(OrganizationConnection):
-   class OrganizationConnectionArgs(GQLArgsSet, GQLObject):
-      orderBy: OrganizationOrder
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: OrganizationConnectionArgs
-
-
-
-class OrganizationsHovercardContext(GQLObject):
-   message: str
-   octicon: str
-   relevantOrganizations: NWHEU_OrganizationConnection_Field
-   totalOrganizationCount: int
-
-class DMVBI_PackageConnection_Field(PackageConnection):
-   class PackageConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      names: list[str]
-      repositoryId: ID
-      packageType: PackageType
-      orderBy: PackageOrder
-
-   _args: PackageConnectionArgs
-
-
-
-class PackageOwner(GQLObject):
-   id: ID
-   packages: DMVBI_PackageConnection_Field
-
-class PackageTag(GQLObject):
-   id: ID
-   name: str
-   version: PackageVersion
-
-class PinIssuePayload(GQLObject):
-   clientMutationId: str
-   issue: Issue
-
-class ProjectV2FieldCommon(GQLObject):
-   createdAt: DateTime
-   dataType: ProjectV2FieldType
-   databaseId: int
-   id: ID
-   name: str
-   project: ProjectV2
-   updatedAt: DateTime
-
-class JVXWO_ProjectV2Connection_Field(ProjectV2Connection):
-   class ProjectV2ConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: ProjectV2ConnectionArgs
-
-
-
-class ProjectV2Recent(GQLObject):
-   recentProjects: JVXWO_ProjectV2Connection_Field
-
-class PublishSponsorsTierPayload(GQLObject):
-   clientMutationId: str
-   sponsorsTier: SponsorsTier
-
-class RegenerateEnterpriseIdentityProviderRecoveryCodesPayload(GQLObject):
-   clientMutationId: str
-   identityProvider: EnterpriseIdentityProvider
-
-class RejectDeploymentsPayload(GQLObject):
-   clientMutationId: str
-   deployments: list_Deployment[Deployment]
-
-class RemoveAssigneesFromAssignablePayload(GQLObject):
-   assignable: Assignable
-   clientMutationId: str
-
-class RemoveEnterpriseIdentityProviderPayload(GQLObject):
-   clientMutationId: str
-   identityProvider: EnterpriseIdentityProvider
-
-class RemoveLabelsFromLabelablePayload(GQLObject):
-   clientMutationId: str
-   labelable: Labelable
-
-class RemoveOutsideCollaboratorPayload(GQLObject):
-   clientMutationId: str
-   removedUser: User
-
-class RemoveStarPayload(GQLObject):
-   clientMutationId: str
-   starrable: Starrable
-
-class RemoveUpvotePayload(GQLObject):
-   clientMutationId: str
-   subject: Votable
-
-class ReopenDiscussionPayload(GQLObject):
-   clientMutationId: str
-   discussion: Discussion
-
-class ReopenIssuePayload(GQLObject):
-   clientMutationId: str
-   issue: Issue
-
-class ReopenPullRequestPayload(GQLObject):
-   clientMutationId: str
-   pullRequest: PullRequest
-
-class RepositoryAuditEntryData(GQLObject):
-   repository: Repository
-   repositoryName: str
-   repositoryResourcePath: URI
-   repositoryUrl: URI
-
-class LHOMQ_DiscussionConnection_Field(DiscussionConnection):
-   class DiscussionConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      orderBy: DiscussionOrder
-      repositoryId: ID
-      answered: bool
-      states: list[NonNull_DiscussionState]
-
-   _args: DiscussionConnectionArgs
-
-
-
-class RepositoryDiscussionAuthor(GQLObject):
-   repositoryDiscussions: LHOMQ_DiscussionConnection_Field
-
-class IHDCH_DiscussionCommentConnection_Field(DiscussionCommentConnection):
-   class DiscussionCommentConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-      repositoryId: ID
-      onlyAnswers: bool
-
-   _args: DiscussionCommentConnectionArgs
-
-
-
-class RepositoryDiscussionCommentAuthor(GQLObject):
-   repositoryDiscussionComments: IHDCH_DiscussionCommentConnection_Field
-
-class RepositoryNode(GQLObject):
-   repository: Repository
-
-class RerequestCheckSuitePayload(GQLObject):
-   checkSuite: CheckSuite
-   clientMutationId: str
-
-class ResolveReviewThreadPayload(GQLObject):
-   clientMutationId: str
-   thread: PullRequestReviewThread
-
-class RetireSponsorsTierPayload(GQLObject):
-   clientMutationId: str
-   sponsorsTier: SponsorsTier
-
-class HDSHA_OrganizationConnection_Field(OrganizationConnection):
-   class OrganizationConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: OrganizationConnectionArgs
-
-
-
-class RevokeEnterpriseOrganizationsMigratorRolePayload(GQLObject):
-   clientMutationId: str
-   organizations: HDSHA_OrganizationConnection_Field
-
-class SetEnterpriseIdentityProviderPayload(GQLObject):
-   clientMutationId: str
-   identityProvider: EnterpriseIdentityProvider
-
-class SetOrganizationInteractionLimitPayload(GQLObject):
-   clientMutationId: str
-   organization: Organization
-
-class SetRepositoryInteractionLimitPayload(GQLObject):
-   clientMutationId: str
-   repository: Repository
-
-class SetUserInteractionLimitPayload(GQLObject):
-   clientMutationId: str
-   user: User
-
-class SmimeSignature(GQLObject):
-   email: str
-   isValid: bool
-   payload: str
-   signature: str
-   signer: User
-   state: GitSignatureState
-   wasSignedByGitHub: bool
-
-class SshSignature(GQLObject):
-   email: str
-   isValid: bool
-   keyFingerprint: str
-   payload: str
-   signature: str
-   signer: User
-   state: GitSignatureState
-   wasSignedByGitHub: bool
-
-class StartOrganizationMigrationPayload(GQLObject):
-   clientMutationId: str
-   orgMigration: OrganizationMigration
-
-class StartRepositoryMigrationPayload(GQLObject):
-   clientMutationId: str
-   repositoryMigration: RepositoryMigration
-
-class SubmitPullRequestReviewPayload(GQLObject):
-   clientMutationId: str
-   pullRequestReview: PullRequestReview
-
-class TeamAuditEntryData(GQLObject):
-   team: Team
-   teamName: str
-   teamResourcePath: URI
-   teamUrl: URI
-
-class TopicAuditEntryData(GQLObject):
-   topic: Topic
-   topicName: str
-
-class TransferEnterpriseOrganizationPayload(GQLObject):
-   clientMutationId: str
-   organization: Organization
-
-class TransferIssuePayload(GQLObject):
-   clientMutationId: str
-   issue: Issue
-
-class UnarchiveProjectV2ItemPayload(GQLObject):
-   clientMutationId: str
-   item: ProjectV2Item
-
-class UnarchiveRepositoryPayload(GQLObject):
-   clientMutationId: str
-   repository: Repository
-
-class UnfollowOrganizationPayload(GQLObject):
-   clientMutationId: str
-   organization: Organization
-
-class UnfollowUserPayload(GQLObject):
-   clientMutationId: str
-   user: User
-
-class UnknownSignature(GQLObject):
-   email: str
-   isValid: bool
-   payload: str
-   signature: str
-   signer: User
-   state: GitSignatureState
-   wasSignedByGitHub: bool
-
-class UnlinkProjectV2FromRepositoryPayload(GQLObject):
-   clientMutationId: str
-   repository: Repository
-
-class UnlinkProjectV2FromTeamPayload(GQLObject):
-   clientMutationId: str
-   team: Team
-
-class UnmarkDiscussionCommentAsAnswerPayload(GQLObject):
-   clientMutationId: str
-   discussion: Discussion
-
-class UnmarkFileAsViewedPayload(GQLObject):
-   clientMutationId: str
-   pullRequest: PullRequest
-
-class UnmarkIssueAsDuplicatePayload(GQLObject):
-   clientMutationId: str
-   duplicate: IssueOrPullRequest
-
-class UnmarkProjectV2AsTemplatePayload(GQLObject):
-   clientMutationId: str
-   projectV2: ProjectV2
-
-class UnminimizeCommentPayload(GQLObject):
-   clientMutationId: str
-   unminimizedComment: Minimizable
-
-class UnpinIssuePayload(GQLObject):
-   clientMutationId: str
-   issue: Issue
-
-class UnresolveReviewThreadPayload(GQLObject):
-   clientMutationId: str
-   thread: PullRequestReviewThread
-
-class UpdateBranchProtectionRuleInput(GQLObject):
-   branchProtectionRuleId: ID
-   pattern: str
-   requiresApprovingReviews: bool
-   requiredApprovingReviewCount: int
-   requiresCommitSignatures: bool
-   requiresLinearHistory: bool
-   blocksCreations: bool
-   allowsForcePushes: bool
-   allowsDeletions: bool
-   isAdminEnforced: bool
-   requiresStatusChecks: bool
-   requiresStrictStatusChecks: bool
-   requiresCodeOwnerReviews: bool
-   dismissesStaleReviews: bool
-   restrictsReviewDismissals: bool
-   reviewDismissalActorIds: list[ID]
-   bypassPullRequestActorIds: list[ID]
-   bypassForcePushActorIds: list[ID]
-   restrictsPushes: bool
-   pushActorIds: list[ID]
-   requiredStatusCheckContexts: list[str]
-   requiredStatusChecks: list_RequiredStatusCheckInput[RequiredStatusCheckInput]
-   requiresDeployments: bool
-   requiredDeploymentEnvironments: list[str]
-   requiresConversationResolution: bool
-   requireLastPushApproval: bool
-   lockBranch: bool
-   lockAllowsFetchAndMerge: bool
-   clientMutationId: str
-
-class UpdateBranchProtectionRulePayload(GQLObject):
-   branchProtectionRule: BranchProtectionRule
-   clientMutationId: str
-
-class UpdateCheckRunPayload(GQLObject):
-   checkRun: CheckRun
-   clientMutationId: str
-
-class list_CheckSuiteAutoTriggerPreference(list, CheckSuiteAutoTriggerPreference): pass
-
-class UpdateCheckSuitePreferencesInput(GQLObject):
-   repositoryId: ID
-   autoTriggerPreferences: list_CheckSuiteAutoTriggerPreference[CheckSuiteAutoTriggerPreference]
-   clientMutationId: str
-
-class UpdateCheckSuitePreferencesPayload(GQLObject):
-   clientMutationId: str
-   repository: Repository
-
-class UpdateDiscussionCommentPayload(GQLObject):
-   clientMutationId: str
-   comment: DiscussionComment
-
-class UpdateDiscussionPayload(GQLObject):
-   clientMutationId: str
-   discussion: Discussion
-
-class UpdateEnterpriseAllowPrivateRepositoryForkingSettingPayload(GQLObject):
-   clientMutationId: str
-   enterprise: Enterprise
-   message: str
-
-class UpdateEnterpriseDefaultRepositoryPermissionSettingPayload(GQLObject):
-   clientMutationId: str
-   enterprise: Enterprise
-   message: str
-
-class UpdateEnterpriseMembersCanChangeRepositoryVisibilitySettingPayload(GQLObject):
-   clientMutationId: str
-   enterprise: Enterprise
-   message: str
-
-class UpdateEnterpriseMembersCanCreateRepositoriesSettingPayload(GQLObject):
-   clientMutationId: str
-   enterprise: Enterprise
-   message: str
-
-class UpdateEnterpriseMembersCanDeleteIssuesSettingPayload(GQLObject):
-   clientMutationId: str
-   enterprise: Enterprise
-   message: str
-
-class UpdateEnterpriseMembersCanDeleteRepositoriesSettingPayload(GQLObject):
-   clientMutationId: str
-   enterprise: Enterprise
-   message: str
-
-class UpdateEnterpriseMembersCanInviteCollaboratorsSettingPayload(GQLObject):
-   clientMutationId: str
-   enterprise: Enterprise
-   message: str
-
-class UpdateEnterpriseMembersCanMakePurchasesSettingPayload(GQLObject):
-   clientMutationId: str
-   enterprise: Enterprise
-   message: str
-
-class UpdateEnterpriseMembersCanUpdateProtectedBranchesSettingPayload(GQLObject):
-   clientMutationId: str
-   enterprise: Enterprise
-   message: str
-
-class UpdateEnterpriseMembersCanViewDependencyInsightsSettingPayload(GQLObject):
-   clientMutationId: str
-   enterprise: Enterprise
-   message: str
-
-class UpdateEnterpriseOrganizationProjectsSettingPayload(GQLObject):
-   clientMutationId: str
-   enterprise: Enterprise
-   message: str
-
-class UpdateEnterpriseProfilePayload(GQLObject):
-   clientMutationId: str
-   enterprise: Enterprise
-
-class UpdateEnterpriseRepositoryProjectsSettingPayload(GQLObject):
-   clientMutationId: str
-   enterprise: Enterprise
-   message: str
-
-class UpdateEnterpriseTeamDiscussionsSettingPayload(GQLObject):
-   clientMutationId: str
-   enterprise: Enterprise
-   message: str
-
-class UpdateEnterpriseTwoFactorAuthenticationRequiredSettingPayload(GQLObject):
-   clientMutationId: str
-   enterprise: Enterprise
-   message: str
-
-class UpdateEnvironmentPayload(GQLObject):
-   clientMutationId: str
-   environment: Environment
-
-class UpdateIpAllowListEnabledSettingPayload(GQLObject):
-   clientMutationId: str
-   owner: IpAllowListOwner
-
-class UpdateIpAllowListEntryPayload(GQLObject):
-   clientMutationId: str
-   ipAllowListEntry: IpAllowListEntry
-
-class UpdateIpAllowListForInstalledAppsEnabledSettingPayload(GQLObject):
-   clientMutationId: str
-   owner: IpAllowListOwner
-
-class UpdateIssueCommentPayload(GQLObject):
-   clientMutationId: str
-   issueComment: IssueComment
-
-class UpdateNotificationRestrictionSettingPayload(GQLObject):
-   clientMutationId: str
-   owner: VerifiableDomainOwner
-
-class UpdateOrganizationAllowPrivateRepositoryForkingSettingPayload(GQLObject):
-   clientMutationId: str
-   message: str
-   organization: Organization
-
-class UpdateOrganizationWebCommitSignoffSettingPayload(GQLObject):
-   clientMutationId: str
-   message: str
-   organization: Organization
-
-class UpdateProjectCardPayload(GQLObject):
-   clientMutationId: str
-   projectCard: ProjectCard
-
-class UpdateProjectColumnPayload(GQLObject):
-   clientMutationId: str
-   projectColumn: ProjectColumn
-
-class UpdateProjectPayload(GQLObject):
-   clientMutationId: str
-   project: Project
-
-class list_ProjectV2Collaborator(list, ProjectV2Collaborator): pass
-
-class UpdateProjectV2CollaboratorsInput(GQLObject):
-   projectId: ID
-   collaborators: list_ProjectV2Collaborator[ProjectV2Collaborator]
-   clientMutationId: str
-
-class KUAXH_ProjectV2ActorConnection_Field(ProjectV2ActorConnection):
-   class ProjectV2ActorConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: ProjectV2ActorConnectionArgs
-
-
-
-class UpdateProjectV2CollaboratorsPayload(GQLObject):
-   clientMutationId: str
-   collaborators: KUAXH_ProjectV2ActorConnection_Field
-
-class UpdateProjectV2DraftIssuePayload(GQLObject):
-   clientMutationId: str
-   draftIssue: DraftIssue
-
-class UpdateProjectV2ItemFieldValueInput(GQLObject):
-   projectId: ID
-   itemId: ID
-   fieldId: ID
-   value: ProjectV2FieldValue
-   clientMutationId: str
-
-class UpdateProjectV2ItemFieldValuePayload(GQLObject):
-   clientMutationId: str
-   projectV2Item: ProjectV2Item
-
-class NBRFG_ProjectV2ItemConnection_Field(ProjectV2ItemConnection):
-   class ProjectV2ItemConnectionArgs(GQLArgsSet, GQLObject):
-      after: str
-      before: str
-      first: int
-      last: int
-
-   _args: ProjectV2ItemConnectionArgs
-
-
-
-class UpdateProjectV2ItemPositionPayload(GQLObject):
-   clientMutationId: str
-   items: NBRFG_ProjectV2ItemConnection_Field
-
-class UpdateProjectV2Payload(GQLObject):
-   clientMutationId: str
-   projectV2: ProjectV2
-
-class UpdatePullRequestBranchPayload(GQLObject):
-   clientMutationId: str
-   pullRequest: PullRequest
-
-class UpdatePullRequestReviewCommentPayload(GQLObject):
-   clientMutationId: str
-   pullRequestReviewComment: PullRequestReviewComment
-
-class UpdatePullRequestReviewPayload(GQLObject):
-   clientMutationId: str
-   pullRequestReview: PullRequestReview
-
-class UpdateRefPayload(GQLObject):
-   clientMutationId: str
-   ref: Ref
-
-class UpdateRepositoryPayload(GQLObject):
-   clientMutationId: str
-   repository: Repository
-
-class UpdateRepositoryRulesetPayload(GQLObject):
-   clientMutationId: str
-   ruleset: RepositoryRuleset
-
-class UpdateRepositoryWebCommitSignoffSettingPayload(GQLObject):
-   clientMutationId: str
-   message: str
-   repository: Repository
-
-class UpdateSponsorshipPreferencesPayload(GQLObject):
-   clientMutationId: str
-   sponsorship: Sponsorship
-
-class UpdateSubscriptionPayload(GQLObject):
-   clientMutationId: str
-   subscribable: Subscribable
-
-class UpdateTeamDiscussionCommentPayload(GQLObject):
-   clientMutationId: str
-   teamDiscussionComment: TeamDiscussionComment
-
-class UpdateTeamDiscussionPayload(GQLObject):
-   clientMutationId: str
-   teamDiscussion: TeamDiscussion
-
-class UpdateTopicsPayload(GQLObject):
-   clientMutationId: str
-   invalidTopicNames: list[str]
-   repository: Repository
-
-class VerifyVerifiableDomainPayload(GQLObject):
-   clientMutationId: str
-   domain: VerifiableDomain
-
-class ViewerHovercardContext(GQLObject):
-   message: str
-   octicon: str
-   viewer: User
+from __future__ import annotations
+
+from dataclasses import dataclass
+from typing import TYPE_CHECKING, Optional
+
+from .enums import (
+    ActorType,
+    CheckAnnotationLevel,
+    CheckConclusionState,
+    CheckRunState,
+    CheckRunType,
+    CheckStatusState,
+    CommentAuthorAssociation,
+    CommentCannotUpdateReason,
+    CommitContributionOrderField,
+    ComparisonStatus,
+    ContributionLevel,
+    DefaultRepositoryPermissionField,
+    DeploymentOrderField,
+    DeploymentProtectionRuleType,
+    DeploymentReviewState,
+    DeploymentStatusState,
+    DiffSide,
+    DiscussionPollOptionOrderField,
+    DismissReason,
+    EnterpriseAdministratorRole,
+    EnterpriseAllowPrivateRepositoryForkingPolicyValue,
+    EnterpriseDefaultRepositoryPermissionSettingValue,
+    EnterpriseEnabledDisabledSettingValue,
+    EnterpriseEnabledSettingValue,
+    EnterpriseMemberOrderField,
+    EnterpriseMembersCanCreateRepositoriesSettingValue,
+    EnterpriseMembersCanMakePurchasesSettingValue,
+    EnterpriseServerUserAccountEmailOrderField,
+    EnterpriseServerUserAccountsUploadOrderField,
+    EnterpriseServerUserAccountsUploadSyncState,
+    EnterpriseUserAccountMembershipRole,
+    GitSignatureState,
+    IpAllowListEnabledSettingValue,
+    IpAllowListEntryOrderField,
+    IpAllowListForInstalledAppsEnabledSettingValue,
+    IssueClosedStateReason,
+    IssueState,
+    IssueStateReason,
+    LabelOrderField,
+    LanguageOrderField,
+    LockReason,
+    MergeQueueEntryState,
+    MigrationSourceType,
+    MigrationState,
+    MilestoneState,
+    NotificationRestrictionSettingValue,
+    OauthApplicationCreateAuditEntryState,
+    OIDCProviderType,
+    OperationType,
+    OrderDirection,
+    OrgAddMemberAuditEntryPermission,
+    OrganizationInvitationRole,
+    OrganizationInvitationSource,
+    OrganizationInvitationType,
+    OrganizationMemberRole,
+    OrganizationOrderField,
+    OrgCreateAuditEntryBillingPlan,
+    OrgEnterpriseOwnerOrderField,
+    OrgRemoveBillingManagerAuditEntryReason,
+    OrgRemoveMemberAuditEntryMembershipType,
+    OrgRemoveMemberAuditEntryReason,
+    OrgRemoveOutsideCollaboratorAuditEntryMembershipType,
+    OrgRemoveOutsideCollaboratorAuditEntryReason,
+    OrgUpdateDefaultRepositoryPermissionAuditEntryPermission,
+    OrgUpdateMemberAuditEntryPermission,
+    OrgUpdateMemberRepositoryCreationPermissionAuditEntryVisibility,
+    PackageOrderField,
+    PackageVersionOrderField,
+    PinnedDiscussionGradient,
+    PinnedDiscussionPattern,
+    ProjectCardState,
+    ProjectState,
+    ProjectTemplate,
+    ProjectV2CustomFieldType,
+    ProjectV2FieldOrderField,
+    ProjectV2FieldType,
+    ProjectV2ItemOrderField,
+    ProjectV2OrderField,
+    ProjectV2SingleSelectFieldOptionColor,
+    ProjectV2State,
+    ProjectV2ViewLayout,
+    ProjectV2WorkflowsOrderField,
+    PullRequestBranchUpdateMethod,
+    PullRequestMergeMethod,
+    PullRequestOrderField,
+    PullRequestReviewEvent,
+    PullRequestReviewState,
+    PullRequestReviewThreadSubjectType,
+    ReactionContent,
+    ReactionOrderField,
+    ReleaseOrderField,
+    RepoAccessAuditEntryVisibility,
+    RepoAddMemberAuditEntryVisibility,
+    RepoArchivedAuditEntryVisibility,
+    RepoChangeMergeSettingAuditEntryMergeType,
+    RepoCreateAuditEntryVisibility,
+    RepoDestroyAuditEntryVisibility,
+    RepoRemoveMemberAuditEntryVisibility,
+    RepositoryInteractionLimit,
+    RepositoryInteractionLimitExpiry,
+    RepositoryInteractionLimitOrigin,
+    RepositoryLockReason,
+    RepositoryMigrationOrderDirection,
+    RepositoryMigrationOrderField,
+    RepositoryPermission,
+    RepositoryRuleOrderField,
+    RepositoryRulesetBypassActorBypassMode,
+    RepositoryRulesetTarget,
+    RepositoryRuleType,
+    RepositoryVisibility,
+    RepositoryVulnerabilityAlertDependencyScope,
+    RepositoryVulnerabilityAlertState,
+    RequestableCheckStatusState,
+    RoleInOrganization,
+    RuleEnforcement,
+    SamlDigestAlgorithm,
+    SamlSignatureAlgorithm,
+    SecurityAdvisoryOrderField,
+    SecurityAdvisorySeverity,
+    SecurityVulnerabilityOrderField,
+    SponsorableOrderField,
+    SponsorAndLifetimeValueOrderField,
+    SponsorsActivityAction,
+    SponsorsGoalKind,
+    SponsorshipNewsletterOrderField,
+    SponsorshipPaymentSource,
+    SponsorshipPrivacy,
+    StarOrderField,
+    StatusState,
+    SubscriptionState,
+    TeamDiscussionCommentOrderField,
+    TeamMemberOrderField,
+    TeamMemberRole,
+    TeamRepositoryOrderField,
+    TeamReviewAssignmentAlgorithm,
+    UserBlockDuration,
+    VerifiableDomainOrderField,
+    WorkflowState,
+)
+from .gql_simple_types import (
+    CWE,
+    Actor,
+    BulkSponsorship,
+    CheckAnnotationPosition,
+    CheckRunAction,
+    CheckRunOutputImage,
+    CheckStep,
+    CommitAuthorEmailPatternParametersInput,
+    CommitMessage,
+    CommitMessagePatternParametersInput,
+    ContributionCalendarMonth,
+    DeployKey,
+    DraftPullRequestReviewComment,
+    FileAddition,
+    Language,
+    LicenseRule,
+    MarketplaceCategory,
+    OrganizationMigration,
+    ProjectV2Collaborator,
+    ProjectV2FieldValue,
+    ProjectV2IterationFieldIteration,
+    ProjectV2SingleSelectFieldOption,
+    PropertyTargetDefinition,
+    PublicKey,
+    PullRequestChangedFile,
+    RefNameConditionTarget,
+    RepositoryIdConditionTargetInput,
+    RepositoryNameConditionTarget,
+    RepositoryRulesetBypassActorInput,
+    RequiredDeploymentsParametersInput,
+    SecurityAdvisoryPackage,
+    SocialAccount,
+    StatusCheckConfiguration,
+    StatusContextStateCount,
+    Submodule,
+    TagNamePatternParametersInput,
+    TextMatchHighlight,
+    UserEmailMetadata,
+    WorkflowFileReference,
+)
+from .scalars import (
+    HTML,
+    ID,
+    URI,
+    Base64String,
+    BigInt,
+    Date,
+    DateTime,
+    GitObjectID,
+    GitRefname,
+    GitTimestamp,
+    PreciseDateTime,
+    X509Certificate,
+)
+
+if TYPE_CHECKING:
+    from .user_connection import UserConnection
+    from .pull_request import PullRequest
+    from .pull_request_connection import PullRequestConnection
+    from .branch_protection_rule import BranchProtectionRule
+    from .ref import Ref
+    from .app import App
+    from .enterprise import Enterprise
+    from .enterprise_server_user_account import EnterpriseServerUserAccount
+    from .enterprise_server_installation import EnterpriseServerInstallation
+    from .organization import Organization
+    from .user import User
+    from .repository import Repository
+    from .team import Team
+    from .team_discussion import TeamDiscussion
+    from .reaction_group import ReactionGroup
+    from .reactable import Reactable
+    from .project_v2 import ProjectV2
+    from .project_v2_item_connection import ProjectV2ItemConnection
+    from .issue import Issue
+    from .project_v2_item import ProjectV2Item
+    from .commit_comment_connection import CommitCommentConnection
+    from .commit import Commit
+    from .deployment import Deployment
+    from .discussion import Discussion
+    from .discussion_comment import DiscussionComment
+    from .discussion_poll import DiscussionPoll
+    from .release import Release
+    from .merge_queue import MergeQueue
+    from .package_version import PackageVersion
+    from .package import Package
+    from .project_column import ProjectColumn
+    from .project import Project
+    from .topic import Topic
+    from .repository_ruleset import RepositoryRuleset
+    from .security_advisory import SecurityAdvisory
+    from .ip_allow_list_entry_connection import IpAllowListEntryConnection
+    from .gist import Gist
+    from .sponsorable import Sponsorable
+    from .sponsors_tier import SponsorsTier
+    from .sponsors_listing import SponsorsListing
+    from .issue_comment_edge import IssueCommentEdge
+    from .issue_comment import IssueComment
+    from .pull_request_review import PullRequestReview
+    from .pull_request_review_comment import PullRequestReviewComment
+    from .check_suite import CheckSuite
+    from .workflow_run import WorkflowRun
+    from .user_edge import UserEdge
+    from .gql_unions import AuditEntryActor
+    from .gql_unions import Reactor
+    from .gql_unions import ProjectV2FieldConfiguration
+    from .gql_unions import RequestedReviewer
+    from .gql_unions import ProjectV2ItemFieldValue
+    from .gql_unions import PermissionGranter
+    from .gql_unions import DeploymentReviewer
+    from .gql_unions import IssueOrPullRequest
+    from .gql_unions import ProjectCardItem
+    from .gql_unions import BypassActor
+    from .gql_unions import RuleParameters
+    from .gql_unions import OrgRestoreMemberAuditEntryMembership
+    from .gql_unions import OrganizationAuditEntry
+    from .gql_unions import VerifiableDomainOwner
+    from .gql_unions import PinnableItem
+    from .gql_unions import Sponsor
+    from .gql_unions import SponsorsListingFeatureableItem
+    from .gql_unions import EnterpriseMember
+    from .gql_unions import IpAllowListOwner
+    from .gql_unions import BranchActorAllowanceActor
+    from .gql_unions import PushAllowanceActor
+    from .gql_unions import ReviewDismissalAllowanceActor
+    from .gql_unions import Assignee
+    from .gql_unions import Closer
+    from .gql_unions import ReferencedSubject
+    from .gql_unions import MilestoneItem
+    from .gql_unions import RenamedTitleSubject
+    from .gql_unions import PullRequestTimelineItem
+    from .gql_unions import PullRequestTimelineItems
+    from .gql_unions import StatusCheckRollupContext
+    from .gql_unions import UserListItems
+    from .gql_unions import IssueTimelineItem
+    from .gql_unions import IssueTimelineItems
+    from .gql_unions import Claimable
+    from .gql_unions import ProjectV2Actor
+    from .gql_unions import SearchResultItem
+    from .gql_unions import SponsorableItem
+
+
+@dataclass(kw_only=True)
+class AbortQueuedMigrationsPayload:
+    client_mutation_id: Optional[str] = None
+    success: Optional[bool] = None
+
+
+@dataclass(kw_only=True)
+class AbortRepositoryMigrationPayload:
+    client_mutation_id: Optional[str] = None
+    success: Optional[bool] = None
+
+
+@dataclass(kw_only=True)
+class AcceptTopicSuggestionInput:
+    client_mutation_id: Optional[str] = None
+    name: Optional[str] = None
+    repository_id: Optional[ID] = None
+
+
+@dataclass(kw_only=True)
+class ActorLocation:
+    city: Optional[str] = None
+    country: Optional[str] = None
+    country_code: Optional[str] = None
+    region: Optional[str] = None
+    region_code: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class AddCommentInput:
+    body: str
+    client_mutation_id: Optional[str] = None
+    subject_id: ID
+
+
+@dataclass(kw_only=True)
+class AddDiscussionPollVoteInput:
+    client_mutation_id: Optional[str] = None
+    poll_option_id: ID
+
+
+@dataclass(kw_only=True)
+class AddEnterpriseSupportEntitlementInput:
+    client_mutation_id: Optional[str] = None
+    enterprise_id: ID
+    login: str
+
+
+@dataclass(kw_only=True)
+class AddLabelsToLabelableInput:
+    client_mutation_id: Optional[str] = None
+    label_ids: list[ID]
+    labelable_id: ID
+
+
+@dataclass(kw_only=True)
+class AddProjectColumnInput:
+    client_mutation_id: Optional[str] = None
+    name: str
+    project_id: ID
+
+
+@dataclass(kw_only=True)
+class AddProjectV2ItemByIdInput:
+    client_mutation_id: Optional[str] = None
+    content_id: ID
+    project_id: ID
+
+
+@dataclass(kw_only=True)
+class AddPullRequestReviewThreadInput:
+    body: str
+    client_mutation_id: Optional[str] = None
+    line: Optional[int] = None
+    path: str
+    pull_request_id: Optional[ID] = None
+    pull_request_review_id: Optional[ID] = None
+    side: Optional[DiffSide] = None
+    start_line: Optional[int] = None
+    start_side: Optional[DiffSide] = None
+    subject_type: Optional[PullRequestReviewThreadSubjectType] = None
+
+
+@dataclass(kw_only=True)
+class AddReactionInput:
+    client_mutation_id: Optional[str] = None
+    content: ReactionContent
+    subject_id: ID
+
+
+@dataclass(kw_only=True)
+class AddUpvoteInput:
+    client_mutation_id: Optional[str] = None
+    subject_id: ID
+
+
+@dataclass(kw_only=True)
+class AnnouncementBanner:
+    announcement: Optional[str] = None
+    announcement_expires_at: Optional[DateTime] = None
+    announcement_user_dismissible: Optional[bool] = None
+
+
+@dataclass(kw_only=True)
+class ApproveVerifiableDomainInput:
+    client_mutation_id: Optional[str] = None
+    id: ID
+
+
+@dataclass(kw_only=True)
+class ArchiveRepositoryInput:
+    client_mutation_id: Optional[str] = None
+    repository_id: ID
+
+
+@dataclass(kw_only=True)
+class Bot:
+    avatar_url: URI
+    created_at: DateTime
+    database_id: Optional[int] = None
+    id: ID
+    login: str
+    resource_path: URI
+    updated_at: DateTime
+    url: URI
+
+
+@dataclass(kw_only=True)
+class BranchNamePatternParametersInput:
+    name: Optional[str] = None
+    negate: Optional[bool] = None
+    operator: str
+    pattern: str
+
+
+@dataclass(kw_only=True)
+class CVSS:
+    score: float
+    vector_string: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class CancelEnterpriseAdminInvitationInput:
+    client_mutation_id: Optional[str] = None
+    invitation_id: ID
+
+
+@dataclass(kw_only=True)
+class ChangeUserStatusInput:
+    client_mutation_id: Optional[str] = None
+    emoji: Optional[str] = None
+    expires_at: Optional[DateTime] = None
+    limited_availability: Optional[bool] = None
+    message: Optional[str] = None
+    organization_id: Optional[ID] = None
+
+
+@dataclass(kw_only=True)
+class CheckAnnotationRange:
+    end_column: Optional[int] = None
+    end_line: int
+    start_column: Optional[int] = None
+    start_line: int
+
+
+@dataclass(kw_only=True)
+class CheckRunFilter:
+    app_id: Optional[int] = None
+    check_name: Optional[str] = None
+    check_type: Optional[CheckRunType] = None
+    conclusions: Optional[list[CheckConclusionState]] = None
+    status: Optional[CheckStatusState] = None
+    statuses: Optional[list[CheckStatusState]] = None
+
+
+@dataclass(kw_only=True)
+class CheckRunStateCount:
+    count: int
+    state: CheckRunState
+
+
+@dataclass(kw_only=True)
+class CheckSuiteAutoTriggerPreference:
+    app_id: ID
+    setting: bool
+
+
+@dataclass(kw_only=True)
+class ClearLabelsFromLabelableInput:
+    client_mutation_id: Optional[str] = None
+    labelable_id: ID
+
+
+@dataclass(kw_only=True)
+class CloneProjectInput:
+    body: Optional[str] = None
+    client_mutation_id: Optional[str] = None
+    include_workflows: bool
+    name: str
+    public: Optional[bool] = None
+    source_id: ID
+    target_owner_id: ID
+
+
+@dataclass(kw_only=True)
+class Closable:
+    closed: bool
+    closed_at: Optional[DateTime] = None
+    viewer_can_close: bool
+    viewer_can_reopen: bool
+
+
+@dataclass(kw_only=True)
+class CloseIssueInput:
+    client_mutation_id: Optional[str] = None
+    issue_id: ID
+    state_reason: Optional[IssueClosedStateReason] = None
+
+
+@dataclass(kw_only=True)
+class CodeOfConduct:
+    body: Optional[str] = None
+    id: ID
+    key: str
+    name: str
+    resource_path: Optional[URI] = None
+    url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class CommitAuthorEmailPatternParameters:
+    name: Optional[str] = None
+    negate: bool
+    operator: str
+    pattern: str
+
+
+@dataclass(kw_only=True)
+class CommitContributionOrder:
+    direction: OrderDirection
+    field: CommitContributionOrderField
+
+
+@dataclass(kw_only=True)
+class CommitMessagePatternParameters:
+    name: Optional[str] = None
+    negate: bool
+    operator: str
+    pattern: str
+
+
+@dataclass(kw_only=True)
+class CommittableBranch:
+    branch_name: Optional[str] = None
+    id: Optional[ID] = None
+    repository_name_with_owner: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class CommitterEmailPatternParametersInput:
+    name: Optional[str] = None
+    negate: Optional[bool] = None
+    operator: str
+    pattern: str
+
+
+@dataclass(kw_only=True)
+class ContributionCalendarDay:
+    color: str
+    contribution_count: int
+    contribution_level: ContributionLevel
+    date: Date
+    weekday: int
+
+
+@dataclass(kw_only=True)
+class ContributionOrder:
+    direction: OrderDirection
+
+
+@dataclass(kw_only=True)
+class ConvertPullRequestToDraftInput:
+    client_mutation_id: Optional[str] = None
+    pull_request_id: ID
+
+
+@dataclass(kw_only=True)
+class CreateAttributionInvitationInput:
+    client_mutation_id: Optional[str] = None
+    owner_id: ID
+    source_id: ID
+    target_id: ID
+
+
+@dataclass(kw_only=True)
+class CreateDeploymentInput:
+    auto_merge: Optional[bool] = None
+    client_mutation_id: Optional[str] = None
+    description: Optional[str] = None
+    environment: Optional[str] = None
+    payload: Optional[str] = None
+    ref_id: ID
+    repository_id: ID
+    required_contexts: Optional[list[str]] = None
+    task: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class CreateDiscussionInput:
+    body: str
+    category_id: ID
+    client_mutation_id: Optional[str] = None
+    repository_id: ID
+    title: str
+
+
+@dataclass(kw_only=True)
+class CreateEnvironmentInput:
+    client_mutation_id: Optional[str] = None
+    name: str
+    repository_id: ID
+
+
+@dataclass(kw_only=True)
+class CreateIssueInput:
+    assignee_ids: Optional[list[ID]] = None
+    body: Optional[str] = None
+    client_mutation_id: Optional[str] = None
+    issue_template: Optional[str] = None
+    label_ids: Optional[list[ID]] = None
+    milestone_id: Optional[ID] = None
+    project_ids: Optional[list[ID]] = None
+    repository_id: ID
+    title: str
+
+
+@dataclass(kw_only=True)
+class CreateLinkedBranchInput:
+    client_mutation_id: Optional[str] = None
+    issue_id: ID
+    name: Optional[str] = None
+    oid: GitObjectID
+    repository_id: Optional[ID] = None
+
+
+@dataclass(kw_only=True)
+class CreateProjectInput:
+    body: Optional[str] = None
+    client_mutation_id: Optional[str] = None
+    name: str
+    owner_id: ID
+    repository_ids: Optional[list[ID]] = None
+    template: Optional[ProjectTemplate] = None
+
+
+@dataclass(kw_only=True)
+class CreatePullRequestInput:
+    base_ref_name: str
+    body: Optional[str] = None
+    client_mutation_id: Optional[str] = None
+    draft: Optional[bool] = None
+    head_ref_name: str
+    head_repository_id: Optional[ID] = None
+    maintainer_can_modify: Optional[bool] = None
+    repository_id: ID
+    title: str
+
+
+@dataclass(kw_only=True)
+class CreateRepositoryInput:
+    client_mutation_id: Optional[str] = None
+    description: Optional[str] = None
+    has_issues_enabled: Optional[bool] = None
+    has_wiki_enabled: Optional[bool] = None
+    homepage_url: Optional[URI] = None
+    name: str
+    owner_id: Optional[ID] = None
+    team_id: Optional[ID] = None
+    template: Optional[bool] = None
+    visibility: RepositoryVisibility
+
+
+@dataclass(kw_only=True)
+class CreateSponsorsTierInput:
+    amount: int
+    client_mutation_id: Optional[str] = None
+    description: str
+    is_recurring: Optional[bool] = None
+    publish: Optional[bool] = None
+    repository_id: Optional[ID] = None
+    repository_name: Optional[str] = None
+    repository_owner_login: Optional[str] = None
+    sponsorable_id: Optional[ID] = None
+    sponsorable_login: Optional[str] = None
+    welcome_message: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class CreateTeamDiscussionCommentInput:
+    body: Optional[str] = None
+    client_mutation_id: Optional[str] = None
+    discussion_id: Optional[ID] = None
+
+
+@dataclass(kw_only=True)
+class CreateUserListInput:
+    client_mutation_id: Optional[str] = None
+    description: Optional[str] = None
+    is_private: Optional[bool] = None
+    name: str
+
+
+@dataclass(kw_only=True)
+class Deletable:
+    viewer_can_delete: bool
+
+
+@dataclass(kw_only=True)
+class DeleteBranchProtectionRulePayload:
+    client_mutation_id: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class DeleteDeploymentPayload:
+    client_mutation_id: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class DeleteDiscussionInput:
+    client_mutation_id: Optional[str] = None
+    id: ID
+
+
+@dataclass(kw_only=True)
+class DeleteEnvironmentPayload:
+    client_mutation_id: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class DeleteIssueCommentInput:
+    client_mutation_id: Optional[str] = None
+    id: ID
+
+
+@dataclass(kw_only=True)
+class DeleteIssueInput:
+    client_mutation_id: Optional[str] = None
+    issue_id: ID
+
+
+@dataclass(kw_only=True)
+class DeleteLabelPayload:
+    client_mutation_id: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class DeletePackageVersionInput:
+    client_mutation_id: Optional[str] = None
+    package_version_id: ID
+
+
+@dataclass(kw_only=True)
+class DeleteProjectCardInput:
+    card_id: ID
+    client_mutation_id: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class DeleteProjectInput:
+    client_mutation_id: Optional[str] = None
+    project_id: ID
+
+
+@dataclass(kw_only=True)
+class DeleteProjectV2Input:
+    client_mutation_id: Optional[str] = None
+    project_id: ID
+
+
+@dataclass(kw_only=True)
+class DeleteProjectV2ItemPayload:
+    client_mutation_id: Optional[str] = None
+    deleted_item_id: Optional[ID] = None
+
+
+@dataclass(kw_only=True)
+class DeletePullRequestReviewCommentInput:
+    client_mutation_id: Optional[str] = None
+    id: ID
+
+
+@dataclass(kw_only=True)
+class DeleteRefInput:
+    client_mutation_id: Optional[str] = None
+    ref_id: ID
+
+
+@dataclass(kw_only=True)
+class DeleteRepositoryRulesetInput:
+    client_mutation_id: Optional[str] = None
+    repository_ruleset_id: ID
+
+
+@dataclass(kw_only=True)
+class DeleteTeamDiscussionCommentInput:
+    client_mutation_id: Optional[str] = None
+    id: ID
+
+
+@dataclass(kw_only=True)
+class DeleteTeamDiscussionInput:
+    client_mutation_id: Optional[str] = None
+    id: ID
+
+
+@dataclass(kw_only=True)
+class DeleteUserListInput:
+    client_mutation_id: Optional[str] = None
+    list_id: ID
+
+
+@dataclass(kw_only=True)
+class DependabotUpdateError:
+    body: str
+    error_type: str
+    title: str
+
+
+@dataclass(kw_only=True)
+class DeploymentOrder:
+    direction: OrderDirection
+    field: DeploymentOrderField
+
+
+@dataclass(kw_only=True)
+class DisablePullRequestAutoMergeInput:
+    client_mutation_id: Optional[str] = None
+    pull_request_id: ID
+
+
+@dataclass(kw_only=True)
+class DiscussionPollOptionOrder:
+    direction: OrderDirection
+    field: DiscussionPollOptionOrderField
+
+
+@dataclass(kw_only=True)
+class DismissRepositoryVulnerabilityAlertInput:
+    client_mutation_id: Optional[str] = None
+    dismiss_reason: DismissReason
+    repository_vulnerability_alert_id: ID
+
+
+@dataclass(kw_only=True)
+class DraftPullRequestReviewThread:
+    body: str
+    line: int
+    path: str
+    side: Optional[DiffSide] = None
+    start_line: Optional[int] = None
+    start_side: Optional[DiffSide] = None
+
+
+@dataclass(kw_only=True)
+class EnqueuePullRequestInput:
+    client_mutation_id: Optional[str] = None
+    expected_head_oid: Optional[GitObjectID] = None
+    jump: Optional[bool] = None
+    pull_request_id: ID
+
+
+@dataclass(kw_only=True)
+class EnterpriseAuditEntryData:
+    enterprise_resource_path: Optional[URI] = None
+    enterprise_slug: Optional[str] = None
+    enterprise_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class EnterpriseMemberOrder:
+    direction: OrderDirection
+    field: EnterpriseMemberOrderField
+
+
+@dataclass(kw_only=True)
+class EnterpriseRepositoryInfo:
+    id: ID
+    is_private: bool
+    name: str
+    name_with_owner: str
+
+
+@dataclass(kw_only=True)
+class EnterpriseServerUserAccountEmailOrder:
+    direction: OrderDirection
+    field: EnterpriseServerUserAccountEmailOrderField
+
+
+@dataclass(kw_only=True)
+class EnterpriseServerUserAccountsUploadOrder:
+    direction: OrderDirection
+    field: EnterpriseServerUserAccountsUploadOrderField
+
+
+@dataclass(kw_only=True)
+class ExternalIdentityAttribute:
+    metadata: Optional[str] = None
+    name: str
+    value: str
+
+
+@dataclass(kw_only=True)
+class FileDeletion:
+    path: str
+
+
+@dataclass(kw_only=True)
+class FollowUserInput:
+    client_mutation_id: Optional[str] = None
+    user_id: ID
+
+
+@dataclass(kw_only=True)
+class GenericHovercardContext:
+    message: str
+    octicon: str
+
+
+@dataclass(kw_only=True)
+class GitHubMetadata:
+    git_hub_services_sha: GitObjectID
+    git_ip_addresses: Optional[list[str]] = None
+    github_enterprise_importer_ip_addresses: Optional[list[str]] = None
+    hook_ip_addresses: Optional[list[str]] = None
+    importer_ip_addresses: Optional[list[str]] = None
+    is_password_authentication_verifiable: bool
+    pages_ip_addresses: Optional[list[str]] = None
+
+
+@dataclass(kw_only=True)
+class GrantMigratorRoleInput:
+    actor: str
+    actor_type: ActorType
+    client_mutation_id: Optional[str] = None
+    organization_id: ID
+
+
+@dataclass(kw_only=True)
+class HovercardContext:
+    message: str
+    octicon: str
+
+
+@dataclass(kw_only=True)
+class IpAllowListEntryOrder:
+    direction: OrderDirection
+    field: IpAllowListEntryOrderField
+
+
+@dataclass(kw_only=True)
+class IssueFilters:
+    assignee: Optional[str] = None
+    created_by: Optional[str] = None
+    labels: Optional[list[str]] = None
+    mentioned: Optional[str] = None
+    milestone: Optional[str] = None
+    milestone_number: Optional[str] = None
+    since: Optional[DateTime] = None
+    states: Optional[list[IssueState]] = None
+    viewer_subscribed: Optional[bool] = None
+
+
+@dataclass(kw_only=True)
+class LabelOrder:
+    direction: OrderDirection
+    field: LabelOrderField
+
+
+@dataclass(kw_only=True)
+class LanguageOrder:
+    direction: OrderDirection
+    field: LanguageOrderField
+
+
+@dataclass(kw_only=True)
+class LinkProjectV2ToRepositoryInput:
+    client_mutation_id: Optional[str] = None
+    project_id: ID
+    repository_id: ID
+
+
+@dataclass(kw_only=True)
+class LinkRepositoryToProjectInput:
+    client_mutation_id: Optional[str] = None
+    project_id: ID
+    repository_id: ID
+
+
+@dataclass(kw_only=True)
+class Lockable:
+    active_lock_reason: Optional[LockReason] = None
+    locked: bool
+
+
+@dataclass(kw_only=True)
+class MarkDiscussionCommentAsAnswerInput:
+    client_mutation_id: Optional[str] = None
+    id: ID
+
+
+@dataclass(kw_only=True)
+class MarkNotificationAsDoneInput:
+    client_mutation_id: Optional[str] = None
+    id: ID
+
+
+@dataclass(kw_only=True)
+class MarkPullRequestReadyForReviewInput:
+    client_mutation_id: Optional[str] = None
+    pull_request_id: ID
+
+
+@dataclass(kw_only=True)
+class MemberFeatureRequestNotification:
+    body: str
+    id: ID
+    title: str
+    updated_at: DateTime
+
+
+@dataclass(kw_only=True)
+class MergePullRequestInput:
+    author_email: Optional[str] = None
+    client_mutation_id: Optional[str] = None
+    commit_body: Optional[str] = None
+    commit_headline: Optional[str] = None
+    expected_head_oid: Optional[GitObjectID] = None
+    merge_method: Optional[PullRequestMergeMethod] = None
+    pull_request_id: ID
+
+
+@dataclass(kw_only=True)
+class MigrationSource:
+    id: ID
+    name: str
+    type: MigrationSourceType
+    url: URI
+
+
+@dataclass(kw_only=True)
+class Minimizable:
+    is_minimized: bool
+    minimized_reason: Optional[str] = None
+    viewer_can_minimize: bool
+
+
+@dataclass(kw_only=True)
+class MoveProjectCardInput:
+    after_card_id: Optional[ID] = None
+    card_id: ID
+    client_mutation_id: Optional[str] = None
+    column_id: ID
+
+
+@dataclass(kw_only=True)
+class Node:
+    id: ID
+
+
+@dataclass(kw_only=True)
+class OrgEnterpriseOwnerOrder:
+    direction: OrderDirection
+    field: OrgEnterpriseOwnerOrderField
+
+
+@dataclass(kw_only=True)
+class OrganizationOrder:
+    direction: OrderDirection
+    field: OrganizationOrderField
+
+
+@dataclass(kw_only=True)
+class PackageOrder:
+    direction: Optional[OrderDirection] = None
+    field: Optional[PackageOrderField] = None
+
+
+@dataclass(kw_only=True)
+class PackageVersionOrder:
+    direction: Optional[OrderDirection] = None
+    field: Optional[PackageVersionOrderField] = None
+
+
+@dataclass(kw_only=True)
+class PageInfo:
+    end_cursor: Optional[str] = None
+    has_next_page: bool
+    has_previous_page: bool
+    start_cursor: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class ProjectCardImport:
+    number: int
+    repository: str
+
+
+@dataclass(kw_only=True)
+class ProjectProgress:
+    done_count: int
+    done_percentage: float
+    enabled: bool
+    in_progress_count: int
+    in_progress_percentage: float
+    todo_count: int
+    todo_percentage: float
+
+
+@dataclass(kw_only=True)
+class ProjectV2FieldOrder:
+    direction: OrderDirection
+    field: ProjectV2FieldOrderField
+
+
+@dataclass(kw_only=True)
+class ProjectV2Filters:
+    state: Optional[ProjectV2State] = None
+
+
+@dataclass(kw_only=True)
+class ProjectV2ItemOrder:
+    direction: OrderDirection
+    field: ProjectV2ItemOrderField
+
+
+@dataclass(kw_only=True)
+class ProjectV2Order:
+    direction: OrderDirection
+    field: ProjectV2OrderField
+
+
+@dataclass(kw_only=True)
+class ProjectV2SingleSelectFieldOptionInput:
+    color: ProjectV2SingleSelectFieldOptionColor
+    description: str
+    name: str
+
+
+@dataclass(kw_only=True)
+class ProjectV2WorkflowOrder:
+    direction: OrderDirection
+    field: ProjectV2WorkflowsOrderField
+
+
+@dataclass(kw_only=True)
+class PropertyTargetDefinitionInput:
+    name: str
+    property_values: list[str]
+
+
+@dataclass(kw_only=True)
+class PublishSponsorsTierInput:
+    client_mutation_id: Optional[str] = None
+    tier_id: ID
+
+
+@dataclass(kw_only=True)
+class PullRequestOrder:
+    direction: OrderDirection
+    field: PullRequestOrderField
+
+
+@dataclass(kw_only=True)
+class PullRequestParametersInput:
+    dismiss_stale_reviews_on_push: bool
+    require_code_owner_review: bool
+    require_last_push_approval: bool
+    required_approving_review_count: int
+    required_review_thread_resolution: bool
+
+
+@dataclass(kw_only=True)
+class ReactionOrder:
+    direction: OrderDirection
+    field: ReactionOrderField
+
+
+@dataclass(kw_only=True)
+class RefNameConditionTargetInput:
+    exclude: list[str]
+    include: list[str]
+
+
+@dataclass(kw_only=True)
+class RefUpdate:
+    after_oid: GitObjectID
+    before_oid: Optional[GitObjectID] = None
+    force: Optional[bool] = None
+    name: GitRefname
+
+
+@dataclass(kw_only=True)
+class RegenerateEnterpriseIdentityProviderRecoveryCodesInput:
+    client_mutation_id: Optional[str] = None
+    enterprise_id: ID
+
+
+@dataclass(kw_only=True)
+class RegenerateVerifiableDomainTokenPayload:
+    client_mutation_id: Optional[str] = None
+    verification_token: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class ReleaseOrder:
+    direction: OrderDirection
+    field: ReleaseOrderField
+
+
+@dataclass(kw_only=True)
+class RemoveEnterpriseAdminInput:
+    client_mutation_id: Optional[str] = None
+    enterprise_id: ID
+    login: str
+
+
+@dataclass(kw_only=True)
+class RemoveEnterpriseMemberInput:
+    client_mutation_id: Optional[str] = None
+    enterprise_id: ID
+    user_id: ID
+
+
+@dataclass(kw_only=True)
+class RemoveEnterpriseSupportEntitlementInput:
+    client_mutation_id: Optional[str] = None
+    enterprise_id: ID
+    login: str
+
+
+@dataclass(kw_only=True)
+class RemoveLabelsFromLabelableInput:
+    client_mutation_id: Optional[str] = None
+    label_ids: list[ID]
+    labelable_id: ID
+
+
+@dataclass(kw_only=True)
+class RemoveReactionInput:
+    client_mutation_id: Optional[str] = None
+    content: ReactionContent
+    subject_id: ID
+
+
+@dataclass(kw_only=True)
+class RemoveUpvoteInput:
+    client_mutation_id: Optional[str] = None
+    subject_id: ID
+
+
+@dataclass(kw_only=True)
+class ReopenIssueInput:
+    client_mutation_id: Optional[str] = None
+    issue_id: ID
+
+
+@dataclass(kw_only=True)
+class RepositoryCodeownersError:
+    column: int
+    kind: str
+    line: int
+    message: str
+    path: str
+    source: str
+    suggestion: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class RepositoryIdConditionTarget:
+    repository_ids: list[ID]
+
+
+@dataclass(kw_only=True)
+class RepositoryInteractionAbility:
+    expires_at: Optional[DateTime] = None
+    limit: RepositoryInteractionLimit
+    origin: RepositoryInteractionLimitOrigin
+
+
+@dataclass(kw_only=True)
+class RepositoryMigrationOrder:
+    direction: RepositoryMigrationOrderDirection
+    field: RepositoryMigrationOrderField
+
+
+@dataclass(kw_only=True)
+class RepositoryNameConditionTargetInput:
+    exclude: list[str]
+    include: list[str]
+    protected: Optional[bool] = None
+
+
+@dataclass(kw_only=True)
+class RepositoryRuleOrder:
+    direction: OrderDirection
+    field: RepositoryRuleOrderField
+
+
+@dataclass(kw_only=True)
+class RequestReviewsInput:
+    client_mutation_id: Optional[str] = None
+    pull_request_id: ID
+    team_ids: Optional[list[ID]] = None
+    union: Optional[bool] = None
+    user_ids: Optional[list[ID]] = None
+
+
+@dataclass(kw_only=True)
+class RequiredDeploymentsParameters:
+    required_deployment_environments: list[str]
+
+
+@dataclass(kw_only=True)
+class RequiredStatusCheckInput:
+    app_id: Optional[ID] = None
+    context: str
+
+
+@dataclass(kw_only=True)
+class ResolveReviewThreadInput:
+    client_mutation_id: Optional[str] = None
+    thread_id: ID
+
+
+@dataclass(kw_only=True)
+class RevertPullRequestInput:
+    body: Optional[str] = None
+    client_mutation_id: Optional[str] = None
+    draft: Optional[bool] = None
+    pull_request_id: ID
+    title: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class RevokeEnterpriseOrganizationsMigratorRoleInput:
+    client_mutation_id: Optional[str] = None
+    enterprise_id: ID
+    login: str
+
+
+@dataclass(kw_only=True)
+class RevokeMigratorRolePayload:
+    client_mutation_id: Optional[str] = None
+    success: Optional[bool] = None
+
+
+@dataclass(kw_only=True)
+class SecurityAdvisoryIdentifier:
+    type: str
+    value: str
+
+
+@dataclass(kw_only=True)
+class SecurityAdvisoryOrder:
+    direction: OrderDirection
+    field: SecurityAdvisoryOrderField
+
+
+@dataclass(kw_only=True)
+class SecurityAdvisoryPackageVersion:
+    identifier: str
+
+
+@dataclass(kw_only=True)
+class SecurityVulnerabilityOrder:
+    direction: OrderDirection
+    field: SecurityVulnerabilityOrderField
+
+
+@dataclass(kw_only=True)
+class SetOrganizationInteractionLimitInput:
+    client_mutation_id: Optional[str] = None
+    expiry: Optional[RepositoryInteractionLimitExpiry] = None
+    limit: RepositoryInteractionLimit
+    organization_id: ID
+
+
+@dataclass(kw_only=True)
+class SetUserInteractionLimitInput:
+    client_mutation_id: Optional[str] = None
+    expiry: Optional[RepositoryInteractionLimitExpiry] = None
+    limit: RepositoryInteractionLimit
+    user_id: ID
+
+
+@dataclass(kw_only=True)
+class SponsorAndLifetimeValueOrder:
+    direction: OrderDirection
+    field: SponsorAndLifetimeValueOrderField
+
+
+@dataclass(kw_only=True)
+class SponsorableOrder:
+    direction: OrderDirection
+    field: SponsorableOrderField
+
+
+@dataclass(kw_only=True)
+class SponsorsGoal:
+    description: Optional[str] = None
+    kind: SponsorsGoalKind
+    percent_complete: int
+    target_value: int
+    title: str
+
+
+@dataclass(kw_only=True)
+class SponsorshipNewsletterOrder:
+    direction: OrderDirection
+    field: SponsorshipNewsletterOrderField
+
+
+@dataclass(kw_only=True)
+class StarOrder:
+    direction: OrderDirection
+    field: StarOrderField
+
+
+@dataclass(kw_only=True)
+class StartRepositoryMigrationInput:
+    access_token: Optional[str] = None
+    client_mutation_id: Optional[str] = None
+    continue_on_error: Optional[bool] = None
+    git_archive_url: Optional[str] = None
+    github_pat: Optional[str] = None
+    lock_source: Optional[bool] = None
+    metadata_archive_url: Optional[str] = None
+    owner_id: ID
+    repository_name: str
+    skip_releases: Optional[bool] = None
+    source_id: ID
+    source_repository_url: Optional[URI] = None
+    target_repo_visibility: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class StatusCheckConfigurationInput:
+    context: str
+    integration_id: Optional[int] = None
+
+
+@dataclass(kw_only=True)
+class SubmitPullRequestReviewInput:
+    body: Optional[str] = None
+    client_mutation_id: Optional[str] = None
+    event: PullRequestReviewEvent
+    pull_request_id: Optional[ID] = None
+    pull_request_review_id: Optional[ID] = None
+
+
+@dataclass(kw_only=True)
+class Subscribable:
+    id: ID
+    viewer_can_subscribe: bool
+    viewer_subscription: Optional[SubscriptionState] = None
+
+
+@dataclass(kw_only=True)
+class TagNamePatternParameters:
+    name: Optional[str] = None
+    negate: bool
+    operator: str
+    pattern: str
+
+
+@dataclass(kw_only=True)
+class TeamDiscussionCommentOrder:
+    direction: OrderDirection
+    field: TeamDiscussionCommentOrderField
+
+
+@dataclass(kw_only=True)
+class TeamMemberOrder:
+    direction: OrderDirection
+    field: TeamMemberOrderField
+
+
+@dataclass(kw_only=True)
+class TeamRepositoryOrder:
+    direction: OrderDirection
+    field: TeamRepositoryOrderField
+
+
+@dataclass(kw_only=True)
+class TransferEnterpriseOrganizationInput:
+    client_mutation_id: Optional[str] = None
+    destination_enterprise_id: ID
+    organization_id: ID
+
+
+@dataclass(kw_only=True)
+class UnarchiveProjectV2ItemInput:
+    client_mutation_id: Optional[str] = None
+    item_id: ID
+    project_id: ID
+
+
+@dataclass(kw_only=True)
+class UnfollowOrganizationInput:
+    client_mutation_id: Optional[str] = None
+    organization_id: ID
+
+
+@dataclass(kw_only=True)
+class UniformResourceLocatable:
+    resource_path: URI
+    url: URI
+
+
+@dataclass(kw_only=True)
+class UnlinkProjectV2FromTeamInput:
+    client_mutation_id: Optional[str] = None
+    project_id: ID
+    team_id: ID
+
+
+@dataclass(kw_only=True)
+class UnlockLockableInput:
+    client_mutation_id: Optional[str] = None
+    lockable_id: ID
+
+
+@dataclass(kw_only=True)
+class UnmarkFileAsViewedInput:
+    client_mutation_id: Optional[str] = None
+    path: str
+    pull_request_id: ID
+
+
+@dataclass(kw_only=True)
+class UnmarkProjectV2AsTemplateInput:
+    client_mutation_id: Optional[str] = None
+    project_id: ID
+
+
+@dataclass(kw_only=True)
+class UnpinIssueInput:
+    client_mutation_id: Optional[str] = None
+    issue_id: ID
+
+
+@dataclass(kw_only=True)
+class UnsubscribeFromNotificationsInput:
+    client_mutation_id: Optional[str] = None
+    ids: list[ID]
+
+
+@dataclass(kw_only=True)
+class Updatable:
+    viewer_can_update: bool
+
+
+@dataclass(kw_only=True)
+class UpdateDiscussionCommentInput:
+    body: str
+    client_mutation_id: Optional[str] = None
+    comment_id: ID
+
+
+@dataclass(kw_only=True)
+class UpdateEnterpriseAdministratorRoleInput:
+    client_mutation_id: Optional[str] = None
+    enterprise_id: ID
+    login: str
+    role: EnterpriseAdministratorRole
+
+
+@dataclass(kw_only=True)
+class UpdateEnterpriseAllowPrivateRepositoryForkingSettingInput:
+    client_mutation_id: Optional[str] = None
+    enterprise_id: ID
+    policy_value: Optional[EnterpriseAllowPrivateRepositoryForkingPolicyValue] = None
+    setting_value: EnterpriseEnabledDisabledSettingValue
+
+
+@dataclass(kw_only=True)
+class UpdateEnterpriseMembersCanChangeRepositoryVisibilitySettingInput:
+    client_mutation_id: Optional[str] = None
+    enterprise_id: ID
+    setting_value: EnterpriseEnabledDisabledSettingValue
+
+
+@dataclass(kw_only=True)
+class UpdateEnterpriseMembersCanDeleteIssuesSettingInput:
+    client_mutation_id: Optional[str] = None
+    enterprise_id: ID
+    setting_value: EnterpriseEnabledDisabledSettingValue
+
+
+@dataclass(kw_only=True)
+class UpdateEnterpriseMembersCanInviteCollaboratorsSettingInput:
+    client_mutation_id: Optional[str] = None
+    enterprise_id: ID
+    setting_value: EnterpriseEnabledDisabledSettingValue
+
+
+@dataclass(kw_only=True)
+class UpdateEnterpriseMembersCanUpdateProtectedBranchesSettingInput:
+    client_mutation_id: Optional[str] = None
+    enterprise_id: ID
+    setting_value: EnterpriseEnabledDisabledSettingValue
+
+
+@dataclass(kw_only=True)
+class UpdateEnterpriseOrganizationProjectsSettingInput:
+    client_mutation_id: Optional[str] = None
+    enterprise_id: ID
+    setting_value: EnterpriseEnabledDisabledSettingValue
+
+
+@dataclass(kw_only=True)
+class UpdateEnterpriseOwnerOrganizationRolePayload:
+    client_mutation_id: Optional[str] = None
+    message: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class UpdateEnterpriseRepositoryProjectsSettingInput:
+    client_mutation_id: Optional[str] = None
+    enterprise_id: ID
+    setting_value: EnterpriseEnabledDisabledSettingValue
+
+
+@dataclass(kw_only=True)
+class UpdateEnterpriseTwoFactorAuthenticationRequiredSettingInput:
+    client_mutation_id: Optional[str] = None
+    enterprise_id: ID
+    setting_value: EnterpriseEnabledSettingValue
+
+
+@dataclass(kw_only=True)
+class UpdateIpAllowListEnabledSettingInput:
+    client_mutation_id: Optional[str] = None
+    owner_id: ID
+    setting_value: IpAllowListEnabledSettingValue
+
+
+@dataclass(kw_only=True)
+class UpdateIpAllowListForInstalledAppsEnabledSettingInput:
+    client_mutation_id: Optional[str] = None
+    owner_id: ID
+    setting_value: IpAllowListForInstalledAppsEnabledSettingValue
+
+
+@dataclass(kw_only=True)
+class UpdateIssueInput:
+    assignee_ids: Optional[list[ID]] = None
+    body: Optional[str] = None
+    client_mutation_id: Optional[str] = None
+    id: ID
+    label_ids: Optional[list[ID]] = None
+    milestone_id: Optional[ID] = None
+    project_ids: Optional[list[ID]] = None
+    state: Optional[IssueState] = None
+    title: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class UpdateNotificationRestrictionSettingInput:
+    client_mutation_id: Optional[str] = None
+    owner_id: ID
+    setting_value: NotificationRestrictionSettingValue
+
+
+@dataclass(kw_only=True)
+class UpdateOrganizationWebCommitSignoffSettingInput:
+    client_mutation_id: Optional[str] = None
+    organization_id: ID
+    web_commit_signoff_required: bool
+
+
+@dataclass(kw_only=True)
+class UpdateParametersInput:
+    update_allows_fetch_and_merge: bool
+
+
+@dataclass(kw_only=True)
+class UpdateProjectCardInput:
+    client_mutation_id: Optional[str] = None
+    is_archived: Optional[bool] = None
+    note: Optional[str] = None
+    project_card_id: ID
+
+
+@dataclass(kw_only=True)
+class UpdateProjectInput:
+    body: Optional[str] = None
+    client_mutation_id: Optional[str] = None
+    name: Optional[str] = None
+    project_id: ID
+    public: Optional[bool] = None
+    state: Optional[ProjectState] = None
+
+
+@dataclass(kw_only=True)
+class UpdateProjectV2Input:
+    client_mutation_id: Optional[str] = None
+    closed: Optional[bool] = None
+    project_id: ID
+    public: Optional[bool] = None
+    readme: Optional[str] = None
+    short_description: Optional[str] = None
+    title: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class UpdatePullRequestBranchInput:
+    client_mutation_id: Optional[str] = None
+    expected_head_oid: Optional[GitObjectID] = None
+    pull_request_id: ID
+    update_method: Optional[PullRequestBranchUpdateMethod] = None
+
+
+@dataclass(kw_only=True)
+class UpdatePullRequestReviewCommentInput:
+    body: str
+    client_mutation_id: Optional[str] = None
+    pull_request_review_comment_id: ID
+
+
+@dataclass(kw_only=True)
+class UpdateRefInput:
+    client_mutation_id: Optional[str] = None
+    force: Optional[bool] = None
+    oid: GitObjectID
+    ref_id: ID
+
+
+@dataclass(kw_only=True)
+class UpdateRepositoryInput:
+    client_mutation_id: Optional[str] = None
+    description: Optional[str] = None
+    has_discussions_enabled: Optional[bool] = None
+    has_issues_enabled: Optional[bool] = None
+    has_projects_enabled: Optional[bool] = None
+    has_sponsorships_enabled: Optional[bool] = None
+    has_wiki_enabled: Optional[bool] = None
+    homepage_url: Optional[URI] = None
+    name: Optional[str] = None
+    repository_id: ID
+    template: Optional[bool] = None
+
+
+@dataclass(kw_only=True)
+class UpdateSponsorshipPreferencesInput:
+    client_mutation_id: Optional[str] = None
+    privacy_level: Optional[SponsorshipPrivacy] = None
+    receive_emails: Optional[bool] = None
+    sponsor_id: Optional[ID] = None
+    sponsor_login: Optional[str] = None
+    sponsorable_id: Optional[ID] = None
+    sponsorable_login: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class UpdateTeamDiscussionCommentInput:
+    body: str
+    body_version: Optional[str] = None
+    client_mutation_id: Optional[str] = None
+    id: ID
+
+
+@dataclass(kw_only=True)
+class UpdateTeamReviewAssignmentInput:
+    algorithm: Optional[TeamReviewAssignmentAlgorithm] = None
+    client_mutation_id: Optional[str] = None
+    count_members_already_requested: Optional[bool] = None
+    enabled: bool
+    excluded_team_member_ids: Optional[list[ID]] = None
+    id: ID
+    include_child_team_members: Optional[bool] = None
+    notify_team: Optional[bool] = None
+    remove_team_request: Optional[bool] = None
+    team_member_count: Optional[int] = None
+
+
+@dataclass(kw_only=True)
+class UpdateTopicsInput:
+    client_mutation_id: Optional[str] = None
+    repository_id: ID
+    topic_names: list[str]
+
+
+@dataclass(kw_only=True)
+class UpdateUserListsForItemInput:
+    client_mutation_id: Optional[str] = None
+    item_id: ID
+    list_ids: list[ID]
+    suggested_list_ids: Optional[list[ID]] = None
+
+
+@dataclass(kw_only=True)
+class UserListSuggestion:
+    id: Optional[ID] = None
+    name: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class VerifiableDomainOrder:
+    direction: OrderDirection
+    field: VerifiableDomainOrderField
+
+
+@dataclass(kw_only=True)
+class Votable:
+    upvote_count: int
+    viewer_can_upvote: bool
+    viewer_has_upvoted: bool
+
+
+@dataclass(kw_only=True)
+class WorkflowFileReferenceInput:
+    path: str
+    ref: Optional[str] = None
+    repository_id: int
+    sha: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class AutoMergeRequest:
+    author_email: Optional[str] = None
+    commit_body: Optional[str] = None
+    commit_headline: Optional[str] = None
+    enabled_at: Optional[DateTime] = None
+    enabled_by: Optional[Actor] = None
+    merge_method: PullRequestMergeMethod
+    pull_request: PullRequest
+
+
+@dataclass(kw_only=True)
+class BranchProtectionRuleConflict:
+    branch_protection_rule: Optional[BranchProtectionRule] = None
+    conflicting_branch_protection_rule: Optional[BranchProtectionRule] = None
+    ref: Optional[Ref] = None
+
+
+@dataclass(kw_only=True)
+class BranchProtectionRuleConflictEdge:
+    cursor: str
+    node: Optional[BranchProtectionRuleConflict] = None
+
+
+@dataclass(kw_only=True)
+class BranchProtectionRuleConflictConnection:
+    edges: Optional[list[BranchProtectionRuleConflictEdge]] = None
+    nodes: Optional[list[BranchProtectionRuleConflict]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class EnterpriseServerUserAccountEmail:
+    created_at: DateTime
+    email: str
+    id: ID
+    is_primary: bool
+    updated_at: DateTime
+    user_account: EnterpriseServerUserAccount
+
+
+@dataclass(kw_only=True)
+class EnterpriseServerUserAccountEmailEdge:
+    cursor: str
+    node: Optional[EnterpriseServerUserAccountEmail] = None
+
+
+@dataclass(kw_only=True)
+class EnterpriseServerUserAccountEmailConnection:
+    edges: Optional[list[EnterpriseServerUserAccountEmailEdge]] = None
+    nodes: Optional[list[EnterpriseServerUserAccountEmail]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class EnterpriseServerUserAccountEdge:
+    cursor: str
+    node: Optional[EnterpriseServerUserAccount] = None
+
+
+@dataclass(kw_only=True)
+class EnterpriseServerUserAccountConnection:
+    edges: Optional[list[EnterpriseServerUserAccountEdge]] = None
+    nodes: Optional[list[EnterpriseServerUserAccount]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class EnterpriseServerUserAccountsUpload:
+    created_at: DateTime
+    enterprise: Enterprise
+    enterprise_server_installation: EnterpriseServerInstallation
+    id: ID
+    name: str
+    sync_state: EnterpriseServerUserAccountsUploadSyncState
+    updated_at: DateTime
+
+
+@dataclass(kw_only=True)
+class EnterpriseServerUserAccountsUploadEdge:
+    cursor: str
+    node: Optional[EnterpriseServerUserAccountsUpload] = None
+
+
+@dataclass(kw_only=True)
+class EnterpriseServerUserAccountsUploadConnection:
+    edges: Optional[list[EnterpriseServerUserAccountsUploadEdge]] = None
+    nodes: Optional[list[EnterpriseServerUserAccountsUpload]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class EnterpriseServerInstallationMembershipEdge:
+    cursor: str
+    node: Optional[EnterpriseServerInstallation] = None
+    role: EnterpriseUserAccountMembershipRole
+
+
+@dataclass(kw_only=True)
+class EnterpriseServerInstallationMembershipConnection:
+    edges: Optional[list[EnterpriseServerInstallationMembershipEdge]] = None
+    nodes: Optional[list[EnterpriseServerInstallation]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class MembersCanDeleteReposClearAuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    created_at: PreciseDateTime
+    enterprise_resource_path: Optional[URI] = None
+    enterprise_slug: Optional[str] = None
+    enterprise_url: Optional[URI] = None
+    id: ID
+    operation_type: Optional[OperationType] = None
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class MembersCanDeleteReposDisableAuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    created_at: PreciseDateTime
+    enterprise_resource_path: Optional[URI] = None
+    enterprise_slug: Optional[str] = None
+    enterprise_url: Optional[URI] = None
+    id: ID
+    operation_type: Optional[OperationType] = None
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class MembersCanDeleteReposEnableAuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    created_at: PreciseDateTime
+    enterprise_resource_path: Optional[URI] = None
+    enterprise_slug: Optional[str] = None
+    enterprise_url: Optional[URI] = None
+    id: ID
+    operation_type: Optional[OperationType] = None
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class OauthApplicationCreateAuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    application_url: Optional[URI] = None
+    callback_url: Optional[URI] = None
+    created_at: PreciseDateTime
+    id: ID
+    oauth_application_name: Optional[str] = None
+    oauth_application_resource_path: Optional[URI] = None
+    oauth_application_url: Optional[URI] = None
+    operation_type: Optional[OperationType] = None
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+    rate_limit: Optional[int] = None
+    state: Optional[OauthApplicationCreateAuditEntryState] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class OrgAddBillingManagerAuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    created_at: PreciseDateTime
+    id: ID
+    invitation_email: Optional[str] = None
+    operation_type: Optional[OperationType] = None
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class OrgAddMemberAuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    created_at: PreciseDateTime
+    id: ID
+    operation_type: Optional[OperationType] = None
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+    permission: Optional[OrgAddMemberAuditEntryPermission] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class OrgBlockUserAuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    blocked_user: Optional[User] = None
+    blocked_user_name: Optional[str] = None
+    blocked_user_resource_path: Optional[URI] = None
+    blocked_user_url: Optional[URI] = None
+    created_at: PreciseDateTime
+    id: ID
+    operation_type: Optional[OperationType] = None
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class OrgConfigDisableCollaboratorsOnlyAuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    created_at: PreciseDateTime
+    id: ID
+    operation_type: Optional[OperationType] = None
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class OrgConfigEnableCollaboratorsOnlyAuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    created_at: PreciseDateTime
+    id: ID
+    operation_type: Optional[OperationType] = None
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class OrgCreateAuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    billing_plan: Optional[OrgCreateAuditEntryBillingPlan] = None
+    created_at: PreciseDateTime
+    id: ID
+    operation_type: Optional[OperationType] = None
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class OrgDisableOauthAppRestrictionsAuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    created_at: PreciseDateTime
+    id: ID
+    operation_type: Optional[OperationType] = None
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class OrgDisableSamlAuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    created_at: PreciseDateTime
+    digest_method_url: Optional[URI] = None
+    id: ID
+    issuer_url: Optional[URI] = None
+    operation_type: Optional[OperationType] = None
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+    signature_method_url: Optional[URI] = None
+    single_sign_on_url: Optional[URI] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class OrgDisableTwoFactorRequirementAuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    created_at: PreciseDateTime
+    id: ID
+    operation_type: Optional[OperationType] = None
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class OrgEnableOauthAppRestrictionsAuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    created_at: PreciseDateTime
+    id: ID
+    operation_type: Optional[OperationType] = None
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class OrgEnableSamlAuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    created_at: PreciseDateTime
+    digest_method_url: Optional[URI] = None
+    id: ID
+    issuer_url: Optional[URI] = None
+    operation_type: Optional[OperationType] = None
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+    signature_method_url: Optional[URI] = None
+    single_sign_on_url: Optional[URI] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class OrgEnableTwoFactorRequirementAuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    created_at: PreciseDateTime
+    id: ID
+    operation_type: Optional[OperationType] = None
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class OrganizationInvitation:
+    created_at: DateTime
+    email: Optional[str] = None
+    id: ID
+    invitation_source: OrganizationInvitationSource
+    invitation_type: OrganizationInvitationType
+    invitee: Optional[User] = None
+    inviter_actor: Optional[User] = None
+    organization: Organization
+    role: OrganizationInvitationRole
+
+
+@dataclass(kw_only=True)
+class OrgInviteMemberAuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    created_at: PreciseDateTime
+    email: Optional[str] = None
+    id: ID
+    operation_type: Optional[OperationType] = None
+    organization: Optional[Organization] = None
+    organization_invitation: Optional[OrganizationInvitation] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class OrgInviteToBusinessAuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    created_at: PreciseDateTime
+    enterprise_resource_path: Optional[URI] = None
+    enterprise_slug: Optional[str] = None
+    enterprise_url: Optional[URI] = None
+    id: ID
+    operation_type: Optional[OperationType] = None
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class OrgOauthAppAccessApprovedAuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    created_at: PreciseDateTime
+    id: ID
+    oauth_application_name: Optional[str] = None
+    oauth_application_resource_path: Optional[URI] = None
+    oauth_application_url: Optional[URI] = None
+    operation_type: Optional[OperationType] = None
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class OrgOauthAppAccessBlockedAuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    created_at: PreciseDateTime
+    id: ID
+    oauth_application_name: Optional[str] = None
+    oauth_application_resource_path: Optional[URI] = None
+    oauth_application_url: Optional[URI] = None
+    operation_type: Optional[OperationType] = None
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class OrgOauthAppAccessDeniedAuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    created_at: PreciseDateTime
+    id: ID
+    oauth_application_name: Optional[str] = None
+    oauth_application_resource_path: Optional[URI] = None
+    oauth_application_url: Optional[URI] = None
+    operation_type: Optional[OperationType] = None
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class OrgOauthAppAccessRequestedAuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    created_at: PreciseDateTime
+    id: ID
+    oauth_application_name: Optional[str] = None
+    oauth_application_resource_path: Optional[URI] = None
+    oauth_application_url: Optional[URI] = None
+    operation_type: Optional[OperationType] = None
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class OrgOauthAppAccessUnblockedAuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    created_at: PreciseDateTime
+    id: ID
+    oauth_application_name: Optional[str] = None
+    oauth_application_resource_path: Optional[URI] = None
+    oauth_application_url: Optional[URI] = None
+    operation_type: Optional[OperationType] = None
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class OrgRemoveBillingManagerAuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    created_at: PreciseDateTime
+    id: ID
+    operation_type: Optional[OperationType] = None
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+    reason: Optional[OrgRemoveBillingManagerAuditEntryReason] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class OrgRemoveMemberAuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    created_at: PreciseDateTime
+    id: ID
+    membership_types: Optional[list[OrgRemoveMemberAuditEntryMembershipType]] = None
+    operation_type: Optional[OperationType] = None
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+    reason: Optional[OrgRemoveMemberAuditEntryReason] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class OrgRemoveOutsideCollaboratorAuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    created_at: PreciseDateTime
+    id: ID
+    membership_types: Optional[
+        list[OrgRemoveOutsideCollaboratorAuditEntryMembershipType]
+    ] = None
+    operation_type: Optional[OperationType] = None
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+    reason: Optional[OrgRemoveOutsideCollaboratorAuditEntryReason] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class OrgRestoreMemberMembershipOrganizationAuditEntryData:
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class BranchProtectionRuleEdge:
+    cursor: str
+    node: Optional[BranchProtectionRule] = None
+
+
+@dataclass(kw_only=True)
+class BranchProtectionRuleConnection:
+    edges: Optional[list[BranchProtectionRuleEdge]] = None
+    nodes: Optional[list[BranchProtectionRule]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class RepositoryCodeowners:
+    errors: list[RepositoryCodeownersError]
+
+
+@dataclass(kw_only=True)
+class TeamEdge:
+    cursor: str
+    node: Optional[Team] = None
+
+
+@dataclass(kw_only=True)
+class TeamConnection:
+    edges: Optional[list[TeamEdge]] = None
+    nodes: Optional[list[Team]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class Mannequin:
+    avatar_url: URI
+    claimant: Optional[User] = None
+    created_at: DateTime
+    database_id: Optional[int] = None
+    email: Optional[str] = None
+    id: ID
+    login: str
+    resource_path: URI
+    updated_at: DateTime
+    url: URI
+
+
+@dataclass(kw_only=True)
+class ReactorEdge:
+    cursor: str
+    node: Reactor
+    reacted_at: DateTime
+
+
+@dataclass(kw_only=True)
+class ReactorConnection:
+    edges: Optional[list[ReactorEdge]] = None
+    nodes: Optional[list[Reactor]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class Reaction:
+    content: ReactionContent
+    created_at: DateTime
+    database_id: Optional[int] = None
+    id: ID
+    reactable: Reactable
+    user: Optional[User] = None
+
+
+@dataclass(kw_only=True)
+class ReactionEdge:
+    cursor: str
+    node: Optional[Reaction] = None
+
+
+@dataclass(kw_only=True)
+class ReactionConnection:
+    edges: Optional[list[ReactionEdge]] = None
+    nodes: Optional[list[Reaction]] = None
+    page_info: PageInfo
+    total_count: int
+    viewer_has_reacted: bool
+
+
+@dataclass(kw_only=True)
+class ReactingUserEdge:
+    cursor: str
+    node: User
+    reacted_at: DateTime
+
+
+@dataclass(kw_only=True)
+class ReactingUserConnection:
+    edges: Optional[list[ReactingUserEdge]] = None
+    nodes: Optional[list[User]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class UserContentEdit:
+    created_at: DateTime
+    deleted_at: Optional[DateTime] = None
+    deleted_by: Optional[Actor] = None
+    diff: Optional[str] = None
+    edited_at: DateTime
+    editor: Optional[Actor] = None
+    id: ID
+    updated_at: DateTime
+
+
+@dataclass(kw_only=True)
+class UserContentEditEdge:
+    cursor: str
+    node: Optional[UserContentEdit] = None
+
+
+@dataclass(kw_only=True)
+class UserContentEditConnection:
+    edges: Optional[list[UserContentEditEdge]] = None
+    nodes: Optional[list[UserContentEdit]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class TeamDiscussionComment:
+    author: Optional[Actor] = None
+    body: str
+    body_h_t_m_l: HTML
+    body_text: str
+    created_at: DateTime
+    created_via_email: bool
+    database_id: Optional[int] = None
+    editor: Optional[Actor] = None
+    id: ID
+    includes_created_edit: bool
+    last_edited_at: Optional[DateTime] = None
+    published_at: Optional[DateTime] = None
+    reaction_groups: Optional[list[ReactionGroup]] = None
+    reactions: ReactionConnection
+    updated_at: DateTime
+    user_content_edits: Optional[UserContentEditConnection] = None
+    viewer_can_delete: bool
+    viewer_can_react: bool
+    viewer_can_update: bool
+    viewer_cannot_update_reasons: list[CommentCannotUpdateReason]
+    viewer_did_author: bool
+
+
+@dataclass(kw_only=True)
+class TeamDiscussionCommentEdge:
+    cursor: str
+    node: Optional[TeamDiscussionComment] = None
+
+
+@dataclass(kw_only=True)
+class TeamDiscussionCommentConnection:
+    edges: Optional[list[TeamDiscussionCommentEdge]] = None
+    nodes: Optional[list[TeamDiscussionComment]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class TeamDiscussionEdge:
+    cursor: str
+    node: Optional[TeamDiscussion] = None
+
+
+@dataclass(kw_only=True)
+class TeamDiscussionConnection:
+    edges: Optional[list[TeamDiscussionEdge]] = None
+    nodes: Optional[list[TeamDiscussion]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class OrganizationInvitationEdge:
+    cursor: str
+    node: Optional[OrganizationInvitation] = None
+
+
+@dataclass(kw_only=True)
+class OrganizationInvitationConnection:
+    edges: Optional[list[OrganizationInvitationEdge]] = None
+    nodes: Optional[list[OrganizationInvitation]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class UserStatus:
+    created_at: DateTime
+    emoji: Optional[str] = None
+    emoji_h_t_m_l: Optional[HTML] = None
+    expires_at: Optional[DateTime] = None
+    id: ID
+    indicates_limited_availability: bool
+    message: Optional[str] = None
+    organization: Optional[Organization] = None
+    updated_at: DateTime
+    user: User
+
+
+@dataclass(kw_only=True)
+class UserStatusEdge:
+    cursor: str
+    node: Optional[UserStatus] = None
+
+
+@dataclass(kw_only=True)
+class UserStatusConnection:
+    edges: Optional[list[UserStatusEdge]] = None
+    nodes: Optional[list[UserStatus]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class TeamMemberEdge:
+    cursor: str
+    member_access_resource_path: URI
+    member_access_url: URI
+    node: User
+    role: TeamMemberRole
+
+
+@dataclass(kw_only=True)
+class TeamMemberConnection:
+    edges: Optional[list[TeamMemberEdge]] = None
+    nodes: Optional[list[User]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class ProjectV2Field:
+    created_at: DateTime
+    data_type: ProjectV2FieldType
+    database_id: Optional[int] = None
+    id: ID
+    name: str
+    project: ProjectV2
+    updated_at: DateTime
+
+
+@dataclass(kw_only=True)
+class ProjectV2IterationFieldConfiguration:
+    completed_iterations: list[ProjectV2IterationFieldIteration]
+    duration: int
+    iterations: list[ProjectV2IterationFieldIteration]
+    start_day: int
+
+
+@dataclass(kw_only=True)
+class ProjectV2IterationField:
+    configuration: ProjectV2IterationFieldConfiguration
+    created_at: DateTime
+    data_type: ProjectV2FieldType
+    database_id: Optional[int] = None
+    id: ID
+    name: str
+    project: ProjectV2
+    updated_at: DateTime
+
+
+@dataclass(kw_only=True)
+class ProjectV2SingleSelectField:
+    created_at: DateTime
+    data_type: ProjectV2FieldType
+    database_id: Optional[int] = None
+    id: ID
+    name: str
+    options: list[ProjectV2SingleSelectFieldOption]
+    project: ProjectV2
+    updated_at: DateTime
+
+
+@dataclass(kw_only=True)
+class ProjectV2FieldConfigurationEdge:
+    cursor: str
+    node: Optional[ProjectV2FieldConfiguration] = None
+
+
+@dataclass(kw_only=True)
+class ProjectV2FieldConfigurationConnection:
+    edges: Optional[list[ProjectV2FieldConfigurationEdge]] = None
+    nodes: Optional[list[ProjectV2FieldConfiguration]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class ProjectV2Edge:
+    cursor: str
+    node: Optional[ProjectV2] = None
+
+
+@dataclass(kw_only=True)
+class ProjectV2Connection:
+    edges: Optional[list[ProjectV2Edge]] = None
+    nodes: Optional[list[ProjectV2]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class DraftIssue:
+    assignees: UserConnection
+    body: str
+    body_h_t_m_l: HTML
+    body_text: str
+    created_at: DateTime
+    creator: Optional[Actor] = None
+    id: ID
+    project_v2_items: ProjectV2ItemConnection
+    projects_v2: ProjectV2Connection
+    title: str
+    updated_at: DateTime
+
+
+@dataclass(kw_only=True)
+class ProjectV2ItemFieldDateValue:
+    created_at: DateTime
+    creator: Optional[Actor] = None
+    database_id: Optional[int] = None
+    date: Optional[Date] = None
+    field: ProjectV2FieldConfiguration
+    id: ID
+    item: ProjectV2Item
+    updated_at: DateTime
+
+
+@dataclass(kw_only=True)
+class ProjectV2ItemFieldIterationValue:
+    created_at: DateTime
+    creator: Optional[Actor] = None
+    database_id: Optional[int] = None
+    duration: int
+    field: ProjectV2FieldConfiguration
+    id: ID
+    item: ProjectV2Item
+    iteration_id: str
+    start_date: Date
+    title: str
+    title_h_t_m_l: str
+    updated_at: DateTime
+
+
+@dataclass(kw_only=True)
+class IssueEdge:
+    cursor: str
+    node: Optional[Issue] = None
+
+
+@dataclass(kw_only=True)
+class IssueConnection:
+    edges: Optional[list[IssueEdge]] = None
+    nodes: Optional[list[Issue]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class Label:
+    color: str
+    created_at: Optional[DateTime] = None
+    description: Optional[str] = None
+    id: ID
+    is_default: bool
+    issues: IssueConnection
+    name: str
+    pull_requests: PullRequestConnection
+    repository: Repository
+    resource_path: URI
+    updated_at: Optional[DateTime] = None
+    url: URI
+
+
+@dataclass(kw_only=True)
+class LabelEdge:
+    cursor: str
+    node: Optional[Label] = None
+
+
+@dataclass(kw_only=True)
+class LabelConnection:
+    edges: Optional[list[LabelEdge]] = None
+    nodes: Optional[list[Label]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class ProjectV2ItemFieldLabelValue:
+    field: ProjectV2FieldConfiguration
+    labels: Optional[LabelConnection] = None
+
+
+@dataclass(kw_only=True)
+class Milestone:
+    closed: bool
+    closed_at: Optional[DateTime] = None
+    created_at: DateTime
+    creator: Optional[Actor] = None
+    description: Optional[str] = None
+    due_on: Optional[DateTime] = None
+    id: ID
+    issues: IssueConnection
+    number: int
+    progress_percentage: float
+    pull_requests: PullRequestConnection
+    repository: Repository
+    resource_path: URI
+    state: MilestoneState
+    title: str
+    updated_at: DateTime
+    url: URI
+    viewer_can_close: bool
+    viewer_can_reopen: bool
+
+
+@dataclass(kw_only=True)
+class ProjectV2ItemFieldMilestoneValue:
+    field: ProjectV2FieldConfiguration
+    milestone: Optional[Milestone] = None
+
+
+@dataclass(kw_only=True)
+class ProjectV2ItemFieldNumberValue:
+    created_at: DateTime
+    creator: Optional[Actor] = None
+    database_id: Optional[int] = None
+    field: ProjectV2FieldConfiguration
+    id: ID
+    item: ProjectV2Item
+    number: Optional[float] = None
+    updated_at: DateTime
+
+
+@dataclass(kw_only=True)
+class ProjectV2ItemFieldPullRequestValue:
+    field: ProjectV2FieldConfiguration
+    pull_requests: Optional[PullRequestConnection] = None
+
+
+@dataclass(kw_only=True)
+class ProjectV2ItemFieldRepositoryValue:
+    field: ProjectV2FieldConfiguration
+    repository: Optional[Repository] = None
+
+
+@dataclass(kw_only=True)
+class RequestedReviewerEdge:
+    cursor: str
+    node: Optional[RequestedReviewer] = None
+
+
+@dataclass(kw_only=True)
+class RequestedReviewerConnection:
+    edges: Optional[list[RequestedReviewerEdge]] = None
+    nodes: Optional[list[RequestedReviewer]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class ProjectV2ItemFieldReviewerValue:
+    field: ProjectV2FieldConfiguration
+    reviewers: Optional[RequestedReviewerConnection] = None
+
+
+@dataclass(kw_only=True)
+class ProjectV2ItemFieldSingleSelectValue:
+    color: ProjectV2SingleSelectFieldOptionColor
+    created_at: DateTime
+    creator: Optional[Actor] = None
+    database_id: Optional[int] = None
+    description: Optional[str] = None
+    description_h_t_m_l: Optional[str] = None
+    field: ProjectV2FieldConfiguration
+    id: ID
+    item: ProjectV2Item
+    name: Optional[str] = None
+    name_h_t_m_l: Optional[str] = None
+    option_id: Optional[str] = None
+    updated_at: DateTime
+
+
+@dataclass(kw_only=True)
+class ProjectV2ItemFieldTextValue:
+    created_at: DateTime
+    creator: Optional[Actor] = None
+    database_id: Optional[int] = None
+    field: ProjectV2FieldConfiguration
+    id: ID
+    item: ProjectV2Item
+    text: Optional[str] = None
+    updated_at: DateTime
+
+
+@dataclass(kw_only=True)
+class ProjectV2ItemFieldUserValue:
+    field: ProjectV2FieldConfiguration
+    users: Optional[UserConnection] = None
+
+
+@dataclass(kw_only=True)
+class ProjectV2ItemFieldValueEdge:
+    cursor: str
+    node: Optional[ProjectV2ItemFieldValue] = None
+
+
+@dataclass(kw_only=True)
+class ProjectV2ItemFieldValueConnection:
+    edges: Optional[list[ProjectV2ItemFieldValueEdge]] = None
+    nodes: Optional[list[ProjectV2ItemFieldValue]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class ProjectV2ItemEdge:
+    cursor: str
+    node: Optional[ProjectV2Item] = None
+
+
+@dataclass(kw_only=True)
+class ProjectV2Owner:
+    id: ID
+    project_v2: Optional[ProjectV2] = None
+    projects_v2: ProjectV2Connection
+
+
+@dataclass(kw_only=True)
+class RepositoryEdge:
+    cursor: str
+    node: Optional[Repository] = None
+
+
+@dataclass(kw_only=True)
+class RepositoryConnection:
+    edges: Optional[list[RepositoryEdge]] = None
+    nodes: Optional[list[Repository]] = None
+    page_info: PageInfo
+    total_count: int
+    total_disk_usage: int
+
+
+@dataclass(kw_only=True)
+class ProjectV2FieldEdge:
+    cursor: str
+    node: Optional[ProjectV2Field] = None
+
+
+@dataclass(kw_only=True)
+class ProjectV2FieldConnection:
+    edges: Optional[list[ProjectV2FieldEdge]] = None
+    nodes: Optional[list[ProjectV2Field]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class ProjectV2SortBy:
+    direction: OrderDirection
+    field: ProjectV2Field
+
+
+@dataclass(kw_only=True)
+class ProjectV2SortByEdge:
+    cursor: str
+    node: Optional[ProjectV2SortBy] = None
+
+
+@dataclass(kw_only=True)
+class ProjectV2SortByConnection:
+    edges: Optional[list[ProjectV2SortByEdge]] = None
+    nodes: Optional[list[ProjectV2SortBy]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class ProjectV2SortByField:
+    direction: OrderDirection
+    field: ProjectV2FieldConfiguration
+
+
+@dataclass(kw_only=True)
+class ProjectV2SortByFieldEdge:
+    cursor: str
+    node: Optional[ProjectV2SortByField] = None
+
+
+@dataclass(kw_only=True)
+class ProjectV2SortByFieldConnection:
+    edges: Optional[list[ProjectV2SortByFieldEdge]] = None
+    nodes: Optional[list[ProjectV2SortByField]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class ProjectV2View:
+    created_at: DateTime
+    database_id: Optional[int] = None
+    fields: Optional[ProjectV2FieldConfigurationConnection] = None
+    filter: Optional[str] = None
+    group_by_fields: Optional[ProjectV2FieldConfigurationConnection] = None
+    id: ID
+    layout: ProjectV2ViewLayout
+    name: str
+    number: int
+    project: ProjectV2
+    sort_by_fields: Optional[ProjectV2SortByFieldConnection] = None
+    updated_at: DateTime
+    vertical_group_by_fields: Optional[ProjectV2FieldConfigurationConnection] = None
+
+
+@dataclass(kw_only=True)
+class ProjectV2ViewEdge:
+    cursor: str
+    node: Optional[ProjectV2View] = None
+
+
+@dataclass(kw_only=True)
+class ProjectV2ViewConnection:
+    edges: Optional[list[ProjectV2ViewEdge]] = None
+    nodes: Optional[list[ProjectV2View]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class ProjectV2Workflow:
+    created_at: DateTime
+    database_id: Optional[int] = None
+    enabled: bool
+    id: ID
+    name: str
+    number: int
+    project: ProjectV2
+    updated_at: DateTime
+
+
+@dataclass(kw_only=True)
+class ProjectV2WorkflowEdge:
+    cursor: str
+    node: Optional[ProjectV2Workflow] = None
+
+
+@dataclass(kw_only=True)
+class ProjectV2WorkflowConnection:
+    edges: Optional[list[ProjectV2WorkflowEdge]] = None
+    nodes: Optional[list[ProjectV2Workflow]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class TeamRepositoryEdge:
+    cursor: str
+    node: Repository
+    permission: RepositoryPermission
+
+
+@dataclass(kw_only=True)
+class TeamRepositoryConnection:
+    edges: Optional[list[TeamRepositoryEdge]] = None
+    nodes: Optional[list[Repository]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class PermissionSource:
+    organization: Organization
+    permission: DefaultRepositoryPermissionField
+    role_name: Optional[str] = None
+    source: PermissionGranter
+
+
+@dataclass(kw_only=True)
+class RepositoryCollaboratorEdge:
+    cursor: str
+    node: User
+    permission: RepositoryPermission
+    permission_sources: Optional[list[PermissionSource]] = None
+
+
+@dataclass(kw_only=True)
+class RepositoryCollaboratorConnection:
+    edges: Optional[list[RepositoryCollaboratorEdge]] = None
+    nodes: Optional[list[User]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class DependencyGraphDependency:
+    has_dependencies: bool
+    package_manager: Optional[str] = None
+    package_name: str
+    repository: Optional[Repository] = None
+    requirements: str
+
+
+@dataclass(kw_only=True)
+class DependencyGraphDependencyEdge:
+    cursor: str
+    node: Optional[DependencyGraphDependency] = None
+
+
+@dataclass(kw_only=True)
+class DependencyGraphDependencyConnection:
+    edges: Optional[list[DependencyGraphDependencyEdge]] = None
+    nodes: Optional[list[DependencyGraphDependency]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class DependencyGraphManifest:
+    blob_path: str
+    dependencies: Optional[DependencyGraphDependencyConnection] = None
+    dependencies_count: Optional[int] = None
+    exceeds_max_size: bool
+    filename: str
+    id: ID
+    parseable: bool
+    repository: Repository
+
+
+@dataclass(kw_only=True)
+class DependencyGraphManifestEdge:
+    cursor: str
+    node: Optional[DependencyGraphManifest] = None
+
+
+@dataclass(kw_only=True)
+class DependencyGraphManifestConnection:
+    edges: Optional[list[DependencyGraphManifestEdge]] = None
+    nodes: Optional[list[DependencyGraphManifest]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class DeployKeyEdge:
+    cursor: str
+    node: Optional[DeployKey] = None
+
+
+@dataclass(kw_only=True)
+class DeployKeyConnection:
+    edges: Optional[list[DeployKeyEdge]] = None
+    nodes: Optional[list[DeployKey]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class DeploymentStatus:
+    created_at: DateTime
+    creator: Actor
+    deployment: Deployment
+    description: Optional[str] = None
+    environment: Optional[str] = None
+    environment_url: Optional[URI] = None
+    id: ID
+    log_url: Optional[URI] = None
+    state: DeploymentStatusState
+    updated_at: DateTime
+
+
+@dataclass(kw_only=True)
+class DeploymentStatusEdge:
+    cursor: str
+    node: Optional[DeploymentStatus] = None
+
+
+@dataclass(kw_only=True)
+class DeploymentStatusConnection:
+    edges: Optional[list[DeploymentStatusEdge]] = None
+    nodes: Optional[list[DeploymentStatus]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class DeploymentEdge:
+    cursor: str
+    node: Optional[Deployment] = None
+
+
+@dataclass(kw_only=True)
+class DeploymentConnection:
+    edges: Optional[list[DeploymentEdge]] = None
+    nodes: Optional[list[Deployment]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class DiscussionCommentEdge:
+    cursor: str
+    node: Optional[DiscussionComment] = None
+
+
+@dataclass(kw_only=True)
+class DiscussionCommentConnection:
+    edges: Optional[list[DiscussionCommentEdge]] = None
+    nodes: Optional[list[DiscussionComment]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class DiscussionCategory:
+    created_at: DateTime
+    description: Optional[str] = None
+    emoji: str
+    emoji_h_t_m_l: HTML
+    id: ID
+    is_answerable: bool
+    name: str
+    repository: Repository
+    slug: str
+    updated_at: DateTime
+
+
+@dataclass(kw_only=True)
+class DiscussionPollOption:
+    id: ID
+    option: str
+    poll: Optional[DiscussionPoll] = None
+    total_vote_count: int
+    viewer_has_voted: bool
+
+
+@dataclass(kw_only=True)
+class DiscussionPollOptionEdge:
+    cursor: str
+    node: Optional[DiscussionPollOption] = None
+
+
+@dataclass(kw_only=True)
+class DiscussionPollOptionConnection:
+    edges: Optional[list[DiscussionPollOptionEdge]] = None
+    nodes: Optional[list[DiscussionPollOption]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class DiscussionCategoryEdge:
+    cursor: str
+    node: Optional[DiscussionCategory] = None
+
+
+@dataclass(kw_only=True)
+class DiscussionCategoryConnection:
+    edges: Optional[list[DiscussionCategoryEdge]] = None
+    nodes: Optional[list[DiscussionCategory]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class DiscussionEdge:
+    cursor: str
+    node: Optional[Discussion] = None
+
+
+@dataclass(kw_only=True)
+class DiscussionConnection:
+    edges: Optional[list[DiscussionEdge]] = None
+    nodes: Optional[list[Discussion]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class DeploymentReviewerEdge:
+    cursor: str
+    node: Optional[DeploymentReviewer] = None
+
+
+@dataclass(kw_only=True)
+class DeploymentReviewerConnection:
+    edges: Optional[list[DeploymentReviewerEdge]] = None
+    nodes: Optional[list[DeploymentReviewer]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class DeploymentProtectionRule:
+    database_id: Optional[int] = None
+    prevent_self_review: Optional[bool] = None
+    reviewers: DeploymentReviewerConnection
+    timeout: int
+    type: DeploymentProtectionRuleType
+
+
+@dataclass(kw_only=True)
+class DeploymentProtectionRuleEdge:
+    cursor: str
+    node: Optional[DeploymentProtectionRule] = None
+
+
+@dataclass(kw_only=True)
+class DeploymentProtectionRuleConnection:
+    edges: Optional[list[DeploymentProtectionRuleEdge]] = None
+    nodes: Optional[list[DeploymentProtectionRule]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class Environment:
+    database_id: Optional[int] = None
+    id: ID
+    name: str
+    protection_rules: DeploymentProtectionRuleConnection
+
+
+@dataclass(kw_only=True)
+class EnvironmentEdge:
+    cursor: str
+    node: Optional[Environment] = None
+
+
+@dataclass(kw_only=True)
+class EnvironmentConnection:
+    edges: Optional[list[EnvironmentEdge]] = None
+    nodes: Optional[list[Environment]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class IssueTemplate:
+    about: Optional[str] = None
+    assignees: UserConnection
+    body: Optional[str] = None
+    filename: str
+    labels: Optional[LabelConnection] = None
+    name: str
+    title: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class LanguageEdge:
+    cursor: str
+    node: Language
+    size: int
+
+
+@dataclass(kw_only=True)
+class LanguageConnection:
+    edges: Optional[list[LanguageEdge]] = None
+    nodes: Optional[list[Language]] = None
+    page_info: PageInfo
+    total_count: int
+    total_size: int
+
+
+@dataclass(kw_only=True)
+class ReleaseAsset:
+    content_type: str
+    created_at: DateTime
+    download_count: int
+    download_url: URI
+    id: ID
+    name: str
+    release: Optional[Release] = None
+    size: int
+    updated_at: DateTime
+    uploaded_by: User
+    url: URI
+
+
+@dataclass(kw_only=True)
+class ReleaseAssetEdge:
+    cursor: str
+    node: Optional[ReleaseAsset] = None
+
+
+@dataclass(kw_only=True)
+class ReleaseAssetConnection:
+    edges: Optional[list[ReleaseAssetEdge]] = None
+    nodes: Optional[list[ReleaseAsset]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class License:
+    body: str
+    conditions: list[LicenseRule]
+    description: Optional[str] = None
+    featured: bool
+    hidden: bool
+    id: ID
+    implementation: Optional[str] = None
+    key: str
+    limitations: list[LicenseRule]
+    name: str
+    nickname: Optional[str] = None
+    permissions: list[LicenseRule]
+    pseudo_license: bool
+    spdx_id: Optional[str] = None
+    url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class MergeQueueEntry:
+    base_commit: Optional[Commit] = None
+    enqueued_at: DateTime
+    enqueuer: Actor
+    estimated_time_to_merge: Optional[int] = None
+    head_commit: Optional[Commit] = None
+    id: ID
+    jump: bool
+    merge_queue: Optional[MergeQueue] = None
+    position: int
+    pull_request: Optional[PullRequest] = None
+    solo: bool
+    state: MergeQueueEntryState
+
+
+@dataclass(kw_only=True)
+class MergeQueueEntryEdge:
+    cursor: str
+    node: Optional[MergeQueueEntry] = None
+
+
+@dataclass(kw_only=True)
+class MergeQueueEntryConnection:
+    edges: Optional[list[MergeQueueEntryEdge]] = None
+    nodes: Optional[list[MergeQueueEntry]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class MilestoneEdge:
+    cursor: str
+    node: Optional[Milestone] = None
+
+
+@dataclass(kw_only=True)
+class MilestoneConnection:
+    edges: Optional[list[MilestoneEdge]] = None
+    nodes: Optional[list[Milestone]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class GitObject:
+    abbreviated_oid: str
+    commit_resource_path: URI
+    commit_url: URI
+    id: ID
+    oid: GitObjectID
+    repository: Repository
+
+
+@dataclass(kw_only=True)
+class RepositoryOwner:
+    avatar_url: URI
+    id: ID
+    login: str
+    repositories: RepositoryConnection
+    repository: Optional[Repository] = None
+    resource_path: URI
+    url: URI
+
+
+@dataclass(kw_only=True)
+class PackageFile:
+    id: ID
+    md5: Optional[str] = None
+    name: str
+    package_version: Optional[PackageVersion] = None
+    sha1: Optional[str] = None
+    sha256: Optional[str] = None
+    size: Optional[int] = None
+    updated_at: DateTime
+    url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class PackageFileEdge:
+    cursor: str
+    node: Optional[PackageFile] = None
+
+
+@dataclass(kw_only=True)
+class PackageFileConnection:
+    edges: Optional[list[PackageFileEdge]] = None
+    nodes: Optional[list[PackageFile]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class PackageVersionEdge:
+    cursor: str
+    node: Optional[PackageVersion] = None
+
+
+@dataclass(kw_only=True)
+class PackageVersionConnection:
+    edges: Optional[list[PackageVersionEdge]] = None
+    nodes: Optional[list[PackageVersion]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class PackageEdge:
+    cursor: str
+    node: Optional[Package] = None
+
+
+@dataclass(kw_only=True)
+class PackageConnection:
+    edges: Optional[list[PackageEdge]] = None
+    nodes: Optional[list[Package]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class PinnedDiscussion:
+    created_at: DateTime
+    database_id: Optional[int] = None
+    discussion: Discussion
+    gradient_stop_colors: list[str]
+    id: ID
+    pattern: PinnedDiscussionPattern
+    pinned_by: Actor
+    preconfigured_gradient: Optional[PinnedDiscussionGradient] = None
+    repository: Repository
+    updated_at: DateTime
+
+
+@dataclass(kw_only=True)
+class PinnedDiscussionEdge:
+    cursor: str
+    node: Optional[PinnedDiscussion] = None
+
+
+@dataclass(kw_only=True)
+class PinnedDiscussionConnection:
+    edges: Optional[list[PinnedDiscussionEdge]] = None
+    nodes: Optional[list[PinnedDiscussion]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class PinnedIssue:
+    database_id: Optional[int] = None
+    full_database_id: Optional[BigInt] = None
+    id: ID
+    issue: Issue
+    pinned_by: Actor
+    repository: Repository
+
+
+@dataclass(kw_only=True)
+class PinnedIssueEdge:
+    cursor: str
+    node: Optional[PinnedIssue] = None
+
+
+@dataclass(kw_only=True)
+class PinnedIssueConnection:
+    edges: Optional[list[PinnedIssueEdge]] = None
+    nodes: Optional[list[PinnedIssue]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class ProjectCard:
+    column: Optional[ProjectColumn] = None
+    content: Optional[ProjectCardItem] = None
+    created_at: DateTime
+    creator: Optional[Actor] = None
+    database_id: Optional[int] = None
+    id: ID
+    is_archived: bool
+    note: Optional[str] = None
+    project: Project
+    resource_path: URI
+    state: Optional[ProjectCardState] = None
+    updated_at: DateTime
+    url: URI
+
+
+@dataclass(kw_only=True)
+class ProjectCardEdge:
+    cursor: str
+    node: Optional[ProjectCard] = None
+
+
+@dataclass(kw_only=True)
+class ProjectCardConnection:
+    edges: Optional[list[ProjectCardEdge]] = None
+    nodes: Optional[list[ProjectCard]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class ProjectColumnEdge:
+    cursor: str
+    node: Optional[ProjectColumn] = None
+
+
+@dataclass(kw_only=True)
+class ProjectColumnConnection:
+    edges: Optional[list[ProjectColumnEdge]] = None
+    nodes: Optional[list[ProjectColumn]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class ProjectEdge:
+    cursor: str
+    node: Optional[Project] = None
+
+
+@dataclass(kw_only=True)
+class ProjectConnection:
+    edges: Optional[list[ProjectEdge]] = None
+    nodes: Optional[list[Project]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class ProjectOwner:
+    id: ID
+    project: Optional[Project] = None
+    projects: ProjectConnection
+    projects_resource_path: URI
+    projects_url: URI
+    viewer_can_create_projects: bool
+
+
+@dataclass(kw_only=True)
+class PullRequestTemplate:
+    body: Optional[str] = None
+    filename: Optional[str] = None
+    repository: Repository
+
+
+@dataclass(kw_only=True)
+class RefEdge:
+    cursor: str
+    node: Optional[Ref] = None
+
+
+@dataclass(kw_only=True)
+class RefConnection:
+    edges: Optional[list[RefEdge]] = None
+    nodes: Optional[list[Ref]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class ReleaseEdge:
+    cursor: str
+    node: Optional[Release] = None
+
+
+@dataclass(kw_only=True)
+class ReleaseConnection:
+    edges: Optional[list[ReleaseEdge]] = None
+    nodes: Optional[list[Release]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class StargazerEdge:
+    cursor: str
+    node: User
+    starred_at: DateTime
+
+
+@dataclass(kw_only=True)
+class StargazerConnection:
+    edges: Optional[list[StargazerEdge]] = None
+    nodes: Optional[list[User]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class RepositoryTopic:
+    id: ID
+    resource_path: URI
+    topic: Topic
+    url: URI
+
+
+@dataclass(kw_only=True)
+class RepositoryTopicEdge:
+    cursor: str
+    node: Optional[RepositoryTopic] = None
+
+
+@dataclass(kw_only=True)
+class RepositoryTopicConnection:
+    edges: Optional[list[RepositoryTopicEdge]] = None
+    nodes: Optional[list[RepositoryTopic]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class RepositoryRulesetBypassActor:
+    actor: Optional[BypassActor] = None
+    bypass_mode: Optional[RepositoryRulesetBypassActorBypassMode] = None
+    id: ID
+    organization_admin: bool
+    repository_role_database_id: Optional[int] = None
+    repository_role_name: Optional[str] = None
+    repository_ruleset: Optional[RepositoryRuleset] = None
+
+
+@dataclass(kw_only=True)
+class RepositoryRulesetBypassActorEdge:
+    cursor: str
+    node: Optional[RepositoryRulesetBypassActor] = None
+
+
+@dataclass(kw_only=True)
+class RepositoryRulesetBypassActorConnection:
+    edges: Optional[list[RepositoryRulesetBypassActorEdge]] = None
+    nodes: Optional[list[RepositoryRulesetBypassActor]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class RepositoryPropertyConditionTarget:
+    exclude: list[PropertyTargetDefinition]
+    include: list[PropertyTargetDefinition]
+
+
+@dataclass(kw_only=True)
+class RepositoryRuleConditions:
+    ref_name: Optional[RefNameConditionTarget] = None
+    repository_id: Optional[RepositoryIdConditionTarget] = None
+    repository_name: Optional[RepositoryNameConditionTarget] = None
+    repository_property: Optional[RepositoryPropertyConditionTarget] = None
+
+
+@dataclass(kw_only=True)
+class RequiredStatusChecksParameters:
+    required_status_checks: list[StatusCheckConfiguration]
+    strict_required_status_checks_policy: bool
+
+
+@dataclass(kw_only=True)
+class WorkflowsParameters:
+    workflows: list[WorkflowFileReference]
+
+
+@dataclass(kw_only=True)
+class RepositoryRule:
+    id: ID
+    parameters: Optional[RuleParameters] = None
+    repository_ruleset: Optional[RepositoryRuleset] = None
+    type: RepositoryRuleType
+
+
+@dataclass(kw_only=True)
+class RepositoryRuleEdge:
+    cursor: str
+    node: Optional[RepositoryRule] = None
+
+
+@dataclass(kw_only=True)
+class RepositoryRuleConnection:
+    edges: Optional[list[RepositoryRuleEdge]] = None
+    nodes: Optional[list[RepositoryRule]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class RepositoryRulesetEdge:
+    cursor: str
+    node: Optional[RepositoryRuleset] = None
+
+
+@dataclass(kw_only=True)
+class RepositoryRulesetConnection:
+    edges: Optional[list[RepositoryRulesetEdge]] = None
+    nodes: Optional[list[RepositoryRuleset]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class SubmoduleEdge:
+    cursor: str
+    node: Optional[Submodule] = None
+
+
+@dataclass(kw_only=True)
+class SubmoduleConnection:
+    edges: Optional[list[SubmoduleEdge]] = None
+    nodes: Optional[list[Submodule]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class DependabotUpdate:
+    error: Optional[DependabotUpdateError] = None
+    pull_request: Optional[PullRequest] = None
+    repository: Repository
+
+
+@dataclass(kw_only=True)
+class CWEEdge:
+    cursor: str
+    node: Optional[CWE] = None
+
+
+@dataclass(kw_only=True)
+class CWEConnection:
+    edges: Optional[list[CWEEdge]] = None
+    nodes: Optional[list[CWE]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class SecurityVulnerability:
+    advisory: SecurityAdvisory
+    first_patched_version: Optional[SecurityAdvisoryPackageVersion] = None
+    package: SecurityAdvisoryPackage
+    severity: SecurityAdvisorySeverity
+    updated_at: DateTime
+    vulnerable_version_range: str
+
+
+@dataclass(kw_only=True)
+class SecurityVulnerabilityEdge:
+    cursor: str
+    node: Optional[SecurityVulnerability] = None
+
+
+@dataclass(kw_only=True)
+class SecurityVulnerabilityConnection:
+    edges: Optional[list[SecurityVulnerabilityEdge]] = None
+    nodes: Optional[list[SecurityVulnerability]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class RepositoryVulnerabilityAlert:
+    auto_dismissed_at: Optional[DateTime] = None
+    created_at: DateTime
+    dependabot_update: Optional[DependabotUpdate] = None
+    dependency_scope: Optional[RepositoryVulnerabilityAlertDependencyScope] = None
+    dismiss_comment: Optional[str] = None
+    dismiss_reason: Optional[str] = None
+    dismissed_at: Optional[DateTime] = None
+    dismisser: Optional[User] = None
+    fixed_at: Optional[DateTime] = None
+    id: ID
+    number: int
+    repository: Repository
+    security_advisory: Optional[SecurityAdvisory] = None
+    security_vulnerability: Optional[SecurityVulnerability] = None
+    state: RepositoryVulnerabilityAlertState
+    vulnerable_manifest_filename: str
+    vulnerable_manifest_path: str
+    vulnerable_requirements: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class RepositoryVulnerabilityAlertEdge:
+    cursor: str
+    node: Optional[RepositoryVulnerabilityAlert] = None
+
+
+@dataclass(kw_only=True)
+class RepositoryVulnerabilityAlertConnection:
+    edges: Optional[list[RepositoryVulnerabilityAlertEdge]] = None
+    nodes: Optional[list[RepositoryVulnerabilityAlert]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class OrgRestoreMemberMembershipRepositoryAuditEntryData:
+    repository: Optional[Repository] = None
+    repository_name: Optional[str] = None
+    repository_resource_path: Optional[URI] = None
+    repository_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class OrgRestoreMemberMembershipTeamAuditEntryData:
+    team: Optional[Team] = None
+    team_name: Optional[str] = None
+    team_resource_path: Optional[URI] = None
+    team_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class OrgRestoreMemberAuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    created_at: PreciseDateTime
+    id: ID
+    operation_type: Optional[OperationType] = None
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+    restored_custom_email_routings_count: Optional[int] = None
+    restored_issue_assignments_count: Optional[int] = None
+    restored_memberships: Optional[list[OrgRestoreMemberAuditEntryMembership]] = None
+    restored_memberships_count: Optional[int] = None
+    restored_repositories_count: Optional[int] = None
+    restored_repository_stars_count: Optional[int] = None
+    restored_repository_watches_count: Optional[int] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class OrgUnblockUserAuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    blocked_user: Optional[User] = None
+    blocked_user_name: Optional[str] = None
+    blocked_user_resource_path: Optional[URI] = None
+    blocked_user_url: Optional[URI] = None
+    created_at: PreciseDateTime
+    id: ID
+    operation_type: Optional[OperationType] = None
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class OrgUpdateDefaultRepositoryPermissionAuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    created_at: PreciseDateTime
+    id: ID
+    operation_type: Optional[OperationType] = None
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+    permission: Optional[
+        OrgUpdateDefaultRepositoryPermissionAuditEntryPermission
+    ] = None
+    permission_was: Optional[
+        OrgUpdateDefaultRepositoryPermissionAuditEntryPermission
+    ] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class OrgUpdateMemberAuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    created_at: PreciseDateTime
+    id: ID
+    operation_type: Optional[OperationType] = None
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+    permission: Optional[OrgUpdateMemberAuditEntryPermission] = None
+    permission_was: Optional[OrgUpdateMemberAuditEntryPermission] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class OrgUpdateMemberRepositoryCreationPermissionAuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    can_create_repositories: Optional[bool] = None
+    created_at: PreciseDateTime
+    id: ID
+    operation_type: Optional[OperationType] = None
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+    visibility: Optional[
+        OrgUpdateMemberRepositoryCreationPermissionAuditEntryVisibility
+    ] = None
+
+
+@dataclass(kw_only=True)
+class OrgUpdateMemberRepositoryInvitationPermissionAuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    can_invite_outside_collaborators_to_repositories: Optional[bool] = None
+    created_at: PreciseDateTime
+    id: ID
+    operation_type: Optional[OperationType] = None
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class PrivateRepositoryForkingDisableAuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    created_at: PreciseDateTime
+    enterprise_resource_path: Optional[URI] = None
+    enterprise_slug: Optional[str] = None
+    enterprise_url: Optional[URI] = None
+    id: ID
+    operation_type: Optional[OperationType] = None
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+    repository: Optional[Repository] = None
+    repository_name: Optional[str] = None
+    repository_resource_path: Optional[URI] = None
+    repository_url: Optional[URI] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class PrivateRepositoryForkingEnableAuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    created_at: PreciseDateTime
+    enterprise_resource_path: Optional[URI] = None
+    enterprise_slug: Optional[str] = None
+    enterprise_url: Optional[URI] = None
+    id: ID
+    operation_type: Optional[OperationType] = None
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+    repository: Optional[Repository] = None
+    repository_name: Optional[str] = None
+    repository_resource_path: Optional[URI] = None
+    repository_url: Optional[URI] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class RepoAccessAuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    created_at: PreciseDateTime
+    id: ID
+    operation_type: Optional[OperationType] = None
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+    repository: Optional[Repository] = None
+    repository_name: Optional[str] = None
+    repository_resource_path: Optional[URI] = None
+    repository_url: Optional[URI] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+    visibility: Optional[RepoAccessAuditEntryVisibility] = None
+
+
+@dataclass(kw_only=True)
+class RepoAddMemberAuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    created_at: PreciseDateTime
+    id: ID
+    operation_type: Optional[OperationType] = None
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+    repository: Optional[Repository] = None
+    repository_name: Optional[str] = None
+    repository_resource_path: Optional[URI] = None
+    repository_url: Optional[URI] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+    visibility: Optional[RepoAddMemberAuditEntryVisibility] = None
+
+
+@dataclass(kw_only=True)
+class RepoAddTopicAuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    created_at: PreciseDateTime
+    id: ID
+    operation_type: Optional[OperationType] = None
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+    repository: Optional[Repository] = None
+    repository_name: Optional[str] = None
+    repository_resource_path: Optional[URI] = None
+    repository_url: Optional[URI] = None
+    topic: Optional[Topic] = None
+    topic_name: Optional[str] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class RepoArchivedAuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    created_at: PreciseDateTime
+    id: ID
+    operation_type: Optional[OperationType] = None
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+    repository: Optional[Repository] = None
+    repository_name: Optional[str] = None
+    repository_resource_path: Optional[URI] = None
+    repository_url: Optional[URI] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+    visibility: Optional[RepoArchivedAuditEntryVisibility] = None
+
+
+@dataclass(kw_only=True)
+class RepoChangeMergeSettingAuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    created_at: PreciseDateTime
+    id: ID
+    is_enabled: Optional[bool] = None
+    merge_type: Optional[RepoChangeMergeSettingAuditEntryMergeType] = None
+    operation_type: Optional[OperationType] = None
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+    repository: Optional[Repository] = None
+    repository_name: Optional[str] = None
+    repository_resource_path: Optional[URI] = None
+    repository_url: Optional[URI] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class RepoConfigDisableAnonymousGitAccessAuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    created_at: PreciseDateTime
+    id: ID
+    operation_type: Optional[OperationType] = None
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+    repository: Optional[Repository] = None
+    repository_name: Optional[str] = None
+    repository_resource_path: Optional[URI] = None
+    repository_url: Optional[URI] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class RepoConfigDisableCollaboratorsOnlyAuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    created_at: PreciseDateTime
+    id: ID
+    operation_type: Optional[OperationType] = None
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+    repository: Optional[Repository] = None
+    repository_name: Optional[str] = None
+    repository_resource_path: Optional[URI] = None
+    repository_url: Optional[URI] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class RepoConfigDisableContributorsOnlyAuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    created_at: PreciseDateTime
+    id: ID
+    operation_type: Optional[OperationType] = None
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+    repository: Optional[Repository] = None
+    repository_name: Optional[str] = None
+    repository_resource_path: Optional[URI] = None
+    repository_url: Optional[URI] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class RepoConfigDisableSockpuppetDisallowedAuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    created_at: PreciseDateTime
+    id: ID
+    operation_type: Optional[OperationType] = None
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+    repository: Optional[Repository] = None
+    repository_name: Optional[str] = None
+    repository_resource_path: Optional[URI] = None
+    repository_url: Optional[URI] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class RepoConfigEnableAnonymousGitAccessAuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    created_at: PreciseDateTime
+    id: ID
+    operation_type: Optional[OperationType] = None
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+    repository: Optional[Repository] = None
+    repository_name: Optional[str] = None
+    repository_resource_path: Optional[URI] = None
+    repository_url: Optional[URI] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class RepoConfigEnableCollaboratorsOnlyAuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    created_at: PreciseDateTime
+    id: ID
+    operation_type: Optional[OperationType] = None
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+    repository: Optional[Repository] = None
+    repository_name: Optional[str] = None
+    repository_resource_path: Optional[URI] = None
+    repository_url: Optional[URI] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class RepoConfigEnableContributorsOnlyAuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    created_at: PreciseDateTime
+    id: ID
+    operation_type: Optional[OperationType] = None
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+    repository: Optional[Repository] = None
+    repository_name: Optional[str] = None
+    repository_resource_path: Optional[URI] = None
+    repository_url: Optional[URI] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class RepoConfigEnableSockpuppetDisallowedAuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    created_at: PreciseDateTime
+    id: ID
+    operation_type: Optional[OperationType] = None
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+    repository: Optional[Repository] = None
+    repository_name: Optional[str] = None
+    repository_resource_path: Optional[URI] = None
+    repository_url: Optional[URI] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class RepoConfigLockAnonymousGitAccessAuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    created_at: PreciseDateTime
+    id: ID
+    operation_type: Optional[OperationType] = None
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+    repository: Optional[Repository] = None
+    repository_name: Optional[str] = None
+    repository_resource_path: Optional[URI] = None
+    repository_url: Optional[URI] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class RepoConfigUnlockAnonymousGitAccessAuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    created_at: PreciseDateTime
+    id: ID
+    operation_type: Optional[OperationType] = None
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+    repository: Optional[Repository] = None
+    repository_name: Optional[str] = None
+    repository_resource_path: Optional[URI] = None
+    repository_url: Optional[URI] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class RepoCreateAuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    created_at: PreciseDateTime
+    fork_parent_name: Optional[str] = None
+    fork_source_name: Optional[str] = None
+    id: ID
+    operation_type: Optional[OperationType] = None
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+    repository: Optional[Repository] = None
+    repository_name: Optional[str] = None
+    repository_resource_path: Optional[URI] = None
+    repository_url: Optional[URI] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+    visibility: Optional[RepoCreateAuditEntryVisibility] = None
+
+
+@dataclass(kw_only=True)
+class RepoDestroyAuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    created_at: PreciseDateTime
+    id: ID
+    operation_type: Optional[OperationType] = None
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+    repository: Optional[Repository] = None
+    repository_name: Optional[str] = None
+    repository_resource_path: Optional[URI] = None
+    repository_url: Optional[URI] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+    visibility: Optional[RepoDestroyAuditEntryVisibility] = None
+
+
+@dataclass(kw_only=True)
+class RepoRemoveMemberAuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    created_at: PreciseDateTime
+    id: ID
+    operation_type: Optional[OperationType] = None
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+    repository: Optional[Repository] = None
+    repository_name: Optional[str] = None
+    repository_resource_path: Optional[URI] = None
+    repository_url: Optional[URI] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+    visibility: Optional[RepoRemoveMemberAuditEntryVisibility] = None
+
+
+@dataclass(kw_only=True)
+class RepoRemoveTopicAuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    created_at: PreciseDateTime
+    id: ID
+    operation_type: Optional[OperationType] = None
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+    repository: Optional[Repository] = None
+    repository_name: Optional[str] = None
+    repository_resource_path: Optional[URI] = None
+    repository_url: Optional[URI] = None
+    topic: Optional[Topic] = None
+    topic_name: Optional[str] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class RepositoryVisibilityChangeDisableAuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    created_at: PreciseDateTime
+    enterprise_resource_path: Optional[URI] = None
+    enterprise_slug: Optional[str] = None
+    enterprise_url: Optional[URI] = None
+    id: ID
+    operation_type: Optional[OperationType] = None
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class RepositoryVisibilityChangeEnableAuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    created_at: PreciseDateTime
+    enterprise_resource_path: Optional[URI] = None
+    enterprise_slug: Optional[str] = None
+    enterprise_url: Optional[URI] = None
+    id: ID
+    operation_type: Optional[OperationType] = None
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class TeamAddMemberAuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    created_at: PreciseDateTime
+    id: ID
+    is_ldap_mapped: Optional[bool] = None
+    operation_type: Optional[OperationType] = None
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+    team: Optional[Team] = None
+    team_name: Optional[str] = None
+    team_resource_path: Optional[URI] = None
+    team_url: Optional[URI] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class TeamAddRepositoryAuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    created_at: PreciseDateTime
+    id: ID
+    is_ldap_mapped: Optional[bool] = None
+    operation_type: Optional[OperationType] = None
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+    repository: Optional[Repository] = None
+    repository_name: Optional[str] = None
+    repository_resource_path: Optional[URI] = None
+    repository_url: Optional[URI] = None
+    team: Optional[Team] = None
+    team_name: Optional[str] = None
+    team_resource_path: Optional[URI] = None
+    team_url: Optional[URI] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class TeamChangeParentTeamAuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    created_at: PreciseDateTime
+    id: ID
+    is_ldap_mapped: Optional[bool] = None
+    operation_type: Optional[OperationType] = None
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+    parent_team: Optional[Team] = None
+    parent_team_name: Optional[str] = None
+    parent_team_name_was: Optional[str] = None
+    parent_team_resource_path: Optional[URI] = None
+    parent_team_url: Optional[URI] = None
+    parent_team_was: Optional[Team] = None
+    parent_team_was_resource_path: Optional[URI] = None
+    parent_team_was_url: Optional[URI] = None
+    team: Optional[Team] = None
+    team_name: Optional[str] = None
+    team_resource_path: Optional[URI] = None
+    team_url: Optional[URI] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class TeamRemoveMemberAuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    created_at: PreciseDateTime
+    id: ID
+    is_ldap_mapped: Optional[bool] = None
+    operation_type: Optional[OperationType] = None
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+    team: Optional[Team] = None
+    team_name: Optional[str] = None
+    team_resource_path: Optional[URI] = None
+    team_url: Optional[URI] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class TeamRemoveRepositoryAuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    created_at: PreciseDateTime
+    id: ID
+    is_ldap_mapped: Optional[bool] = None
+    operation_type: Optional[OperationType] = None
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+    repository: Optional[Repository] = None
+    repository_name: Optional[str] = None
+    repository_resource_path: Optional[URI] = None
+    repository_url: Optional[URI] = None
+    team: Optional[Team] = None
+    team_name: Optional[str] = None
+    team_resource_path: Optional[URI] = None
+    team_url: Optional[URI] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class OrganizationAuditEntryEdge:
+    cursor: str
+    node: Optional[OrganizationAuditEntry] = None
+
+
+@dataclass(kw_only=True)
+class OrganizationAuditEntryConnection:
+    edges: Optional[list[OrganizationAuditEntryEdge]] = None
+    nodes: Optional[list[OrganizationAuditEntry]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class VerifiableDomain:
+    created_at: DateTime
+    database_id: Optional[int] = None
+    dns_host_name: Optional[URI] = None
+    domain: URI
+    has_found_host_name: bool
+    has_found_verification_token: bool
+    id: ID
+    is_approved: bool
+    is_required_for_policy_enforcement: bool
+    is_verified: bool
+    owner: VerifiableDomainOwner
+    punycode_encoded_domain: URI
+    token_expiration_time: Optional[DateTime] = None
+    updated_at: DateTime
+    verification_token: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class VerifiableDomainEdge:
+    cursor: str
+    node: Optional[VerifiableDomain] = None
+
+
+@dataclass(kw_only=True)
+class VerifiableDomainConnection:
+    edges: Optional[list[VerifiableDomainEdge]] = None
+    nodes: Optional[list[VerifiableDomain]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class OrganizationEnterpriseOwnerEdge:
+    cursor: str
+    node: Optional[User] = None
+    organization_role: RoleInOrganization
+
+
+@dataclass(kw_only=True)
+class OrganizationEnterpriseOwnerConnection:
+    edges: Optional[list[OrganizationEnterpriseOwnerEdge]] = None
+    nodes: Optional[list[User]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class GistComment:
+    author: Optional[Actor] = None
+    author_association: CommentAuthorAssociation
+    body: str
+    body_h_t_m_l: HTML
+    body_text: str
+    created_at: DateTime
+    created_via_email: bool
+    database_id: Optional[int] = None
+    editor: Optional[Actor] = None
+    gist: Gist
+    id: ID
+    includes_created_edit: bool
+    is_minimized: bool
+    last_edited_at: Optional[DateTime] = None
+    minimized_reason: Optional[str] = None
+    published_at: Optional[DateTime] = None
+    updated_at: DateTime
+    user_content_edits: Optional[UserContentEditConnection] = None
+    viewer_can_delete: bool
+    viewer_can_minimize: bool
+    viewer_can_update: bool
+    viewer_cannot_update_reasons: list[CommentCannotUpdateReason]
+    viewer_did_author: bool
+
+
+@dataclass(kw_only=True)
+class GistCommentEdge:
+    cursor: str
+    node: Optional[GistComment] = None
+
+
+@dataclass(kw_only=True)
+class GistCommentConnection:
+    edges: Optional[list[GistCommentEdge]] = None
+    nodes: Optional[list[GistComment]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class GistFile:
+    encoded_name: Optional[str] = None
+    encoding: Optional[str] = None
+    extension: Optional[str] = None
+    is_image: bool
+    is_truncated: bool
+    language: Optional[Language] = None
+    name: Optional[str] = None
+    size: Optional[int] = None
+    text: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class GistEdge:
+    cursor: str
+    node: Optional[Gist] = None
+
+
+@dataclass(kw_only=True)
+class GistConnection:
+    edges: Optional[list[GistEdge]] = None
+    nodes: Optional[list[Gist]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class PinnableItemEdge:
+    cursor: str
+    node: Optional[PinnableItem] = None
+
+
+@dataclass(kw_only=True)
+class PinnableItemConnection:
+    edges: Optional[list[PinnableItemEdge]] = None
+    nodes: Optional[list[PinnableItem]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class ProfileItemShowcase:
+    has_pinned_items: bool
+    items: PinnableItemConnection
+
+
+@dataclass(kw_only=True)
+class SponsorEdge:
+    cursor: str
+    node: Optional[Sponsor] = None
+
+
+@dataclass(kw_only=True)
+class SponsorConnection:
+    edges: Optional[list[SponsorEdge]] = None
+    nodes: Optional[list[Sponsor]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class Sponsorship:
+    created_at: DateTime
+    id: ID
+    is_active: bool
+    is_one_time_payment: bool
+    is_sponsor_opted_into_email: Optional[bool] = None
+    payment_source: Optional[SponsorshipPaymentSource] = None
+    privacy_level: SponsorshipPrivacy
+    sponsor_entity: Optional[Sponsor] = None
+    sponsorable: Sponsorable
+    tier: Optional[SponsorsTier] = None
+    tier_selected_at: Optional[DateTime] = None
+
+
+@dataclass(kw_only=True)
+class SponsorshipEdge:
+    cursor: str
+    node: Optional[Sponsorship] = None
+
+
+@dataclass(kw_only=True)
+class SponsorshipConnection:
+    edges: Optional[list[SponsorshipEdge]] = None
+    nodes: Optional[list[Sponsorship]] = None
+    page_info: PageInfo
+    total_count: int
+    total_recurring_monthly_price_in_cents: int
+    total_recurring_monthly_price_in_dollars: int
+
+
+@dataclass(kw_only=True)
+class SponsorsTierAdminInfo:
+    is_draft: bool
+    is_published: bool
+    is_retired: bool
+    sponsorships: SponsorshipConnection
+
+
+@dataclass(kw_only=True)
+class StripeConnectAccount:
+    account_id: str
+    billing_country_or_region: Optional[str] = None
+    country_or_region: Optional[str] = None
+    is_active: bool
+    sponsors_listing: SponsorsListing
+    stripe_dashboard_url: URI
+
+
+@dataclass(kw_only=True)
+class SponsorsListingFeaturedItem:
+    created_at: DateTime
+    description: Optional[str] = None
+    featureable: SponsorsListingFeatureableItem
+    id: ID
+    position: int
+    sponsors_listing: SponsorsListing
+    updated_at: DateTime
+
+
+@dataclass(kw_only=True)
+class SponsorsTierEdge:
+    cursor: str
+    node: Optional[SponsorsTier] = None
+
+
+@dataclass(kw_only=True)
+class SponsorsTierConnection:
+    edges: Optional[list[SponsorsTierEdge]] = None
+    nodes: Optional[list[SponsorsTier]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class SponsorsActivity:
+    action: SponsorsActivityAction
+    current_privacy_level: Optional[SponsorshipPrivacy] = None
+    id: ID
+    payment_source: Optional[SponsorshipPaymentSource] = None
+    previous_sponsors_tier: Optional[SponsorsTier] = None
+    sponsor: Optional[Sponsor] = None
+    sponsorable: Sponsorable
+    sponsors_tier: Optional[SponsorsTier] = None
+    timestamp: Optional[DateTime] = None
+    via_bulk_sponsorship: bool
+
+
+@dataclass(kw_only=True)
+class SponsorsActivityEdge:
+    cursor: str
+    node: Optional[SponsorsActivity] = None
+
+
+@dataclass(kw_only=True)
+class SponsorsActivityConnection:
+    edges: Optional[list[SponsorsActivityEdge]] = None
+    nodes: Optional[list[SponsorsActivity]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class SponsorshipNewsletter:
+    author: Optional[User] = None
+    body: str
+    created_at: DateTime
+    id: ID
+    is_published: bool
+    sponsorable: Sponsorable
+    subject: str
+    updated_at: DateTime
+
+
+@dataclass(kw_only=True)
+class SponsorshipNewsletterEdge:
+    cursor: str
+    node: Optional[SponsorshipNewsletter] = None
+
+
+@dataclass(kw_only=True)
+class SponsorshipNewsletterConnection:
+    edges: Optional[list[SponsorshipNewsletterEdge]] = None
+    nodes: Optional[list[SponsorshipNewsletter]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class SponsorAndLifetimeValue:
+    amount_in_cents: int
+    formatted_amount: str
+    sponsor: Sponsorable
+    sponsorable: Sponsorable
+
+
+@dataclass(kw_only=True)
+class SponsorAndLifetimeValueEdge:
+    cursor: str
+    node: Optional[SponsorAndLifetimeValue] = None
+
+
+@dataclass(kw_only=True)
+class MannequinEdge:
+    cursor: str
+    node: Optional[Mannequin] = None
+
+
+@dataclass(kw_only=True)
+class MannequinConnection:
+    edges: Optional[list[MannequinEdge]] = None
+    nodes: Optional[list[Mannequin]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class OrganizationMemberEdge:
+    cursor: str
+    has_two_factor_enabled: Optional[bool] = None
+    node: Optional[User] = None
+    role: Optional[OrganizationMemberRole] = None
+
+
+@dataclass(kw_only=True)
+class OrganizationMemberConnection:
+    edges: Optional[list[OrganizationMemberEdge]] = None
+    nodes: Optional[list[User]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class RepositoryMigration:
+    continue_on_error: bool
+    created_at: DateTime
+    database_id: Optional[str] = None
+    failure_reason: Optional[str] = None
+    id: ID
+    migration_log_url: Optional[URI] = None
+    migration_source: MigrationSource
+    repository_name: str
+    source_url: URI
+    state: MigrationState
+    warnings_count: int
+
+
+@dataclass(kw_only=True)
+class RepositoryMigrationEdge:
+    cursor: str
+    node: Optional[RepositoryMigration] = None
+
+
+@dataclass(kw_only=True)
+class RepositoryMigrationConnection:
+    edges: Optional[list[RepositoryMigrationEdge]] = None
+    nodes: Optional[list[RepositoryMigration]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class ExternalIdentitySamlAttributes:
+    attributes: list[ExternalIdentityAttribute]
+    emails: Optional[list[UserEmailMetadata]] = None
+    family_name: Optional[str] = None
+    given_name: Optional[str] = None
+    groups: Optional[list[str]] = None
+    name_id: Optional[str] = None
+    username: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class ExternalIdentityScimAttributes:
+    emails: Optional[list[UserEmailMetadata]] = None
+    family_name: Optional[str] = None
+    given_name: Optional[str] = None
+    groups: Optional[list[str]] = None
+    username: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class ExternalIdentity:
+    guid: str
+    id: ID
+    organization_invitation: Optional[OrganizationInvitation] = None
+    saml_identity: Optional[ExternalIdentitySamlAttributes] = None
+    scim_identity: Optional[ExternalIdentityScimAttributes] = None
+    user: Optional[User] = None
+
+
+@dataclass(kw_only=True)
+class ExternalIdentityEdge:
+    cursor: str
+    node: Optional[ExternalIdentity] = None
+
+
+@dataclass(kw_only=True)
+class ExternalIdentityConnection:
+    edges: Optional[list[ExternalIdentityEdge]] = None
+    nodes: Optional[list[ExternalIdentity]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class OrganizationIdentityProvider:
+    digest_method: Optional[URI] = None
+    external_identities: ExternalIdentityConnection
+    id: ID
+    idp_certificate: Optional[X509Certificate] = None
+    issuer: Optional[str] = None
+    organization: Optional[Organization] = None
+    signature_method: Optional[URI] = None
+    sso_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class EnterpriseOrganizationMembershipEdge:
+    cursor: str
+    node: Optional[Organization] = None
+    role: EnterpriseUserAccountMembershipRole
+
+
+@dataclass(kw_only=True)
+class EnterpriseOrganizationMembershipConnection:
+    edges: Optional[list[EnterpriseOrganizationMembershipEdge]] = None
+    nodes: Optional[list[Organization]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class EnterpriseUserAccount:
+    avatar_url: URI
+    created_at: DateTime
+    enterprise: Enterprise
+    enterprise_installations: EnterpriseServerInstallationMembershipConnection
+    id: ID
+    login: str
+    name: Optional[str] = None
+    organizations: EnterpriseOrganizationMembershipConnection
+    resource_path: URI
+    updated_at: DateTime
+    url: URI
+    user: Optional[User] = None
+
+
+@dataclass(kw_only=True)
+class EnterpriseMemberEdge:
+    cursor: str
+    node: Optional[EnterpriseMember] = None
+
+
+@dataclass(kw_only=True)
+class EnterpriseMemberConnection:
+    edges: Optional[list[EnterpriseMemberEdge]] = None
+    nodes: Optional[list[EnterpriseMember]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class OrganizationEdge:
+    cursor: str
+    node: Optional[Organization] = None
+
+
+@dataclass(kw_only=True)
+class OrganizationConnection:
+    edges: Optional[list[OrganizationEdge]] = None
+    nodes: Optional[list[Organization]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class EnterpriseAdministratorEdge:
+    cursor: str
+    node: Optional[User] = None
+    role: EnterpriseAdministratorRole
+
+
+@dataclass(kw_only=True)
+class EnterpriseAdministratorConnection:
+    edges: Optional[list[EnterpriseAdministratorEdge]] = None
+    nodes: Optional[list[User]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class EnterpriseServerInstallationEdge:
+    cursor: str
+    node: Optional[EnterpriseServerInstallation] = None
+
+
+@dataclass(kw_only=True)
+class EnterpriseServerInstallationConnection:
+    edges: Optional[list[EnterpriseServerInstallationEdge]] = None
+    nodes: Optional[list[EnterpriseServerInstallation]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class EnterpriseFailedInvitationEdge:
+    cursor: str
+    node: Optional[OrganizationInvitation] = None
+
+
+@dataclass(kw_only=True)
+class EnterpriseFailedInvitationConnection:
+    edges: Optional[list[EnterpriseFailedInvitationEdge]] = None
+    nodes: Optional[list[OrganizationInvitation]] = None
+    page_info: PageInfo
+    total_count: int
+    total_unique_user_count: int
+
+
+@dataclass(kw_only=True)
+class OIDCProvider:
+    enterprise: Optional[Enterprise] = None
+    external_identities: ExternalIdentityConnection
+    id: ID
+    provider_type: OIDCProviderType
+    tenant_id: str
+
+
+@dataclass(kw_only=True)
+class EnterpriseRepositoryInfoEdge:
+    cursor: str
+    node: Optional[EnterpriseRepositoryInfo] = None
+
+
+@dataclass(kw_only=True)
+class EnterpriseRepositoryInfoConnection:
+    edges: Optional[list[EnterpriseRepositoryInfoEdge]] = None
+    nodes: Optional[list[EnterpriseRepositoryInfo]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class EnterpriseOutsideCollaboratorEdge:
+    cursor: str
+    node: Optional[User] = None
+    repositories: EnterpriseRepositoryInfoConnection
+
+
+@dataclass(kw_only=True)
+class EnterpriseOutsideCollaboratorConnection:
+    edges: Optional[list[EnterpriseOutsideCollaboratorEdge]] = None
+    nodes: Optional[list[User]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class EnterpriseAdministratorInvitation:
+    created_at: DateTime
+    email: Optional[str] = None
+    enterprise: Enterprise
+    id: ID
+    invitee: Optional[User] = None
+    inviter: Optional[User] = None
+    role: EnterpriseAdministratorRole
+
+
+@dataclass(kw_only=True)
+class EnterpriseAdministratorInvitationEdge:
+    cursor: str
+    node: Optional[EnterpriseAdministratorInvitation] = None
+
+
+@dataclass(kw_only=True)
+class EnterpriseAdministratorInvitationConnection:
+    edges: Optional[list[EnterpriseAdministratorInvitationEdge]] = None
+    nodes: Optional[list[EnterpriseAdministratorInvitation]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class RepositoryInfo:
+    archived_at: Optional[DateTime] = None
+    created_at: DateTime
+    description: Optional[str] = None
+    description_h_t_m_l: HTML
+    fork_count: int
+    has_discussions_enabled: bool
+    has_issues_enabled: bool
+    has_projects_enabled: bool
+    has_sponsorships_enabled: bool
+    has_wiki_enabled: bool
+    homepage_url: Optional[URI] = None
+    is_archived: bool
+    is_fork: bool
+    is_in_organization: bool
+    is_locked: bool
+    is_mirror: bool
+    is_private: bool
+    is_template: bool
+    license_info: Optional[License] = None
+    lock_reason: Optional[RepositoryLockReason] = None
+    mirror_url: Optional[URI] = None
+    name: str
+    name_with_owner: str
+    open_graph_image_url: URI
+    owner: RepositoryOwner
+    pushed_at: Optional[DateTime] = None
+    resource_path: URI
+    short_description_h_t_m_l: HTML
+    updated_at: DateTime
+    url: URI
+    uses_custom_open_graph_image: bool
+    visibility: RepositoryVisibility
+
+
+@dataclass(kw_only=True)
+class RepositoryInvitation:
+    email: Optional[str] = None
+    id: ID
+    invitee: Optional[User] = None
+    inviter: User
+    permalink: URI
+    permission: RepositoryPermission
+    repository: Optional[RepositoryInfo] = None
+
+
+@dataclass(kw_only=True)
+class RepositoryInvitationEdge:
+    cursor: str
+    node: Optional[RepositoryInvitation] = None
+
+
+@dataclass(kw_only=True)
+class RepositoryInvitationConnection:
+    edges: Optional[list[RepositoryInvitationEdge]] = None
+    nodes: Optional[list[RepositoryInvitation]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class EnterprisePendingMemberInvitationEdge:
+    cursor: str
+    node: Optional[OrganizationInvitation] = None
+
+
+@dataclass(kw_only=True)
+class EnterprisePendingMemberInvitationConnection:
+    edges: Optional[list[EnterprisePendingMemberInvitationEdge]] = None
+    nodes: Optional[list[OrganizationInvitation]] = None
+    page_info: PageInfo
+    total_count: int
+    total_unique_user_count: int
+
+
+@dataclass(kw_only=True)
+class EnterpriseIdentityProvider:
+    digest_method: Optional[SamlDigestAlgorithm] = None
+    enterprise: Optional[Enterprise] = None
+    external_identities: ExternalIdentityConnection
+    id: ID
+    idp_certificate: Optional[X509Certificate] = None
+    issuer: Optional[str] = None
+    recovery_codes: Optional[list[str]] = None
+    signature_method: Optional[SamlSignatureAlgorithm] = None
+    sso_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class EnterpriseOwnerInfo:
+    admins: EnterpriseAdministratorConnection
+    affiliated_users_with_two_factor_disabled: UserConnection
+    affiliated_users_with_two_factor_disabled_exist: bool
+    allow_private_repository_forking_setting: EnterpriseEnabledDisabledSettingValue
+    allow_private_repository_forking_setting_organizations: OrganizationConnection
+    allow_private_repository_forking_setting_policy_value: Optional[
+        EnterpriseAllowPrivateRepositoryForkingPolicyValue
+    ] = None
+    default_repository_permission_setting: EnterpriseDefaultRepositoryPermissionSettingValue
+    default_repository_permission_setting_organizations: OrganizationConnection
+    domains: VerifiableDomainConnection
+    enterprise_server_installations: EnterpriseServerInstallationConnection
+    failed_invitations: EnterpriseFailedInvitationConnection
+    ip_allow_list_enabled_setting: IpAllowListEnabledSettingValue
+    ip_allow_list_entries: IpAllowListEntryConnection
+    ip_allow_list_for_installed_apps_enabled_setting: IpAllowListForInstalledAppsEnabledSettingValue
+    is_updating_default_repository_permission: bool
+    is_updating_two_factor_requirement: bool
+    members_can_change_repository_visibility_setting: EnterpriseEnabledDisabledSettingValue
+    members_can_change_repository_visibility_setting_organizations: OrganizationConnection
+    members_can_create_internal_repositories_setting: Optional[bool] = None
+    members_can_create_private_repositories_setting: Optional[bool] = None
+    members_can_create_public_repositories_setting: Optional[bool] = None
+    members_can_create_repositories_setting: Optional[
+        EnterpriseMembersCanCreateRepositoriesSettingValue
+    ] = None
+    members_can_create_repositories_setting_organizations: OrganizationConnection
+    members_can_delete_issues_setting: EnterpriseEnabledDisabledSettingValue
+    members_can_delete_issues_setting_organizations: OrganizationConnection
+    members_can_delete_repositories_setting: EnterpriseEnabledDisabledSettingValue
+    members_can_delete_repositories_setting_organizations: OrganizationConnection
+    members_can_invite_collaborators_setting: EnterpriseEnabledDisabledSettingValue
+    members_can_invite_collaborators_setting_organizations: OrganizationConnection
+    members_can_make_purchases_setting: EnterpriseMembersCanMakePurchasesSettingValue
+    members_can_update_protected_branches_setting: EnterpriseEnabledDisabledSettingValue
+    members_can_update_protected_branches_setting_organizations: OrganizationConnection
+    members_can_view_dependency_insights_setting: EnterpriseEnabledDisabledSettingValue
+    members_can_view_dependency_insights_setting_organizations: OrganizationConnection
+    notification_delivery_restriction_enabled_setting: NotificationRestrictionSettingValue
+    oidc_provider: Optional[OIDCProvider] = None
+    organization_projects_setting: EnterpriseEnabledDisabledSettingValue
+    organization_projects_setting_organizations: OrganizationConnection
+    outside_collaborators: EnterpriseOutsideCollaboratorConnection
+    pending_admin_invitations: EnterpriseAdministratorInvitationConnection
+    pending_collaborator_invitations: RepositoryInvitationConnection
+    pending_member_invitations: EnterprisePendingMemberInvitationConnection
+    repository_projects_setting: EnterpriseEnabledDisabledSettingValue
+    repository_projects_setting_organizations: OrganizationConnection
+    saml_identity_provider: Optional[EnterpriseIdentityProvider] = None
+    saml_identity_provider_setting_organizations: OrganizationConnection
+    support_entitlements: EnterpriseMemberConnection
+    team_discussions_setting: EnterpriseEnabledDisabledSettingValue
+    team_discussions_setting_organizations: OrganizationConnection
+    two_factor_required_setting: EnterpriseEnabledSettingValue
+    two_factor_required_setting_organizations: OrganizationConnection
+
+
+@dataclass(kw_only=True)
+class IpAllowListEntry:
+    allow_list_value: str
+    created_at: DateTime
+    id: ID
+    is_active: bool
+    name: Optional[str] = None
+    owner: IpAllowListOwner
+    updated_at: DateTime
+
+
+@dataclass(kw_only=True)
+class IpAllowListEntryEdge:
+    cursor: str
+    node: Optional[IpAllowListEntry] = None
+
+
+@dataclass(kw_only=True)
+class BypassForcePushAllowance:
+    actor: Optional[BranchActorAllowanceActor] = None
+    branch_protection_rule: Optional[BranchProtectionRule] = None
+    id: ID
+
+
+@dataclass(kw_only=True)
+class BypassForcePushAllowanceEdge:
+    cursor: str
+    node: Optional[BypassForcePushAllowance] = None
+
+
+@dataclass(kw_only=True)
+class BypassForcePushAllowanceConnection:
+    edges: Optional[list[BypassForcePushAllowanceEdge]] = None
+    nodes: Optional[list[BypassForcePushAllowance]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class BypassPullRequestAllowance:
+    actor: Optional[BranchActorAllowanceActor] = None
+    branch_protection_rule: Optional[BranchProtectionRule] = None
+    id: ID
+
+
+@dataclass(kw_only=True)
+class BypassPullRequestAllowanceEdge:
+    cursor: str
+    node: Optional[BypassPullRequestAllowance] = None
+
+
+@dataclass(kw_only=True)
+class BypassPullRequestAllowanceConnection:
+    edges: Optional[list[BypassPullRequestAllowanceEdge]] = None
+    nodes: Optional[list[BypassPullRequestAllowance]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class PushAllowance:
+    actor: Optional[PushAllowanceActor] = None
+    branch_protection_rule: Optional[BranchProtectionRule] = None
+    id: ID
+
+
+@dataclass(kw_only=True)
+class PushAllowanceEdge:
+    cursor: str
+    node: Optional[PushAllowance] = None
+
+
+@dataclass(kw_only=True)
+class PushAllowanceConnection:
+    edges: Optional[list[PushAllowanceEdge]] = None
+    nodes: Optional[list[PushAllowance]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class RequiredStatusCheckDescription:
+    app: Optional[App] = None
+    context: str
+
+
+@dataclass(kw_only=True)
+class ReviewDismissalAllowance:
+    actor: Optional[ReviewDismissalAllowanceActor] = None
+    branch_protection_rule: Optional[BranchProtectionRule] = None
+    id: ID
+
+
+@dataclass(kw_only=True)
+class ReviewDismissalAllowanceEdge:
+    cursor: str
+    node: Optional[ReviewDismissalAllowance] = None
+
+
+@dataclass(kw_only=True)
+class ReviewDismissalAllowanceConnection:
+    edges: Optional[list[ReviewDismissalAllowanceEdge]] = None
+    nodes: Optional[list[ReviewDismissalAllowance]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class CommitEdge:
+    cursor: str
+    node: Optional[Commit] = None
+
+
+@dataclass(kw_only=True)
+class ComparisonCommitConnection:
+    author_count: int
+    edges: Optional[list[CommitEdge]] = None
+    nodes: Optional[list[Commit]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class Comparison:
+    ahead_by: int
+    base_target: GitObject
+    behind_by: int
+    commits: ComparisonCommitConnection
+    head_target: GitObject
+    id: ID
+    status: ComparisonStatus
+
+
+@dataclass(kw_only=True)
+class IssueCommentConnection:
+    edges: Optional[list[IssueCommentEdge]] = None
+    nodes: Optional[list[IssueComment]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class PullRequestCommit:
+    commit: Commit
+    id: ID
+    pull_request: PullRequest
+    resource_path: URI
+    url: URI
+
+
+@dataclass(kw_only=True)
+class PullRequestCommitEdge:
+    cursor: str
+    node: Optional[PullRequestCommit] = None
+
+
+@dataclass(kw_only=True)
+class PullRequestCommitConnection:
+    edges: Optional[list[PullRequestCommitEdge]] = None
+    nodes: Optional[list[PullRequestCommit]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class PullRequestChangedFileEdge:
+    cursor: str
+    node: Optional[PullRequestChangedFile] = None
+
+
+@dataclass(kw_only=True)
+class PullRequestChangedFileConnection:
+    edges: Optional[list[PullRequestChangedFileEdge]] = None
+    nodes: Optional[list[PullRequestChangedFile]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class Hovercard:
+    contexts: list[HovercardContext]
+
+
+@dataclass(kw_only=True)
+class PullRequestReviewCommentEdge:
+    cursor: str
+    node: Optional[PullRequestReviewComment] = None
+
+
+@dataclass(kw_only=True)
+class PullRequestReviewCommentConnection:
+    edges: Optional[list[PullRequestReviewCommentEdge]] = None
+    nodes: Optional[list[PullRequestReviewComment]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class PullRequestReviewEdge:
+    cursor: str
+    node: Optional[PullRequestReview] = None
+
+
+@dataclass(kw_only=True)
+class PullRequestReviewConnection:
+    edges: Optional[list[PullRequestReviewEdge]] = None
+    nodes: Optional[list[PullRequestReview]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class ReviewRequest:
+    as_code_owner: bool
+    database_id: Optional[int] = None
+    id: ID
+    pull_request: PullRequest
+    requested_reviewer: Optional[RequestedReviewer] = None
+
+
+@dataclass(kw_only=True)
+class ReviewRequestEdge:
+    cursor: str
+    node: Optional[ReviewRequest] = None
+
+
+@dataclass(kw_only=True)
+class ReviewRequestConnection:
+    edges: Optional[list[ReviewRequestEdge]] = None
+    nodes: Optional[list[ReviewRequest]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class PullRequestReviewThread:
+    comments: PullRequestReviewCommentConnection
+    diff_side: DiffSide
+    id: ID
+    is_collapsed: bool
+    is_outdated: bool
+    is_resolved: bool
+    line: Optional[int] = None
+    original_line: Optional[int] = None
+    original_start_line: Optional[int] = None
+    path: str
+    pull_request: PullRequest
+    repository: Repository
+    resolved_by: Optional[User] = None
+    start_diff_side: Optional[DiffSide] = None
+    start_line: Optional[int] = None
+    subject_type: PullRequestReviewThreadSubjectType
+    viewer_can_reply: bool
+    viewer_can_resolve: bool
+    viewer_can_unresolve: bool
+
+
+@dataclass(kw_only=True)
+class PullRequestReviewThreadEdge:
+    cursor: str
+    node: Optional[PullRequestReviewThread] = None
+
+
+@dataclass(kw_only=True)
+class PullRequestReviewThreadConnection:
+    edges: Optional[list[PullRequestReviewThreadEdge]] = None
+    nodes: Optional[list[PullRequestReviewThread]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class SuggestedReviewer:
+    is_author: bool
+    is_commenter: bool
+    reviewer: User
+
+
+@dataclass(kw_only=True)
+class Assignable:
+    assignees: UserConnection
+
+
+@dataclass(kw_only=True)
+class AssignedEvent:
+    actor: Optional[Actor] = None
+    assignable: Assignable
+    assignee: Optional[Assignee] = None
+    created_at: DateTime
+    id: ID
+
+
+@dataclass(kw_only=True)
+class BaseRefDeletedEvent:
+    actor: Optional[Actor] = None
+    base_ref_name: Optional[str] = None
+    created_at: DateTime
+    id: ID
+    pull_request: Optional[PullRequest] = None
+
+
+@dataclass(kw_only=True)
+class BaseRefForcePushedEvent:
+    actor: Optional[Actor] = None
+    after_commit: Optional[Commit] = None
+    before_commit: Optional[Commit] = None
+    created_at: DateTime
+    id: ID
+    pull_request: PullRequest
+    ref: Optional[Ref] = None
+
+
+@dataclass(kw_only=True)
+class ClosedEvent:
+    actor: Optional[Actor] = None
+    closable: Closable
+    closer: Optional[Closer] = None
+    created_at: DateTime
+    id: ID
+    resource_path: URI
+    state_reason: Optional[IssueStateReason] = None
+    url: URI
+
+
+@dataclass(kw_only=True)
+class CommitCommentThread:
+    comments: CommitCommentConnection
+    commit: Optional[Commit] = None
+    id: ID
+    path: Optional[str] = None
+    position: Optional[int] = None
+    repository: Repository
+
+
+@dataclass(kw_only=True)
+class CrossReferencedEvent:
+    actor: Optional[Actor] = None
+    created_at: DateTime
+    id: ID
+    is_cross_repository: bool
+    referenced_at: DateTime
+    resource_path: URI
+    source: ReferencedSubject
+    target: ReferencedSubject
+    url: URI
+    will_close_target: bool
+
+
+@dataclass(kw_only=True)
+class DemilestonedEvent:
+    actor: Optional[Actor] = None
+    created_at: DateTime
+    id: ID
+    milestone_title: str
+    subject: MilestoneItem
+
+
+@dataclass(kw_only=True)
+class DeployedEvent:
+    actor: Optional[Actor] = None
+    created_at: DateTime
+    database_id: Optional[int] = None
+    deployment: Deployment
+    id: ID
+    pull_request: PullRequest
+    ref: Optional[Ref] = None
+
+
+@dataclass(kw_only=True)
+class DeploymentEnvironmentChangedEvent:
+    actor: Optional[Actor] = None
+    created_at: DateTime
+    deployment_status: DeploymentStatus
+    id: ID
+    pull_request: PullRequest
+
+
+@dataclass(kw_only=True)
+class HeadRefDeletedEvent:
+    actor: Optional[Actor] = None
+    created_at: DateTime
+    head_ref: Optional[Ref] = None
+    head_ref_name: str
+    id: ID
+    pull_request: PullRequest
+
+
+@dataclass(kw_only=True)
+class HeadRefForcePushedEvent:
+    actor: Optional[Actor] = None
+    after_commit: Optional[Commit] = None
+    before_commit: Optional[Commit] = None
+    created_at: DateTime
+    id: ID
+    pull_request: PullRequest
+    ref: Optional[Ref] = None
+
+
+@dataclass(kw_only=True)
+class HeadRefRestoredEvent:
+    actor: Optional[Actor] = None
+    created_at: DateTime
+    id: ID
+    pull_request: PullRequest
+
+
+@dataclass(kw_only=True)
+class Labelable:
+    labels: Optional[LabelConnection] = None
+
+
+@dataclass(kw_only=True)
+class LabeledEvent:
+    actor: Optional[Actor] = None
+    created_at: DateTime
+    id: ID
+    label: Label
+    labelable: Labelable
+
+
+@dataclass(kw_only=True)
+class LockedEvent:
+    actor: Optional[Actor] = None
+    created_at: DateTime
+    id: ID
+    lock_reason: Optional[LockReason] = None
+    lockable: Lockable
+
+
+@dataclass(kw_only=True)
+class MergedEvent:
+    actor: Optional[Actor] = None
+    commit: Optional[Commit] = None
+    created_at: DateTime
+    id: ID
+    merge_ref: Optional[Ref] = None
+    merge_ref_name: str
+    pull_request: PullRequest
+    resource_path: URI
+    url: URI
+
+
+@dataclass(kw_only=True)
+class MilestonedEvent:
+    actor: Optional[Actor] = None
+    created_at: DateTime
+    id: ID
+    milestone_title: str
+    subject: MilestoneItem
+
+
+@dataclass(kw_only=True)
+class ReferencedEvent:
+    actor: Optional[Actor] = None
+    commit: Optional[Commit] = None
+    commit_repository: Repository
+    created_at: DateTime
+    id: ID
+    is_cross_repository: bool
+    is_direct_reference: bool
+    subject: ReferencedSubject
+
+
+@dataclass(kw_only=True)
+class RenamedTitleEvent:
+    actor: Optional[Actor] = None
+    created_at: DateTime
+    current_title: str
+    id: ID
+    previous_title: str
+    subject: RenamedTitleSubject
+
+
+@dataclass(kw_only=True)
+class ReopenedEvent:
+    actor: Optional[Actor] = None
+    closable: Closable
+    created_at: DateTime
+    id: ID
+    state_reason: Optional[IssueStateReason] = None
+
+
+@dataclass(kw_only=True)
+class ReviewDismissedEvent:
+    actor: Optional[Actor] = None
+    created_at: DateTime
+    database_id: Optional[int] = None
+    dismissal_message: Optional[str] = None
+    dismissal_message_h_t_m_l: Optional[str] = None
+    id: ID
+    previous_review_state: PullRequestReviewState
+    pull_request: PullRequest
+    pull_request_commit: Optional[PullRequestCommit] = None
+    resource_path: URI
+    review: Optional[PullRequestReview] = None
+    url: URI
+
+
+@dataclass(kw_only=True)
+class ReviewRequestRemovedEvent:
+    actor: Optional[Actor] = None
+    created_at: DateTime
+    id: ID
+    pull_request: PullRequest
+    requested_reviewer: Optional[RequestedReviewer] = None
+
+
+@dataclass(kw_only=True)
+class ReviewRequestedEvent:
+    actor: Optional[Actor] = None
+    created_at: DateTime
+    id: ID
+    pull_request: PullRequest
+    requested_reviewer: Optional[RequestedReviewer] = None
+
+
+@dataclass(kw_only=True)
+class SubscribedEvent:
+    actor: Optional[Actor] = None
+    created_at: DateTime
+    id: ID
+    subscribable: Subscribable
+
+
+@dataclass(kw_only=True)
+class UnassignedEvent:
+    actor: Optional[Actor] = None
+    assignable: Assignable
+    assignee: Optional[Assignee] = None
+    created_at: DateTime
+    id: ID
+
+
+@dataclass(kw_only=True)
+class UnlabeledEvent:
+    actor: Optional[Actor] = None
+    created_at: DateTime
+    id: ID
+    label: Label
+    labelable: Labelable
+
+
+@dataclass(kw_only=True)
+class UnlockedEvent:
+    actor: Optional[Actor] = None
+    created_at: DateTime
+    id: ID
+    lockable: Lockable
+
+
+@dataclass(kw_only=True)
+class UnsubscribedEvent:
+    actor: Optional[Actor] = None
+    created_at: DateTime
+    id: ID
+    subscribable: Subscribable
+
+
+@dataclass(kw_only=True)
+class UserBlockedEvent:
+    actor: Optional[Actor] = None
+    block_duration: UserBlockDuration
+    created_at: DateTime
+    id: ID
+    subject: Optional[User] = None
+
+
+@dataclass(kw_only=True)
+class PullRequestTimelineItemEdge:
+    cursor: str
+    node: Optional[PullRequestTimelineItem] = None
+
+
+@dataclass(kw_only=True)
+class PullRequestTimelineConnection:
+    edges: Optional[list[PullRequestTimelineItemEdge]] = None
+    nodes: Optional[list[PullRequestTimelineItem]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class AddedToMergeQueueEvent:
+    actor: Optional[Actor] = None
+    created_at: DateTime
+    enqueuer: Optional[User] = None
+    id: ID
+    merge_queue: Optional[MergeQueue] = None
+    pull_request: Optional[PullRequest] = None
+
+
+@dataclass(kw_only=True)
+class AddedToProjectEvent:
+    actor: Optional[Actor] = None
+    created_at: DateTime
+    database_id: Optional[int] = None
+    id: ID
+    project: Optional[Project] = None
+    project_card: Optional[ProjectCard] = None
+    project_column_name: str
+
+
+@dataclass(kw_only=True)
+class AutoMergeDisabledEvent:
+    actor: Optional[Actor] = None
+    created_at: DateTime
+    disabler: Optional[User] = None
+    id: ID
+    pull_request: Optional[PullRequest] = None
+    reason: Optional[str] = None
+    reason_code: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class AutoMergeEnabledEvent:
+    actor: Optional[Actor] = None
+    created_at: DateTime
+    enabler: Optional[User] = None
+    id: ID
+    pull_request: Optional[PullRequest] = None
+
+
+@dataclass(kw_only=True)
+class AutoRebaseEnabledEvent:
+    actor: Optional[Actor] = None
+    created_at: DateTime
+    enabler: Optional[User] = None
+    id: ID
+    pull_request: Optional[PullRequest] = None
+
+
+@dataclass(kw_only=True)
+class AutoSquashEnabledEvent:
+    actor: Optional[Actor] = None
+    created_at: DateTime
+    enabler: Optional[User] = None
+    id: ID
+    pull_request: Optional[PullRequest] = None
+
+
+@dataclass(kw_only=True)
+class AutomaticBaseChangeFailedEvent:
+    actor: Optional[Actor] = None
+    created_at: DateTime
+    id: ID
+    new_base: str
+    old_base: str
+    pull_request: PullRequest
+
+
+@dataclass(kw_only=True)
+class AutomaticBaseChangeSucceededEvent:
+    actor: Optional[Actor] = None
+    created_at: DateTime
+    id: ID
+    new_base: str
+    old_base: str
+    pull_request: PullRequest
+
+
+@dataclass(kw_only=True)
+class BaseRefChangedEvent:
+    actor: Optional[Actor] = None
+    created_at: DateTime
+    current_ref_name: str
+    database_id: Optional[int] = None
+    id: ID
+    previous_ref_name: str
+    pull_request: PullRequest
+
+
+@dataclass(kw_only=True)
+class CommentDeletedEvent:
+    actor: Optional[Actor] = None
+    created_at: DateTime
+    database_id: Optional[int] = None
+    deleted_comment_author: Optional[Actor] = None
+    id: ID
+
+
+@dataclass(kw_only=True)
+class ConnectedEvent:
+    actor: Optional[Actor] = None
+    created_at: DateTime
+    id: ID
+    is_cross_repository: bool
+    source: ReferencedSubject
+    subject: ReferencedSubject
+
+
+@dataclass(kw_only=True)
+class ConvertToDraftEvent:
+    actor: Optional[Actor] = None
+    created_at: DateTime
+    id: ID
+    pull_request: PullRequest
+    resource_path: URI
+    url: URI
+
+
+@dataclass(kw_only=True)
+class ConvertedNoteToIssueEvent:
+    actor: Optional[Actor] = None
+    created_at: DateTime
+    database_id: Optional[int] = None
+    id: ID
+    project: Optional[Project] = None
+    project_card: Optional[ProjectCard] = None
+    project_column_name: str
+
+
+@dataclass(kw_only=True)
+class ConvertedToDiscussionEvent:
+    actor: Optional[Actor] = None
+    created_at: DateTime
+    discussion: Optional[Discussion] = None
+    id: ID
+
+
+@dataclass(kw_only=True)
+class DisconnectedEvent:
+    actor: Optional[Actor] = None
+    created_at: DateTime
+    id: ID
+    is_cross_repository: bool
+    source: ReferencedSubject
+    subject: ReferencedSubject
+
+
+@dataclass(kw_only=True)
+class MarkedAsDuplicateEvent:
+    actor: Optional[Actor] = None
+    canonical: Optional[IssueOrPullRequest] = None
+    created_at: DateTime
+    duplicate: Optional[IssueOrPullRequest] = None
+    id: ID
+    is_cross_repository: bool
+
+
+@dataclass(kw_only=True)
+class MentionedEvent:
+    actor: Optional[Actor] = None
+    created_at: DateTime
+    database_id: Optional[int] = None
+    id: ID
+
+
+@dataclass(kw_only=True)
+class MovedColumnsInProjectEvent:
+    actor: Optional[Actor] = None
+    created_at: DateTime
+    database_id: Optional[int] = None
+    id: ID
+    previous_project_column_name: str
+    project: Optional[Project] = None
+    project_card: Optional[ProjectCard] = None
+    project_column_name: str
+
+
+@dataclass(kw_only=True)
+class PinnedEvent:
+    actor: Optional[Actor] = None
+    created_at: DateTime
+    id: ID
+    issue: Issue
+
+
+@dataclass(kw_only=True)
+class PullRequestCommitCommentThread:
+    comments: CommitCommentConnection
+    commit: Commit
+    id: ID
+    path: Optional[str] = None
+    position: Optional[int] = None
+    pull_request: PullRequest
+    repository: Repository
+
+
+@dataclass(kw_only=True)
+class PullRequestRevisionMarker:
+    created_at: DateTime
+    last_seen_commit: Commit
+    pull_request: PullRequest
+
+
+@dataclass(kw_only=True)
+class ReadyForReviewEvent:
+    actor: Optional[Actor] = None
+    created_at: DateTime
+    id: ID
+    pull_request: PullRequest
+    resource_path: URI
+    url: URI
+
+
+@dataclass(kw_only=True)
+class RemovedFromMergeQueueEvent:
+    actor: Optional[Actor] = None
+    before_commit: Optional[Commit] = None
+    created_at: DateTime
+    enqueuer: Optional[User] = None
+    id: ID
+    merge_queue: Optional[MergeQueue] = None
+    pull_request: Optional[PullRequest] = None
+    reason: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class RemovedFromProjectEvent:
+    actor: Optional[Actor] = None
+    created_at: DateTime
+    database_id: Optional[int] = None
+    id: ID
+    project: Optional[Project] = None
+    project_column_name: str
+
+
+@dataclass(kw_only=True)
+class TransferredEvent:
+    actor: Optional[Actor] = None
+    created_at: DateTime
+    from_repository: Optional[Repository] = None
+    id: ID
+    issue: Issue
+
+
+@dataclass(kw_only=True)
+class UnmarkedAsDuplicateEvent:
+    actor: Optional[Actor] = None
+    canonical: Optional[IssueOrPullRequest] = None
+    created_at: DateTime
+    duplicate: Optional[IssueOrPullRequest] = None
+    id: ID
+    is_cross_repository: bool
+
+
+@dataclass(kw_only=True)
+class UnpinnedEvent:
+    actor: Optional[Actor] = None
+    created_at: DateTime
+    id: ID
+    issue: Issue
+
+
+@dataclass(kw_only=True)
+class PullRequestTimelineItemsEdge:
+    cursor: str
+    node: Optional[PullRequestTimelineItems] = None
+
+
+@dataclass(kw_only=True)
+class PullRequestTimelineItemsConnection:
+    edges: Optional[list[PullRequestTimelineItemsEdge]] = None
+    filtered_count: int
+    nodes: Optional[list[PullRequestTimelineItems]] = None
+    page_count: int
+    page_info: PageInfo
+    total_count: int
+    updated_at: DateTime
+
+
+@dataclass(kw_only=True)
+class PullRequestEdge:
+    cursor: str
+    node: Optional[PullRequest] = None
+
+
+@dataclass(kw_only=True)
+class GitActor:
+    avatar_url: URI
+    date: Optional[GitTimestamp] = None
+    email: Optional[str] = None
+    name: Optional[str] = None
+    user: Optional[User] = None
+
+
+@dataclass(kw_only=True)
+class GitActorEdge:
+    cursor: str
+    node: Optional[GitActor] = None
+
+
+@dataclass(kw_only=True)
+class GitActorConnection:
+    edges: Optional[list[GitActorEdge]] = None
+    nodes: Optional[list[GitActor]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class BlameRange:
+    age: int
+    commit: Commit
+    ending_line: int
+    starting_line: int
+
+
+@dataclass(kw_only=True)
+class Blame:
+    ranges: list[BlameRange]
+
+
+@dataclass(kw_only=True)
+class CheckAnnotationSpan:
+    end: CheckAnnotationPosition
+    start: CheckAnnotationPosition
+
+
+@dataclass(kw_only=True)
+class CheckAnnotation:
+    annotation_level: Optional[CheckAnnotationLevel] = None
+    blob_url: URI
+    database_id: Optional[int] = None
+    location: CheckAnnotationSpan
+    message: str
+    path: str
+    raw_details: Optional[str] = None
+    title: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class CheckAnnotationEdge:
+    cursor: str
+    node: Optional[CheckAnnotation] = None
+
+
+@dataclass(kw_only=True)
+class CheckAnnotationConnection:
+    edges: Optional[list[CheckAnnotationEdge]] = None
+    nodes: Optional[list[CheckAnnotation]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class DeploymentRequest:
+    current_user_can_approve: bool
+    environment: Environment
+    reviewers: DeploymentReviewerConnection
+    wait_timer: int
+    wait_timer_started_at: Optional[DateTime] = None
+
+
+@dataclass(kw_only=True)
+class CheckStepEdge:
+    cursor: str
+    node: Optional[CheckStep] = None
+
+
+@dataclass(kw_only=True)
+class CheckStepConnection:
+    edges: Optional[list[CheckStepEdge]] = None
+    nodes: Optional[list[CheckStep]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class CheckRun:
+    annotations: Optional[CheckAnnotationConnection] = None
+    check_suite: CheckSuite
+    completed_at: Optional[DateTime] = None
+    conclusion: Optional[CheckConclusionState] = None
+    database_id: Optional[int] = None
+    deployment: Optional[Deployment] = None
+    details_url: Optional[URI] = None
+    external_id: Optional[str] = None
+    id: ID
+    is_required: bool
+    name: str
+    pending_deployment_request: Optional[DeploymentRequest] = None
+    permalink: URI
+    repository: Repository
+    resource_path: URI
+    started_at: Optional[DateTime] = None
+    status: CheckStatusState
+    steps: Optional[CheckStepConnection] = None
+    summary: Optional[str] = None
+    text: Optional[str] = None
+    title: Optional[str] = None
+    url: URI
+
+
+@dataclass(kw_only=True)
+class CheckRunEdge:
+    cursor: str
+    node: Optional[CheckRun] = None
+
+
+@dataclass(kw_only=True)
+class CheckRunConnection:
+    edges: Optional[list[CheckRunEdge]] = None
+    nodes: Optional[list[CheckRun]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class Push:
+    id: ID
+    next_sha: Optional[GitObjectID] = None
+    permalink: URI
+    previous_sha: Optional[GitObjectID] = None
+    pusher: Actor
+    repository: Repository
+
+
+@dataclass(kw_only=True)
+class DeploymentReview:
+    comment: str
+    database_id: Optional[int] = None
+    environments: EnvironmentConnection
+    id: ID
+    state: DeploymentReviewState
+    user: User
+
+
+@dataclass(kw_only=True)
+class DeploymentReviewEdge:
+    cursor: str
+    node: Optional[DeploymentReview] = None
+
+
+@dataclass(kw_only=True)
+class DeploymentReviewConnection:
+    edges: Optional[list[DeploymentReviewEdge]] = None
+    nodes: Optional[list[DeploymentReview]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class WorkflowRunFile:
+    id: ID
+    path: str
+    repository_file_url: URI
+    repository_name: URI
+    resource_path: URI
+    run: WorkflowRun
+    url: URI
+    viewer_can_push_repository: bool
+    viewer_can_read_repository: bool
+
+
+@dataclass(kw_only=True)
+class DeploymentRequestEdge:
+    cursor: str
+    node: Optional[DeploymentRequest] = None
+
+
+@dataclass(kw_only=True)
+class DeploymentRequestConnection:
+    edges: Optional[list[DeploymentRequestEdge]] = None
+    nodes: Optional[list[DeploymentRequest]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class WorkflowRunEdge:
+    cursor: str
+    node: Optional[WorkflowRun] = None
+
+
+@dataclass(kw_only=True)
+class WorkflowRunConnection:
+    edges: Optional[list[WorkflowRunEdge]] = None
+    nodes: Optional[list[WorkflowRun]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class Workflow:
+    created_at: DateTime
+    database_id: Optional[int] = None
+    id: ID
+    name: str
+    resource_path: URI
+    runs: WorkflowRunConnection
+    state: WorkflowState
+    updated_at: DateTime
+    url: URI
+
+
+@dataclass(kw_only=True)
+class CheckSuiteEdge:
+    cursor: str
+    node: Optional[CheckSuite] = None
+
+
+@dataclass(kw_only=True)
+class CheckSuiteConnection:
+    edges: Optional[list[CheckSuiteEdge]] = None
+    nodes: Optional[list[CheckSuite]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class TreeEntry:
+    extension: Optional[str] = None
+    is_generated: bool
+    language: Optional[Language] = None
+    line_count: Optional[int] = None
+    mode: int
+    name: str
+    name_raw: Base64String
+    object: Optional[GitObject] = None
+    oid: GitObjectID
+    path: Optional[str] = None
+    path_raw: Optional[Base64String] = None
+    repository: Repository
+    size: int
+    submodule: Optional[Submodule] = None
+    type: str
+
+
+@dataclass(kw_only=True)
+class CommitHistoryConnection:
+    edges: Optional[list[CommitEdge]] = None
+    nodes: Optional[list[Commit]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class CommitConnection:
+    edges: Optional[list[CommitEdge]] = None
+    nodes: Optional[list[Commit]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class GitSignature:
+    email: str
+    is_valid: bool
+    payload: str
+    signature: str
+    signer: Optional[User] = None
+    state: GitSignatureState
+    was_signed_by_git_hub: bool
+
+
+@dataclass(kw_only=True)
+class StatusContext:
+    avatar_url: Optional[URI] = None
+    commit: Optional[Commit] = None
+    context: str
+    created_at: DateTime
+    creator: Optional[Actor] = None
+    description: Optional[str] = None
+    id: ID
+    is_required: bool
+    state: StatusState
+    target_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class StatusCheckRollupContextEdge:
+    cursor: str
+    node: Optional[StatusCheckRollupContext] = None
+
+
+@dataclass(kw_only=True)
+class StatusCheckRollupContextConnection:
+    check_run_count: int
+    check_run_counts_by_state: Optional[list[CheckRunStateCount]] = None
+    edges: Optional[list[StatusCheckRollupContextEdge]] = None
+    nodes: Optional[list[StatusCheckRollupContext]] = None
+    page_info: PageInfo
+    status_context_count: int
+    status_context_counts_by_state: Optional[list[StatusContextStateCount]] = None
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class Status:
+    combined_contexts: StatusCheckRollupContextConnection
+    commit: Optional[Commit] = None
+    context: Optional[StatusContext] = None
+    contexts: list[StatusContext]
+    id: ID
+    state: StatusState
+
+
+@dataclass(kw_only=True)
+class StatusCheckRollup:
+    commit: Optional[Commit] = None
+    contexts: StatusCheckRollupContextConnection
+    id: ID
+    state: StatusState
+
+
+@dataclass(kw_only=True)
+class Tree:
+    abbreviated_oid: str
+    commit_resource_path: URI
+    commit_url: URI
+    entries: Optional[list[TreeEntry]] = None
+    id: ID
+    oid: GitObjectID
+    repository: Repository
+
+
+@dataclass(kw_only=True)
+class CommitComment:
+    author: Optional[Actor] = None
+    author_association: CommentAuthorAssociation
+    body: str
+    body_h_t_m_l: HTML
+    body_text: str
+    commit: Optional[Commit] = None
+    created_at: DateTime
+    created_via_email: bool
+    database_id: Optional[int] = None
+    editor: Optional[Actor] = None
+    id: ID
+    includes_created_edit: bool
+    is_minimized: bool
+    last_edited_at: Optional[DateTime] = None
+    minimized_reason: Optional[str] = None
+    path: Optional[str] = None
+    position: Optional[int] = None
+    published_at: Optional[DateTime] = None
+    reaction_groups: Optional[list[ReactionGroup]] = None
+    reactions: ReactionConnection
+    repository: Repository
+    resource_path: URI
+    updated_at: DateTime
+    url: URI
+    user_content_edits: Optional[UserContentEditConnection] = None
+    viewer_can_delete: bool
+    viewer_can_minimize: bool
+    viewer_can_react: bool
+    viewer_can_update: bool
+    viewer_cannot_update_reasons: list[CommentCannotUpdateReason]
+    viewer_did_author: bool
+
+
+@dataclass(kw_only=True)
+class CommitCommentEdge:
+    cursor: str
+    node: Optional[CommitComment] = None
+
+
+@dataclass(kw_only=True)
+class CreatedCommitContribution:
+    commit_count: int
+    is_restricted: bool
+    occurred_at: DateTime
+    repository: Repository
+    resource_path: URI
+    url: URI
+    user: User
+
+
+@dataclass(kw_only=True)
+class CreatedCommitContributionEdge:
+    cursor: str
+    node: Optional[CreatedCommitContribution] = None
+
+
+@dataclass(kw_only=True)
+class CreatedCommitContributionConnection:
+    edges: Optional[list[CreatedCommitContributionEdge]] = None
+    nodes: Optional[list[CreatedCommitContribution]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class CommitContributionsByRepository:
+    contributions: CreatedCommitContributionConnection
+    repository: Repository
+    resource_path: URI
+    url: URI
+
+
+@dataclass(kw_only=True)
+class ContributionCalendarWeek:
+    contribution_days: list[ContributionCalendarDay]
+    first_day: Date
+
+
+@dataclass(kw_only=True)
+class ContributionCalendar:
+    colors: list[str]
+    is_halloween: bool
+    months: list[ContributionCalendarMonth]
+    total_contributions: int
+    weeks: list[ContributionCalendarWeek]
+
+
+@dataclass(kw_only=True)
+class CreatedIssueContribution:
+    is_restricted: bool
+    issue: Issue
+    occurred_at: DateTime
+    resource_path: URI
+    url: URI
+    user: User
+
+
+@dataclass(kw_only=True)
+class RestrictedContribution:
+    is_restricted: bool
+    occurred_at: DateTime
+    resource_path: URI
+    url: URI
+    user: User
+
+
+@dataclass(kw_only=True)
+class CreatedPullRequestContribution:
+    is_restricted: bool
+    occurred_at: DateTime
+    pull_request: PullRequest
+    resource_path: URI
+    url: URI
+    user: User
+
+
+@dataclass(kw_only=True)
+class CreatedRepositoryContribution:
+    is_restricted: bool
+    occurred_at: DateTime
+    repository: Repository
+    resource_path: URI
+    url: URI
+    user: User
+
+
+@dataclass(kw_only=True)
+class CreatedIssueContributionEdge:
+    cursor: str
+    node: Optional[CreatedIssueContribution] = None
+
+
+@dataclass(kw_only=True)
+class CreatedIssueContributionConnection:
+    edges: Optional[list[CreatedIssueContributionEdge]] = None
+    nodes: Optional[list[CreatedIssueContribution]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class IssueContributionsByRepository:
+    contributions: CreatedIssueContributionConnection
+    repository: Repository
+
+
+@dataclass(kw_only=True)
+class JoinedGitHubContribution:
+    is_restricted: bool
+    occurred_at: DateTime
+    resource_path: URI
+    url: URI
+    user: User
+
+
+@dataclass(kw_only=True)
+class CreatedPullRequestContributionEdge:
+    cursor: str
+    node: Optional[CreatedPullRequestContribution] = None
+
+
+@dataclass(kw_only=True)
+class CreatedPullRequestContributionConnection:
+    edges: Optional[list[CreatedPullRequestContributionEdge]] = None
+    nodes: Optional[list[CreatedPullRequestContribution]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class PullRequestContributionsByRepository:
+    contributions: CreatedPullRequestContributionConnection
+    repository: Repository
+
+
+@dataclass(kw_only=True)
+class CreatedPullRequestReviewContribution:
+    is_restricted: bool
+    occurred_at: DateTime
+    pull_request: PullRequest
+    pull_request_review: PullRequestReview
+    repository: Repository
+    resource_path: URI
+    url: URI
+    user: User
+
+
+@dataclass(kw_only=True)
+class CreatedPullRequestReviewContributionEdge:
+    cursor: str
+    node: Optional[CreatedPullRequestReviewContribution] = None
+
+
+@dataclass(kw_only=True)
+class CreatedPullRequestReviewContributionConnection:
+    edges: Optional[list[CreatedPullRequestReviewContributionEdge]] = None
+    nodes: Optional[list[CreatedPullRequestReviewContribution]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class PullRequestReviewContributionsByRepository:
+    contributions: CreatedPullRequestReviewContributionConnection
+    repository: Repository
+
+
+@dataclass(kw_only=True)
+class CreatedRepositoryContributionEdge:
+    cursor: str
+    node: Optional[CreatedRepositoryContribution] = None
+
+
+@dataclass(kw_only=True)
+class CreatedRepositoryContributionConnection:
+    edges: Optional[list[CreatedRepositoryContributionEdge]] = None
+    nodes: Optional[list[CreatedRepositoryContribution]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class EnterpriseEdge:
+    cursor: str
+    node: Optional[Enterprise] = None
+
+
+@dataclass(kw_only=True)
+class EnterpriseConnection:
+    edges: Optional[list[EnterpriseEdge]] = None
+    nodes: Optional[list[Enterprise]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class FollowerConnection:
+    edges: Optional[list[UserEdge]] = None
+    nodes: Optional[list[User]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class FollowingConnection:
+    edges: Optional[list[UserEdge]] = None
+    nodes: Optional[list[User]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class UserListItemsEdge:
+    cursor: str
+    node: Optional[UserListItems] = None
+
+
+@dataclass(kw_only=True)
+class UserListItemsConnection:
+    edges: Optional[list[UserListItemsEdge]] = None
+    nodes: Optional[list[UserListItems]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class UserList:
+    created_at: DateTime
+    description: Optional[str] = None
+    id: ID
+    is_private: bool
+    items: UserListItemsConnection
+    last_added_at: DateTime
+    name: str
+    slug: str
+    updated_at: DateTime
+    user: User
+
+
+@dataclass(kw_only=True)
+class UserListEdge:
+    cursor: str
+    node: Optional[UserList] = None
+
+
+@dataclass(kw_only=True)
+class UserListConnection:
+    edges: Optional[list[UserListEdge]] = None
+    nodes: Optional[list[UserList]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class PublicKeyEdge:
+    cursor: str
+    node: Optional[PublicKey] = None
+
+
+@dataclass(kw_only=True)
+class PublicKeyConnection:
+    edges: Optional[list[PublicKeyEdge]] = None
+    nodes: Optional[list[PublicKey]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class SavedReply:
+    body: str
+    body_h_t_m_l: HTML
+    database_id: Optional[int] = None
+    id: ID
+    title: str
+    user: Optional[Actor] = None
+
+
+@dataclass(kw_only=True)
+class SavedReplyEdge:
+    cursor: str
+    node: Optional[SavedReply] = None
+
+
+@dataclass(kw_only=True)
+class SavedReplyConnection:
+    edges: Optional[list[SavedReplyEdge]] = None
+    nodes: Optional[list[SavedReply]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class SocialAccountEdge:
+    cursor: str
+    node: Optional[SocialAccount] = None
+
+
+@dataclass(kw_only=True)
+class SocialAccountConnection:
+    edges: Optional[list[SocialAccountEdge]] = None
+    nodes: Optional[list[SocialAccount]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class StarredRepositoryEdge:
+    cursor: str
+    node: Repository
+    starred_at: DateTime
+
+
+@dataclass(kw_only=True)
+class StarredRepositoryConnection:
+    edges: Optional[list[StarredRepositoryEdge]] = None
+    is_over_limit: bool
+    nodes: Optional[list[Repository]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class LinkedBranch:
+    id: ID
+    ref: Optional[Ref] = None
+
+
+@dataclass(kw_only=True)
+class LinkedBranchEdge:
+    cursor: str
+    node: Optional[LinkedBranch] = None
+
+
+@dataclass(kw_only=True)
+class LinkedBranchConnection:
+    edges: Optional[list[LinkedBranchEdge]] = None
+    nodes: Optional[list[LinkedBranch]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class IssueTimelineItemEdge:
+    cursor: str
+    node: Optional[IssueTimelineItem] = None
+
+
+@dataclass(kw_only=True)
+class IssueTimelineConnection:
+    edges: Optional[list[IssueTimelineItemEdge]] = None
+    nodes: Optional[list[IssueTimelineItem]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class IssueTimelineItemsEdge:
+    cursor: str
+    node: Optional[IssueTimelineItems] = None
+
+
+@dataclass(kw_only=True)
+class IssueTimelineItemsConnection:
+    edges: Optional[list[IssueTimelineItemsEdge]] = None
+    filtered_count: int
+    nodes: Optional[list[IssueTimelineItems]] = None
+    page_count: int
+    page_info: PageInfo
+    total_count: int
+    updated_at: DateTime
+
+
+@dataclass(kw_only=True)
+class AddCommentPayload:
+    client_mutation_id: Optional[str] = None
+    comment_edge: Optional[IssueCommentEdge] = None
+    subject: Optional[Node] = None
+    timeline_edge: Optional[IssueTimelineItemEdge] = None
+
+
+@dataclass(kw_only=True)
+class AddProjectCardPayload:
+    card_edge: Optional[ProjectCardEdge] = None
+    client_mutation_id: Optional[str] = None
+    project_column: Optional[ProjectColumn] = None
+
+
+@dataclass(kw_only=True)
+class AddProjectColumnPayload:
+    client_mutation_id: Optional[str] = None
+    column_edge: Optional[ProjectColumnEdge] = None
+    project: Optional[Project] = None
+
+
+@dataclass(kw_only=True)
+class AddPullRequestReviewCommentPayload:
+    client_mutation_id: Optional[str] = None
+    comment: Optional[PullRequestReviewComment] = None
+    comment_edge: Optional[PullRequestReviewCommentEdge] = None
+
+
+@dataclass(kw_only=True)
+class AddPullRequestReviewInput:
+    body: Optional[str] = None
+    client_mutation_id: Optional[str] = None
+    comments: Optional[list[DraftPullRequestReviewComment]] = None
+    commit_o_i_d: Optional[GitObjectID] = None
+    event: Optional[PullRequestReviewEvent] = None
+    pull_request_id: ID
+    threads: Optional[list[DraftPullRequestReviewThread]] = None
+
+
+@dataclass(kw_only=True)
+class AddPullRequestReviewPayload:
+    client_mutation_id: Optional[str] = None
+    pull_request_review: Optional[PullRequestReview] = None
+    review_edge: Optional[PullRequestReviewEdge] = None
+
+
+@dataclass(kw_only=True)
+class AddReactionPayload:
+    client_mutation_id: Optional[str] = None
+    reaction: Optional[Reaction] = None
+    reaction_groups: Optional[list[ReactionGroup]] = None
+    subject: Optional[Reactable] = None
+
+
+@dataclass(kw_only=True)
+class AuditEntry:
+    action: str
+    actor: Optional[AuditEntryActor] = None
+    actor_ip: Optional[str] = None
+    actor_location: Optional[ActorLocation] = None
+    actor_login: Optional[str] = None
+    actor_resource_path: Optional[URI] = None
+    actor_url: Optional[URI] = None
+    created_at: PreciseDateTime
+    operation_type: Optional[OperationType] = None
+    user: Optional[User] = None
+    user_login: Optional[str] = None
+    user_resource_path: Optional[URI] = None
+    user_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class CheckAnnotationData:
+    annotation_level: CheckAnnotationLevel
+    location: CheckAnnotationRange
+    message: str
+    path: str
+    raw_details: Optional[str] = None
+    title: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class CheckRunOutput:
+    annotations: Optional[list[CheckAnnotationData]] = None
+    images: Optional[list[CheckRunOutputImage]] = None
+    summary: str
+    text: Optional[str] = None
+    title: str
+
+
+@dataclass(kw_only=True)
+class Comment:
+    author: Optional[Actor] = None
+    author_association: CommentAuthorAssociation
+    body: str
+    body_h_t_m_l: HTML
+    body_text: str
+    created_at: DateTime
+    created_via_email: bool
+    editor: Optional[Actor] = None
+    id: ID
+    includes_created_edit: bool
+    last_edited_at: Optional[DateTime] = None
+    published_at: Optional[DateTime] = None
+    updated_at: DateTime
+    user_content_edits: Optional[UserContentEditConnection] = None
+    viewer_did_author: bool
+
+
+@dataclass(kw_only=True)
+class CreateAttributionInvitationPayload:
+    client_mutation_id: Optional[str] = None
+    owner: Optional[Organization] = None
+    source: Optional[Claimable] = None
+    target: Optional[Claimable] = None
+
+
+@dataclass(kw_only=True)
+class CreateCheckRunInput:
+    actions: Optional[list[CheckRunAction]] = None
+    client_mutation_id: Optional[str] = None
+    completed_at: Optional[DateTime] = None
+    conclusion: Optional[CheckConclusionState] = None
+    details_url: Optional[URI] = None
+    external_id: Optional[str] = None
+    head_sha: GitObjectID
+    name: str
+    output: Optional[CheckRunOutput] = None
+    repository_id: ID
+    started_at: Optional[DateTime] = None
+    status: Optional[RequestableCheckStatusState] = None
+
+
+@dataclass(kw_only=True)
+class FileChanges:
+    additions: Optional[list[FileAddition]] = None
+    deletions: Optional[list[FileDeletion]] = None
+
+
+@dataclass(kw_only=True)
+class CreateCommitOnBranchInput:
+    branch: CommittableBranch
+    client_mutation_id: Optional[str] = None
+    expected_head_oid: GitObjectID
+    file_changes: Optional[FileChanges] = None
+    message: CommitMessage
+
+
+@dataclass(kw_only=True)
+class CreateCommitOnBranchPayload:
+    client_mutation_id: Optional[str] = None
+    commit: Optional[Commit] = None
+    ref: Optional[Ref] = None
+
+
+@dataclass(kw_only=True)
+class CreateEnterpriseOrganizationPayload:
+    client_mutation_id: Optional[str] = None
+    enterprise: Optional[Enterprise] = None
+    organization: Optional[Organization] = None
+
+
+@dataclass(kw_only=True)
+class CreateLinkedBranchPayload:
+    client_mutation_id: Optional[str] = None
+    issue: Optional[Issue] = None
+    linked_branch: Optional[LinkedBranch] = None
+
+
+@dataclass(kw_only=True)
+class RepositoryPropertyConditionTargetInput:
+    exclude: list[PropertyTargetDefinitionInput]
+    include: list[PropertyTargetDefinitionInput]
+
+
+@dataclass(kw_only=True)
+class RepositoryRuleConditionsInput:
+    ref_name: Optional[RefNameConditionTargetInput] = None
+    repository_id: Optional[RepositoryIdConditionTargetInput] = None
+    repository_name: Optional[RepositoryNameConditionTargetInput] = None
+    repository_property: Optional[RepositoryPropertyConditionTargetInput] = None
+
+
+@dataclass(kw_only=True)
+class RequiredStatusChecksParametersInput:
+    required_status_checks: list[StatusCheckConfigurationInput]
+    strict_required_status_checks_policy: bool
+
+
+@dataclass(kw_only=True)
+class WorkflowsParametersInput:
+    workflows: list[WorkflowFileReferenceInput]
+
+
+@dataclass(kw_only=True)
+class RuleParametersInput:
+    branch_name_pattern: Optional[BranchNamePatternParametersInput] = None
+    commit_author_email_pattern: Optional[
+        CommitAuthorEmailPatternParametersInput
+    ] = None
+    commit_message_pattern: Optional[CommitMessagePatternParametersInput] = None
+    committer_email_pattern: Optional[CommitterEmailPatternParametersInput] = None
+    pull_request: Optional[PullRequestParametersInput] = None
+    required_deployments: Optional[RequiredDeploymentsParametersInput] = None
+    required_status_checks: Optional[RequiredStatusChecksParametersInput] = None
+    tag_name_pattern: Optional[TagNamePatternParametersInput] = None
+    update: Optional[UpdateParametersInput] = None
+    workflows: Optional[WorkflowsParametersInput] = None
+
+
+@dataclass(kw_only=True)
+class RepositoryRuleInput:
+    id: Optional[ID] = None
+    parameters: Optional[RuleParametersInput] = None
+    type: RepositoryRuleType
+
+
+@dataclass(kw_only=True)
+class CreateRepositoryRulesetInput:
+    bypass_actors: Optional[list[RepositoryRulesetBypassActorInput]] = None
+    client_mutation_id: Optional[str] = None
+    conditions: RepositoryRuleConditionsInput
+    enforcement: RuleEnforcement
+    name: str
+    rules: Optional[list[RepositoryRuleInput]] = None
+    source_id: ID
+    target: Optional[RepositoryRulesetTarget] = None
+
+
+@dataclass(kw_only=True)
+class CreateUserListPayload:
+    client_mutation_id: Optional[str] = None
+    list: Optional[UserList] = None
+    viewer: Optional[User] = None
+
+
+@dataclass(kw_only=True)
+class DeletePullRequestReviewCommentPayload:
+    client_mutation_id: Optional[str] = None
+    pull_request_review: Optional[PullRequestReview] = None
+    pull_request_review_comment: Optional[PullRequestReviewComment] = None
+
+
+@dataclass(kw_only=True)
+class DisablePullRequestAutoMergePayload:
+    actor: Optional[Actor] = None
+    client_mutation_id: Optional[str] = None
+    pull_request: Optional[PullRequest] = None
+
+
+@dataclass(kw_only=True)
+class EnablePullRequestAutoMergePayload:
+    actor: Optional[Actor] = None
+    client_mutation_id: Optional[str] = None
+    pull_request: Optional[PullRequest] = None
+
+
+@dataclass(kw_only=True)
+class LinkRepositoryToProjectPayload:
+    client_mutation_id: Optional[str] = None
+    project: Optional[Project] = None
+    repository: Optional[Repository] = None
+
+
+@dataclass(kw_only=True)
+class LockLockablePayload:
+    actor: Optional[Actor] = None
+    client_mutation_id: Optional[str] = None
+    locked_record: Optional[Lockable] = None
+
+
+@dataclass(kw_only=True)
+class MarketplaceListing:
+    app: Optional[App] = None
+    company_url: Optional[URI] = None
+    configuration_resource_path: URI
+    configuration_url: URI
+    documentation_url: Optional[URI] = None
+    extended_description: Optional[str] = None
+    extended_description_h_t_m_l: HTML
+    full_description: str
+    full_description_h_t_m_l: HTML
+    has_published_free_trial_plans: bool
+    has_terms_of_service: bool
+    has_verified_owner: bool
+    how_it_works: Optional[str] = None
+    how_it_works_h_t_m_l: HTML
+    id: ID
+    installation_url: Optional[URI] = None
+    installed_for_viewer: bool
+    is_archived: bool
+    is_draft: bool
+    is_paid: bool
+    is_public: bool
+    is_rejected: bool
+    is_unverified: bool
+    is_unverified_pending: bool
+    is_verification_pending_from_draft: bool
+    is_verification_pending_from_unverified: bool
+    is_verified: bool
+    logo_background_color: str
+    logo_url: Optional[URI] = None
+    name: str
+    normalized_short_description: str
+    pricing_url: Optional[URI] = None
+    primary_category: MarketplaceCategory
+    privacy_policy_url: URI
+    resource_path: URI
+    screenshot_urls: list[str]
+    secondary_category: Optional[MarketplaceCategory] = None
+    short_description: str
+    slug: str
+    status_url: Optional[URI] = None
+    support_email: Optional[str] = None
+    support_url: URI
+    terms_of_service_url: Optional[URI] = None
+    url: URI
+    viewer_can_add_plans: bool
+    viewer_can_approve: bool
+    viewer_can_delist: bool
+    viewer_can_edit: bool
+    viewer_can_edit_categories: bool
+    viewer_can_edit_plans: bool
+    viewer_can_redraft: bool
+    viewer_can_reject: bool
+    viewer_can_request_approval: bool
+    viewer_has_purchased: bool
+    viewer_has_purchased_for_all_organizations: bool
+    viewer_is_listing_admin: bool
+
+
+@dataclass(kw_only=True)
+class MarketplaceListingEdge:
+    cursor: str
+    node: Optional[MarketplaceListing] = None
+
+
+@dataclass(kw_only=True)
+class MarketplaceListingConnection:
+    edges: Optional[list[MarketplaceListingEdge]] = None
+    nodes: Optional[list[MarketplaceListing]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class MergePullRequestPayload:
+    actor: Optional[Actor] = None
+    client_mutation_id: Optional[str] = None
+    pull_request: Optional[PullRequest] = None
+
+
+@dataclass(kw_only=True)
+class ProfileOwner:
+    any_pinnable_items: bool
+    email: Optional[str] = None
+    id: ID
+    item_showcase: ProfileItemShowcase
+    location: Optional[str] = None
+    login: str
+    name: Optional[str] = None
+    pinnable_items: PinnableItemConnection
+    pinned_items: PinnableItemConnection
+    pinned_items_remaining: int
+    viewer_can_change_pinned_items: bool
+    website_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class ProjectV2ActorEdge:
+    cursor: str
+    node: Optional[ProjectV2Actor] = None
+
+
+@dataclass(kw_only=True)
+class ProjectV2ActorConnection:
+    edges: Optional[list[ProjectV2ActorEdge]] = None
+    nodes: Optional[list[ProjectV2Actor]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class ProjectV2ItemFieldValueCommon:
+    created_at: DateTime
+    creator: Optional[Actor] = None
+    database_id: Optional[int] = None
+    field: ProjectV2FieldConfiguration
+    id: ID
+    item: ProjectV2Item
+    updated_at: DateTime
+
+
+@dataclass(kw_only=True)
+class PullRequestThread:
+    comments: PullRequestReviewCommentConnection
+    diff_side: DiffSide
+    id: ID
+    is_collapsed: bool
+    is_outdated: bool
+    is_resolved: bool
+    line: Optional[int] = None
+    path: str
+    pull_request: PullRequest
+    repository: Repository
+    resolved_by: Optional[User] = None
+    start_diff_side: Optional[DiffSide] = None
+    start_line: Optional[int] = None
+    subject_type: PullRequestReviewThreadSubjectType
+    viewer_can_reply: bool
+    viewer_can_resolve: bool
+    viewer_can_unresolve: bool
+
+
+@dataclass(kw_only=True)
+class RemoveEnterpriseAdminPayload:
+    admin: Optional[User] = None
+    client_mutation_id: Optional[str] = None
+    enterprise: Optional[Enterprise] = None
+    message: Optional[str] = None
+    viewer: Optional[User] = None
+
+
+@dataclass(kw_only=True)
+class RemoveEnterpriseMemberPayload:
+    client_mutation_id: Optional[str] = None
+    enterprise: Optional[Enterprise] = None
+    user: Optional[User] = None
+    viewer: Optional[User] = None
+
+
+@dataclass(kw_only=True)
+class RemoveEnterpriseOrganizationPayload:
+    client_mutation_id: Optional[str] = None
+    enterprise: Optional[Enterprise] = None
+    organization: Optional[Organization] = None
+    viewer: Optional[User] = None
+
+
+@dataclass(kw_only=True)
+class RemoveReactionPayload:
+    client_mutation_id: Optional[str] = None
+    reaction: Optional[Reaction] = None
+    reaction_groups: Optional[list[ReactionGroup]] = None
+    subject: Optional[Reactable] = None
+
+
+@dataclass(kw_only=True)
+class RequestReviewsPayload:
+    actor: Optional[Actor] = None
+    client_mutation_id: Optional[str] = None
+    pull_request: Optional[PullRequest] = None
+    requested_reviewers_edge: Optional[UserEdge] = None
+
+
+@dataclass(kw_only=True)
+class RevertPullRequestPayload:
+    client_mutation_id: Optional[str] = None
+    pull_request: Optional[PullRequest] = None
+    revert_pull_request: Optional[PullRequest] = None
+
+
+@dataclass(kw_only=True)
+class TextMatch:
+    fragment: str
+    highlights: list[TextMatchHighlight]
+    property: str
+
+
+@dataclass(kw_only=True)
+class SearchResultItemEdge:
+    cursor: str
+    node: Optional[SearchResultItem] = None
+    text_matches: Optional[list[TextMatch]] = None
+
+
+@dataclass(kw_only=True)
+class SearchResultItemConnection:
+    code_count: int
+    discussion_count: int
+    edges: Optional[list[SearchResultItemEdge]] = None
+    issue_count: int
+    nodes: Optional[list[SearchResultItem]] = None
+    page_info: PageInfo
+    repository_count: int
+    user_count: int
+    wiki_count: int
+
+
+@dataclass(kw_only=True)
+class SecurityAdvisoryEdge:
+    cursor: str
+    node: Optional[SecurityAdvisory] = None
+
+
+@dataclass(kw_only=True)
+class SecurityAdvisoryConnection:
+    edges: Optional[list[SecurityAdvisoryEdge]] = None
+    nodes: Optional[list[SecurityAdvisory]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class SponsorableItemEdge:
+    cursor: str
+    node: Optional[SponsorableItem] = None
+
+
+@dataclass(kw_only=True)
+class SponsorableItemConnection:
+    edges: Optional[list[SponsorableItemEdge]] = None
+    nodes: Optional[list[SponsorableItem]] = None
+    page_info: PageInfo
+    total_count: int
+
+
+@dataclass(kw_only=True)
+class Tag:
+    abbreviated_oid: str
+    commit_resource_path: URI
+    commit_url: URI
+    id: ID
+    message: Optional[str] = None
+    name: str
+    oid: GitObjectID
+    repository: Repository
+    tagger: Optional[GitActor] = None
+    target: GitObject
+
+
+@dataclass(kw_only=True)
+class UnlinkRepositoryFromProjectPayload:
+    client_mutation_id: Optional[str] = None
+    project: Optional[Project] = None
+    repository: Optional[Repository] = None
+
+
+@dataclass(kw_only=True)
+class UnlockLockablePayload:
+    actor: Optional[Actor] = None
+    client_mutation_id: Optional[str] = None
+    unlocked_record: Optional[Lockable] = None
+
+
+@dataclass(kw_only=True)
+class UpdateCheckRunInput:
+    actions: Optional[list[CheckRunAction]] = None
+    check_run_id: ID
+    client_mutation_id: Optional[str] = None
+    completed_at: Optional[DateTime] = None
+    conclusion: Optional[CheckConclusionState] = None
+    details_url: Optional[URI] = None
+    external_id: Optional[str] = None
+    name: Optional[str] = None
+    output: Optional[CheckRunOutput] = None
+    repository_id: ID
+    started_at: Optional[DateTime] = None
+    status: Optional[RequestableCheckStatusState] = None
+
+
+@dataclass(kw_only=True)
+class UpdateIssuePayload:
+    actor: Optional[Actor] = None
+    client_mutation_id: Optional[str] = None
+    issue: Optional[Issue] = None
+
+
+@dataclass(kw_only=True)
+class UpdatePullRequestPayload:
+    actor: Optional[Actor] = None
+    client_mutation_id: Optional[str] = None
+    pull_request: Optional[PullRequest] = None
+
+
+@dataclass(kw_only=True)
+class UpdateRepositoryRulesetInput:
+    bypass_actors: Optional[list[RepositoryRulesetBypassActorInput]] = None
+    client_mutation_id: Optional[str] = None
+    conditions: Optional[RepositoryRuleConditionsInput] = None
+    enforcement: Optional[RuleEnforcement] = None
+    name: Optional[str] = None
+    repository_ruleset_id: ID
+    rules: Optional[list[RepositoryRuleInput]] = None
+    target: Optional[RepositoryRulesetTarget] = None
+
+
+@dataclass(kw_only=True)
+class UpdateTeamsRepositoryPayload:
+    client_mutation_id: Optional[str] = None
+    repository: Optional[Repository] = None
+    teams: Optional[list[Team]] = None
+
+
+@dataclass(kw_only=True)
+class UpdateUserListsForItemPayload:
+    client_mutation_id: Optional[str] = None
+    item: Optional[UserListItems] = None
+    lists: Optional[list[UserList]] = None
+    user: Optional[User] = None
+
+
+@dataclass(kw_only=True)
+class ViewerHovercardContext:
+    message: str
+    octicon: str
+    viewer: User
+
+
+@dataclass(kw_only=True)
+class VerifyVerifiableDomainPayload:
+    client_mutation_id: Optional[str] = None
+    domain: Optional[VerifiableDomain] = None
+
+
+@dataclass(kw_only=True)
+class UpdateUserListPayload:
+    client_mutation_id: Optional[str] = None
+    list: Optional[UserList] = None
+
+
+@dataclass(kw_only=True)
+class UpdateTopicsPayload:
+    client_mutation_id: Optional[str] = None
+    invalid_topic_names: Optional[list[str]] = None
+    repository: Optional[Repository] = None
+
+
+@dataclass(kw_only=True)
+class UpdateTeamReviewAssignmentPayload:
+    client_mutation_id: Optional[str] = None
+    team: Optional[Team] = None
+
+
+@dataclass(kw_only=True)
+class UpdateTeamDiscussionPayload:
+    client_mutation_id: Optional[str] = None
+    team_discussion: Optional[TeamDiscussion] = None
+
+
+@dataclass(kw_only=True)
+class UpdateTeamDiscussionCommentPayload:
+    client_mutation_id: Optional[str] = None
+    team_discussion_comment: Optional[TeamDiscussionComment] = None
+
+
+@dataclass(kw_only=True)
+class UpdateSubscriptionPayload:
+    client_mutation_id: Optional[str] = None
+    subscribable: Optional[Subscribable] = None
+
+
+@dataclass(kw_only=True)
+class UpdateSponsorshipPreferencesPayload:
+    client_mutation_id: Optional[str] = None
+    sponsorship: Optional[Sponsorship] = None
+
+
+@dataclass(kw_only=True)
+class UpdateRepositoryWebCommitSignoffSettingPayload:
+    client_mutation_id: Optional[str] = None
+    message: Optional[str] = None
+    repository: Optional[Repository] = None
+
+
+@dataclass(kw_only=True)
+class UpdateRepositoryRulesetPayload:
+    client_mutation_id: Optional[str] = None
+    ruleset: Optional[RepositoryRuleset] = None
+
+
+@dataclass(kw_only=True)
+class UpdateRepositoryPayload:
+    client_mutation_id: Optional[str] = None
+    repository: Optional[Repository] = None
+
+
+@dataclass(kw_only=True)
+class UpdateRefsInput:
+    client_mutation_id: Optional[str] = None
+    ref_updates: list[RefUpdate]
+    repository_id: ID
+
+
+@dataclass(kw_only=True)
+class UpdateRefPayload:
+    client_mutation_id: Optional[str] = None
+    ref: Optional[Ref] = None
+
+
+@dataclass(kw_only=True)
+class UpdatePullRequestReviewPayload:
+    client_mutation_id: Optional[str] = None
+    pull_request_review: Optional[PullRequestReview] = None
+
+
+@dataclass(kw_only=True)
+class UpdatePullRequestReviewCommentPayload:
+    client_mutation_id: Optional[str] = None
+    pull_request_review_comment: Optional[PullRequestReviewComment] = None
+
+
+@dataclass(kw_only=True)
+class UpdatePullRequestBranchPayload:
+    client_mutation_id: Optional[str] = None
+    pull_request: Optional[PullRequest] = None
+
+
+@dataclass(kw_only=True)
+class UpdateProjectV2Payload:
+    client_mutation_id: Optional[str] = None
+    project_v2: Optional[ProjectV2] = None
+
+
+@dataclass(kw_only=True)
+class UpdateProjectV2ItemPositionPayload:
+    client_mutation_id: Optional[str] = None
+    items: Optional[ProjectV2ItemConnection] = None
+
+
+@dataclass(kw_only=True)
+class UpdateProjectV2ItemFieldValuePayload:
+    client_mutation_id: Optional[str] = None
+    project_v2_item: Optional[ProjectV2Item] = None
+
+
+@dataclass(kw_only=True)
+class UpdateProjectV2ItemFieldValueInput:
+    client_mutation_id: Optional[str] = None
+    field_id: ID
+    item_id: ID
+    project_id: ID
+    value: ProjectV2FieldValue
+
+
+@dataclass(kw_only=True)
+class UpdateProjectV2DraftIssuePayload:
+    client_mutation_id: Optional[str] = None
+    draft_issue: Optional[DraftIssue] = None
+
+
+@dataclass(kw_only=True)
+class UpdateProjectV2CollaboratorsPayload:
+    client_mutation_id: Optional[str] = None
+    collaborators: Optional[ProjectV2ActorConnection] = None
+
+
+@dataclass(kw_only=True)
+class UpdateProjectV2CollaboratorsInput:
+    client_mutation_id: Optional[str] = None
+    collaborators: list[ProjectV2Collaborator]
+    project_id: ID
+
+
+@dataclass(kw_only=True)
+class UpdateProjectPayload:
+    client_mutation_id: Optional[str] = None
+    project: Optional[Project] = None
+
+
+@dataclass(kw_only=True)
+class UpdateProjectColumnPayload:
+    client_mutation_id: Optional[str] = None
+    project_column: Optional[ProjectColumn] = None
+
+
+@dataclass(kw_only=True)
+class UpdateProjectCardPayload:
+    client_mutation_id: Optional[str] = None
+    project_card: Optional[ProjectCard] = None
+
+
+@dataclass(kw_only=True)
+class UpdatePatreonSponsorabilityPayload:
+    client_mutation_id: Optional[str] = None
+    sponsors_listing: Optional[SponsorsListing] = None
+
+
+@dataclass(kw_only=True)
+class UpdateOrganizationWebCommitSignoffSettingPayload:
+    client_mutation_id: Optional[str] = None
+    message: Optional[str] = None
+    organization: Optional[Organization] = None
+
+
+@dataclass(kw_only=True)
+class UpdateOrganizationAllowPrivateRepositoryForkingSettingPayload:
+    client_mutation_id: Optional[str] = None
+    message: Optional[str] = None
+    organization: Optional[Organization] = None
+
+
+@dataclass(kw_only=True)
+class UpdateNotificationRestrictionSettingPayload:
+    client_mutation_id: Optional[str] = None
+    owner: Optional[VerifiableDomainOwner] = None
+
+
+@dataclass(kw_only=True)
+class UpdateLabelPayload:
+    client_mutation_id: Optional[str] = None
+    label: Optional[Label] = None
+
+
+@dataclass(kw_only=True)
+class UpdateIssueCommentPayload:
+    client_mutation_id: Optional[str] = None
+    issue_comment: Optional[IssueComment] = None
+
+
+@dataclass(kw_only=True)
+class UpdateIpAllowListForInstalledAppsEnabledSettingPayload:
+    client_mutation_id: Optional[str] = None
+    owner: Optional[IpAllowListOwner] = None
+
+
+@dataclass(kw_only=True)
+class UpdateIpAllowListEntryPayload:
+    client_mutation_id: Optional[str] = None
+    ip_allow_list_entry: Optional[IpAllowListEntry] = None
+
+
+@dataclass(kw_only=True)
+class UpdateIpAllowListEnabledSettingPayload:
+    client_mutation_id: Optional[str] = None
+    owner: Optional[IpAllowListOwner] = None
+
+
+@dataclass(kw_only=True)
+class UpdateEnvironmentPayload:
+    client_mutation_id: Optional[str] = None
+    environment: Optional[Environment] = None
+
+
+@dataclass(kw_only=True)
+class UpdateEnterpriseTwoFactorAuthenticationRequiredSettingPayload:
+    client_mutation_id: Optional[str] = None
+    enterprise: Optional[Enterprise] = None
+    message: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class UpdateEnterpriseTeamDiscussionsSettingPayload:
+    client_mutation_id: Optional[str] = None
+    enterprise: Optional[Enterprise] = None
+    message: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class UpdateEnterpriseRepositoryProjectsSettingPayload:
+    client_mutation_id: Optional[str] = None
+    enterprise: Optional[Enterprise] = None
+    message: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class UpdateEnterpriseProfilePayload:
+    client_mutation_id: Optional[str] = None
+    enterprise: Optional[Enterprise] = None
+
+
+@dataclass(kw_only=True)
+class UpdateEnterpriseOrganizationProjectsSettingPayload:
+    client_mutation_id: Optional[str] = None
+    enterprise: Optional[Enterprise] = None
+    message: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class UpdateEnterpriseMembersCanViewDependencyInsightsSettingPayload:
+    client_mutation_id: Optional[str] = None
+    enterprise: Optional[Enterprise] = None
+    message: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class UpdateEnterpriseMembersCanUpdateProtectedBranchesSettingPayload:
+    client_mutation_id: Optional[str] = None
+    enterprise: Optional[Enterprise] = None
+    message: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class UpdateEnterpriseMembersCanMakePurchasesSettingPayload:
+    client_mutation_id: Optional[str] = None
+    enterprise: Optional[Enterprise] = None
+    message: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class UpdateEnterpriseMembersCanInviteCollaboratorsSettingPayload:
+    client_mutation_id: Optional[str] = None
+    enterprise: Optional[Enterprise] = None
+    message: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class UpdateEnterpriseMembersCanDeleteRepositoriesSettingPayload:
+    client_mutation_id: Optional[str] = None
+    enterprise: Optional[Enterprise] = None
+    message: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class UpdateEnterpriseMembersCanDeleteIssuesSettingPayload:
+    client_mutation_id: Optional[str] = None
+    enterprise: Optional[Enterprise] = None
+    message: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class UpdateEnterpriseMembersCanCreateRepositoriesSettingPayload:
+    client_mutation_id: Optional[str] = None
+    enterprise: Optional[Enterprise] = None
+    message: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class UpdateEnterpriseMembersCanChangeRepositoryVisibilitySettingPayload:
+    client_mutation_id: Optional[str] = None
+    enterprise: Optional[Enterprise] = None
+    message: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class UpdateEnterpriseDefaultRepositoryPermissionSettingPayload:
+    client_mutation_id: Optional[str] = None
+    enterprise: Optional[Enterprise] = None
+    message: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class UpdateEnterpriseAllowPrivateRepositoryForkingSettingPayload:
+    client_mutation_id: Optional[str] = None
+    enterprise: Optional[Enterprise] = None
+    message: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class UpdateDiscussionPayload:
+    client_mutation_id: Optional[str] = None
+    discussion: Optional[Discussion] = None
+
+
+@dataclass(kw_only=True)
+class UpdateDiscussionCommentPayload:
+    client_mutation_id: Optional[str] = None
+    comment: Optional[DiscussionComment] = None
+
+
+@dataclass(kw_only=True)
+class UpdateCheckSuitePreferencesPayload:
+    client_mutation_id: Optional[str] = None
+    repository: Optional[Repository] = None
+
+
+@dataclass(kw_only=True)
+class UpdateCheckSuitePreferencesInput:
+    auto_trigger_preferences: list[CheckSuiteAutoTriggerPreference]
+    client_mutation_id: Optional[str] = None
+    repository_id: ID
+
+
+@dataclass(kw_only=True)
+class UpdateCheckRunPayload:
+    check_run: Optional[CheckRun] = None
+    client_mutation_id: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class UpdateBranchProtectionRulePayload:
+    branch_protection_rule: Optional[BranchProtectionRule] = None
+    client_mutation_id: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class UpdateBranchProtectionRuleInput:
+    allows_deletions: Optional[bool] = None
+    allows_force_pushes: Optional[bool] = None
+    blocks_creations: Optional[bool] = None
+    branch_protection_rule_id: ID
+    bypass_force_push_actor_ids: Optional[list[ID]] = None
+    bypass_pull_request_actor_ids: Optional[list[ID]] = None
+    client_mutation_id: Optional[str] = None
+    dismisses_stale_reviews: Optional[bool] = None
+    is_admin_enforced: Optional[bool] = None
+    lock_allows_fetch_and_merge: Optional[bool] = None
+    lock_branch: Optional[bool] = None
+    pattern: Optional[str] = None
+    push_actor_ids: Optional[list[ID]] = None
+    require_last_push_approval: Optional[bool] = None
+    required_approving_review_count: Optional[int] = None
+    required_deployment_environments: Optional[list[str]] = None
+    required_status_check_contexts: Optional[list[str]] = None
+    required_status_checks: Optional[list[RequiredStatusCheckInput]] = None
+    requires_approving_reviews: Optional[bool] = None
+    requires_code_owner_reviews: Optional[bool] = None
+    requires_commit_signatures: Optional[bool] = None
+    requires_conversation_resolution: Optional[bool] = None
+    requires_deployments: Optional[bool] = None
+    requires_linear_history: Optional[bool] = None
+    requires_status_checks: Optional[bool] = None
+    requires_strict_status_checks: Optional[bool] = None
+    restricts_pushes: Optional[bool] = None
+    restricts_review_dismissals: Optional[bool] = None
+    review_dismissal_actor_ids: Optional[list[ID]] = None
+
+
+@dataclass(kw_only=True)
+class UnresolveReviewThreadPayload:
+    client_mutation_id: Optional[str] = None
+    thread: Optional[PullRequestReviewThread] = None
+
+
+@dataclass(kw_only=True)
+class UnpinIssuePayload:
+    client_mutation_id: Optional[str] = None
+    id: Optional[ID] = None
+    issue: Optional[Issue] = None
+
+
+@dataclass(kw_only=True)
+class UnminimizeCommentPayload:
+    client_mutation_id: Optional[str] = None
+    unminimized_comment: Optional[Minimizable] = None
+
+
+@dataclass(kw_only=True)
+class UnmarkProjectV2AsTemplatePayload:
+    client_mutation_id: Optional[str] = None
+    project_v2: Optional[ProjectV2] = None
+
+
+@dataclass(kw_only=True)
+class UnmarkIssueAsDuplicatePayload:
+    client_mutation_id: Optional[str] = None
+    duplicate: Optional[IssueOrPullRequest] = None
+
+
+@dataclass(kw_only=True)
+class UnmarkFileAsViewedPayload:
+    client_mutation_id: Optional[str] = None
+    pull_request: Optional[PullRequest] = None
+
+
+@dataclass(kw_only=True)
+class UnmarkDiscussionCommentAsAnswerPayload:
+    client_mutation_id: Optional[str] = None
+    discussion: Optional[Discussion] = None
+
+
+@dataclass(kw_only=True)
+class UnlinkProjectV2FromTeamPayload:
+    client_mutation_id: Optional[str] = None
+    team: Optional[Team] = None
+
+
+@dataclass(kw_only=True)
+class UnlinkProjectV2FromRepositoryPayload:
+    client_mutation_id: Optional[str] = None
+    repository: Optional[Repository] = None
+
+
+@dataclass(kw_only=True)
+class UnknownSignature:
+    email: str
+    is_valid: bool
+    payload: str
+    signature: str
+    signer: Optional[User] = None
+    state: GitSignatureState
+    was_signed_by_git_hub: bool
+
+
+@dataclass(kw_only=True)
+class UnfollowUserPayload:
+    client_mutation_id: Optional[str] = None
+    user: Optional[User] = None
+
+
+@dataclass(kw_only=True)
+class UnfollowOrganizationPayload:
+    client_mutation_id: Optional[str] = None
+    organization: Optional[Organization] = None
+
+
+@dataclass(kw_only=True)
+class UnarchiveRepositoryPayload:
+    client_mutation_id: Optional[str] = None
+    repository: Optional[Repository] = None
+
+
+@dataclass(kw_only=True)
+class UnarchiveProjectV2ItemPayload:
+    client_mutation_id: Optional[str] = None
+    item: Optional[ProjectV2Item] = None
+
+
+@dataclass(kw_only=True)
+class TransferIssuePayload:
+    client_mutation_id: Optional[str] = None
+    issue: Optional[Issue] = None
+
+
+@dataclass(kw_only=True)
+class TransferEnterpriseOrganizationPayload:
+    client_mutation_id: Optional[str] = None
+    organization: Optional[Organization] = None
+
+
+@dataclass(kw_only=True)
+class TopicAuditEntryData:
+    topic: Optional[Topic] = None
+    topic_name: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class TeamAuditEntryData:
+    team: Optional[Team] = None
+    team_name: Optional[str] = None
+    team_resource_path: Optional[URI] = None
+    team_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class SubmitPullRequestReviewPayload:
+    client_mutation_id: Optional[str] = None
+    pull_request_review: Optional[PullRequestReview] = None
+
+
+@dataclass(kw_only=True)
+class StartRepositoryMigrationPayload:
+    client_mutation_id: Optional[str] = None
+    repository_migration: Optional[RepositoryMigration] = None
+
+
+@dataclass(kw_only=True)
+class StartOrganizationMigrationPayload:
+    client_mutation_id: Optional[str] = None
+    org_migration: Optional[OrganizationMigration] = None
+
+
+@dataclass(kw_only=True)
+class Starrable:
+    id: ID
+    stargazer_count: int
+    stargazers: StargazerConnection
+    viewer_has_starred: bool
+
+
+@dataclass(kw_only=True)
+class SshSignature:
+    email: str
+    is_valid: bool
+    key_fingerprint: Optional[str] = None
+    payload: str
+    signature: str
+    signer: Optional[User] = None
+    state: GitSignatureState
+    was_signed_by_git_hub: bool
+
+
+@dataclass(kw_only=True)
+class SmimeSignature:
+    email: str
+    is_valid: bool
+    payload: str
+    signature: str
+    signer: Optional[User] = None
+    state: GitSignatureState
+    was_signed_by_git_hub: bool
+
+
+@dataclass(kw_only=True)
+class SetUserInteractionLimitPayload:
+    client_mutation_id: Optional[str] = None
+    user: Optional[User] = None
+
+
+@dataclass(kw_only=True)
+class SetRepositoryInteractionLimitPayload:
+    client_mutation_id: Optional[str] = None
+    repository: Optional[Repository] = None
+
+
+@dataclass(kw_only=True)
+class SetOrganizationInteractionLimitPayload:
+    client_mutation_id: Optional[str] = None
+    organization: Optional[Organization] = None
+
+
+@dataclass(kw_only=True)
+class SetEnterpriseIdentityProviderPayload:
+    client_mutation_id: Optional[str] = None
+    identity_provider: Optional[EnterpriseIdentityProvider] = None
+
+
+@dataclass(kw_only=True)
+class RevokeEnterpriseOrganizationsMigratorRolePayload:
+    client_mutation_id: Optional[str] = None
+    organizations: Optional[OrganizationConnection] = None
+
+
+@dataclass(kw_only=True)
+class RetireSponsorsTierPayload:
+    client_mutation_id: Optional[str] = None
+    sponsors_tier: Optional[SponsorsTier] = None
+
+
+@dataclass(kw_only=True)
+class ResolveReviewThreadPayload:
+    client_mutation_id: Optional[str] = None
+    thread: Optional[PullRequestReviewThread] = None
+
+
+@dataclass(kw_only=True)
+class RerequestCheckSuitePayload:
+    check_suite: Optional[CheckSuite] = None
+    client_mutation_id: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class RepositoryNode:
+    repository: Repository
+
+
+@dataclass(kw_only=True)
+class RepositoryDiscussionCommentAuthor:
+    repository_discussion_comments: DiscussionCommentConnection
+
+
+@dataclass(kw_only=True)
+class RepositoryDiscussionAuthor:
+    repository_discussions: DiscussionConnection
+
+
+@dataclass(kw_only=True)
+class RepositoryAuditEntryData:
+    repository: Optional[Repository] = None
+    repository_name: Optional[str] = None
+    repository_resource_path: Optional[URI] = None
+    repository_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class ReopenPullRequestPayload:
+    client_mutation_id: Optional[str] = None
+    pull_request: Optional[PullRequest] = None
+
+
+@dataclass(kw_only=True)
+class ReopenIssuePayload:
+    client_mutation_id: Optional[str] = None
+    issue: Optional[Issue] = None
+
+
+@dataclass(kw_only=True)
+class ReopenDiscussionPayload:
+    client_mutation_id: Optional[str] = None
+    discussion: Optional[Discussion] = None
+
+
+@dataclass(kw_only=True)
+class RemoveUpvotePayload:
+    client_mutation_id: Optional[str] = None
+    subject: Optional[Votable] = None
+
+
+@dataclass(kw_only=True)
+class RemoveStarPayload:
+    client_mutation_id: Optional[str] = None
+    starrable: Optional[Starrable] = None
+
+
+@dataclass(kw_only=True)
+class RemoveOutsideCollaboratorPayload:
+    client_mutation_id: Optional[str] = None
+    removed_user: Optional[User] = None
+
+
+@dataclass(kw_only=True)
+class RemoveLabelsFromLabelablePayload:
+    client_mutation_id: Optional[str] = None
+    labelable: Optional[Labelable] = None
+
+
+@dataclass(kw_only=True)
+class RemoveEnterpriseIdentityProviderPayload:
+    client_mutation_id: Optional[str] = None
+    identity_provider: Optional[EnterpriseIdentityProvider] = None
+
+
+@dataclass(kw_only=True)
+class RemoveAssigneesFromAssignablePayload:
+    assignable: Optional[Assignable] = None
+    client_mutation_id: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class RejectDeploymentsPayload:
+    client_mutation_id: Optional[str] = None
+    deployments: Optional[list[Deployment]] = None
+
+
+@dataclass(kw_only=True)
+class RegenerateEnterpriseIdentityProviderRecoveryCodesPayload:
+    client_mutation_id: Optional[str] = None
+    identity_provider: Optional[EnterpriseIdentityProvider] = None
+
+
+@dataclass(kw_only=True)
+class PublishSponsorsTierPayload:
+    client_mutation_id: Optional[str] = None
+    sponsors_tier: Optional[SponsorsTier] = None
+
+
+@dataclass(kw_only=True)
+class ProjectV2Recent:
+    recent_projects: ProjectV2Connection
+
+
+@dataclass(kw_only=True)
+class ProjectV2FieldCommon:
+    created_at: DateTime
+    data_type: ProjectV2FieldType
+    database_id: Optional[int] = None
+    id: ID
+    name: str
+    project: ProjectV2
+    updated_at: DateTime
+
+
+@dataclass(kw_only=True)
+class ProjectColumnImport:
+    column_name: str
+    issues: Optional[list[ProjectCardImport]] = None
+    position: int
+
+
+@dataclass(kw_only=True)
+class PinIssuePayload:
+    client_mutation_id: Optional[str] = None
+    issue: Optional[Issue] = None
+
+
+@dataclass(kw_only=True)
+class PackageTag:
+    id: ID
+    name: str
+    version: Optional[PackageVersion] = None
+
+
+@dataclass(kw_only=True)
+class PackageOwner:
+    id: ID
+    packages: PackageConnection
+
+
+@dataclass(kw_only=True)
+class OrganizationsHovercardContext:
+    message: str
+    octicon: str
+    relevant_organizations: OrganizationConnection
+    total_organization_count: int
+
+
+@dataclass(kw_only=True)
+class OrganizationTeamsHovercardContext:
+    message: str
+    octicon: str
+    relevant_teams: TeamConnection
+    teams_resource_path: URI
+    teams_url: URI
+    total_team_count: int
+
+
+@dataclass(kw_only=True)
+class OrganizationAuditEntryData:
+    organization: Optional[Organization] = None
+    organization_name: Optional[str] = None
+    organization_resource_path: Optional[URI] = None
+    organization_url: Optional[URI] = None
+
+
+@dataclass(kw_only=True)
+class MoveProjectColumnPayload:
+    client_mutation_id: Optional[str] = None
+    column_edge: Optional[ProjectColumnEdge] = None
+
+
+@dataclass(kw_only=True)
+class MoveProjectCardPayload:
+    card_edge: Optional[ProjectCardEdge] = None
+    client_mutation_id: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class MinimizeCommentPayload:
+    client_mutation_id: Optional[str] = None
+    minimized_comment: Optional[Minimizable] = None
+
+
+@dataclass(kw_only=True)
+class Migration:
+    continue_on_error: bool
+    created_at: DateTime
+    database_id: Optional[str] = None
+    failure_reason: Optional[str] = None
+    id: ID
+    migration_log_url: Optional[URI] = None
+    migration_source: MigrationSource
+    repository_name: str
+    source_url: URI
+    state: MigrationState
+    warnings_count: int
+
+
+@dataclass(kw_only=True)
+class MergeBranchPayload:
+    client_mutation_id: Optional[str] = None
+    merge_commit: Optional[Commit] = None
+
+
+@dataclass(kw_only=True)
+class MemberStatusable:
+    member_statuses: UserStatusConnection
+
+
+@dataclass(kw_only=True)
+class MarkPullRequestReadyForReviewPayload:
+    client_mutation_id: Optional[str] = None
+    pull_request: Optional[PullRequest] = None
+
+
+@dataclass(kw_only=True)
+class MarkProjectV2AsTemplatePayload:
+    client_mutation_id: Optional[str] = None
+    project_v2: Optional[ProjectV2] = None
+
+
+@dataclass(kw_only=True)
+class MarkNotificationAsDonePayload:
+    client_mutation_id: Optional[str] = None
+    success: Optional[bool] = None
+    viewer: Optional[User] = None
+
+
+@dataclass(kw_only=True)
+class MarkFileAsViewedPayload:
+    client_mutation_id: Optional[str] = None
+    pull_request: Optional[PullRequest] = None
+
+
+@dataclass(kw_only=True)
+class MarkDiscussionCommentAsAnswerPayload:
+    client_mutation_id: Optional[str] = None
+    discussion: Optional[Discussion] = None
+
+
+@dataclass(kw_only=True)
+class LinkProjectV2ToTeamPayload:
+    client_mutation_id: Optional[str] = None
+    team: Optional[Team] = None
+
+
+@dataclass(kw_only=True)
+class LinkProjectV2ToRepositoryPayload:
+    client_mutation_id: Optional[str] = None
+    repository: Optional[Repository] = None
+
+
+@dataclass(kw_only=True)
+class InviteEnterpriseAdminPayload:
+    client_mutation_id: Optional[str] = None
+    invitation: Optional[EnterpriseAdministratorInvitation] = None
+
+
+@dataclass(kw_only=True)
+class ImportProjectPayload:
+    client_mutation_id: Optional[str] = None
+    project: Optional[Project] = None
+
+
+@dataclass(kw_only=True)
+class ImportProjectInput:
+    body: Optional[str] = None
+    client_mutation_id: Optional[str] = None
+    column_imports: list[ProjectColumnImport]
+    name: str
+    owner_name: str
+    public: Optional[bool] = None
+
+
+@dataclass(kw_only=True)
+class GrantEnterpriseOrganizationsMigratorRolePayload:
+    client_mutation_id: Optional[str] = None
+    organizations: Optional[OrganizationConnection] = None
+
+
+@dataclass(kw_only=True)
+class GpgSignature:
+    email: str
+    is_valid: bool
+    key_id: Optional[str] = None
+    payload: str
+    signature: str
+    signer: Optional[User] = None
+    state: GitSignatureState
+    was_signed_by_git_hub: bool
+
+
+@dataclass(kw_only=True)
+class FollowUserPayload:
+    client_mutation_id: Optional[str] = None
+    user: Optional[User] = None
+
+
+@dataclass(kw_only=True)
+class FollowOrganizationPayload:
+    client_mutation_id: Optional[str] = None
+    organization: Optional[Organization] = None
+
+
+@dataclass(kw_only=True)
+class EnqueuePullRequestPayload:
+    client_mutation_id: Optional[str] = None
+    merge_queue_entry: Optional[MergeQueueEntry] = None
+
+
+@dataclass(kw_only=True)
+class DismissRepositoryVulnerabilityAlertPayload:
+    client_mutation_id: Optional[str] = None
+    repository_vulnerability_alert: Optional[RepositoryVulnerabilityAlert] = None
+
+
+@dataclass(kw_only=True)
+class DismissPullRequestReviewPayload:
+    client_mutation_id: Optional[str] = None
+    pull_request_review: Optional[PullRequestReview] = None
+
+
+@dataclass(kw_only=True)
+class DequeuePullRequestPayload:
+    client_mutation_id: Optional[str] = None
+    merge_queue_entry: Optional[MergeQueueEntry] = None
+
+
+@dataclass(kw_only=True)
+class DeleteVerifiableDomainPayload:
+    client_mutation_id: Optional[str] = None
+    owner: Optional[VerifiableDomainOwner] = None
+
+
+@dataclass(kw_only=True)
+class DeleteUserListPayload:
+    client_mutation_id: Optional[str] = None
+    user: Optional[User] = None
+
+
+@dataclass(kw_only=True)
+class DeletePullRequestReviewPayload:
+    client_mutation_id: Optional[str] = None
+    pull_request_review: Optional[PullRequestReview] = None
+
+
+@dataclass(kw_only=True)
+class DeleteProjectV2WorkflowPayload:
+    client_mutation_id: Optional[str] = None
+    deleted_workflow_id: Optional[ID] = None
+    project_v2: Optional[ProjectV2] = None
+
+
+@dataclass(kw_only=True)
+class DeleteProjectV2Payload:
+    client_mutation_id: Optional[str] = None
+    project_v2: Optional[ProjectV2] = None
+
+
+@dataclass(kw_only=True)
+class DeleteProjectV2FieldPayload:
+    client_mutation_id: Optional[str] = None
+    project_v2_field: Optional[ProjectV2FieldConfiguration] = None
+
+
+@dataclass(kw_only=True)
+class DeleteProjectPayload:
+    client_mutation_id: Optional[str] = None
+    owner: Optional[ProjectOwner] = None
+
+
+@dataclass(kw_only=True)
+class DeleteProjectColumnPayload:
+    client_mutation_id: Optional[str] = None
+    deleted_column_id: Optional[ID] = None
+    project: Optional[Project] = None
+
+
+@dataclass(kw_only=True)
+class DeleteProjectCardPayload:
+    client_mutation_id: Optional[str] = None
+    column: Optional[ProjectColumn] = None
+    deleted_card_id: Optional[ID] = None
+
+
+@dataclass(kw_only=True)
+class DeleteLinkedBranchPayload:
+    client_mutation_id: Optional[str] = None
+    issue: Optional[Issue] = None
+
+
+@dataclass(kw_only=True)
+class DeleteIssuePayload:
+    client_mutation_id: Optional[str] = None
+    repository: Optional[Repository] = None
+
+
+@dataclass(kw_only=True)
+class DeleteIpAllowListEntryPayload:
+    client_mutation_id: Optional[str] = None
+    ip_allow_list_entry: Optional[IpAllowListEntry] = None
+
+
+@dataclass(kw_only=True)
+class DeleteDiscussionPayload:
+    client_mutation_id: Optional[str] = None
+    discussion: Optional[Discussion] = None
+
+
+@dataclass(kw_only=True)
+class DeleteDiscussionCommentPayload:
+    client_mutation_id: Optional[str] = None
+    comment: Optional[DiscussionComment] = None
+
+
+@dataclass(kw_only=True)
+class DeclineTopicSuggestionPayload:
+    client_mutation_id: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class CreateTeamDiscussionPayload:
+    client_mutation_id: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class CreateTeamDiscussionCommentPayload:
+    client_mutation_id: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class CreateSponsorshipsPayload:
+    client_mutation_id: Optional[str] = None
+    sponsorables: Optional[list[Sponsorable]] = None
+
+
+@dataclass(kw_only=True)
+class CreateSponsorshipsInput:
+    client_mutation_id: Optional[str] = None
+    privacy_level: Optional[SponsorshipPrivacy] = None
+    receive_emails: Optional[bool] = None
+    recurring: Optional[bool] = None
+    sponsor_login: str
+    sponsorships: list[BulkSponsorship]
+
+
+@dataclass(kw_only=True)
+class CreateSponsorshipPayload:
+    client_mutation_id: Optional[str] = None
+    sponsorship: Optional[Sponsorship] = None
+
+
+@dataclass(kw_only=True)
+class CreateSponsorsTierPayload:
+    client_mutation_id: Optional[str] = None
+    sponsors_tier: Optional[SponsorsTier] = None
+
+
+@dataclass(kw_only=True)
+class CreateSponsorsListingPayload:
+    client_mutation_id: Optional[str] = None
+    sponsors_listing: Optional[SponsorsListing] = None
+
+
+@dataclass(kw_only=True)
+class CreateRepositoryRulesetPayload:
+    client_mutation_id: Optional[str] = None
+    ruleset: Optional[RepositoryRuleset] = None
+
+
+@dataclass(kw_only=True)
+class CreateRepositoryPayload:
+    client_mutation_id: Optional[str] = None
+    repository: Optional[Repository] = None
+
+
+@dataclass(kw_only=True)
+class CreateRefPayload:
+    client_mutation_id: Optional[str] = None
+    ref: Optional[Ref] = None
+
+
+@dataclass(kw_only=True)
+class CreatePullRequestPayload:
+    client_mutation_id: Optional[str] = None
+    pull_request: Optional[PullRequest] = None
+
+
+@dataclass(kw_only=True)
+class CreateProjectV2Payload:
+    client_mutation_id: Optional[str] = None
+    project_v2: Optional[ProjectV2] = None
+
+
+@dataclass(kw_only=True)
+class CreateProjectV2FieldPayload:
+    client_mutation_id: Optional[str] = None
+    project_v2_field: Optional[ProjectV2FieldConfiguration] = None
+
+
+@dataclass(kw_only=True)
+class CreateProjectV2FieldInput:
+    client_mutation_id: Optional[str] = None
+    data_type: ProjectV2CustomFieldType
+    name: str
+    project_id: ID
+    single_select_options: Optional[list[ProjectV2SingleSelectFieldOptionInput]] = None
+
+
+@dataclass(kw_only=True)
+class CreateProjectPayload:
+    client_mutation_id: Optional[str] = None
+    project: Optional[Project] = None
+
+
+@dataclass(kw_only=True)
+class CreateMigrationSourcePayload:
+    client_mutation_id: Optional[str] = None
+    migration_source: Optional[MigrationSource] = None
+
+
+@dataclass(kw_only=True)
+class CreateLabelPayload:
+    client_mutation_id: Optional[str] = None
+    label: Optional[Label] = None
+
+
+@dataclass(kw_only=True)
+class CreateIssuePayload:
+    client_mutation_id: Optional[str] = None
+    issue: Optional[Issue] = None
+
+
+@dataclass(kw_only=True)
+class CreateIpAllowListEntryPayload:
+    client_mutation_id: Optional[str] = None
+    ip_allow_list_entry: Optional[IpAllowListEntry] = None
+
+
+@dataclass(kw_only=True)
+class CreateEnvironmentPayload:
+    client_mutation_id: Optional[str] = None
+    environment: Optional[Environment] = None
+
+
+@dataclass(kw_only=True)
+class CreateDiscussionPayload:
+    client_mutation_id: Optional[str] = None
+    discussion: Optional[Discussion] = None
+
+
+@dataclass(kw_only=True)
+class CreateDeploymentStatusPayload:
+    client_mutation_id: Optional[str] = None
+    deployment_status: Optional[DeploymentStatus] = None
+
+
+@dataclass(kw_only=True)
+class CreateDeploymentPayload:
+    auto_merged: Optional[bool] = None
+    client_mutation_id: Optional[str] = None
+    deployment: Optional[Deployment] = None
+
+
+@dataclass(kw_only=True)
+class CreateCheckSuitePayload:
+    check_suite: Optional[CheckSuite] = None
+    client_mutation_id: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class CreateCheckRunPayload:
+    check_run: Optional[CheckRun] = None
+    client_mutation_id: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class CreateBranchProtectionRulePayload:
+    branch_protection_rule: Optional[BranchProtectionRule] = None
+    client_mutation_id: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class CreateBranchProtectionRuleInput:
+    allows_deletions: Optional[bool] = None
+    allows_force_pushes: Optional[bool] = None
+    blocks_creations: Optional[bool] = None
+    bypass_force_push_actor_ids: Optional[list[ID]] = None
+    bypass_pull_request_actor_ids: Optional[list[ID]] = None
+    client_mutation_id: Optional[str] = None
+    dismisses_stale_reviews: Optional[bool] = None
+    is_admin_enforced: Optional[bool] = None
+    lock_allows_fetch_and_merge: Optional[bool] = None
+    lock_branch: Optional[bool] = None
+    pattern: str
+    push_actor_ids: Optional[list[ID]] = None
+    repository_id: ID
+    require_last_push_approval: Optional[bool] = None
+    required_approving_review_count: Optional[int] = None
+    required_deployment_environments: Optional[list[str]] = None
+    required_status_check_contexts: Optional[list[str]] = None
+    required_status_checks: Optional[list[RequiredStatusCheckInput]] = None
+    requires_approving_reviews: Optional[bool] = None
+    requires_code_owner_reviews: Optional[bool] = None
+    requires_commit_signatures: Optional[bool] = None
+    requires_conversation_resolution: Optional[bool] = None
+    requires_deployments: Optional[bool] = None
+    requires_linear_history: Optional[bool] = None
+    requires_status_checks: Optional[bool] = None
+    requires_strict_status_checks: Optional[bool] = None
+    restricts_pushes: Optional[bool] = None
+    restricts_review_dismissals: Optional[bool] = None
+    review_dismissal_actor_ids: Optional[list[ID]] = None
+
+
+@dataclass(kw_only=True)
+class CopyProjectV2Payload:
+    client_mutation_id: Optional[str] = None
+    project_v2: Optional[ProjectV2] = None
+
+
+@dataclass(kw_only=True)
+class ConvertPullRequestToDraftPayload:
+    client_mutation_id: Optional[str] = None
+    pull_request: Optional[PullRequest] = None
+
+
+@dataclass(kw_only=True)
+class ConvertProjectCardNoteToIssuePayload:
+    client_mutation_id: Optional[str] = None
+    project_card: Optional[ProjectCard] = None
+
+
+@dataclass(kw_only=True)
+class Contribution:
+    is_restricted: bool
+    occurred_at: DateTime
+    resource_path: URI
+    url: URI
+    user: User
+
+
+@dataclass(kw_only=True)
+class ClosePullRequestPayload:
+    client_mutation_id: Optional[str] = None
+    pull_request: Optional[PullRequest] = None
+
+
+@dataclass(kw_only=True)
+class CloseIssuePayload:
+    client_mutation_id: Optional[str] = None
+    issue: Optional[Issue] = None
+
+
+@dataclass(kw_only=True)
+class CloseDiscussionPayload:
+    client_mutation_id: Optional[str] = None
+    discussion: Optional[Discussion] = None
+
+
+@dataclass(kw_only=True)
+class CloneTemplateRepositoryPayload:
+    client_mutation_id: Optional[str] = None
+    repository: Optional[Repository] = None
+
+
+@dataclass(kw_only=True)
+class CloneProjectPayload:
+    client_mutation_id: Optional[str] = None
+    job_status_id: Optional[str] = None
+    project: Optional[Project] = None
+
+
+@dataclass(kw_only=True)
+class ClearProjectV2ItemFieldValuePayload:
+    client_mutation_id: Optional[str] = None
+    project_v2_item: Optional[ProjectV2Item] = None
+
+
+@dataclass(kw_only=True)
+class ClearLabelsFromLabelablePayload:
+    client_mutation_id: Optional[str] = None
+    labelable: Optional[Labelable] = None
+
+
+@dataclass(kw_only=True)
+class ChangeUserStatusPayload:
+    client_mutation_id: Optional[str] = None
+    status: Optional[UserStatus] = None
+
+
+@dataclass(kw_only=True)
+class CancelSponsorshipPayload:
+    client_mutation_id: Optional[str] = None
+    sponsors_tier: Optional[SponsorsTier] = None
+
+
+@dataclass(kw_only=True)
+class CancelEnterpriseAdminInvitationPayload:
+    client_mutation_id: Optional[str] = None
+    invitation: Optional[EnterpriseAdministratorInvitation] = None
+    message: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class Blob:
+    abbreviated_oid: str
+    byte_size: int
+    commit_resource_path: URI
+    commit_url: URI
+    id: ID
+    is_binary: Optional[bool] = None
+    is_truncated: bool
+    oid: GitObjectID
+    repository: Repository
+    text: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class ArchiveRepositoryPayload:
+    client_mutation_id: Optional[str] = None
+    repository: Optional[Repository] = None
+
+
+@dataclass(kw_only=True)
+class ArchiveProjectV2ItemPayload:
+    client_mutation_id: Optional[str] = None
+    item: Optional[ProjectV2Item] = None
+
+
+@dataclass(kw_only=True)
+class ApproveVerifiableDomainPayload:
+    client_mutation_id: Optional[str] = None
+    domain: Optional[VerifiableDomain] = None
+
+
+@dataclass(kw_only=True)
+class ApproveDeploymentsPayload:
+    client_mutation_id: Optional[str] = None
+    deployments: Optional[list[Deployment]] = None
+
+
+@dataclass(kw_only=True)
+class AddVerifiableDomainPayload:
+    client_mutation_id: Optional[str] = None
+    domain: Optional[VerifiableDomain] = None
+
+
+@dataclass(kw_only=True)
+class AddUpvotePayload:
+    client_mutation_id: Optional[str] = None
+    subject: Optional[Votable] = None
+
+
+@dataclass(kw_only=True)
+class AddStarPayload:
+    client_mutation_id: Optional[str] = None
+    starrable: Optional[Starrable] = None
+
+
+@dataclass(kw_only=True)
+class AddPullRequestReviewThreadReplyPayload:
+    client_mutation_id: Optional[str] = None
+    comment: Optional[PullRequestReviewComment] = None
+
+
+@dataclass(kw_only=True)
+class AddPullRequestReviewThreadPayload:
+    client_mutation_id: Optional[str] = None
+    thread: Optional[PullRequestReviewThread] = None
+
+
+@dataclass(kw_only=True)
+class AddProjectV2ItemByIdPayload:
+    client_mutation_id: Optional[str] = None
+    item: Optional[ProjectV2Item] = None
+
+
+@dataclass(kw_only=True)
+class AddProjectV2DraftIssuePayload:
+    client_mutation_id: Optional[str] = None
+    project_item: Optional[ProjectV2Item] = None
+
+
+@dataclass(kw_only=True)
+class AddLabelsToLabelablePayload:
+    client_mutation_id: Optional[str] = None
+    labelable: Optional[Labelable] = None
+
+
+@dataclass(kw_only=True)
+class AddEnterpriseOrganizationMemberPayload:
+    client_mutation_id: Optional[str] = None
+    users: Optional[list[User]] = None
+
+
+@dataclass(kw_only=True)
+class AddDiscussionPollVotePayload:
+    client_mutation_id: Optional[str] = None
+    poll_option: Optional[DiscussionPollOption] = None
+
+
+@dataclass(kw_only=True)
+class AddDiscussionCommentPayload:
+    client_mutation_id: Optional[str] = None
+    comment: Optional[DiscussionComment] = None
+
+
+@dataclass(kw_only=True)
+class AddAssigneesToAssignablePayload:
+    assignable: Optional[Assignable] = None
+    client_mutation_id: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class AcceptTopicSuggestionPayload:
+    client_mutation_id: Optional[str] = None
+
+
+@dataclass(kw_only=True)
+class AcceptEnterpriseAdministratorInvitationPayload:
+    client_mutation_id: Optional[str] = None
+    invitation: Optional[EnterpriseAdministratorInvitation] = None
+    message: Optional[str] = None

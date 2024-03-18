@@ -1,12 +1,12 @@
 from setuptools import setup
 
 setup(
-    name='pygqlmap',
-    version='1.1.2',
-    url='https://github.com/dapalex/py-graphql-mapper/tree/1.1.2',
-    author='Alex Dap',
-    author_email='shlisi2017@gmail.com',
-    description='A python library to call GraphQL APIs without using hardcoded strings',
+    name='gqldataclass',
+    version='1.0.0',
+    url='https://github.com/nikikuzi/graphql-dataclass/tree/1.0.0',
+    author='Alex Dap, Mikita Kuzniatsou',
+    author_email='shlisi2017@gmail.com, nikikuzi@gmail.com',
+    description='A python library to generate dataclasses for GraphQL types',
     include_package_data=True,
     packages=['pygqlmap', 'pygqlmap.src', 'codegen', 'codegen.src', 'codegen.src.templates'],
     data_files=[('', ['pygqlmap/config.ini'])],

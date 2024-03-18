@@ -1,63 +1,51 @@
-from pygqlmap.gql_types import *
+from pygqlmap.gql_types import ID
 
-Base64String = str ##A (potentially binary) string encoded using base64.
+String = str  # The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
 
-BigInt = str ##Represents non-fractional signed whole numeric values. Since the value may exceed the size of a 32-bit integer, it's encoded as a string.
 
-Boolean = bool ##Represents `true` or `false` values.
+ID = ID  # The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
 
-Date = str ##An ISO-8601 encoded date string.
 
-DateTime = str ##An ISO-8601 encoded UTC date string.
+Boolean = bool  # The `Boolean` scalar type represents `true` or `false`.
 
-Float = float ##Represents signed double-precision fractional values as specified by [IEEE 754](https://en.wikipedia.org/wiki/IEEE_floating_point).
 
-GitObjectID = str ##A Git object ID.
+Int = int  # The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1.
 
-GitSSHRemote = str ##Git SSH string
 
-GitTimestamp = str ##An ISO-8601 encoded date string. Unlike the DateTime type, GitTimestamp is not converted in UTC.
+Base64String = str  # A (potentially binary) string encoded using base64.
 
-HTML = str ##A string containing HTML code.
 
-ID = ID ##Represents a unique identifier that is Base64 obfuscated. It is often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"VXNlci0xMA=="`) or integer (such as `4`) input value will be accepted as an ID.
+BigInt = str  # Represents non-fractional signed whole numeric values. Since the value may - exceed the size of a 32-bit integer, it's encoded as a string.
 
-Int = int ##Represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1.
 
-PreciseDateTime = str ##An ISO-8601 encoded UTC date string with millisecond precision.
+Float = float  # The `Float` scalar type represents signed double-precision fractional values as specified by [IEEE 754](https://en.wikipedia.org/wiki/IEEE_floating_point).
 
-String = str ##Represents textual data as UTF-8 character sequences. This type is most often used by GraphQL to represent free-form human-readable text.
 
-URI = str ##An RFC 3986, RFC 3987, and RFC 6570 (level 4) compliant URI string.
+Date = str  # An ISO-8601 encoded date string.
 
-X509Certificate = str ##A valid x509 certificate string
 
-isRequired = bool ##Whether this is required to pass before merging for a specific pull request.
+DateTime = str  # An ISO-8601 encoded UTC date string.
 
-trackedIssuesCount = int ##The number of tracked issues for this issue
 
-viewerMergeBodyText = str ##The merge body text for the viewer and method.
+GitObjectID = str  # A Git object ID.
 
-viewerMergeHeadlineText = str ##The merge headline text for the viewer and method.
 
-totalIssueContributions = int ##How many issues the user opened.
+GitRefname = str  # A fully qualified reference name (e.g. `refs/heads/master`).
 
-totalPullRequestContributions = int ##How many pull requests the user opened.
 
-totalRepositoriesWithContributedIssues = int ##How many different repositories the user opened issues in.
+GitSSHRemote = str  # Git SSH string
 
-totalRepositoriesWithContributedPullRequests = int ##How many different repositories the user opened pull requests in.
 
-totalRepositoryContributions = int ##How many repositories the user created.
+GitTimestamp = str  # An ISO-8601 encoded date string. Unlike the DateTime type, GitTimestamp is not converted in UTC.
 
-text = str ##UTF8 text data or null if the file is binary
 
-isSponsoredBy = bool ##Whether the given account is sponsoring this user/organization.
+HTML = str  # A string containing HTML code.
 
-totalSponsorshipAmountAsSponsorInCents = int ##The amount in United States cents (e.g., 500 = $5.00 USD) that this entity has spent on GitHub to fund sponsorships. Only returns a value when viewed by the user themselves or by a user who can manage sponsorships for the requested organization.
 
-anyPinnableItems = bool ##Determine if this repository owner has any items that can be pinned to their profile.
+PreciseDateTime = str  # An ISO-8601 encoded UTC date string with millisecond precision.
 
-canReceiveOrganizationEmailsWhenNotificationsRestricted = bool ##Could this user receive email notifications, if the organization had notification restrictions enabled?
 
-organizationVerifiedDomainEmails = str ##Verified email addresses that match verified domains for a specified organization the user is a member of.
+URI = str  # An RFC 3986, RFC 3987, and RFC 6570 (level 4) compliant URI string.
+
+
+X509Certificate = str  # A valid x509 certificate string

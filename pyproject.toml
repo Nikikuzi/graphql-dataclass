@@ -8,7 +8,7 @@ authors = [
     { name="Mikita Kuzniatsou", email="nikikuzi@gmail.com" },
       { name="Alex Dap", email="shlisi2017@gmail.com" },
 ]
-readme = "README.md"
+readme = "README.MD"
 keywords = ["python", "graphql", "mapping", "dataclass"]
 license = { file = "LICENSE" }
 requires-python = ">=3.10"

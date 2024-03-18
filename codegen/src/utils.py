@@ -13,9 +13,8 @@ def perf_profile_log():
 def split_types(dictionary: dict[str, any]):
     myDeque = deque()
     simpleTypes = []
-    while dictionary:
+    for currentItem in dictionary.items():
         try:
-            currentItem = dictionary.popitem()
             currUsedTypes = 0
             for field in currentItem[1].get_valid_fields_lst():
                 currUsedTypes +=  len(field.get_used_typenames())
@@ -74,3 +73,13 @@ def add_val_update_dict(dictionary: dict, key, value):
                 dictionary[key] += value
     except Exception as ex:
         raise ex
+
+
+def to_camel_case(text: str) -> str:
+    return ''.join(word[0].title() + word[1:].lower() for word in text.split("_")) if '_' in text \
+        else ''.join(word[0].title() + word[1:] for word in text.split("_"))
+
+
+def to_snake_case(text: str) -> str:
+    return ''.join(['_'+i.lower() if i.isupper()
+               else i for i in text]).lstrip('_')

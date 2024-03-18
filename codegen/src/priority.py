@@ -21,12 +21,14 @@ class ExtractionResults():
     enum_classes: dict
     scalar_defs: dict
     type_refs: dict
+    unions: list
 
     def __init__(self):
         self.scalar_defs = {}
         self.enum_classes = {}
         self.simple_type_classes = {}
         self.type_classes = {}
+        self.unions = []
         self.query_classes = {}
         self.queries_enum_class = {}
         self.mutation_classes = {}

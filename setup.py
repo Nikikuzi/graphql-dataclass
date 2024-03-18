@@ -5,7 +5,7 @@ this_directory = Path(__file__).parent
 long_description = (this_directory / "README.MD").read_text()
 setup(
     name='gqldataclass',
-    version='1.0.0',
+    version='1.0.1',
     url='https://github.com/nikikuzi/graphql-dataclass/tree/1.0.0',
     author='Mikita Kuzniatsou, Alex Dap',
     author_email='nikikuzi@gmail.com, shlisi2017@gmail.com',

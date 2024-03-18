@@ -5,8 +5,8 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "graphql-dataclass"
 authors = [
-  { name="Alex Dap", email="shlisi2017@gmail.com" }, 
     { name="Mikita Kuzniatsou", email="nikikuzi@gmail.com" },
+      { name="Alex Dap", email="shlisi2017@gmail.com" },
 ]
 readme = "README.md"
 keywords = ["python", "graphql", "mapping", "dataclass"]
@@ -20,7 +20,7 @@ classifiers = [
 dynamic = ["version", "description"]
 
 [project.scripts]
-pgmcodegen = "codegen.__main__:main"
+gqldataclass = "codegen.__main__:main"
 
 [project.urls]
 "Homepage" = "https://github.com/nikikuzi/graphql-dataclass/"

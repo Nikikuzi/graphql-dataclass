@@ -29,7 +29,7 @@ pip install graphql-dataclass
 To generate the code execute the following command:
 
 ```
-pgmcodegen generate ./pathToOutputFolder -apiArgs ./<pathToArgsFile>/generatorArgs.json
+gqldataclass generate ./pathToOutputFolder -apiArgs ./<pathToArgsFile>/generatorArgs.json
 ```
 
 This command requires a json file containing the parameters needed to get the GraphQL schema

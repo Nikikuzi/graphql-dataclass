@@ -41,7 +41,7 @@ class TestCLI(unittest.TestCase):
 
 def run_download_cmd_ra_file_rel():
     logger.debug('\nRunning run_download_cmd_ra_file_rel...')
-    command = "pgmcodegen download ./tests/cmd_output/rapidapi/schema.json -apiArgs ./tests/cli_input/rapid_api/downloaderArgs.json -v" #command to be executed
+    command = "gqldataclass download ./tests/cmd_output/rapidapi/schema.json -apiArgs ./tests/cli_input/rapid_api/downloaderArgs.json -v" #command to be executed
     logger.debug("Launching: " + command)
 
     res = os.system(command)
@@ -50,7 +50,7 @@ def run_download_cmd_ra_file_rel():
 
 def run_generate_cmd_ra_api_abs():
     logger.debug('\nRunning run_generate_cmd_ra_api_abs...')
-    command = "pgmcodegen generate ./tests/cmd_output/rapidapi -v -apiArgs ./tests/cli_input/rapid_api/generatorArgs.json -v" #command to be executed
+    command = "gqldataclass generate ./tests/cmd_output/rapidapi -v -apiArgs ./tests/cli_input/rapid_api/generatorArgs.json -v" #command to be executed
     logger.debug("Launching: " + command)
 
     res = os.system(command)
@@ -59,7 +59,7 @@ def run_generate_cmd_ra_api_abs():
 
 def run_download_cmd_gdbc_file_rel():
   logger.debug('\nRunning run_download_cmd_gh_file_rel...')
-  command = "pgmcodegen download ./tests/cmd_output/gdbc/schema.json -apiArgs ./tests/cli_input/gdbc_api/downloaderArgs.json -v" #command to be executed
+  command = "gqldataclass download ./tests/cmd_output/gdbc/schema.json -apiArgs ./tests/cli_input/gdbc_api/downloaderArgs.json -v" #command to be executed
   logger.debug("Launching: " + command)
 
   res = os.system(command)
@@ -68,7 +68,7 @@ def run_download_cmd_gdbc_file_rel():
 
 def run_generate_cmd_gdbc_file_rel():
     logger.debug('\nRunning run_generate_cmd_gdbc_file_rel...')
-    command = "pgmcodegen generate ./tests/cmd_output/gdbc -apiArgs tests/cli_input/gdbc_api/schema.json -v" #command to be executed
+    command = "gqldataclass generate ./tests/cmd_output/gdbc -apiArgs tests/cli_input/gdbc_api/schema.json -v" #command to be executed
     logger.debug("Launching: " + command)
 
     res = os.system(command)
@@ -77,7 +77,7 @@ def run_generate_cmd_gdbc_file_rel():
 
 def run_generate_cmd_gdbc_api_rel():
     logger.debug('\nRunning run_generate_cmd_gdbc_api_rel...')
-    command = "pgmcodegen generate ./tests/cmd_output/gdbc -apiArgs ./tests/cli_input/gdbc_api/generatorArgs.json -v" #command to be executed
+    command = "gqldataclass generate ./tests/cmd_output/gdbc -apiArgs ./tests/cli_input/gdbc_api/generatorArgs.json -v" #command to be executed
     logger.debug("Launching: " + command)
 
     res = os.system(command)
@@ -87,7 +87,7 @@ def run_generate_cmd_gdbc_api_rel():
 
 def run_download_cmd_gh_file_rel():
     logger.debug('\nRunning run_download_cmd_gh_file_rel...')
-    command = "pgmcodegen download ./tests/cmd_output/github/schema.json -apiArgs ./tests/cli_input/gh_api/downloaderArgs.json -v" #command to be executed
+    command = "gqldataclass download ./tests/cmd_output/github/schema.json -apiArgs ./tests/cli_input/gh_api/downloaderArgs.json -v" #command to be executed
     logger.debug("Launching: " + command)
 
     res = os.system(command)
@@ -96,7 +96,7 @@ def run_download_cmd_gh_file_rel():
 
 def run_generate_cmd_gh_api_abs():
     logger.debug('\nRunning run_generate_cmd_gh_api_abs...')
-    command = "pgmcodegen generate ./tests/cmd_output/github -v -apiArgs ./tests/cli_input/gh_api/generatorArgs.json -v" #command to be executed
+    command = "gqldataclass generate ./tests/cmd_output/github -v -apiArgs ./tests/cli_input/gh_api/generatorArgs.json -v" #command to be executed
     logger.debug("Launching: " + command)
 
     res = os.system(command)
@@ -105,7 +105,7 @@ def run_generate_cmd_gh_api_abs():
 
 def run_generate_cmd_gh_file():
     logger.debug('\nRunning run_generate_cmd_gh_api_abs...')
-    command = "pgmcodegen generate ./tests/cmd_output/github -v -apiArgs ./tests/cli_input/gh_api/generatorArgs.json -v" #command to be executed
+    command = "gqldataclass generate ./tests/cmd_output/github -v -apiArgs ./tests/cli_input/gh_api/generatorArgs.json -v" #command to be executed
     logger.debug("Launching: " + command)
 
     res = os.system(command)

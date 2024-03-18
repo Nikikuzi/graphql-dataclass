@@ -87,7 +87,7 @@ _generate_code_ function will create the following python files containing the G
 Example of schema retrieval command:
 
 ```
-pgmcodegen download ./cmd_output/Github/schema.json -apiArgs ./downloaderArgs.json
+gqldataclass download ./cmd_output/Github/schema.json -apiArgs ./downloaderArgs.json
 ```
 
 This command will create the file in _./cmd_output/Github/schema.json_ containing the schema in json version using the [information](#json-args-file) given in _./downloaderArgs.json_.
@@ -101,7 +101,7 @@ A few examples can be seen [here](https://github.com/nikikuzi/graphql-dataclass/
 Classes can be generated alternatively using the CLI command:
 
 ```
-pgmcodegen generate ./gdbc -apiArgs ./generatorArgs.json -v
+gqldataclass generate ./gdbc -apiArgs ./generatorArgs.json -v
 ```
 
 This command will generate python files in _./gdbc/_ relative folder using the [information](#json-args-file) given in _./generatorArgs.json_.

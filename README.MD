@@ -2,6 +2,7 @@
 
 A python library to generate dataclasses for graphql schema.
 
+
 ## Introduction
 
 This library generates dataclasses which corresponding python code convention. Library is not working as client for graphql, only dataclasses mappers for GraphQL types

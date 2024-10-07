@@ -10,7 +10,7 @@ This document contains a quick overview of the functionalities, for more details
 
 * [Code Generation](https://github.com/nikikuzi/graphql-dataclass/blob/develop/codegen/README.MD)
 
-The package using [clean-py](https://github.com/samhardyhey/clean-py) library for generateed code formatting and also python 3 (3.10+) standard libraries.
+The package using [autoflake](https://github.com/PyCQA/autoflake), [black](https://github.com/psf/black), [isort](https://github.com/pycqa/isort) libraries for generateed code formatting and also python 3 (3.10+) standard libraries.
 
 
 ## Usage in a nutshell

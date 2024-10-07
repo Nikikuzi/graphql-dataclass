@@ -2,8 +2,8 @@ from setuptools import setup
 
 setup(
     name='gqldataclass',
-    version='1.0.4',
-    url='https://github.com/nikikuzi/graphql-dataclass/tree/1.0.0',
+    version='1.0.5',
+    url='https://github.com/nikikuzi/graphql-dataclass',
     author='Mikita Kuzniatsou, Alex Dap',
     author_email='nikikuzi@gmail.com, shlisi2017@gmail.com',
     description='A python library to generate dataclasses for GraphQL types',

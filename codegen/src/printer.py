@@ -1,7 +1,10 @@
+import contextlib
 import pathlib
 from os.path import join
 
-from clean_py.clean_py import clean_python_code
+import isort.parse
+from autoflake import fix_code
+from black import FileMode, DEFAULT_LINE_LENGTH, NothingChanged, format_file_contents
 
 from .utils import get_valid_folder, to_snake_case, to_camel_case
 from .consts import PY_EXTENSION, TYPE_REFS_NAME, ENUMS_NAME, MUTATIONS_NAME, QUERIES_NAME, SCALARS_NAME, \
@@ -106,9 +109,24 @@ class Printer():
         for name in os.listdir(folder):
             # Open file
             with open(os.path.join(folder, name)) as f:
-                fixed_file = clean_python_code(f.read())
+                formatted_source = fix_code(
+                    f.read(),
+                    expand_star_imports=True,
+                    remove_all_unused_imports=True,
+                    remove_duplicate_keys=True,
+                    remove_unused_variables=True,
+                )
+                formatted_source = isort.code(formatted_source)
+
+                mode = FileMode(
+                    line_length=DEFAULT_LINE_LENGTH,
+                    is_pyi=False,
+                    string_normalization=True,
+                )
+                with contextlib.suppress(NothingChanged):
+                    formatted_source = format_file_contents(formatted_source, fast=True, mode=mode)
             with open(os.path.join(folder, name), 'w') as f:
-                f.write(fixed_file)
+                f.write(formatted_source)
 
     def __save_forward_reference(self, folder, create_forward_reference: bool):
         if create_forward_reference:

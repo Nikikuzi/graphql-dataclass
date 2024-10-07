@@ -144,5 +144,5 @@ def extract_schema_obj(arguments, verbose):
     return None
 
 if __name__ == '__main__':
-    print('graphql-dataclass code generator 1.0.0')
+    print('graphql-dataclass code generator 1.0.5')
     main()

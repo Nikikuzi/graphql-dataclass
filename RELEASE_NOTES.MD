@@ -1,5 +1,13 @@
 # graphql-dataclass Release Update
 
+## Release notes version: 1.0.6
+
+Release date: Oct. 21, 2024
+
+Changes
+
+* Added inheritance from `str` to `Enum`-inherited classes. Before - `class Status(Enum):` now - `class Status(str, Enum):`. It is enhancing dataclass to dict formatting for json 
+
 ## Release notes version: 1.0.5
 
 Release date: Oct. 7, 2024
